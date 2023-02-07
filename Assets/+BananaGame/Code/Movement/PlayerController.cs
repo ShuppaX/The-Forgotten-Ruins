@@ -7,10 +7,14 @@ namespace BananaSoup
 {
     public class PlayerController : MonoBehaviour
     {
+        [Header("Adjustable variables")]
         [SerializeField] private float movementSpeed = 5.0f;
 
+        private PlayerInput playerInput;
+        private InputAction move;
+
         private Rigidbody rb;
-        private Vector2 move = Vector3.zero;
+        private Vector3 movement = Vector3.zero;
 
         private void Awake()
         {
@@ -20,30 +24,41 @@ namespace BananaSoup
         private void Setup()
         {
             rb = GetComponent<Rigidbody>();
+            playerInput = new PlayerInput();
 
             if (rb == null)
             {
-                Debug.LogError("A Rigidbody2D couldn't be found on " + gameObject + "!");
+                Debug.LogError("A Rigidbody couldn't be found on the " + gameObject + "!");
             }
+        }
+
+        private void OnEnable()
+        {
+            move = playerInput.Player.Move;
+            playerInput.Player.Enable();
+        }
+
+        private void OnDisable()
+        {
+            playerInput.Player.Disable();
         }
 
         private void FixedUpdate()
         {
-            Move();
+            Move(Time.fixedDeltaTime);
         }
 
-        public void OnMove(InputAction.CallbackContext context)
+        // Used mainly for debugging at the moment
+        //private void Update()
+        //{
+        //    Debug.Log("The value of 'move' is: " + move.ReadValue<Vector2>());
+        //    Debug.Log("The value of 'movement' is: " + movement);
+        //}
+
+        private void Move(float deltaTime)
         {
-            move = context.ReadValue<Vector2>();
-        }
-
-        public void Move()
-        {
-            Vector3 movement = new Vector3(move.x, 0, move.y);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), 0.15f);
-
-            transform.Translate(movement * movementSpeed * Time.fixedDeltaTime, Space.World);
+            movement = new Vector3((move.ReadValue<Vector2>().x * movementSpeed * deltaTime), rb.velocity.y, (move.ReadValue<Vector2>().y * movementSpeed * deltaTime));
+            rb.MovePosition(transform.position + movement);
         }
     }
 }

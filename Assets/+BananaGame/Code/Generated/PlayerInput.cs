@@ -17,16 +17,16 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace BananaSoup
 {
-    public partial class @Inputs : IInputActionCollection2, IDisposable
+    public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         public InputActionAsset asset { get; }
-        public @Inputs()
+        public @PlayerInput()
         {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""PlayerInput"",
     ""maps"": [
         {
-            ""name"": ""PlayerInputs"",
+            ""name"": ""Player"",
             ""id"": ""dc3266dc-688b-45fe-860b-f0b4c614abef"",
             ""actions"": [
                 {
@@ -139,9 +139,9 @@ namespace BananaSoup
         }
     ]
 }");
-            // PlayerInputs
-            m_PlayerInputs = asset.FindActionMap("PlayerInputs", throwIfNotFound: true);
-            m_PlayerInputs_Move = m_PlayerInputs.FindAction("Move", throwIfNotFound: true);
+            // Player
+            m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+            m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -198,29 +198,29 @@ namespace BananaSoup
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // PlayerInputs
-        private readonly InputActionMap m_PlayerInputs;
-        private IPlayerInputsActions m_PlayerInputsActionsCallbackInterface;
-        private readonly InputAction m_PlayerInputs_Move;
-        public struct PlayerInputsActions
+        // Player
+        private readonly InputActionMap m_Player;
+        private IPlayerActions m_PlayerActionsCallbackInterface;
+        private readonly InputAction m_Player_Move;
+        public struct PlayerActions
         {
-            private @Inputs m_Wrapper;
-            public PlayerInputsActions(@Inputs wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Move => m_Wrapper.m_PlayerInputs_Move;
-            public InputActionMap Get() { return m_Wrapper.m_PlayerInputs; }
+            private @PlayerInput m_Wrapper;
+            public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Move => m_Wrapper.m_Player_Move;
+            public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(PlayerInputsActions set) { return set.Get(); }
-            public void SetCallbacks(IPlayerInputsActions instance)
+            public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+            public void SetCallbacks(IPlayerActions instance)
             {
-                if (m_Wrapper.m_PlayerInputsActionsCallbackInterface != null)
+                if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
                 {
-                    @Move.started -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnMove;
-                    @Move.performed -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnMove;
-                    @Move.canceled -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnMove;
+                    @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
+                    @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
+                    @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 }
-                m_Wrapper.m_PlayerInputsActionsCallbackInterface = instance;
+                m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     @Move.started += instance.OnMove;
@@ -229,7 +229,7 @@ namespace BananaSoup
                 }
             }
         }
-        public PlayerInputsActions @PlayerInputs => new PlayerInputsActions(this);
+        public PlayerActions @Player => new PlayerActions(this);
         private int m_GamepadSchemeIndex = -1;
         public InputControlScheme GamepadScheme
         {
@@ -248,7 +248,7 @@ namespace BananaSoup
                 return asset.controlSchemes[m_MouseandkeyboardSchemeIndex];
             }
         }
-        public interface IPlayerInputsActions
+        public interface IPlayerActions
         {
             void OnMove(InputAction.CallbackContext context);
         }
