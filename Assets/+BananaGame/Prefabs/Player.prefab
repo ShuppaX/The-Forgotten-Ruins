@@ -166,6 +166,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
+  turnSpeed: 360
+  dashForce: 5
+  dashCooldown: 1.5
 --- !u!1 &8696953564221936079
 GameObject:
   m_ObjectHideFlags: 0
