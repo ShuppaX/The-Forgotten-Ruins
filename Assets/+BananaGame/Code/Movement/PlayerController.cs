@@ -61,10 +61,9 @@ namespace BananaSoup
             Look(Time.fixedDeltaTime);
         }
 
-        // Store the moveInput values to the movementInput Vector3
         private void Update()
         {
-            movementInput.Set(moveInput.ReadValue<Vector2>().x, rb.velocity.y, moveInput.ReadValue<Vector2>().y);
+
         }
 
         /// <summary>
@@ -76,6 +75,16 @@ namespace BananaSoup
         {
             Vector3 movement = (transform.forward * movementInput.magnitude) * movementSpeed * deltaTime;
             rb.MovePosition(transform.position + movement);
+        }
+
+        /// <summary>
+        /// Used to get the players input and then store it into the movementInput Vector3
+        /// </summary>
+        /// <param name="context">The players movement input.</param>
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            Vector2 input = context.ReadValue<Vector2>();
+            movementInput.Set(input.x, 0, input.y);
         }
 
         /// <summary>
@@ -108,7 +117,7 @@ namespace BananaSoup
         /// dash isn't on cooldown.
         /// </summary>
         /// <param name="context">The players dash input.</param>
-        public void Dash(InputAction.CallbackContext context)
+        public void OnDash(InputAction.CallbackContext context)
         {
             Vector3 forceToApply = transform.forward * dashForce;
 

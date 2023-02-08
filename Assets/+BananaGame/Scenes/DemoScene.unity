@@ -130,61 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8696953563904003537, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696953563904003538, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696953563904003538, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_ActionId
-      value: 17ffd1da-a7b2-4838-b737-8538f52470bc
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696953563904003538, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_ActionName
-      value: Player/Dash[/DualShock4GamepadHID/buttonSouth,/Keyboard/space]
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696953563904003538, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696953563904003538, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696953563904003538, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 303744300}
-    - target: {fileID: 8696953563904003538, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696953563904003538, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Dash
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696953563904003538, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BananaSoup.PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696953563904003538, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 8696953563904003545, guid: 282df8200b8684c4683d177cd8e6ceea,
         type: 3}
       propertyPath: m_Name
@@ -755,18 +700,6 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
---- !u!114 &303744300 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8696953563904003536, guid: 282df8200b8684c4683d177cd8e6ceea,
-    type: 3}
-  m_PrefabInstance: {fileID: 45864664}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dc484cf7b2dc554a876257a7be25b3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &383286025
 GameObject:
   m_ObjectHideFlags: 0
