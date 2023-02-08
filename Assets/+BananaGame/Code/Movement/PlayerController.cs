@@ -7,20 +7,31 @@ namespace BananaSoup
 {
     public class PlayerController : MonoBehaviour
     {
-        [Header("Adjustable variables")]
-        [SerializeField] private float movementSpeed = 5.0f;
+        [Header("Movement")]
+        [SerializeField] private float movementForce = 5.0f;
+        [SerializeField] private float maxSpeed = 5.0f;
         [SerializeField] private float turnSpeed = 360.0f;
+
+        [Header("Dash")]
         [SerializeField] private float dashForce = 5.0f;
         [SerializeField] private float dashCooldown = 4.0f;
+        [SerializeField] private float dashDuration = 0.25f;
+        [SerializeField] private float dashMaxSpeed = 10.0f;
 
         private PlayerInput playerInput;
-        private InputAction moveInput;
 
         private Rigidbody rb;
         private Vector3 movementInput = Vector3.zero;
+        private Vector3 movementDirection = Vector3.zero;
 
         private bool dashOnCooldown = false;
         private Coroutine dashCooldownRoutine = null;
+
+        private float characterWidth = 0;
+        private float characterHeight = 0;
+
+        private bool isDashing = false;
+        private float currentMaxSpeed = 0;
 
         private void Awake()
         {
@@ -31,6 +42,11 @@ namespace BananaSoup
         {
             rb = GetComponent<Rigidbody>();
             playerInput = new PlayerInput();
+
+            characterWidth = transform.localScale.x;
+            characterHeight = transform.localScale.y;
+
+            currentMaxSpeed = maxSpeed;
 
             if (rb == null)
             {
@@ -43,7 +59,6 @@ namespace BananaSoup
         /// </summary>
         private void OnEnable()
         {
-            moveInput = playerInput.Player.Move;
             playerInput.Player.Enable();
         }
 
@@ -57,24 +72,13 @@ namespace BananaSoup
 
         private void FixedUpdate()
         {
-            Move(Time.fixedDeltaTime);
+            Move();
             Look(Time.fixedDeltaTime);
         }
 
         private void Update()
         {
 
-        }
-
-        /// <summary>
-        /// Moves the character in the direction of the players input.
-        /// Uses the inputs magnitude to calculate correct movement for an isometric view.
-        /// </summary>
-        /// <param name="deltaTime">Use Time.fixedDeltaTime.</param>
-        private void Move(float deltaTime)
-        {
-            Vector3 movement = (transform.forward * movementInput.magnitude) * movementSpeed * deltaTime;
-            rb.MovePosition(transform.position + movement);
         }
 
         /// <summary>
@@ -85,6 +89,23 @@ namespace BananaSoup
         {
             Vector2 input = context.ReadValue<Vector2>();
             movementInput.Set(input.x, 0, input.y);
+        }
+
+        /// <summary>
+        /// Moves the character in the direction of the players input.
+        /// Uses the inputs magnitude to calculate correct movement for an isometric view.
+        /// </summary>
+        private void Move()
+        {
+            movementDirection += (transform.forward * movementInput.magnitude) * movementForce;
+
+            rb.AddForce(movementDirection, ForceMode.Impulse);
+            movementDirection = Vector3.zero;
+
+            if (rb.velocity.magnitude > currentMaxSpeed)
+            {
+                rb.velocity = rb.velocity.normalized * currentMaxSpeed;
+            }
         }
 
         /// <summary>
@@ -119,18 +140,31 @@ namespace BananaSoup
         /// <param name="context">The players dash input.</param>
         public void OnDash(InputAction.CallbackContext context)
         {
+            isDashing = true;
             Vector3 forceToApply = transform.forward * dashForce;
 
             if (!dashOnCooldown && context.phase == InputActionPhase.Performed)
             {
-                rb.AddForce(forceToApply, ForceMode.Impulse);
+                currentMaxSpeed = dashMaxSpeed;
+                rb.velocity = forceToApply;
                 dashOnCooldown = true;
-                
+
                 if (dashCooldownRoutine == null)
                 {
-                    dashCooldownRoutine = StartCoroutine(DashCooldown());
+                    dashCooldownRoutine = StartCoroutine(nameof(DashCooldown));
                 }
+
+                Invoke(nameof(ResetDash), dashDuration);
             }
+        }
+
+        /// <summary>
+        /// Method which resets the maxSpeed set for the dash and sets the isDashing bool to false.
+        /// </summary>
+        private void ResetDash()
+        {
+            isDashing = false;
+            currentMaxSpeed = maxSpeed;
         }
 
         /// <summary>
@@ -140,11 +174,15 @@ namespace BananaSoup
         /// </summary>
         private IEnumerator DashCooldown()
         {
-            Debug.Log("Dash on cooldown!");
             yield return new WaitForSeconds(dashCooldown);
             dashCooldownRoutine = null;
             dashOnCooldown = false;
-            Debug.Log("Dash off cooldown!");
+        }
+
+        public bool IsGrounded()
+        {
+            RaycastHit rayHit;
+            return (Physics.SphereCast(transform.position, characterWidth / 2, Vector3.down, out rayHit, characterHeight / 2));
         }
     }
 }
