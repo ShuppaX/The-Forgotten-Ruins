@@ -11,6 +11,7 @@ namespace BananaSoup
         [SerializeField] private float movementForce = 5.0f;
         [SerializeField] private float maxSpeed = 5.0f;
         [SerializeField] private float turnSpeed = 360.0f;
+        [SerializeField] private float maxFallingSpeed = 25.0f;
 
         [Header("Dash")]
         [SerializeField] private float dashForce = 5.0f;
@@ -23,6 +24,7 @@ namespace BananaSoup
         private Rigidbody rb;
         private Vector3 movementInput = Vector3.zero;
         private Vector3 movementDirection = Vector3.zero;
+        private float sqrMaxSpeed;
 
         private bool dashOnCooldown = false;
         private Coroutine dashCooldownRoutine = null;
@@ -78,7 +80,7 @@ namespace BananaSoup
 
         private void Update()
         {
-
+            
         }
 
         /// <summary>
@@ -102,9 +104,21 @@ namespace BananaSoup
             rb.AddForce(movementDirection, ForceMode.Impulse);
             movementDirection = Vector3.zero;
 
-            if (rb.velocity.magnitude > currentMaxSpeed)
+            // If the gameObjects y-velocity is less than 0 we apply the rb.velocity as normalized and
+            // multiply that with the maxFallingSpeed so that the player doesn't fall too fast.
+            if (rb.velocity.y < 0f)
             {
-                rb.velocity = rb.velocity.normalized * currentMaxSpeed;
+                rb.velocity = rb.velocity.normalized * maxFallingSpeed;
+            }
+
+            // Calculation that compares the current velocitys square magnitude to the squared
+            // maxSpeed and then sets the velocity accordingly to match with the maxSpeed.
+            var v = rb.velocity;
+            sqrMaxSpeed = maxSpeed * maxSpeed;
+
+            if (v.sqrMagnitude > sqrMaxSpeed)
+            {
+                rb.velocity = v.normalized * maxSpeed + Vector3.up * rb.velocity.y * 0.45f;
             }
         }
 

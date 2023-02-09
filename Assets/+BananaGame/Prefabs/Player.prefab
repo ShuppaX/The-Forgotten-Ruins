@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8696953563904003548}
   - component: {fileID: 8696953563904003547}
   - component: {fileID: 8696953563904003546}
+  - component: {fileID: 6393872526745819004}
   - component: {fileID: 8696953563904003537}
   - component: {fileID: 8696953563904003538}
   - component: {fileID: 8696953563904003536}
@@ -100,6 +101,20 @@ CapsuleCollider:
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &6393872526745819004
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696953563904003545}
+  m_Material: {fileID: 13400000, guid: 8cad499cb478c4941ab6ea72f2fd1f27, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.85
+  m_Height: 1.25
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8696953563904003537
@@ -195,7 +210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementForce: 1.5
   maxSpeed: 5
-  turnSpeed: 540
+  turnSpeed: 1800
+  maxFallingSpeed: 7.5
   dashForce: 25
   dashCooldown: 1.5
   dashDuration: 0.25
