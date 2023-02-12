@@ -188,8 +188,6 @@ namespace BananaSoup
             dashOnCooldown = false;
         }
 
-        // Not currently in use
-        // TODO: Make use for this or remove it.
         public bool IsGrounded()
         {
             RaycastHit rayHit;
