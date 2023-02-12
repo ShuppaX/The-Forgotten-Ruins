@@ -32,6 +32,8 @@ namespace BananaSoup
         private float characterWidth = 0;
         private float characterHeight = 0;
 
+        // The bool isDashing is not currently in use
+        // TODO: Make use for isDashing or remove it.
         private bool isDashing = false;
         private float currentMaxSpeed = 0;
 
@@ -80,7 +82,7 @@ namespace BananaSoup
 
         private void Update()
         {
-            
+            //Debug.Log("The objects current rb velocity is: " + rb.velocity);
         }
 
         /// <summary>
@@ -101,25 +103,15 @@ namespace BananaSoup
         {
             movementDirection += (transform.forward * movementInput.magnitude) * movementForce;
 
-            rb.AddForce(movementDirection, ForceMode.Impulse);
+            rb.AddForce(movementDirection);
             movementDirection = Vector3.zero;
 
             // If the gameObjects y-velocity is less than 0 we apply the rb.velocity as normalized and
             // multiply that with the maxFallingSpeed so that the player doesn't fall too fast.
-            if (rb.velocity.y < 0f)
-            {
-                rb.velocity = rb.velocity.normalized * maxFallingSpeed;
-            }
-
-            // Calculation that compares the current velocitys square magnitude to the squared
-            // maxSpeed and then sets the velocity accordingly to match with the maxSpeed.
-            var v = rb.velocity;
-            sqrMaxSpeed = maxSpeed * maxSpeed;
-
-            if (v.sqrMagnitude > sqrMaxSpeed)
-            {
-                rb.velocity = v.normalized * maxSpeed + Vector3.up * rb.velocity.y * 0.45f;
-            }
+            //if (rb.velocity.y < 0f && !IsGrounded())
+            //{
+            //    rb.velocity = rb.velocity.normalized * maxFallingSpeed;
+            //}
         }
 
         /// <summary>
@@ -193,10 +185,12 @@ namespace BananaSoup
             dashOnCooldown = false;
         }
 
-        public bool IsGrounded()
-        {
-            RaycastHit rayHit;
-            return (Physics.SphereCast(transform.position, characterWidth / 2, Vector3.down, out rayHit, characterHeight / 2));
-        }
+        // Not currently in use
+        // TODO: Make use for this or remove it.
+        //public bool IsGrounded()
+        //{
+        //    RaycastHit rayHit;
+        //    return (Physics.SphereCast(transform.position, characterWidth / 2, Vector3.down, out rayHit, characterHeight / 2));
+        //}
     }
 }

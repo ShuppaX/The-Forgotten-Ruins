@@ -113,8 +113,8 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 8cad499cb478c4941ab6ea72f2fd1f27, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.85
-  m_Height: 1.25
+  m_Radius: 0.77
+  m_Height: 0.71
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8696953563904003537
@@ -132,7 +132,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &8696953563904003538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dc484cf7b2dc554a876257a7be25b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementForce: 1.5
+  movementForce: 32
   maxSpeed: 5
   turnSpeed: 1800
   maxFallingSpeed: 7.5
