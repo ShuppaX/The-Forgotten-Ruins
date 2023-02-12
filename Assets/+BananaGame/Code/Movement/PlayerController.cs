@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace BananaSoup
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : PlayerBase
     {
         [Header("Movement")]
         [SerializeField, Tooltip("The amount of force for moving the character.")] private float movementForce = 5.0f;
@@ -33,7 +33,9 @@ namespace BananaSoup
         private void Setup()
         {
             rb = GetComponent<Rigidbody>();
-            playerInput = new PlayerInput();
+
+            // NOTE: Moved to PlayerBase
+            // playerInput = new PlayerInput();
 
             characterWidth = transform.localScale.x;
             characterHeight = transform.localScale.y;
@@ -44,21 +46,23 @@ namespace BananaSoup
             }
         }
 
-        /// <summary>
-        /// Stores the players input to moveInput and enables the playerInput if the gameObject is enabled.
-        /// </summary>
-        private void OnEnable()
-        {
-            playerInput.Player.Enable();
-        }
+        // NOTE: Moved to PlayerBase
+        ///// <summary>
+        ///// Stores the players input to moveInput and enables the playerInput if the gameObject is enabled.
+        ///// </summary>
+        //private void OnEnable()
+        //{
+        //    playerInput.Player.Enable();
+        //}
 
-        /// <summary>
-        /// Disables the playerInput if the game object is disabled.
-        /// </summary>
-        private void OnDisable()
-        {
-            playerInput.Player.Disable();
-        }
+        // NOTE: Moved to PlayerBase
+        ///// <summary>
+        ///// Disables the playerInput if the game object is disabled.
+        ///// </summary>
+        //private void OnDisable()
+        //{
+        //    playerInput.Player.Disable();
+        //}
 
         private void FixedUpdate()
         {
@@ -129,7 +133,7 @@ namespace BananaSoup
         /// <param name="deltaTime">Use Time.fixedDeltaTime.</param>
         private void Look(float deltaTime)
         {
-            if (movementInput != Vector3.zero)
+            if ( movementInput != Vector3.zero )
             {
                 var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
 
