@@ -149,7 +149,7 @@ namespace BananaSoup
                 {
                     ""name"": """",
                     ""id"": ""3009b993-5c44-4322-9892-d6f8cb5eed00"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse and keyboard"",

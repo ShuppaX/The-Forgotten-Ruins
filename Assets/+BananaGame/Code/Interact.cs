@@ -7,10 +7,12 @@ namespace BananaSoup
 {
     public class Interact : PlayerBase
     {
-        private void OnInteract(InputAction.CallbackContext context)
+        public void OnInteract(InputAction.CallbackContext context)
         {
-            bool isInteract = interactAction.phase == InputActionPhase.Performed;
-            Debug.Log("Interact bool: " + isInteract + ", phase: " + interactAction.phase);
+            if ( context.performed )
+            {
+                Debug.Log("Interacted");
+            }
         }
     }
 }
