@@ -9,15 +9,14 @@ namespace BananaSoup
     {
         [Header("Movement")]
         [SerializeField] private float movementForce = 5.0f;
-        [SerializeField] private float maxSpeed = 5.0f;
+        [SerializeField] private float movementDrag = 3.5f;
+        [SerializeField] private float fallingDrag = 1.0f;
         [SerializeField] private float turnSpeed = 360.0f;
-        [SerializeField] private float maxFallingSpeed = 25.0f;
 
         [Header("Dash")]
         [SerializeField] private float dashForce = 5.0f;
         [SerializeField] private float dashCooldown = 4.0f;
         [SerializeField] private float dashDuration = 0.25f;
-        [SerializeField] private float dashMaxSpeed = 10.0f;
 
         private PlayerInput playerInput;
 
@@ -35,7 +34,6 @@ namespace BananaSoup
         // The bool isDashing is not currently in use
         // TODO: Make use for isDashing or remove it.
         private bool isDashing = false;
-        private float currentMaxSpeed = 0;
 
         private void Awake()
         {
@@ -49,8 +47,6 @@ namespace BananaSoup
 
             characterWidth = transform.localScale.x;
             characterHeight = transform.localScale.y;
-
-            currentMaxSpeed = maxSpeed;
 
             if (rb == null)
             {
@@ -76,6 +72,7 @@ namespace BananaSoup
 
         private void FixedUpdate()
         {
+            SetDrag();
             Move();
             Look(Time.fixedDeltaTime);
         }
@@ -103,15 +100,23 @@ namespace BananaSoup
         {
             movementDirection += (transform.forward * movementInput.magnitude) * movementForce;
 
-            rb.AddForce(movementDirection);
-            movementDirection = Vector3.zero;
+            if (IsGrounded())
+            {
+                rb.AddForce(movementDirection);
+                movementDirection = Vector3.zero;
+            }
+        }
 
-            // If the gameObjects y-velocity is less than 0 we apply the rb.velocity as normalized and
-            // multiply that with the maxFallingSpeed so that the player doesn't fall too fast.
-            //if (rb.velocity.y < 0f && !IsGrounded())
-            //{
-            //    rb.velocity = rb.velocity.normalized * maxFallingSpeed;
-            //}
+        private void SetDrag()
+        {
+            if (IsGrounded())
+            {
+                rb.drag = movementDrag;
+            }
+            else
+            {
+                rb.drag = fallingDrag;
+            }
         }
 
         /// <summary>
@@ -151,7 +156,6 @@ namespace BananaSoup
 
             if (!dashOnCooldown && context.phase == InputActionPhase.Performed)
             {
-                currentMaxSpeed = dashMaxSpeed;
                 rb.velocity = forceToApply;
                 dashOnCooldown = true;
 
@@ -170,7 +174,6 @@ namespace BananaSoup
         private void ResetDash()
         {
             isDashing = false;
-            currentMaxSpeed = maxSpeed;
         }
 
         /// <summary>
@@ -187,10 +190,10 @@ namespace BananaSoup
 
         // Not currently in use
         // TODO: Make use for this or remove it.
-        //public bool IsGrounded()
-        //{
-        //    RaycastHit rayHit;
-        //    return (Physics.SphereCast(transform.position, characterWidth / 2, Vector3.down, out rayHit, characterHeight / 2));
-        //}
+        public bool IsGrounded()
+        {
+            RaycastHit rayHit;
+            return (Physics.SphereCast(transform.position, characterWidth / 2, Vector3.down, out rayHit, characterHeight / 2));
+        }
     }
 }

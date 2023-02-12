@@ -126,7 +126,7 @@ Rigidbody:
   m_GameObject: {fileID: 8696953563904003545}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.5
+  m_Drag: 2.75
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -209,13 +209,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementForce: 32
-  maxSpeed: 5
-  turnSpeed: 1800
-  maxFallingSpeed: 7.5
+  movementDrag: 3.5
+  fallingDrag: 1
+  turnSpeed: 2880
   dashForce: 25
   dashCooldown: 1.5
   dashDuration: 0.25
-  dashMaxSpeed: 17
 --- !u!1 &8696953564221936079
 GameObject:
   m_ObjectHideFlags: 0
