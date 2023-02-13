@@ -7,18 +7,28 @@ namespace BananaSoup
     public class CheckNearInteractables : MonoBehaviour
     {
         [SerializeField] private float distance = 0.5f;
-        private void FixedUpdate()
+        //private void FixedUpdate()
+        //{
+        //    RaycastHit hit;
+        //    if ( Physics.Raycast(transform.position, transform.forward, out hit, distance) )
+        //    {
+        //        Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red);
+        //        Debug.Log("Hit");
+        //    }
+        //}
+
+        private void OnCollisionEnter(Collision collision)
         {
-            RaycastHit hit;
-            if ( Physics.Raycast(transform.position, transform.forward, out hit, distance) )
+            //Debug.Log("OnCollisionEnter");
+            if ( collision.transform.GetComponent<Interactable>() != null )
             {
-                Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red);
-                Debug.Log("Hit");
+                Debug.Log("Player collided with: " + collision.gameObject);
             }
-            else
+
+
+            if ( TryGetComponent(out Interactable interactable) )
             {
-                Debug.DrawRay(transform.position, transform.forward * distance, Color.yellow);
-                Debug.Log("No hit");
+                Debug.Log("Interactable [" + interactable + "] on range");
             }
         }
     }
