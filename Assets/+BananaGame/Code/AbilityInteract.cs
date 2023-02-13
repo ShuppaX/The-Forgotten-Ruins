@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace BananaSoup
 {
-    public class Interact : PlayerBase
+    public class AbilityInteract : PlayerBase
     {
         public void OnInteract(InputAction.CallbackContext context)
         {

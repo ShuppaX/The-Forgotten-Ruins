@@ -14,8 +14,6 @@ namespace BananaSoup
         [SerializeField, Tooltip("The amount of drag used while the character is not on the ground.")] private float fallingDrag = 1.0f;
         [SerializeField, Tooltip("The turning speed of the character while changing direction.")] private float turnSpeed = 360.0f;
 
-        private PlayerInput playerInput;
-
         private Rigidbody rb;
         private Vector3 movementInput = Vector3.zero;
         private Vector3 movementDirection = Vector3.zero;
@@ -25,7 +23,7 @@ namespace BananaSoup
         private float characterWidth = 0;
         private float characterHeight = 0;
 
-        private void Awake()
+        private void Start()
         {
             Setup();
         }
