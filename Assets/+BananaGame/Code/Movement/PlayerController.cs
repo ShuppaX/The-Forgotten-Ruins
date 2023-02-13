@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,32 +9,21 @@ namespace BananaSoup
     public class PlayerController : MonoBehaviour
     {
         [Header("Movement")]
-        [SerializeField] private float movementForce = 5.0f;
-        [SerializeField] private float movementDrag = 3.5f;
-        [SerializeField] private float fallingDrag = 1.0f;
-        [SerializeField] private float turnSpeed = 360.0f;
-
-        [Header("Dash")]
-        [SerializeField] private float dashForce = 5.0f;
-        [SerializeField] private float dashCooldown = 4.0f;
-        [SerializeField] private float dashDuration = 0.25f;
+        [SerializeField, Tooltip("The amount of force for moving the character.")] private float movementForce = 5.0f;
+        [SerializeField, Tooltip("The amount of drag used while the character is on the ground.")] private float groundDrag = 3.5f;
+        [SerializeField, Tooltip("The amount of drag used while the character is not on the ground.")] private float fallingDrag = 1.0f;
+        [SerializeField, Tooltip("The turning speed of the character while changing direction.")] private float turnSpeed = 360.0f;
 
         private PlayerInput playerInput;
 
         private Rigidbody rb;
         private Vector3 movementInput = Vector3.zero;
         private Vector3 movementDirection = Vector3.zero;
-        private float sqrMaxSpeed;
 
-        private bool dashOnCooldown = false;
-        private Coroutine dashCooldownRoutine = null;
+        private bool wasGrounded = false;
 
         private float characterWidth = 0;
         private float characterHeight = 0;
-
-        // The bool isDashing is not currently in use
-        // TODO: Make use for isDashing or remove it.
-        private bool isDashing = false;
 
         private void Awake()
         {
@@ -72,8 +62,11 @@ namespace BananaSoup
 
         private void FixedUpdate()
         {
-            SetDrag();
-            Move();
+            if (SetDrag())
+            {
+                Move();
+            }
+
             Look(Time.fixedDeltaTime);
         }
 
@@ -107,16 +100,25 @@ namespace BananaSoup
             }
         }
 
-        private void SetDrag()
+        /// <summary>
+        /// Method used to set the drag to be lower while the character is not grounded
+        /// allowing faster falling speed.
+        /// </summary>
+        /// <returns>True if the character was grounded on the previous frame, false if not.</returns>
+        private bool SetDrag()
         {
             if (IsGrounded())
             {
-                rb.drag = movementDrag;
+                rb.drag = groundDrag;
+                wasGrounded = true;
             }
             else
             {
                 rb.drag = fallingDrag;
+                wasGrounded = false;
             }
+
+            return wasGrounded;
         }
 
         /// <summary>
@@ -145,49 +147,9 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// A dash movement for the player character. Allows the character to dash if
-        /// dash isn't on cooldown.
+        /// Uses a spherecast to check if the character has something to collide with below it.
         /// </summary>
-        /// <param name="context">The players dash input.</param>
-        public void OnDash(InputAction.CallbackContext context)
-        {
-            isDashing = true;
-            Vector3 forceToApply = transform.forward * dashForce;
-
-            if (!dashOnCooldown && context.phase == InputActionPhase.Performed)
-            {
-                rb.velocity = forceToApply;
-                dashOnCooldown = true;
-
-                if (dashCooldownRoutine == null)
-                {
-                    dashCooldownRoutine = StartCoroutine(nameof(DashCooldown));
-                }
-
-                Invoke(nameof(ResetDash), dashDuration);
-            }
-        }
-
-        /// <summary>
-        /// Method which resets the maxSpeed set for the dash and sets the isDashing bool to false.
-        /// </summary>
-        private void ResetDash()
-        {
-            isDashing = false;
-        }
-
-        /// <summary>
-        /// IEnumerator to enable a cooldown for the player characters dash.
-        /// Sets the stored routine to be null and the cooldown bool to false after the cooldown time
-        /// has passed.
-        /// </summary>
-        private IEnumerator DashCooldown()
-        {
-            yield return new WaitForSeconds(dashCooldown);
-            dashCooldownRoutine = null;
-            dashOnCooldown = false;
-        }
-
+        /// <returns>True if the spherecast finds something below, false if not.</returns>
         public bool IsGrounded()
         {
             RaycastHit rayHit;

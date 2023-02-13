@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8696953563904003537}
   - component: {fileID: 8696953563904003538}
   - component: {fileID: 8696953563904003536}
+  - component: {fileID: 9108917675126122351}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -162,8 +163,8 @@ MonoBehaviour:
     m_ActionName: PlayerInputs/Move[/XInputControllerWindows/leftStick,/DualShock4GamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8696953563904003536}
-        m_TargetAssemblyTypeName: BananaSoup.PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 9108917675126122351}
+        m_TargetAssemblyTypeName: BananaSoup.AbilityDash, Assembly-CSharp
         m_MethodName: OnDash
         m_Mode: 0
         m_Arguments:
@@ -193,12 +194,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dc484cf7b2dc554a876257a7be25b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementForce: 32
-  movementDrag: 3.5
+  movementForce: 29
+  groundDrag: 2.75
   fallingDrag: 1
   turnSpeed: 2880
-  dashForce: 25
-  dashCooldown: 1.5
+--- !u!114 &9108917675126122351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696953563904003545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e595db27c7a8b4c46bb7203be0f31857, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashForce: 20
+  dashCooldown: 2
   dashDuration: 0.25
 --- !u!1 &8696953564221936079
 GameObject:
