@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.InteractSystem
 {
     public class InteractableSphere : Interactable
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace BananaSoup
+namespace BananaSoup.InteractSystem
 {
     public class AbilityInteract : PlayerBase
     {
@@ -19,9 +19,8 @@ namespace BananaSoup
             if ( context.performed )
             {
                 RaycastHit hit;
-                if(Physics.SphereCast(transform.position, sphereRadius, transform.forward, out hit, maxInteractDistance, interactableLayers) )
+                if ( Physics.SphereCast(transform.position, sphereRadius, transform.forward, out hit, maxInteractDistance, interactableLayers) )
                 {
-                    //Debug.Log("Interacted with: " + hit.transform.name);
                     currentHitDistance = hit.distance;
                     interactGizmoColor = Color.red;
 
