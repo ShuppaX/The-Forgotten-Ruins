@@ -24,5 +24,25 @@ namespace BananaSoup.InteractSystem
         {
             interactionPoints = GetComponentsInChildren<InteractPoint>();
         }
+
+        public InteractPoint GetClosestInteractPointToPlayer(Vector3 position)
+        {
+            float closestDistance = float.PositiveInfinity;
+            InteractPoint closest = null;
+
+            foreach ( InteractPoint interactPoint in interactionPoints )
+            {
+                Vector3 toInteractPoint = interactPoint.Position - position;
+                float distanceToInteractPoint = toInteractPoint.sqrMagnitude;
+
+                if(distanceToInteractPoint < closestDistance )
+                {
+                    closest = interactPoint;
+                    closestDistance = distanceToInteractPoint;
+                }
+            }
+
+            return closest;
+        }
     }
 }
