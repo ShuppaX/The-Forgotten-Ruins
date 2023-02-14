@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BananaSoup
 {
-    public class Interactable : MonoBehaviour
+    public abstract class Interactable : MonoBehaviour
     {
         //public Interactable()
         //{
@@ -15,5 +15,7 @@ namespace BananaSoup
         {
             Debug.Log("Interactable - Start called");
         }
+
+        protected internal abstract void Interact();
     }
 }

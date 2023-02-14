@@ -4,16 +4,11 @@ using UnityEngine;
 
 namespace BananaSoup
 {
-    public class MovableBox : Interactable
+    public class InteractableSphere : Interactable
     {
         protected internal override void Interact()
         {
-            Debug.Log("MovableBox");
-        }
-
-        protected override void Start()
-        {
-            base.Start();
+            Debug.Log("InteractableSphere");
         }
     }
 }

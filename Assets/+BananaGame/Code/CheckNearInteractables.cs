@@ -17,12 +17,12 @@ namespace BananaSoup
         //    }
         //}
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
             //Debug.Log("OnCollisionEnter");
-            if ( collision.transform.GetComponent<Interactable>() != null )
+            if ( other.transform.GetComponent<Interactable>() != null )
             {
-                Debug.Log("Player collided with: " + collision.gameObject);
+                Debug.Log("Player collided with: " + other.gameObject);
             }
 
 
@@ -30,6 +30,22 @@ namespace BananaSoup
             {
                 Debug.Log("Interactable [" + interactable + "] on range");
             }
+
         }
+
+        //private void OnCollisionEnter(Collision collision)
+        //{
+        //    //Debug.Log("OnCollisionEnter");
+        //    if ( collision.transform.GetComponent<Interactable>() != null )
+        //    {
+        //        Debug.Log("Player collided with: " + collision.gameObject);
+        //    }
+
+
+        //    if ( TryGetComponent(out Interactable interactable) )
+        //    {
+        //        Debug.Log("Interactable [" + interactable + "] on range");
+        //    }
+        //}
     }
 }
