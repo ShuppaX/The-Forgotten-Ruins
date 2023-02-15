@@ -9,6 +9,13 @@ namespace BananaSoup
     {
         private PlayerInput playerInput;
         protected InputAction interactAction;
+        private bool isControllable = true;
+
+        public bool IsControllable
+        {
+            get { return isControllable; }
+            set { isControllable = value; }
+        }
 
         private void Awake()
         {
@@ -34,6 +41,8 @@ namespace BananaSoup
         private void Setup()
         {
             playerInput = new PlayerInput();
+
+            // NOTE: Do we need this? Is this unnecessary?
             interactAction = playerInput.Player.Interact;
         }
     }

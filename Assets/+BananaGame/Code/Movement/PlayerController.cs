@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,9 +31,6 @@ namespace BananaSoup
         {
             rb = GetComponent<Rigidbody>();
 
-            // NOTE: Moved to PlayerBase
-            // playerInput = new PlayerInput();
-
             characterWidth = transform.localScale.x;
             characterHeight = transform.localScale.y;
 
@@ -44,37 +40,17 @@ namespace BananaSoup
             }
         }
 
-        // NOTE: Moved to PlayerBase
-        ///// <summary>
-        ///// Stores the players input to moveInput and enables the playerInput if the gameObject is enabled.
-        ///// </summary>
-        //private void OnEnable()
-        //{
-        //    playerInput.Player.Enable();
-        //}
-
-        // NOTE: Moved to PlayerBase
-        ///// <summary>
-        ///// Disables the playerInput if the game object is disabled.
-        ///// </summary>
-        //private void OnDisable()
-        //{
-        //    playerInput.Player.Disable();
-        //}
-
         private void FixedUpdate()
         {
-            if (SetDrag())
+            if ( IsControllable )
             {
-                Move();
+                if ( SetDrag() )
+                {
+                    Move();
+                }
+
+                Look(Time.fixedDeltaTime); 
             }
-
-            Look(Time.fixedDeltaTime);
-        }
-
-        private void Update()
-        {
-            //Debug.Log("The objects current rb velocity is: " + rb.velocity);
         }
 
         /// <summary>

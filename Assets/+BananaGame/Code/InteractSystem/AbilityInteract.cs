@@ -19,31 +19,45 @@ namespace BananaSoup.InteractSystem
 
         public void OnInteract(InputAction.CallbackContext context)
         {
-            if ( context.performed )
+            // Check did user performed Interact Ability.
+            // If not, return.
+            if ( !context.performed )
             {
-                RaycastHit hit;
-                if ( Physics.SphereCast(transform.position, sphereRadius, transform.forward, out hit, maxInteractDistance, interactableLayers) )
-                {
-                    currentHitDistance = hit.distance;
-                    interactGizmoColor = Color.red;
+                return;
+            }
 
-                    if ( hit.transform.TryGetComponent(out Interactable interactable) )
-                    {
-                        Debug.Log("Interacted with: " + interactable.transform.name);
-                        interactable.Interact();
+            // If already interacting with an Interactable, cancel on going interact.
+            if ( isInteracting )
+            {
+                isInteracting = false;
+                IsControllable = true;
+                return;
+            }
 
-                        var closestPoint = interactable.GetClosestInteractPointToPlayer(transform.position);
-                        Debug.Log("Closest interact point: " + closestPoint);
+            // Check are there any Interactables in the range of the player.
+            // If not, return.
+            RaycastHit hit;
+            if ( !Physics.SphereCast(transform.position, sphereRadius, transform.forward, out hit, maxInteractDistance, interactableLayers) )
+            {
+                currentHitDistance = maxInteractDistance;
+                interactGizmoColor = Color.green;
+                return;
+            }
 
-                        isInteracting = true;
-                        target = closestPoint.Position;
-                    }
-                }
-                else
-                {
-                    currentHitDistance = maxInteractDistance;
-                    interactGizmoColor = Color.green;
-                }
+            // An Interactable is in the range.
+            currentHitDistance = hit.distance;
+            interactGizmoColor = Color.red;
+
+            if ( hit.transform.TryGetComponent(out Interactable interactable) )
+            {
+                //Debug.Log("Interacted with: " + interactable.transform.name);
+                interactable.Interact();
+
+                var closestPoint = interactable.GetClosestInteractPointToPlayer(transform.position);
+                //Debug.Log("Closest interact point: " + closestPoint);
+
+                isInteracting = true;
+                target = closestPoint.Position;
             }
         }
 
@@ -51,7 +65,7 @@ namespace BananaSoup.InteractSystem
         {
             if ( isInteracting )
             {
-                // TODO: Disable controls when moving to a interact point.
+                IsControllable = false;
                 MoveToInteractPoint();
             }
         }
@@ -66,9 +80,12 @@ namespace BananaSoup.InteractSystem
             var step = speed * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, target, step);
 
+            // Set target Y to same as players Y so player won't be trying to go up or downwards.
+            target.y = transform.position.y;
             // Check if the position of the cube and sphere are approximately equal.
             if ( Vector3.Distance(transform.position, target) < 0.001f )
             {
+                Debug.Log("Moved to interaction point");
                 // Swap the position of the cylinder.
                 //target *= -1.0f;
                 isInteracting = false;

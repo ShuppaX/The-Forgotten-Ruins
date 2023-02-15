@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace BananaSoup
 {
-    public class AbilityDash : MonoBehaviour
+    public class AbilityDash : PlayerBase
     {
         [Header("Dash variables")]
         [SerializeField, Tooltip("The amount of force for dashing.")] private float dashForce = 5.0f;
@@ -21,7 +21,7 @@ namespace BananaSoup
         // TODO: Make use for isDashing or remove it.
         private bool isDashing = false;
 
-        private void Awake()
+        private void Start()
         {
             rb = GetComponent<Rigidbody>();
 
@@ -38,20 +38,23 @@ namespace BananaSoup
         /// <param name="context">The players dash input.</param>
         public void OnDash(InputAction.CallbackContext context)
         {
-            isDashing = true;
-            Vector3 forceToApply = transform.forward * dashForce;
-
-            if (!dashOnCooldown && context.phase == InputActionPhase.Performed)
+            if ( IsControllable )
             {
-                rb.velocity = forceToApply;
-                dashOnCooldown = true;
+                isDashing = true;
+                Vector3 forceToApply = transform.forward * dashForce;
 
-                if (dashCooldownRoutine == null)
+                if ( !dashOnCooldown && context.phase == InputActionPhase.Performed )
                 {
-                    dashCooldownRoutine = StartCoroutine(nameof(DashCooldown));
-                }
+                    rb.velocity = forceToApply;
+                    dashOnCooldown = true;
 
-                Invoke(nameof(ResetDash), dashDuration);
+                    if ( dashCooldownRoutine == null )
+                    {
+                        dashCooldownRoutine = StartCoroutine(nameof(DashCooldown));
+                    }
+
+                    Invoke(nameof(ResetDash), dashDuration);
+                } 
             }
         }
 
