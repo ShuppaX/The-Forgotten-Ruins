@@ -19,6 +19,9 @@ namespace BananaSoup.InteractSystem.CustomInspector
         {
             base.OnInspectorGUI();
 
+            // TODO: Ask Sami why this doesn't work.
+            // NOTE: Works if 3 Interactable(s) are changed for example, to MovableBox
+
             if ( GUILayout.Button("Add Interact point") )
             {
                 int interactPointCount = interactable.transform.childCount;

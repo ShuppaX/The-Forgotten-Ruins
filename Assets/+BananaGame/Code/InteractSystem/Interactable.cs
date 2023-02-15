@@ -20,6 +20,11 @@ namespace BananaSoup.InteractSystem
             interactionPoints = GetComponentsInChildren<InteractPoint>();
         }
 
+        /// <summary>
+        /// Checks distance between the player and all InteractionPoints of the interacted Interactable.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns>The closest InteractPoint.</returns>
         public InteractPoint GetClosestInteractPointToPlayer(Vector3 position)
         {
             float closestDistance = float.PositiveInfinity;

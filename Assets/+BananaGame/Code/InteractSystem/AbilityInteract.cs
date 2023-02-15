@@ -11,7 +11,7 @@ namespace BananaSoup.InteractSystem
         [SerializeField] private float maxInteractDistance = 1.0f;
         [SerializeField] private float sphereRadius = 1.0f;
         [SerializeField] private LayerMask interactableLayers;
-        [Tooltip("The speed that player character will travel to the InteractPoint when interacted Interactable.")]
+        [Tooltip("The speed that player character will travel to the InteractPoint when interacted with an Interactable.")]
         [SerializeField] float moveSpeed = 2.0f;
 
         private PlayerBase playerBase;
@@ -105,7 +105,7 @@ namespace BananaSoup.InteractSystem
                 playerBase.IsControllable = true;
 
                 // TODO: Turn player's face towards to the Interactable.
-                // TODO: Move player's hands to on the Interactable (IK).
+                // TODO: Add 2 IK points for the InteractPoint and move player's hands towards them (IK).
             }
         }
 
