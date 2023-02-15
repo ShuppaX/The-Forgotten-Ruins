@@ -8,7 +8,12 @@ namespace BananaSoup.InteractSystem
     {
         protected internal override void Interact()
         {
-            Debug.Log("InteractableSphere");
+            Debug.Log("InteractableSphere Interact");
+        }
+
+        protected internal override void InteractCompleted()
+        {
+            Debug.Log("InteractableSphere InteractCompleted");
         }
     }
 }

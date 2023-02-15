@@ -14,6 +14,7 @@ namespace BananaSoup.InteractSystem
         }
 
         protected internal abstract void Interact();
+        protected internal abstract void InteractCompleted();
 
         public void OnValidate()
         {

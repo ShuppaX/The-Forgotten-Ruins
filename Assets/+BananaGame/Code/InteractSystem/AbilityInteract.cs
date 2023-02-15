@@ -17,6 +17,7 @@ namespace BananaSoup.InteractSystem
         private PlayerBase playerBase;
         private bool isInteracting;
         private Vector3 interactPoint;
+        private Interactable currentInteractable;
 
         // Gizmo
         private float currentHitDistance;
@@ -53,6 +54,8 @@ namespace BananaSoup.InteractSystem
                 return;
             }
 
+            // TODO: Do I need raycast AND TryGetComponent?
+
             // Check are there any Interactables in the range of the player.
             // If not, return.
             RaycastHit hit;
@@ -69,13 +72,12 @@ namespace BananaSoup.InteractSystem
 
             if ( hit.transform.TryGetComponent(out Interactable interactable) )
             {
-                interactable.Interact();
-
-                InteractPoint closestPoint = interactable.GetClosestInteractPointToPlayer(transform.position);
-
-                isInteracting = true;
-                interactPoint = closestPoint.Position;
                 playerBase.IsControllable = false;
+                isInteracting = true;
+
+                currentInteractable = interactable;
+                InteractPoint closestPoint = interactable.GetClosestInteractPointToPlayer(transform.position);
+                interactPoint = closestPoint.Position;
             }
         }
 
@@ -101,8 +103,12 @@ namespace BananaSoup.InteractSystem
             // Check if the position of the player and Interactable are approximately equal.
             if ( Vector3.Distance(transform.position, interactPoint) < 0.01f )
             {
+                currentInteractable.Interact();
+
+                // TODO: Release controls and set isInteracting false after Interact(); is done.
                 isInteracting = false;
                 playerBase.IsControllable = true;
+                // TODO: Add bool to rotation lock and release it.
 
                 // TODO: Turn player's face towards to the Interactable.
                 // TODO: Add 2 IK points for the InteractPoint and move player's hands towards them (IK).
