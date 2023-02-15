@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 namespace BananaSoup
 {
-    public class PlayerController : PlayerBase
+    [RequireComponent(typeof(PlayerBase))]
+    public class PlayerController : MonoBehaviour
     {
         [Header("Movement")]
         [SerializeField, Tooltip("The amount of force for moving the character.")] private float movementForce = 5.0f;
@@ -22,6 +23,8 @@ namespace BananaSoup
         private float characterWidth = 0;
         private float characterHeight = 0;
 
+        private PlayerBase playerBase;
+
         private void Start()
         {
             Setup();
@@ -29,27 +32,32 @@ namespace BananaSoup
 
         private void Setup()
         {
-            rb = GetComponent<Rigidbody>();
-
             characterWidth = transform.localScale.x;
             characterHeight = transform.localScale.y;
 
-            if (rb == null)
+            rb = GetComponent<Rigidbody>();
+            if ( rb == null )
             {
                 Debug.LogError("A Rigidbody couldn't be found on the " + gameObject + "!");
+            }
+
+            playerBase = GetComponent<PlayerBase>();
+            if ( playerBase == null )
+            {
+                Debug.LogError("A PlayerBase couldn't be found on the " + gameObject + "!");
             }
         }
 
         private void FixedUpdate()
         {
-            if ( IsControllable )
+            if ( playerBase.IsControllable )
             {
                 if ( SetDrag() )
                 {
                     Move();
                 }
 
-                Look(Time.fixedDeltaTime); 
+                Look(Time.fixedDeltaTime);
             }
         }
 
@@ -71,7 +79,7 @@ namespace BananaSoup
         {
             movementDirection += (transform.forward * movementInput.magnitude) * movementForce;
 
-            if (IsGrounded())
+            if ( IsGrounded() )
             {
                 rb.AddForce(movementDirection);
                 movementDirection = Vector3.zero;
@@ -85,7 +93,7 @@ namespace BananaSoup
         /// <returns>True if the character was grounded on the previous frame, false if not.</returns>
         private bool SetDrag()
         {
-            if (IsGrounded())
+            if ( IsGrounded() )
             {
                 rb.drag = groundDrag;
                 wasGrounded = true;

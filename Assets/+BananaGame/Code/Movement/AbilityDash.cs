@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 namespace BananaSoup
 {
-    public class AbilityDash : PlayerBase
+    [RequireComponent(typeof(PlayerBase))]
+    public class AbilityDash : MonoBehaviour
     {
         [Header("Dash variables")]
         [SerializeField, Tooltip("The amount of force for dashing.")] private float dashForce = 5.0f;
@@ -21,13 +22,26 @@ namespace BananaSoup
         // TODO: Make use for isDashing or remove it.
         private bool isDashing = false;
 
+        private PlayerBase playerBase;
+
         private void Start()
+        {
+            Setup();
+        }
+
+        private void Setup()
         {
             rb = GetComponent<Rigidbody>();
 
-            if (rb == null)
+            if ( rb == null )
             {
                 Debug.LogError("The dash ability couldn't find a Rigidbody on the gameObject: " + gameObject + "!");
+            }
+
+            playerBase = GetComponent<PlayerBase>();
+            if ( playerBase == null )
+            {
+                Debug.LogError("A PlayerBase couldn't be found on the " + gameObject + "!");
             }
         }
 
@@ -38,7 +52,7 @@ namespace BananaSoup
         /// <param name="context">The players dash input.</param>
         public void OnDash(InputAction.CallbackContext context)
         {
-            if ( IsControllable )
+            if ( playerBase.IsControllable )
             {
                 isDashing = true;
                 Vector3 forceToApply = transform.forward * dashForce;
@@ -54,7 +68,7 @@ namespace BananaSoup
                     }
 
                     Invoke(nameof(ResetDash), dashDuration);
-                } 
+                }
             }
         }
 

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace BananaSoup
 {
-    public abstract class PlayerBase : MonoBehaviour
+    public class PlayerBase : MonoBehaviour
     {
         private PlayerInput playerInput;
         protected InputAction interactAction;

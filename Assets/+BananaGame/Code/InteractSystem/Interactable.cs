@@ -8,11 +8,6 @@ namespace BananaSoup.InteractSystem
     {
         [SerializeField] private InteractPoint[] interactionPoints;
 
-        //public Interactable()
-        //{
-        //    Debug.Log("Interactable - Constructor called");
-        //}
-
         protected virtual void Start()
         {
             Debug.Log("Interactable - Start called");
@@ -35,7 +30,7 @@ namespace BananaSoup.InteractSystem
                 Vector3 toInteractPoint = interactPoint.Position - position;
                 float distanceToInteractPoint = toInteractPoint.sqrMagnitude;
 
-                if(distanceToInteractPoint < closestDistance )
+                if ( distanceToInteractPoint < closestDistance )
                 {
                     closest = interactPoint;
                     closestDistance = distanceToInteractPoint;

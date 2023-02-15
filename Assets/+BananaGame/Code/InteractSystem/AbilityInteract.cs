@@ -5,17 +5,36 @@ using UnityEngine.InputSystem;
 
 namespace BananaSoup.InteractSystem
 {
-    public class AbilityInteract : PlayerBase
+    [RequireComponent(typeof(PlayerBase))]
+    public class AbilityInteract : MonoBehaviour
     {
         [SerializeField] private float maxInteractDistance = 1.0f;
         [SerializeField] private float sphereRadius = 1.0f;
         [SerializeField] private LayerMask interactableLayers;
+        [Tooltip("The speed that player character will travel to the InteractPoint when interacted Interactable.")]
+        [SerializeField] float moveSpeed = 2.0f;
 
+        private PlayerBase playerBase;
+        private bool isInteracting;
+        private Vector3 interactPoint;
+
+        // Gizmo
         private float currentHitDistance;
         private Color interactGizmoColor = Color.green;
 
-        private bool isInteracting;
-        private Vector3 target;
+        private void Start()
+        {
+            Setup();
+        }
+
+        private void Setup()
+        {
+            playerBase = GetComponent<PlayerBase>();
+            if ( playerBase == null )
+            {
+                Debug.LogError("A PlayerBase couldn't be found on the " + gameObject + "!");
+            }
+        }
 
         public void OnInteract(InputAction.CallbackContext context)
         {
@@ -30,7 +49,7 @@ namespace BananaSoup.InteractSystem
             if ( isInteracting )
             {
                 isInteracting = false;
-                IsControllable = true;
+                playerBase.IsControllable = true;
                 return;
             }
 
@@ -50,14 +69,13 @@ namespace BananaSoup.InteractSystem
 
             if ( hit.transform.TryGetComponent(out Interactable interactable) )
             {
-                //Debug.Log("Interacted with: " + interactable.transform.name);
                 interactable.Interact();
 
-                var closestPoint = interactable.GetClosestInteractPointToPlayer(transform.position);
-                //Debug.Log("Closest interact point: " + closestPoint);
+                InteractPoint closestPoint = interactable.GetClosestInteractPointToPlayer(transform.position);
 
                 isInteracting = true;
-                target = closestPoint.Position;
+                interactPoint = closestPoint.Position;
+                playerBase.IsControllable = false;
             }
         }
 
@@ -65,7 +83,6 @@ namespace BananaSoup.InteractSystem
         {
             if ( isInteracting )
             {
-                IsControllable = false;
                 MoveToInteractPoint();
             }
         }
@@ -74,21 +91,18 @@ namespace BananaSoup.InteractSystem
         {
             // TODO: Turn player towards to the interact point.
 
-            float speed = 2.0f;
-
             // Move our position a step closer to the target.
-            var step = speed * Time.deltaTime; // calculate distance to move
-            transform.position = Vector3.MoveTowards(transform.position, target, step);
+            var step = moveSpeed * Time.deltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, interactPoint, step);
 
             // Set target Y to same as players Y so player won't be trying to go up or downwards.
-            target.y = transform.position.y;
-            // Check if the position of the cube and sphere are approximately equal.
-            if ( Vector3.Distance(transform.position, target) < 0.001f )
+            interactPoint.y = transform.position.y;
+
+            // Check if the position of the player and Interactable are approximately equal.
+            if ( Vector3.Distance(transform.position, interactPoint) < 0.01f )
             {
-                Debug.Log("Moved to interaction point");
-                // Swap the position of the cylinder.
-                //target *= -1.0f;
                 isInteracting = false;
+                playerBase.IsControllable = true;
 
                 // TODO: Turn player's face towards to the Interactable.
                 // TODO: Move player's hands to on the Interactable (IK).
