@@ -7,18 +7,42 @@ namespace BananaSoup
 {
     public class PlayerBase : MonoBehaviour
     {
+        public static PlayerBase Instance { get; private set; }
         private PlayerInput playerInput;
-        protected InputAction interactAction;
-        private bool isControllable = true;
+        private InputAction interactAction;
+        private bool areAbilitiesEnabled = true;
+        private bool isMovable = true;
+        private bool isTurnable = true;
 
-        public bool IsControllable
+        public bool AreAbilitiesEnabled
         {
-            get { return isControllable; }
-            set { isControllable = value; }
+            get { return areAbilitiesEnabled; }
+            set { areAbilitiesEnabled = value; }
+        }
+
+        public bool IsMovable
+        {
+            get { return isMovable; }
+            set { isMovable = value; }
+        }
+
+        public bool IsTurnable
+        {
+            get { return isTurnable; }
+            set { isTurnable = value; }
         }
 
         private void Awake()
         {
+            if ( Instance == null )
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
             Setup();
         }
 

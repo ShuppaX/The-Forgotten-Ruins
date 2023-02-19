@@ -6,14 +6,18 @@ namespace BananaSoup.InteractSystem
 {
     public class InteractableSphere : Interactable
     {
-        protected internal override void Interact()
+        internal override void Interact()
         {
-            Debug.Log("InteractableSphere Interact");
+            base.Interact();
+
+            Debug.Log(gameObject.name + " Interact()");
         }
 
-        protected internal override void InteractCompleted()
+        internal override void InteractCompleted()
         {
-            Debug.Log("InteractableSphere InteractCompleted");
+            base.InteractCompleted();
+
+            Debug.Log(gameObject.name + " InteractCompleted()");
         }
     }
 }

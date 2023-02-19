@@ -50,13 +50,17 @@ namespace BananaSoup
 
         private void FixedUpdate()
         {
-            if ( playerBase.IsControllable )
+            if ( playerBase.IsMovable )
             {
                 if ( SetDrag() )
                 {
                     Move();
                 }
 
+            }
+
+            if ( playerBase.IsTurnable )
+            {
                 Look(Time.fixedDeltaTime);
             }
         }

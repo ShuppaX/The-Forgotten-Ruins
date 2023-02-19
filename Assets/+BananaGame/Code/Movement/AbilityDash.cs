@@ -52,7 +52,7 @@ namespace BananaSoup
         /// <param name="context">The players dash input.</param>
         public void OnDash(InputAction.CallbackContext context)
         {
-            if ( playerBase.IsControllable )
+            if ( playerBase.AreAbilitiesEnabled )
             {
                 isDashing = true;
                 Vector3 forceToApply = transform.forward * dashForce;

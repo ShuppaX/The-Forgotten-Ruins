@@ -15,9 +15,10 @@ namespace BananaSoup.InteractSystem
         [SerializeField] float moveSpeed = 2.0f;
 
         private PlayerBase playerBase;
-        private bool isInteracting;
+        private bool hasSelectedInteractable;
         private Vector3 interactPoint;
         private Interactable currentInteractable;
+        private bool isLookingAtTarget = true;
 
         // Gizmo
         private float currentHitDistance;
@@ -26,6 +27,19 @@ namespace BananaSoup.InteractSystem
         private void Start()
         {
             Setup();
+        }
+
+        private void FixedUpdate()
+        {
+            if ( !isLookingAtTarget )
+            {
+                TurnPlayerTowardsInteractable();
+            }
+
+            if ( hasSelectedInteractable )
+            {
+                MoveToInteractPoint();
+            }
         }
 
         private void Setup()
@@ -46,15 +60,27 @@ namespace BananaSoup.InteractSystem
                 return;
             }
 
-            // If already interacting with an Interactable, cancel on going interact.
-            if ( isInteracting )
+            // If the player is already selected an Interactable and moving towards it,
+            // cancel the movement and don't select a new Interactable target.
+            if ( hasSelectedInteractable )
             {
-                isInteracting = false;
-                playerBase.IsControllable = true;
+                hasSelectedInteractable = false;
+                SetPlayerInputs(true);
                 return;
             }
 
-            // TODO: Do I need raycast AND TryGetComponent?
+            // If the player is already interacting with an Interactable, cancel on going interact and don't start a new one.
+            if ( currentInteractable != null )
+            {
+                if ( currentInteractable.IsInteracting == true )
+                {
+                    currentInteractable.InteractCompleted();
+                    SetPlayerInputs(true);
+                    return;
+                }
+            }
+
+            // TODO: Does this need both raycast AND TryGetComponent?
 
             // Check are there any Interactables in the range of the player.
             // If not, return.
@@ -66,14 +92,15 @@ namespace BananaSoup.InteractSystem
                 return;
             }
 
-            // An Interactable is in the range.
+            // An Interactable is in the range. Set variables for the gizmo
             currentHitDistance = hit.distance;
             interactGizmoColor = Color.red;
 
+            // Check does the physical object have an Interactable component 
             if ( hit.transform.TryGetComponent(out Interactable interactable) )
             {
-                playerBase.IsControllable = false;
-                isInteracting = true;
+                SetPlayerInputs(false);
+                hasSelectedInteractable = true;
 
                 currentInteractable = interactable;
                 InteractPoint closestPoint = interactable.GetClosestInteractPointToPlayer(transform.position);
@@ -81,17 +108,16 @@ namespace BananaSoup.InteractSystem
             }
         }
 
-        private void FixedUpdate()
+        private void SetPlayerInputs(bool value)
         {
-            if ( isInteracting )
-            {
-                MoveToInteractPoint();
-            }
+            playerBase.AreAbilitiesEnabled = value;
+            playerBase.IsTurnable = value;
+            playerBase.IsMovable = value;
         }
 
         private void MoveToInteractPoint()
         {
-            // TODO: Turn player towards to the interact point.
+            // TODO: Turn player towards to the interact point. By code or navmesh?
 
             // Move our position a step closer to the target.
             var step = moveSpeed * Time.deltaTime; // calculate distance to move
@@ -103,17 +129,26 @@ namespace BananaSoup.InteractSystem
             // Check if the position of the player and Interactable are approximately equal.
             if ( Vector3.Distance(transform.position, interactPoint) < 0.01f )
             {
+                hasSelectedInteractable = false;
                 currentInteractable.Interact();
 
-                // TODO: Release controls and set isInteracting false after Interact(); is done.
-                isInteracting = false;
-                playerBase.IsControllable = true;
-                // TODO: Add bool to rotation lock and release it.
+                // Set bool that the player is not looking at the target Interactable. FixedUpdate will rotate player towards it.
+                isLookingAtTarget = false;
 
-                // TODO: Turn player's face towards to the Interactable.
                 // TODO: Add 2 IK points for the InteractPoint and move player's hands towards them (IK).
             }
         }
+
+        private void TurnPlayerTowardsInteractable()
+        {
+            // TODO: Turn the player slowly towards the target, not instantly.
+            Vector3 interactable = currentInteractable.transform.position;
+            interactable.y = transform.position.y;
+            transform.LookAt(interactable);
+            isLookingAtTarget = true;
+        }
+
+        // TODO: Remove currentInteractable when interaction completed?
 
         private void OnDrawGizmos()
         {

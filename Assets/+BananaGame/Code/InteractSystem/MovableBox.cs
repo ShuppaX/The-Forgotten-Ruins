@@ -6,26 +6,36 @@ namespace BananaSoup.InteractSystem
 {
     public class MovableBox : Interactable
     {
-        // NOTE: this is probably unnecessary. Let it be here for now just for testing purposes.
-        protected override void Start()
+        private Rigidbody rb;
+
+        private void Start()
         {
-            base.Start();
+            rb = GetComponent<Rigidbody>();
+            if ( rb == null )
+            {
+                Debug.LogError(gameObject + " is missing a Rigidbody component!");
+            }
         }
 
-        protected internal override void Interact()
+        // TODO: Move box by one unit per push?
+
+        internal override void Interact()
         {
-            Debug.Log("MovableBox Interact");
+            base.Interact();
 
-            // TODO: Release controls, so the player is able to move box.
+            // Enable movement controls, so the player could move itself and a box
+            PlayerBase.Instance.IsMovable = true;
 
-            // TODO: Move box only by X or Z axis depending where the player is facing.
-            // TODO: Turn isKinematic off
-            // TODO: Turn off X or Z constrain 
+            rb.isKinematic = false;
+            //IsInteracting = true;
         }
 
-        protected internal override void InteractCompleted()
+        internal override void InteractCompleted()
         {
-            Debug.Log("MovableBox InteractCompleted");
+            base.InteractCompleted();
+
+            rb.isKinematic = true;
+            //IsInteracting = false;
         }
     }
 }

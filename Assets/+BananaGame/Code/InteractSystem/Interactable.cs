@@ -4,17 +4,33 @@ using UnityEngine;
 
 namespace BananaSoup.InteractSystem
 {
-    public abstract class Interactable : MonoBehaviour
+    public class Interactable : MonoBehaviour
     {
         [SerializeField] private InteractPoint[] interactionPoints;
+        private bool isInteracting;
 
-        protected virtual void Start()
+        public bool IsInteracting
         {
-            Debug.Log("Interactable - Start called");
+            get { return isInteracting; }
+            set { isInteracting = value; }
         }
 
-        protected internal abstract void Interact();
-        protected internal abstract void InteractCompleted();
+        internal virtual void Interact()
+        {
+            IsInteracting = true;
+        }
+
+        //public void InteractCompleted()
+        //{
+        //    IsInteracting = false;
+        //}
+
+        // TODO: Ask Sami is this ok? Why not protected virtual?
+        internal virtual void InteractCompleted()
+        {
+            Debug.LogWarning(gameObject + " called InteractCompleted.");
+            IsInteracting = false;
+        }
 
         public void OnValidate()
         {
