@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace BananaSoup
 {
+    [RequireComponent(typeof(PlayerBase))]
     public class PlayerController : MonoBehaviour
     {
         [Header("Movement")]
@@ -13,8 +13,6 @@ namespace BananaSoup
         [SerializeField, Tooltip("The amount of drag used while the character is on the ground.")] private float groundDrag = 3.5f;
         [SerializeField, Tooltip("The amount of drag used while the character is not on the ground.")] private float fallingDrag = 1.0f;
         [SerializeField, Tooltip("The turning speed of the character while changing direction.")] private float turnSpeed = 360.0f;
-
-        private PlayerInput playerInput;
 
         private Rigidbody rb;
         private Vector3 movementInput = Vector3.zero;
@@ -25,54 +23,46 @@ namespace BananaSoup
         private float characterWidth = 0;
         private float characterHeight = 0;
 
-        private void Awake()
+        private PlayerBase playerBase;
+
+        private void Start()
         {
             Setup();
         }
 
         private void Setup()
         {
-            rb = GetComponent<Rigidbody>();
-            playerInput = new PlayerInput();
-
             characterWidth = transform.localScale.x;
             characterHeight = transform.localScale.y;
 
-            if (rb == null)
+            rb = GetComponent<Rigidbody>();
+            if ( rb == null )
             {
                 Debug.LogError("A Rigidbody couldn't be found on the " + gameObject + "!");
             }
-        }
 
-        /// <summary>
-        /// Stores the players input to moveInput and enables the playerInput if the gameObject is enabled.
-        /// </summary>
-        private void OnEnable()
-        {
-            playerInput.Player.Enable();
-        }
-
-        /// <summary>
-        /// Disables the playerInput if the game object is disabled.
-        /// </summary>
-        private void OnDisable()
-        {
-            playerInput.Player.Disable();
+            playerBase = GetComponent<PlayerBase>();
+            if ( playerBase == null )
+            {
+                Debug.LogError("A PlayerBase couldn't be found on the " + gameObject + "!");
+            }
         }
 
         private void FixedUpdate()
         {
-            if (SetDrag())
+            if ( playerBase.IsMovable )
             {
-                Move();
+                if ( SetDrag() )
+                {
+                    Move();
+                }
+
             }
 
-            Look(Time.fixedDeltaTime);
-        }
-
-        private void Update()
-        {
-            //Debug.Log("The objects current rb velocity is: " + rb.velocity);
+            if ( playerBase.IsTurnable )
+            {
+                Look(Time.fixedDeltaTime);
+            }
         }
 
         /// <summary>
@@ -93,7 +83,7 @@ namespace BananaSoup
         {
             movementDirection += (transform.forward * movementInput.magnitude) * movementForce;
 
-            if (IsGrounded())
+            if ( IsGrounded() )
             {
                 rb.AddForce(movementDirection);
                 movementDirection = Vector3.zero;
@@ -107,7 +97,7 @@ namespace BananaSoup
         /// <returns>True if the character was grounded on the previous frame, false if not.</returns>
         private bool SetDrag()
         {
-            if (IsGrounded())
+            if ( IsGrounded() )
             {
                 rb.drag = groundDrag;
                 wasGrounded = true;
@@ -129,7 +119,7 @@ namespace BananaSoup
         /// <param name="deltaTime">Use Time.fixedDeltaTime.</param>
         private void Look(float deltaTime)
         {
-            if (movementInput != Vector3.zero)
+            if ( movementInput != Vector3.zero )
             {
                 var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
 

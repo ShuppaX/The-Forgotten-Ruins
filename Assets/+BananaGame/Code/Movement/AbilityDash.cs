@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace BananaSoup
 {
+    [RequireComponent(typeof(PlayerBase))]
     public class AbilityDash : MonoBehaviour
     {
         [Header("Dash variables")]
@@ -21,13 +22,26 @@ namespace BananaSoup
         // TODO: Make use for isDashing or remove it.
         private bool isDashing = false;
 
-        private void Awake()
+        private PlayerBase playerBase;
+
+        private void Start()
+        {
+            Setup();
+        }
+
+        private void Setup()
         {
             rb = GetComponent<Rigidbody>();
 
-            if (rb == null)
+            if ( rb == null )
             {
                 Debug.LogError("The dash ability couldn't find a Rigidbody on the gameObject: " + gameObject + "!");
+            }
+
+            playerBase = GetComponent<PlayerBase>();
+            if ( playerBase == null )
+            {
+                Debug.LogError("A PlayerBase couldn't be found on the " + gameObject + "!");
             }
         }
 
@@ -38,20 +52,23 @@ namespace BananaSoup
         /// <param name="context">The players dash input.</param>
         public void OnDash(InputAction.CallbackContext context)
         {
-            isDashing = true;
-            Vector3 forceToApply = transform.forward * dashForce;
-
-            if (!dashOnCooldown && context.phase == InputActionPhase.Performed)
+            if ( playerBase.AreAbilitiesEnabled )
             {
-                rb.velocity = forceToApply;
-                dashOnCooldown = true;
+                isDashing = true;
+                Vector3 forceToApply = transform.forward * dashForce;
 
-                if (dashCooldownRoutine == null)
+                if ( !dashOnCooldown && context.phase == InputActionPhase.Performed )
                 {
-                    dashCooldownRoutine = StartCoroutine(nameof(DashCooldown));
-                }
+                    rb.velocity = forceToApply;
+                    dashOnCooldown = true;
 
-                Invoke(nameof(ResetDash), dashDuration);
+                    if ( dashCooldownRoutine == null )
+                    {
+                        dashCooldownRoutine = StartCoroutine(nameof(DashCooldown));
+                    }
+
+                    Invoke(nameof(ResetDash), dashDuration);
+                }
             }
         }
 
