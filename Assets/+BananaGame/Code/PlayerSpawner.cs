@@ -8,15 +8,14 @@ namespace BananaSoup
     {
         private void Start()
         {
-            // TODO: Enable this when PlayerBase is merged to the main branch.
-            //if ( PlayerBase.Instance != null )
-            //{
-            //    PlayerBase.Instance.gameObject.transform.position = transform.position;
-            //}
-            //else
-            //{
-            //    Debug.LogWarning("Player prefab not found. " + gameObject + " couldn't relocate Player prefab.");
-            //}
+            if ( PlayerBase.Instance != null )
+            {
+                PlayerBase.Instance.gameObject.transform.position = transform.position;
+            }
+            else
+            {
+                Debug.LogWarning("Player prefab not found. " + gameObject + " couldn't relocate Player prefab.");
+            }
         }
     }
 }

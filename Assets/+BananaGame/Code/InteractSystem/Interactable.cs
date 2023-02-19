@@ -28,7 +28,6 @@ namespace BananaSoup.InteractSystem
         // TODO: Ask Sami is this ok? Why not protected virtual?
         internal virtual void InteractCompleted()
         {
-            Debug.LogWarning(gameObject + " called InteractCompleted.");
             IsInteracting = false;
         }
 
