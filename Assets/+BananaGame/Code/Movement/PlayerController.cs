@@ -12,7 +12,9 @@ namespace BananaSoup
         [SerializeField, Tooltip("The amount of force for moving the character.")] private float movementForce = 5.0f;
         [SerializeField, Tooltip("The amount of drag used while the character is on the ground.")] private float groundDrag = 3.5f;
         [SerializeField, Tooltip("The amount of drag used while the character is not on the ground.")] private float fallingDrag = 1.0f;
-        [SerializeField, Tooltip("The turning speed of the character while changing direction.")] private float turnSpeed = 360.0f;
+
+        // This is required for the smooth turning. (In the Look method)
+        //[SerializeField, Tooltip("The turning speed of the character while changing direction.")] private float turnSpeed = 360.0f;
 
         private Rigidbody rb;
         private Vector3 movementInput = Vector3.zero;
@@ -129,10 +131,10 @@ namespace BananaSoup
                 var rot = Quaternion.LookRotation(relative, Vector3.up);
 
                 // Use this for smooth turning
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * deltaTime);
+                //transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * deltaTime);
 
                 // Use this for instant turning
-                //transform.rotation = rot;
+                transform.rotation = rot;
             }
         }
 
