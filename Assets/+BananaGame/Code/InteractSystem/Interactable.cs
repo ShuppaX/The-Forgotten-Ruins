@@ -25,7 +25,6 @@ namespace BananaSoup.InteractSystem
         //    IsInteracting = false;
         //}
 
-        // TODO: Ask Sami is this ok? Why not protected virtual?
         internal virtual void InteractCompleted()
         {
             IsInteracting = false;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BananaSoup.InteractSystem.CustomInspector
 {
-    [CustomEditor(typeof(Interactable))]
+    [CustomEditor(typeof(Interactable), true)]
     public class InteractableInspector : Editor
     {
         private Interactable interactable;
@@ -18,9 +18,6 @@ namespace BananaSoup.InteractSystem.CustomInspector
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-
-            // TODO: Ask Sami why this doesn't work.
-            // NOTE: Works if 3 Interactable(s) are changed for example, to MovableBox
 
             if ( GUILayout.Button("Add Interact point") )
             {
