@@ -21,6 +21,7 @@ namespace BananaSoup
         private Vector3 movementDirection = Vector3.zero;
 
         private bool wasGrounded = false;
+        private float groundCheckOffset = 0.01f;
 
         private float characterWidth = 0;
         private float characterHeight = 0;
@@ -58,19 +59,12 @@ namespace BananaSoup
                 {
                     Move();
                 }
-
             }
 
             if ( playerBase.IsTurnable )
             {
                 Look(Time.fixedDeltaTime);
             }
-        }
-
-        private void Update()
-        {
-            Debug.Log("The current movement input is: " + movementInput);
-            Debug.Log("The current rb.velocity is: " + rb.velocity);
         }
 
         /// <summary>
@@ -151,7 +145,7 @@ namespace BananaSoup
         public bool IsGrounded()
         {
             RaycastHit rayHit;
-            return (Physics.SphereCast(transform.position, characterWidth / 2, Vector3.down, out rayHit, characterHeight / 2));
+            return (Physics.SphereCast(transform.position, characterWidth / 2, Vector3.down, out rayHit, (characterHeight / 2) + groundCheckOffset));
         }
     }
 }
