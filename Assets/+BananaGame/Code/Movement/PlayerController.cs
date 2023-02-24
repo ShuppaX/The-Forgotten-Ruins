@@ -67,6 +67,12 @@ namespace BananaSoup
             }
         }
 
+        private void Update()
+        {
+            Debug.Log("The current movement input is: " + movementInput);
+            Debug.Log("The current rb.velocity is: " + rb.velocity);
+        }
+
         /// <summary>
         /// Used to get the players input and then store it into the movementInput Vector3
         /// </summary>
