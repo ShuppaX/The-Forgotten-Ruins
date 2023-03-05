@@ -11,6 +11,8 @@ namespace BananaSoup
 
         public LayerMask whatIsGround, whatIsPlayer;
         public float health;
+        private float _lastDidSomething; //refreshing timer to prevent non-stop actions
+        private float _pauseTime = 3f; //Time to pause after action
 
         //patrol
         public Vector3 waypoint;
@@ -33,9 +35,12 @@ namespace BananaSoup
 
         private void Update()
         {
+            if (Time.time < _lastDidSomething + _pauseTime) return;
+
             _playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, whatIsPlayer);
             _playerInAttackRange = Physics.CheckSphere(transform.position, _attackRange, whatIsPlayer);
 
+            
             if (!_playerInSightRange && !_playerInAttackRange) Patrol();
             if (_playerInSightRange && !_playerInAttackRange) Chase();
             if (_playerInSightRange && _playerInAttackRange) Attack();
@@ -51,6 +56,8 @@ namespace BananaSoup
 
             //Waypoint reached
             if (distanceToWayPoint.magnitude < 1f) _waypointSet = false;
+
+            _lastDidSomething = Time.time;
         }
 
         private void SearchWaypoint()
@@ -65,6 +72,7 @@ namespace BananaSoup
             {
                 _waypointSet = true;
             }
+            _lastDidSomething = Time.time;
         }
 
         private void Chase()
@@ -86,6 +94,8 @@ namespace BananaSoup
                 _alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), _timeBetweenAttacks);
             }
+            
+            _lastDidSomething = Time.time;
         }
 
         private void ResetAttack()
