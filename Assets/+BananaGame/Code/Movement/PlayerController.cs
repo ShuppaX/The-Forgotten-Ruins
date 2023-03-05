@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using RotaryHeart.Lib.PhysicsExtension;
 
 namespace BananaSoup
 {
@@ -80,6 +81,7 @@ namespace BananaSoup
             SpeedLimiter();
 
             Debug.Log("Ground check = " + GroundCheck());
+            Debug.Log("Slope check = " + OnSlope());
             Debug.Log("RigidBodys velocity = " + rb.velocity);
         }
 
@@ -117,7 +119,7 @@ namespace BananaSoup
         {
             movementDirection += (transform.forward * movementInput.magnitude) * movementForce;
 
-            if ( OnSlope() )
+            if ( OnSlope() && GroundCheck() )
             {
                 rb.AddForce(GetSlopeMoveDirection() * movementForce);
 
@@ -133,7 +135,7 @@ namespace BananaSoup
                 movementDirection = Vector3.zero;
             }
 
-            // Turn the RigidBodys
+            // Turn the RigidBodys gravity off while on a slope
             rb.useGravity = !OnSlope();
         }
 
@@ -142,7 +144,7 @@ namespace BananaSoup
             // Limit characters movement speed on slopes
             if ( OnSlope() )
             {
-                if (rb.velocity.magnitude > maxSpeed )
+                if ( rb.velocity.magnitude > maxSpeed )
                 {
                     rb.velocity = rb.velocity.normalized * maxSpeed;
                 }
@@ -154,7 +156,7 @@ namespace BananaSoup
                 Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
                 // Limit the velocity if necessary.
-                if (flatVel.magnitude > maxSpeed )
+                if ( flatVel.magnitude > maxSpeed )
                 {
                     Vector3 limitedVel = flatVel.normalized * maxSpeed;
                     rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
@@ -214,13 +216,12 @@ namespace BananaSoup
         /// <returns>True if the spherecast finds something below, false if not.</returns>
         private bool GroundCheck()
         {
-            RaycastHit rayHit;
-            return (Physics.SphereCast(transform.position, characterWidth / 2, Vector3.down, out rayHit, (characterHeight / 2) + groundCheckOffset));
+            return (RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, (characterHeight / 2) + groundCheckOffset, PreviewCondition.Editor, 0, Color.green, Color.red));
         }
 
         private bool OnSlope()
         {
-            if ( Physics.Raycast(transform.position, Vector3.down, out slopeHit, characterHeight * 0.5f + 0.3f) )
+            if ( RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, out slopeHit, characterHeight * 0.5f + 0.3f, PreviewCondition.Editor, 0, Color.green, Color.red) )
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
                 return angle < maxSlopeAngle && angle != 0;
