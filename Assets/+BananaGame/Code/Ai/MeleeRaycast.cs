@@ -1,96 +1,116 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace BananaSoup
 {
     public class MeleeRaycast : MonoBehaviour
     {
-    private NavMeshAgent enemy;// assign navmesh agent
-    private Transform playerTarget;// reference to player's position
-    private float attackRadius = 10.0f; // radius where enemy will spot player
-    public Transform[] destinationPoints;// array of points for enemy to patrol
-    private int currentDestination;// reference to current position
-    public bool canSeePlayer = false;
-    private Ray enemyEyes;
-    public RaycastHit hitData;
+        private NavMeshAgent _enemy; // assign navmesh agent
+        private Transform _playerTarget; // reference to player's position
 
+        public LayerMask whatIsGround, whatIsPlayer;
+        public float health;
 
-    private void Awake()
-    {
-        enemy = GetComponent<NavMeshAgent>();
-        playerTarget = GameObject.Find("Player").GetComponent<Transform>();
-        enemyEyes = new Ray(transform.position, transform.forward);
-    }
-    private void Start()
-    {
-        Physics.Raycast(enemyEyes, attackRadius);
-    }
-    private void Update()
-    {
-        Lurk();
-        Debug.DrawRay(transform.position, transform.forward * attackRadius);
-    }
+        //patrol
+        public Vector3 waypoint;
+        private bool _waypointSet;
+        private float _waypointRange;
 
-    void Lurk()
-    {
-        Debug.Log("Lurking");
-        float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
-        //check if raycast hits playerLayer and enemy is close enough to attack
-        if (Physics.Raycast(enemyEyes, out hitData, attackRadius * 2, layerMask: ~6) && distanceToPlayer < attackRadius)
+        //Attack
+        private float _timeBetweenAttacks;
+        private bool _alreadyAttacked;
+
+        //states
+        private float _sightRange, _attackRange;
+        private bool _playerInSightRange, _playerInAttackRange;
+
+        private void Awake()
         {
-            Debug.Log("You hit " + hitData.collider.gameObject.name);
-            ChasePlayer();
+            _playerTarget = PlayerBase.Instance.GetComponent<Transform>(); //TODO Nullreffs 
+           _enemy = GetComponent<NavMeshAgent>();
         }
-        else
-        {
-            canSeePlayer = false;
-            Patrol();
-        }
-    }
-    void Patrol()
-    {
-        if (!canSeePlayer && enemy.remainingDistance < 0.5f)
-        {
-            enemy.destination = destinationPoints[currentDestination].position;
-            UpdateCurrentPoint();
-        }
-    }
 
-    void UpdateCurrentPoint()
-    {
-        if (currentDestination == destinationPoints.Length - 1)
+        private void Update()
         {
-            currentDestination = 0;
+            _playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, whatIsPlayer);
+            _playerInAttackRange = Physics.CheckSphere(transform.position, _attackRange, whatIsPlayer);
+
+            if (!_playerInSightRange && !_playerInAttackRange) Patrol();
+            if (_playerInSightRange && !_playerInAttackRange) Chase();
+            if (_playerInSightRange && _playerInAttackRange) Attack();
         }
-        else
+
+        private void Patrol()
         {
-            currentDestination++;
+            if (!_waypointSet) SearchWaypoint();
+
+            if (_waypointSet) _enemy.SetDestination(waypoint);
+
+            var distanceToWayPoint = transform.position - waypoint;
+
+            //Waypoint reached
+            if (distanceToWayPoint.magnitude < 1f) _waypointSet = false;
+        }
+
+        private void SearchWaypoint()
+        {
+            float randomZ = Random.Range(-_waypointRange, _waypointRange);
+            float randomX = Random.Range(-_waypointRange, _waypointRange);
+
+            waypoint = new Vector3(transform.position.x + randomX, transform.position.y,
+                transform.position.z + randomZ);
+
+            if (Physics.Raycast(waypoint, -transform.up, 2f, whatIsGround))
+            {
+                _waypointSet = true;
+            }
+        }
+
+        private void Chase()
+        {
+            _enemy.SetDestination(_playerTarget.position);
+        }
+
+        private void Attack()
+        {
+            //Stop enemy movement
+            _enemy.SetDestination(transform.position);
+
+            transform.LookAt(_playerTarget);
+
+            if (!_alreadyAttacked)
+            {
+                //Attack code here
+
+                _alreadyAttacked = true;
+                Invoke(nameof(ResetAttack), _timeBetweenAttacks);
+            }
+        }
+
+        private void ResetAttack()
+        {
+            _alreadyAttacked = false;
+        }
+
+        public void TakeDamage(int damage)
+        {
+            health -= damage;
+
+            if (health <= 0) Invoke(nameof(DestroyEnemy), .5f);
+        }
+
+        private void DestroyEnemy()
+        {
+            Destroy(gameObject);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, _attackRange);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, _sightRange);
         }
     }
-
-    void ChasePlayer()
-    {
-        StartCoroutine(ChaseTime());
-        canSeePlayer = true;
-        transform.LookAt(playerTarget.position);
-        Vector3 moveTo = Vector3.MoveTowards(transform.position, playerTarget.position, attackRadius);
-        enemy.SetDestination(moveTo);
-        
-    }
-
-
-    IEnumerator ChaseTime()
-    {
-        Debug.Log("Chasing");
-        yield return new WaitForSeconds(10.0f);
-        if (!Physics.Raycast(enemyEyes, out hitData, attackRadius * 2))
-        {
-            canSeePlayer = false;
-            Debug.Log("Lurking");
-            Lurk();
-        }
-    }
-}
 }

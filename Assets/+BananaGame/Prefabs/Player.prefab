@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 8696953563904003536}
   - component: {fileID: 9108917675126122351}
   - component: {fileID: 3221713547035849736}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,6 @@ MonoBehaviour:
   movementForce: 29
   groundDrag: 2.75
   fallingDrag: 1
-  turnSpeed: 2880
 --- !u!114 &9108917675126122351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +272,7 @@ GameObject:
   - component: {fileID: 8696953564221936067}
   - component: {fileID: 8696953564221936066}
   - component: {fileID: 8696953564221936065}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
