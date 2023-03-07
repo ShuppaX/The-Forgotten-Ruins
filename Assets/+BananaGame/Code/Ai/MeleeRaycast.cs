@@ -41,7 +41,7 @@ namespace BananaSoup
 
         private void Start()
         {
-            _playerTarget = PlayerBase.Instance.transform; //TODO Nullreffs 
+            _playerTarget = PlayerBase.Instance.transform;
         }
 
         private void Update()
