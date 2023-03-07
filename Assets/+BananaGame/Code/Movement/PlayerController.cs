@@ -12,8 +12,6 @@ namespace BananaSoup
         [Header("Movement")]
         [SerializeField, Tooltip("The amount of force for moving the character.")]
         private float movementForce = 5.0f;
-        [SerializeField, Tooltip("Maximum movementspeed for the character.")]
-        private float maxSpeed = 7.0f;
         [SerializeField, Tooltip("The amount of drag used while the character is on the ground.")]
         private float groundDrag = 3.5f;
         [SerializeField, Tooltip("The amount of drag used while the character is not on the ground.")]
@@ -32,8 +30,12 @@ namespace BananaSoup
         private Vector3 movementDirection = Vector3.zero;
 
         private bool wasGrounded = false;
+
         [SerializeField]
         private float groundCheckOffset = 0.05f;
+
+        [SerializeField]
+        private float cameraAngle = 45.0f;
 
         private float characterWidth = 0;
         private float characterHeight = 0;
@@ -78,11 +80,12 @@ namespace BananaSoup
 
         private void Update()
         {
-            SpeedLimiter();
-
-            Debug.Log("Ground check = " + GroundCheck());
-            Debug.Log("Slope check = " + OnSlope());
+            //Debug.Log("Ground check = " + GroundCheck());
+            //Debug.Log("Slope check = " + OnSlope());
             Debug.Log("RigidBodys velocity = " + rb.velocity);
+
+            //Debug.Log("Current movementInput: " + movementInput);
+            //Debug.Log("Current movementDirection: " + movementDirection);
         }
 
         private void FixedUpdate()
@@ -108,60 +111,50 @@ namespace BananaSoup
         public void OnMove(InputAction.CallbackContext context)
         {
             Vector2 input = context.ReadValue<Vector2>();
-            movementInput.Set(input.x, 0, input.y);
+            movementInput = new Vector3(input.x, 0, input.y);
+        }
+
+        /// <summary>
+        /// Method used to convert the original movement vector to match the correct
+        /// angles of movement for the isometric view. The method uses the cameras angle
+        /// in a matrix.
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns>The converted movement vector.</returns>
+        private Vector3 IsoVectorConvert(Vector3 vector)
+        { 
+            Quaternion rotation = Quaternion.Euler(0, cameraAngle, 0);
+            Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
+            Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
+            return result;
         }
 
         /// <summary>
         /// Moves the character in the direction of the players input.
-        /// Uses the inputs magnitude to calculate correct movement for an isometric view.
+        /// Uses the method above to translate the movementInput to fit the isometric
+        /// view and then multiplies it by the movementForce.
         /// </summary>
         private void Move()
         {
-            movementDirection += (transform.forward * movementInput.magnitude) * movementForce;
+            movementDirection = IsoVectorConvert(movementInput) * movementForce;
 
             if ( OnSlope() && GroundCheck() )
             {
-                rb.AddForce(GetSlopeMoveDirection() * movementForce);
+                rb.AddForce(GetSlopeMoveDirection(), ForceMode.Force);
 
                 if ( rb.velocity.y > 0 )
                 {
-                    rb.AddForce(Vector3.down * downwardSlopeForce);
+                    rb.AddForce(Vector3.down * downwardSlopeForce, ForceMode.Force);
                 }
             }
-
-            if ( GroundCheck() )
+            else if ( GroundCheck() )
             {
-                rb.AddForce(movementDirection);
+                rb.AddForce(movementDirection, ForceMode.Force);
                 movementDirection = Vector3.zero;
             }
 
-            // Turn the RigidBodys gravity off while on a slope
+            //Turn the RigidBodys gravity off while on a slope
             rb.useGravity = !OnSlope();
-        }
-
-        private void SpeedLimiter()
-        {
-            // Limit characters movement speed on slopes
-            if ( OnSlope() )
-            {
-                if ( rb.velocity.magnitude > maxSpeed )
-                {
-                    rb.velocity = rb.velocity.normalized * maxSpeed;
-                }
-            }
-
-            // Limiting the speed on the ground or air
-            else
-            {
-                Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-                // Limit the velocity if necessary.
-                if ( flatVel.magnitude > maxSpeed )
-                {
-                    Vector3 limitedVel = flatVel.normalized * maxSpeed;
-                    rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-                }
-            }
         }
 
         /// <summary>
