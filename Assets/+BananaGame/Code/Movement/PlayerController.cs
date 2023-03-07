@@ -79,12 +79,7 @@ namespace BananaSoup
         {
             //Debug.Log("Ground check = " + GroundCheck());
             //Debug.Log("Slope check = " + OnSlope());
-            Debug.Log("RigidBodys velocity = " + rb.velocity);
-
-            //Debug.Log("Current movementInput: " + movementInput);
-            //Debug.Log("Current movementDirection: " + movementDirection);
-
-            Debug.Log("hit: " + slopeHit.normal);
+            //Debug.Log("RigidBodys velocity = " + rb.velocity);
         }
 
         private void FixedUpdate()
@@ -111,7 +106,7 @@ namespace BananaSoup
         {
             Vector2 input = context.ReadValue<Vector2>();
             movementInput = new Vector3(input.x, 0, input.y);
-            movementDirection = IsoVectorConvert(movementInput) * movementForce;
+            movementDirection = IsoVectorConvert(movementInput);
         }
 
         /// <summary>
@@ -122,7 +117,7 @@ namespace BananaSoup
         /// <param name="vector"></param>
         /// <returns>The converted movement vector.</returns>
         private Vector3 IsoVectorConvert(Vector3 vector)
-        { 
+        {
             Quaternion rotation = Quaternion.Euler(0, cameraAngle, 0);
             Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
             Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
@@ -136,9 +131,9 @@ namespace BananaSoup
         /// </summary>
         private void Move()
         {
-            if ( OnSlope() && GroundCheck() )
+            if ( OnSlope() )
             {
-                rb.AddForce(GetSlopeMoveDirection(), ForceMode.Force);
+                rb.AddForce(GetSlopeMoveDirection() * movementForce, ForceMode.Force);
 
                 if ( rb.velocity.y > 0 )
                 {
@@ -147,11 +142,8 @@ namespace BananaSoup
             }
             else if ( GroundCheck() )
             {
-                rb.AddForce(movementDirection, ForceMode.Force);
+                rb.AddForce(movementDirection * movementForce, ForceMode.Force);
             }
-
-            //Turn the RigidBodys gravity off while on a slope
-            rb.useGravity = !OnSlope();
         }
 
         /// <summary>
@@ -204,10 +196,16 @@ namespace BananaSoup
 
         private bool OnSlope()
         {
-            if ( RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, out slopeHit, characterHeight * 0.5f + 0.3f, PreviewCondition.Editor, 0, Color.green, Color.red) )
+            if ( RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, out slopeHit, (characterHeight / 2) + groundCheckOffset, PreviewCondition.Editor, 0, Color.green, Color.red) )
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                return angle < maxSlopeAngle && angle != 0;
+                bool angleNotZero = (angle != 0);
+                bool angleLessThanMaxSlopeAngle = (angle < maxSlopeAngle);
+
+                if ( angleLessThanMaxSlopeAngle && angleNotZero )
+                {
+                    return true;
+                }
             }
 
             return false;
@@ -216,12 +214,15 @@ namespace BananaSoup
         private Vector3 GetSlopeMoveDirection()
         {
             return Vector3.ProjectOnPlane(movementDirection, slopeHit.normal).normalized;
+
+            //Vector3 directionRight = Vector3.Cross(movementDirection, Vector3.up);
+            //return Vector3.Cross(slopeHit.normal, directionRight).normalized;
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(slopeHit.point, (GetSlopeMoveDirection()));
+            Gizmos.DrawRay(slopeHit.point, GetSlopeMoveDirection());
         }
     }
 }

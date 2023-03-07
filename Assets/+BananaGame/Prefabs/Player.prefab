@@ -173,12 +173,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementForce: 29
-  maxSpeed: 7
   groundDrag: 2.75
   fallingDrag: 1
-  downwardSlopeForce: 80
+  downwardSlopeForce: 1
   groundCheckOffset: 0.25
-  maxSlopeAngle: 21
+  cameraAngle: 45
+  maxSlopeAngle: 40
 --- !u!114 &9108917675126122351
 MonoBehaviour:
   m_ObjectHideFlags: 0
