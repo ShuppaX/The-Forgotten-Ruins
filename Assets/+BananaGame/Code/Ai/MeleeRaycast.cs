@@ -5,6 +5,9 @@ using Random = UnityEngine.Random;
 
 namespace BananaSoup
 {
+    //Requirements
+    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(Rigidbody))]
     public class MeleeRaycast : MonoBehaviour
     {
         private NavMeshAgent _enemy; // assign navmesh agent
@@ -13,7 +16,7 @@ namespace BananaSoup
         public LayerMask whatIsGround, whatIsPlayer;
         public float health;
         private float _lastDidSomething; //refreshing timer to prevent non-stop actions
-        private float _pauseTime = 3f; //Time to pause after action
+        private readonly float _pauseTime = 3f; //Time to pause after action
 
         //patrol
         public Vector3 waypoint;
@@ -25,8 +28,11 @@ namespace BananaSoup
         private bool _alreadyAttacked;
 
         //states
-        private float _sightRange, _attackRange;
-        private bool _playerInSightRange, _playerInAttackRange;
+        [SerializeField] private float _sightRange; 
+        [SerializeField] float  _attackRange;
+        private bool _playerInSightRange;
+        private bool _playerInAttackRange;
+
 
         private void Awake()
         {
@@ -36,7 +42,6 @@ namespace BananaSoup
         private void Start()
         {
             _playerTarget = PlayerBase.Instance.transform; //TODO Nullreffs 
-
         }
 
         private void Update()
@@ -92,7 +97,7 @@ namespace BananaSoup
 
             if (!_alreadyAttacked)
             {
-                //Attack code here
+                //TODO Attack code here
 
                 _alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), _timeBetweenAttacks);
