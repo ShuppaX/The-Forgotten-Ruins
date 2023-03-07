@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7747237079570801881}
   - component: {fileID: 7747237079570801878}
   - component: {fileID: 827882117806595301}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BasicFollowEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
