@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -29,8 +30,13 @@ namespace BananaSoup
 
         private void Awake()
         {
-            _playerTarget = PlayerBase.Instance.GetComponent<Transform>(); //TODO Nullreffs 
-           _enemy = GetComponent<NavMeshAgent>();
+            _enemy = GetComponent<NavMeshAgent>();
+        }
+
+        private void Start()
+        {
+            _playerTarget = PlayerBase.Instance.transform; //TODO Nullreffs 
+
         }
 
         private void Update()
@@ -40,7 +46,7 @@ namespace BananaSoup
             _playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, whatIsPlayer);
             _playerInAttackRange = Physics.CheckSphere(transform.position, _attackRange, whatIsPlayer);
 
-            
+
             if (!_playerInSightRange && !_playerInAttackRange) Patrol();
             if (_playerInSightRange && !_playerInAttackRange) Chase();
             if (_playerInSightRange && _playerInAttackRange) Attack();
@@ -62,16 +68,13 @@ namespace BananaSoup
 
         private void SearchWaypoint()
         {
-            float randomZ = Random.Range(-_waypointRange, _waypointRange);
-            float randomX = Random.Range(-_waypointRange, _waypointRange);
+            var randomZ = Random.Range(-_waypointRange, _waypointRange);
+            var randomX = Random.Range(-_waypointRange, _waypointRange);
 
             waypoint = new Vector3(transform.position.x + randomX, transform.position.y,
                 transform.position.z + randomZ);
 
-            if (Physics.Raycast(waypoint, -transform.up, 2f, whatIsGround))
-            {
-                _waypointSet = true;
-            }
+            if (Physics.Raycast(waypoint, -transform.up, 2f, whatIsGround)) _waypointSet = true;
             _lastDidSomething = Time.time;
         }
 
@@ -94,7 +97,7 @@ namespace BananaSoup
                 _alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), _timeBetweenAttacks);
             }
-            
+
             _lastDidSomething = Time.time;
         }
 
