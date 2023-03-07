@@ -21,9 +21,6 @@ namespace BananaSoup
         [SerializeField, Tooltip("The downward force on the character on slopes.")]
         private float downwardSlopeForce = 80.0f;
 
-        // This is required for the smooth turning. (In the Look method)
-        //[SerializeField, Tooltip("The turning speed of the character while changing direction.")] private float turnSpeed = 360.0f;
-
         // Variables used to store in script values.
         private Rigidbody rb;
         private Vector3 movementInput = Vector3.zero;
@@ -86,6 +83,8 @@ namespace BananaSoup
 
             //Debug.Log("Current movementInput: " + movementInput);
             //Debug.Log("Current movementDirection: " + movementDirection);
+
+            Debug.Log("hit: " + slopeHit.normal);
         }
 
         private void FixedUpdate()
@@ -100,7 +99,7 @@ namespace BananaSoup
 
             if ( playerBase.IsTurnable )
             {
-                Look(Time.fixedDeltaTime);
+                Look();
             }
         }
 
@@ -112,6 +111,7 @@ namespace BananaSoup
         {
             Vector2 input = context.ReadValue<Vector2>();
             movementInput = new Vector3(input.x, 0, input.y);
+            movementDirection = IsoVectorConvert(movementInput) * movementForce;
         }
 
         /// <summary>
@@ -136,8 +136,6 @@ namespace BananaSoup
         /// </summary>
         private void Move()
         {
-            movementDirection = IsoVectorConvert(movementInput) * movementForce;
-
             if ( OnSlope() && GroundCheck() )
             {
                 rb.AddForce(GetSlopeMoveDirection(), ForceMode.Force);
@@ -150,7 +148,6 @@ namespace BananaSoup
             else if ( GroundCheck() )
             {
                 rb.AddForce(movementDirection, ForceMode.Force);
-                movementDirection = Vector3.zero;
             }
 
             //Turn the RigidBodys gravity off while on a slope
@@ -180,23 +177,14 @@ namespace BananaSoup
 
         /// <summary>
         /// Rotates the character towards the direction of movement.
-        /// Also calculates the correct rotation for the character for an isometric view.
+        /// The correct direction is calculated using IsoVectorConvert method.
         /// Moving up rotates the character up instead of up and left.
         /// </summary>
-        /// <param name="deltaTime">Use Time.fixedDeltaTime.</param>
-        private void Look(float deltaTime)
+        private void Look()
         {
             if ( movementInput != Vector3.zero )
             {
-                var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
-
-                var skewedInput = matrix.MultiplyPoint3x4(movementInput);
-
-                var relative = (transform.position + skewedInput) - transform.position;
-                var rot = Quaternion.LookRotation(relative, Vector3.up);
-
-                // Use this for smooth turning
-                //transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * deltaTime);
+                var rot = Quaternion.LookRotation(IsoVectorConvert(movementInput), Vector3.up);
 
                 // Use this for instant turning
                 transform.rotation = rot;
@@ -209,7 +197,9 @@ namespace BananaSoup
         /// <returns>True if the spherecast finds something below, false if not.</returns>
         private bool GroundCheck()
         {
-            return (RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, (characterHeight / 2) + groundCheckOffset, PreviewCondition.Editor, 0, Color.green, Color.red));
+            //return (RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, (characterHeight / 2) + groundCheckOffset, PreviewCondition.Editor, 0, Color.green, Color.red));
+            return UnityEngine.Physics.Raycast(transform.position, Vector3.down, (characterHeight / 2) + groundCheckOffset);
+
         }
 
         private bool OnSlope()
@@ -226,6 +216,12 @@ namespace BananaSoup
         private Vector3 GetSlopeMoveDirection()
         {
             return Vector3.ProjectOnPlane(movementDirection, slopeHit.normal).normalized;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawRay(slopeHit.point, (GetSlopeMoveDirection()));
         }
     }
 }
