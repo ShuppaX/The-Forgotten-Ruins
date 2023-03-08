@@ -53,7 +53,6 @@ namespace BananaSoup
 
         // Variables used to store in script values and references.
         private Rigidbody rb;
-        private PlayerBase playerBase;
         private CapsuleCollider playerCollider;
 
         private Vector3 movementInput = Vector3.zero;
@@ -91,12 +90,6 @@ namespace BananaSoup
                 Debug.LogError("A Rigidbody couldn't be found on the " + gameObject + "!");
             }
 
-            playerBase = GetComponent<PlayerBase>();
-            if ( playerBase == null )
-            {
-                Debug.LogError("A PlayerBase couldn't be found on the " + gameObject + "!");
-            }
-
             playerCollider = GetComponent<CapsuleCollider>();
             if (playerCollider == null )
             {
@@ -128,7 +121,7 @@ namespace BananaSoup
 
         private void FixedUpdate()
         {
-            if ( playerBase.IsMovable )
+            if ( PlayerBase.Instance.IsMovable )
             {
                 if ( SetDrag() )
                 {
@@ -136,7 +129,7 @@ namespace BananaSoup
                 }
             }
 
-            if ( playerBase.IsTurnable )
+            if ( PlayerBase.Instance.IsTurnable )
             {
                 Look();
             }
@@ -244,10 +237,12 @@ namespace BananaSoup
             {
                 if ( ray )
                 {
+                    // TODO: Set PlayerBase enum to grounded
                     return true;
                 }
             }
 
+            // TODO: Set PlayerBase enum to airborne
             return false;
         }
 

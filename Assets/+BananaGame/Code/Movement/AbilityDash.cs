@@ -9,18 +9,24 @@ namespace BananaSoup
     public class AbilityDash : MonoBehaviour
     {
         [Header("Dash variables")]
-        [SerializeField, Tooltip("The amount of force for dashing.")] private float dashForce = 5.0f;
-        [SerializeField, Tooltip("The cooldown until dash can be used again.")] private float dashCooldown = 4.0f;
-        [SerializeField, Tooltip("The duration of the dash.")] private float dashDuration = 0.25f;
+        [SerializeField, Tooltip("The amount of force for dashing.")]
+        private float dashForce = 5.0f;
+        [SerializeField, Tooltip("The cooldown until dash can be used again.")]
+        private float dashCooldown = 4.0f;
+        [SerializeField, Tooltip("The duration of the dash.")]
+        private float dashDuration = 0.25f;
 
         private Rigidbody rb;
 
         private bool dashOnCooldown = false;
         private Coroutine dashCooldownRoutine = null;
 
-        // The bool isDashing is not currently in use
-        // TODO: Make use for isDashing or remove it.
         private bool isDashing = false;
+
+        public bool IsDashing
+        {
+            get { return isDashing; }
+        }
 
         private PlayerBase playerBase;
 

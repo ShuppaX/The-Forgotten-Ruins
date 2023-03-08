@@ -9,10 +9,19 @@ namespace BananaSoup
     {
         public static PlayerBase Instance { get; private set; }
         private PlayerInput playerInput;
-        private InputAction interactAction;
         private bool areAbilitiesEnabled = true;
         private bool isMovable = true;
         private bool isTurnable = true;
+
+        public enum PlayerStates
+        {
+            Idle        = 0,
+            Running     = 1,
+            Dashing     = 2,
+            Attacking   = 3,
+            Interacting = 4,
+            InAir       = 5
+        }
 
         public bool AreAbilitiesEnabled
         {
@@ -65,9 +74,6 @@ namespace BananaSoup
         private void Setup()
         {
             playerInput = new PlayerInput();
-
-            // NOTE: Do we need this? Is this unnecessary?
-            interactAction = playerInput.Player.Interact;
         }
     }
 }
