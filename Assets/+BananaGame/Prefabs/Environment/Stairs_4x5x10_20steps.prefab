@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 412987179725265287}
   - component: {fileID: 412987179725265288}
   - component: {fileID: 412987179725265289}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stairs_4x5x10_20steps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3653,7 +3653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3092277175181460409}
   - component: {fileID: 4256267101192892334}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

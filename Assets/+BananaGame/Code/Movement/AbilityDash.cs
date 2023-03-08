@@ -45,6 +45,9 @@ namespace BananaSoup
             }
         }
 
+        //TODO: Have the dash disable gravity for the duration of the dash and possibly
+        //TODO: have the character rise a bit when dashing?
+
         /// <summary>
         /// A dash movement for the player character. Allows the character to dash if
         /// dash isn't on cooldown.

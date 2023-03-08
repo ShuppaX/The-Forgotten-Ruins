@@ -176,8 +176,11 @@ MonoBehaviour:
   groundDrag: 2.75
   fallingDrag: 1
   downwardSlopeForce: 1
-  groundCheckOffset: 0.25
   cameraAngle: 45
+  groundCheckOffset: 0.25
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
   maxSlopeAngle: 40
 --- !u!114 &9108917675126122351
 MonoBehaviour:

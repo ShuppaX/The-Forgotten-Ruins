@@ -30,15 +30,18 @@ namespace BananaSoup
 
         bool[] raycasts = new bool[4];
 
-        private float groundCheckRayLength = 0;
+        private float groundCheckRayLength = 0.0f;
 
         private Vector3 negPositionX;
         private Vector3 posPositionX;
         private Vector3 negPositionZ;
         private Vector3 posPositionZ;
 
-        private float groundCheckRayNegativeOffset = -1.0f;
-        private float groundCheckRayPositiveOffset = 1.0f;
+        private float groundCheckRayOffset = 0.0f;
+        private float groundCheckRadiusMultiplier = 0.9f;
+
+        [SerializeField]
+        private LayerMask groundLayer;
 
         private bool wasGrounded = false;
 
@@ -51,6 +54,7 @@ namespace BananaSoup
         // Variables used to store in script values and references.
         private Rigidbody rb;
         private PlayerBase playerBase;
+        private CapsuleCollider playerCollider;
 
         private Vector3 movementInput = Vector3.zero;
         private Vector3 movementDirection = Vector3.zero;
@@ -65,10 +69,22 @@ namespace BananaSoup
             Setup();
         }
 
+        /// <summary>
+        /// Setup method which is called in Start() to get different constant variables
+        /// and/or components etc.
+        /// </summary>
         private void Setup()
         {
-            groundCheckRayLength = (transform.localScale.y / 2) + groundCheckOffset;
+            GetComponents();
+            SetRayVariables();
+        }
 
+        /// <summary>
+        /// Method used to get different components and to throw an error if a component
+        /// is missing.
+        /// </summary>
+        private void GetComponents()
+        {
             rb = GetComponent<Rigidbody>();
             if ( rb == null )
             {
@@ -80,6 +96,21 @@ namespace BananaSoup
             {
                 Debug.LogError("A PlayerBase couldn't be found on the " + gameObject + "!");
             }
+
+            playerCollider = GetComponent<CapsuleCollider>();
+            if (playerCollider == null )
+            {
+                Debug.LogError("A CapsuleCollider couldn't be found on the " + gameObject + "!");
+            }
+        }
+
+        /// <summary>
+        /// Method to set the variables used for GroundChecks raycasting (used in Setup()).
+        /// </summary>
+        private void SetRayVariables()
+        {
+            groundCheckRayLength = (transform.localScale.y / 2) + groundCheckOffset;
+            groundCheckRayOffset = playerCollider.radius * groundCheckRadiusMultiplier;
         }
 
 
@@ -88,6 +119,11 @@ namespace BananaSoup
             //Debug.Log("Ground check = " + GroundCheck());
             //Debug.Log("Slope check = " + OnSlope());
             //Debug.Log("RigidBodys velocity = " + rb.velocity);
+
+            //Debug.Log("negPositionX: " + negPositionX);
+            //Debug.Log("posPositionX: " + posPositionX);
+            //Debug.Log("negPositionZ: " + negPositionZ);
+            //Debug.Log("posPositionZ: " + posPositionZ);
         }
 
         private void FixedUpdate()
@@ -199,10 +235,10 @@ namespace BananaSoup
         {
             CalculateGroundCheckRayStartPoints();
 
-            raycasts[0] = UnityEngine.Physics.Raycast(negPositionX, Vector3.down, groundCheckRayLength);
-            raycasts[1] = UnityEngine.Physics.Raycast(posPositionX, Vector3.down, groundCheckRayLength);
-            raycasts[2] = UnityEngine.Physics.Raycast(negPositionZ, Vector3.down, groundCheckRayLength);
-            raycasts[3] = UnityEngine.Physics.Raycast(posPositionZ, Vector3.down, groundCheckRayLength);
+            GroundCheckRay(0, negPositionX);
+            GroundCheckRay(1, posPositionX);
+            GroundCheckRay(2, negPositionZ);
+            GroundCheckRay(3, posPositionZ);
 
             foreach ( bool ray in raycasts )
             {
@@ -216,14 +252,28 @@ namespace BananaSoup
         }
 
         /// <summary>
+        /// Creates a raycast with the given parameters. The ray(s) are used for the GroundCheck.
+        /// </summary>
+        /// <param name="index">The index of the ray used (up to 4)</param>
+        /// <param name="position">The start position (offset) of the ray.</param>
+        private void GroundCheckRay(int index, Vector3 position)
+        {
+            raycasts[index] = UnityEngine.Physics.Raycast(position, Vector3.down, groundCheckRayLength);
+
+            // This can be used for debugging the raycasts using the RotaryHeart physics debugging extension.
+            // It draws the ray green if it hits the groundchecklayer and red if it doesnt and there is also a red cross to mark the rayhit.
+            //raycasts[index] = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(position, Vector3.down, groundCheckRayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
+        }
+
+        /// <summary>
         /// This method calculates the starting points for the four rays used for GroundCheck.
         /// </summary>
         private void CalculateGroundCheckRayStartPoints()
         {
-            negPositionX.Set(transform.position.x - groundCheckRayNegativeOffset, transform.position.y, transform.position.z);
-            posPositionX.Set(transform.position.x + groundCheckRayPositiveOffset, transform.position.y, transform.position.z);
-            negPositionZ.Set(transform.position.x, transform.position.y, transform.position.z - groundCheckRayNegativeOffset);
-            posPositionZ.Set(transform.position.x, transform.position.y, transform.position.z + groundCheckRayPositiveOffset);
+            negPositionX.Set(transform.position.x - groundCheckRayOffset, transform.position.y, transform.position.z);
+            posPositionX.Set(transform.position.x + groundCheckRayOffset, transform.position.y, transform.position.z);
+            negPositionZ.Set(transform.position.x, transform.position.y, transform.position.z - groundCheckRayOffset);
+            posPositionZ.Set(transform.position.x, transform.position.y, transform.position.z + groundCheckRayOffset);
         }
 
         /// <summary>

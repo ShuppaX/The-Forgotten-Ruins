@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8683018386789703856}
   - component: {fileID: 1504756549788704187}
   - component: {fileID: 9032632611952212027}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bridge_Intersection
   m_TagString: Untagged
   m_Icon: {fileID: 0}

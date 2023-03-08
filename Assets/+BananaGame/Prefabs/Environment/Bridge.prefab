@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6101442233618232921}
   - component: {fileID: 7991158773890718469}
   - component: {fileID: 7851738334066285075}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,6 +174,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PLH_Pillar 2_2_20m (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101844692402106686, guid: c557a5caa53e2a34992376d311b50daa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c557a5caa53e2a34992376d311b50daa, type: 3}
