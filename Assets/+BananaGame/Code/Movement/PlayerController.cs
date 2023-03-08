@@ -21,32 +21,40 @@ namespace BananaSoup
         [SerializeField, Tooltip("The downward force on the character on slopes.")]
         private float downwardSlopeForce = 80.0f;
 
-        // Variables used to store in script values.
-        private Rigidbody rb;
-        private Vector3 movementInput = Vector3.zero;
-        private Vector3 movementDirection = Vector3.zero;
+        [SerializeField, Tooltip("The games camera angle. (Used to calculate correct movement directions.)")]
+        private float cameraAngle = 45.0f;
 
-        private bool wasGrounded = false;
-
+        [Header("GroundCheck variables")]
         [SerializeField]
         private float groundCheckOffset = 0.05f;
 
-        [SerializeField]
-        private float cameraAngle = 45.0f;
+        bool[] raycasts = new bool[4];
 
-        private float characterWidth = 0;
-        private float characterHeight = 0;
+        private float groundCheckRayLength = 0;
 
-        [Header("Slope")]
+        private Vector3 negPositionX;
+        private Vector3 posPositionX;
+        private Vector3 negPositionZ;
+        private Vector3 posPositionZ;
+
+        private float groundCheckRayNegativeOffset = -1.0f;
+        private float groundCheckRayPositiveOffset = 1.0f;
+
+        private bool wasGrounded = false;
+
+        [Header("Slope variables")]
         [SerializeField, Tooltip("The maximum angle for a slope the player can walk on.")]
         private float maxSlopeAngle = 70.0f;
 
         private RaycastHit slopeHit;
 
+        // Variables used to store in script values and references.
+        private Rigidbody rb;
         private PlayerBase playerBase;
 
-        // TODO: Decide whether to keep this or not (is there any use for it,
-        // TODO: for example in animations etc.)
+        private Vector3 movementInput = Vector3.zero;
+        private Vector3 movementDirection = Vector3.zero;
+
         public bool IsGrounded
         {
             get { return GroundCheck(); }
@@ -59,8 +67,7 @@ namespace BananaSoup
 
         private void Setup()
         {
-            characterWidth = transform.localScale.x;
-            characterHeight = transform.localScale.y;
+            groundCheckRayLength = (transform.localScale.y / 2) + groundCheckOffset;
 
             rb = GetComponent<Rigidbody>();
             if ( rb == null )
@@ -74,6 +81,7 @@ namespace BananaSoup
                 Debug.LogError("A PlayerBase couldn't be found on the " + gameObject + "!");
             }
         }
+
 
         private void Update()
         {
@@ -105,7 +113,7 @@ namespace BananaSoup
         public void OnMove(InputAction.CallbackContext context)
         {
             Vector2 input = context.ReadValue<Vector2>();
-            movementInput = new Vector3(input.x, 0, input.y);
+            movementInput.Set(input.x, 0, input.y);
             movementDirection = IsoVectorConvert(movementInput);
         }
 
@@ -184,19 +192,52 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Uses a spherecast to check if the character has something to collide with below it.
+        /// Uses four separate raycasts to track if the player is standing on something or not.
         /// </summary>
-        /// <returns>True if the spherecast finds something below, false if not.</returns>
+        /// <returns>True if any of the rays is true, false if not.</returns>
         private bool GroundCheck()
         {
-            //return (RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, (characterHeight / 2) + groundCheckOffset, PreviewCondition.Editor, 0, Color.green, Color.red));
-            return UnityEngine.Physics.Raycast(transform.position, Vector3.down, (characterHeight / 2) + groundCheckOffset);
+            CalculateGroundCheckRayStartPoints();
 
+            raycasts[0] = UnityEngine.Physics.Raycast(negPositionX, Vector3.down, groundCheckRayLength);
+            raycasts[1] = UnityEngine.Physics.Raycast(posPositionX, Vector3.down, groundCheckRayLength);
+            raycasts[2] = UnityEngine.Physics.Raycast(negPositionZ, Vector3.down, groundCheckRayLength);
+            raycasts[3] = UnityEngine.Physics.Raycast(posPositionZ, Vector3.down, groundCheckRayLength);
+
+            foreach ( bool ray in raycasts )
+            {
+                if ( ray )
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
+        /// <summary>
+        /// This method calculates the starting points for the four rays used for GroundCheck.
+        /// </summary>
+        private void CalculateGroundCheckRayStartPoints()
+        {
+            negPositionX.Set(transform.position.x - groundCheckRayNegativeOffset, transform.position.y, transform.position.z);
+            posPositionX.Set(transform.position.x + groundCheckRayPositiveOffset, transform.position.y, transform.position.z);
+            negPositionZ.Set(transform.position.x, transform.position.y, transform.position.z - groundCheckRayNegativeOffset);
+            posPositionZ.Set(transform.position.x, transform.position.y, transform.position.z + groundCheckRayPositiveOffset);
+        }
+
+        /// <summary>
+        /// A method used to track if the player is on a slope or not. It uses a raycast
+        /// and calculates the angle between Vector3.up and the objects that the raycast hits normal.
+        /// </summary>
+        /// <returns>True if the angle between the Vector3.up and hit objects normal is less than the
+        /// maximum allowed slope angle and if the angle is not zero.</returns>
         private bool OnSlope()
         {
-            if ( RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, out slopeHit, (characterHeight / 2) + groundCheckOffset, PreviewCondition.Editor, 0, Color.green, Color.red) )
+            // RotaryHeart debug for this Slope Raycast
+            // RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, out slopeHit, (characterHeight / 2) + groundCheckOffset, PreviewCondition.Editor, 0, Color.green, Color.red)
+
+            if ( UnityEngine.Physics.Raycast(transform.position, Vector3.down, out slopeHit, (groundCheckRayLength / 2) + groundCheckOffset) )
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
                 bool angleNotZero = (angle != 0);
@@ -211,12 +252,13 @@ namespace BananaSoup
             return false;
         }
 
+        /// <summary>
+        /// Method used to calclulate the movement direction while on a slope.
+        /// </summary>
+        /// <returns>The normalized ProjectOnPlane Vector3 where the adjusted direction is calculated.</returns>
         private Vector3 GetSlopeMoveDirection()
         {
             return Vector3.ProjectOnPlane(movementDirection, slopeHit.normal).normalized;
-
-            //Vector3 directionRight = Vector3.Cross(movementDirection, Vector3.up);
-            //return Vector3.Cross(slopeHit.normal, directionRight).normalized;
         }
 
         private void OnDrawGizmos()
