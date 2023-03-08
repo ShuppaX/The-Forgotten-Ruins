@@ -157,7 +157,6 @@ namespace BananaSoup
                 {
                     PlayerBase.Instance.playerState = PlayerBase.PlayerState.Idle;
                 }
-
             }
         }
 
