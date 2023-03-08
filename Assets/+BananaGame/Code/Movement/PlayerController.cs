@@ -138,17 +138,26 @@ namespace BananaSoup
 
         private void SetPlayerState()
         {
-            if ( GroundCheck() && isMoving && PlayerBase.Instance.playerState != PlayerBase.PlayerState.Dashing )
+            if ( PlayerBase.Instance.playerState == PlayerBase.PlayerState.Dashing )
             {
-                PlayerBase.Instance.playerState = PlayerBase.PlayerState.Moving;
+                return;
             }
-            else if ( GroundCheck() && !isMoving && PlayerBase.Instance.playerState != PlayerBase.PlayerState.Dashing )
-            {
-                PlayerBase.Instance.playerState = PlayerBase.PlayerState.Idle;
-            }
-            else if ( !GroundCheck() && PlayerBase.Instance.playerState != PlayerBase.PlayerState.Dashing )
+
+            if ( !GroundCheck() )
             {
                 PlayerBase.Instance.playerState = PlayerBase.PlayerState.InAir;
+            }
+            else
+            {
+                if ( isMoving )
+                {
+                    PlayerBase.Instance.playerState = PlayerBase.PlayerState.Moving;
+                }
+                else if ( !isMoving )
+                {
+                    PlayerBase.Instance.playerState = PlayerBase.PlayerState.Idle;
+                }
+
             }
         }
 
