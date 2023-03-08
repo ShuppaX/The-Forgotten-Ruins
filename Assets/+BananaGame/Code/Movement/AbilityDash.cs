@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace BananaSoup
 {
-    [RequireComponent(typeof(PlayerBase))]
+    [RequireComponent(typeof(PlayerBase), typeof(PlayerStateManager))]
     public class AbilityDash : MonoBehaviour
     {
         public static AbilityDash Instance { get; private set; }
@@ -23,7 +23,17 @@ namespace BananaSoup
         private bool dashOnCooldown = false;
         private Coroutine dashCooldownRoutine = null;
 
-        private PlayerBase playerBase;
+        private void Awake()
+        {
+            if ( Instance == null )
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         private void Start()
         {
@@ -38,12 +48,6 @@ namespace BananaSoup
             {
                 Debug.LogError("The dash ability couldn't find a Rigidbody on the gameObject: " + gameObject + "!");
             }
-
-            playerBase = GetComponent<PlayerBase>();
-            if ( playerBase == null )
-            {
-                Debug.LogError("A PlayerBase couldn't be found on the " + gameObject + "!");
-            }
         }
 
         //TODO: Have the dash disable gravity for the duration of the dash and possibly
@@ -57,11 +61,11 @@ namespace BananaSoup
         /// <param name="context">The players dash input.</param>
         public void OnDash(InputAction.CallbackContext context)
         {
-            if ( playerBase.AreAbilitiesEnabled )
+            if ( PlayerBase.Instance.AreAbilitiesEnabled )
             {
                 if ( !dashOnCooldown && context.phase == InputActionPhase.Performed )
                 {
-                    PlayerBase.Instance.playerState = PlayerBase.PlayerState.Dashing;
+                    PlayerStateManager.Instance.playerState = PlayerStateManager.State.Dashing;
                     Vector3 forceToApply = transform.forward * dashForce;
 
                     rb.velocity = forceToApply;
@@ -82,7 +86,7 @@ namespace BananaSoup
         /// </summary>
         private void ResetDash()
         {
-            PlayerBase.Instance.playerState = PlayerBase.PlayerState.Idle;
+            PlayerStateManager.Instance.playerState = PlayerStateManager.State.Idle;
         }
 
         /// <summary>

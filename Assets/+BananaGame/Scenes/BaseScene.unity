@@ -270,6 +270,11 @@ PrefabInstance:
       propertyPath: playerStateText
       value: 
       objectReference: {fileID: 228296213}
+    - target: {fileID: 946672923225475616, guid: 282df8200b8684c4683d177cd8e6ceea,
+        type: 3}
+      propertyPath: playerStateText
+      value: 
+      objectReference: {fileID: 228296213}
     - target: {fileID: 8696953563904003545, guid: 282df8200b8684c4683d177cd8e6ceea,
         type: 3}
       propertyPath: m_Name

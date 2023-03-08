@@ -6,7 +6,7 @@ using RotaryHeart.Lib.PhysicsExtension;
 
 namespace BananaSoup
 {
-    [RequireComponent(typeof(PlayerBase))]
+    [RequireComponent(typeof(PlayerBase), typeof(PlayerStateManager))]
     public class PlayerController : MonoBehaviour
     {
         public static PlayerController Instance { get; private set; }
@@ -21,7 +21,7 @@ namespace BananaSoup
 
         // This is used to keep the player down on the ground while walking up on slopes.
         [SerializeField, Tooltip("The downward force on the character on slopes.")]
-        private float downwardSlopeForce = 80.0f;
+        private float downwardSlopeForce = 1.0f;
 
         [SerializeField, Tooltip("The games camera angle. (Used to calculate correct movement directions.)")]
         private float cameraAngle = 45.0f;
@@ -30,7 +30,7 @@ namespace BananaSoup
         [SerializeField]
         private float groundCheckOffset = 0.05f;
 
-        bool[] raycasts = new bool[4];
+        private bool[] raycasts = new bool[4];
 
         private float groundCheckRayLength = 0.0f;
 
@@ -59,6 +59,18 @@ namespace BananaSoup
         private Vector3 movementDirection = Vector3.zero;
 
         private bool isMoving = false;
+
+        private void Awake()
+        {
+            if ( Instance == null )
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         private void Start()
         {
@@ -138,24 +150,24 @@ namespace BananaSoup
 
         private void SetPlayerState()
         {
-            if ( PlayerBase.Instance.playerState == PlayerBase.PlayerState.Dashing )
+            if ( PlayerStateManager.Instance.playerState == PlayerStateManager.State.Dashing )
             {
                 return;
             }
 
             if ( !GroundCheck() )
             {
-                PlayerBase.Instance.playerState = PlayerBase.PlayerState.InAir;
+                PlayerStateManager.Instance.playerState = PlayerStateManager.State.InAir;
             }
             else
             {
                 if ( isMoving )
                 {
-                    PlayerBase.Instance.playerState = PlayerBase.PlayerState.Moving;
+                    PlayerStateManager.Instance.playerState = PlayerStateManager.State.Moving;
                 }
                 else if ( !isMoving )
                 {
-                    PlayerBase.Instance.playerState = PlayerBase.PlayerState.Idle;
+                    PlayerStateManager.Instance.playerState = PlayerStateManager.State.Idle;
                 }
             }
         }
@@ -199,7 +211,7 @@ namespace BananaSoup
         /// </summary>
         private void Move()
         {
-            if ( PlayerBase.Instance.playerState == PlayerBase.PlayerState.Dashing )
+            if ( PlayerStateManager.Instance.playerState == PlayerStateManager.State.Dashing )
             {
                 return;
             }

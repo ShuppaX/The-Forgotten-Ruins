@@ -14,22 +14,6 @@ namespace BananaSoup
         private bool isMovable = true;
         private bool isTurnable = true;
 
-        [SerializeField]
-        private TMP_Text playerStateText;
-
-        [HideInInspector]
-        public PlayerState playerState = 0;
-
-        public enum PlayerState
-        {
-            Idle        = 0, // Default state
-            Moving      = 1,
-            Dashing     = 2,
-            Attacking   = 3,
-            Interacting = 4,
-            InAir       = 5
-        }
-
         public bool AreAbilitiesEnabled
         {
             get { return areAbilitiesEnabled; }
@@ -60,11 +44,6 @@ namespace BananaSoup
             }
 
             Setup();
-        }
-
-        private void Update()
-        {
-            playerStateText.SetText(playerState.ToString());
         }
 
         /// <summary>
