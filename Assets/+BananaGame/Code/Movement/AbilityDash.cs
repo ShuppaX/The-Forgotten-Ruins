@@ -8,6 +8,8 @@ namespace BananaSoup
     [RequireComponent(typeof(PlayerBase))]
     public class AbilityDash : MonoBehaviour
     {
+        public static AbilityDash Instance { get; private set; }
+
         [Header("Dash variables")]
         [SerializeField, Tooltip("The amount of force for dashing.")]
         private float dashForce = 5.0f;
@@ -20,13 +22,6 @@ namespace BananaSoup
 
         private bool dashOnCooldown = false;
         private Coroutine dashCooldownRoutine = null;
-
-        private bool isDashing = false;
-
-        public bool IsDashing
-        {
-            get { return isDashing; }
-        }
 
         private PlayerBase playerBase;
 
@@ -53,6 +48,7 @@ namespace BananaSoup
 
         //TODO: Have the dash disable gravity for the duration of the dash and possibly
         //TODO: have the character rise a bit when dashing?
+        //TODO: Also have the player "forced" to the ground while dashing.
 
         /// <summary>
         /// A dash movement for the player character. Allows the character to dash if
@@ -63,11 +59,11 @@ namespace BananaSoup
         {
             if ( playerBase.AreAbilitiesEnabled )
             {
-                isDashing = true;
-                Vector3 forceToApply = transform.forward * dashForce;
-
                 if ( !dashOnCooldown && context.phase == InputActionPhase.Performed )
                 {
+                    PlayerBase.Instance.playerState = PlayerBase.PlayerState.Dashing;
+                    Vector3 forceToApply = transform.forward * dashForce;
+
                     rb.velocity = forceToApply;
                     dashOnCooldown = true;
 
@@ -86,7 +82,7 @@ namespace BananaSoup
         /// </summary>
         private void ResetDash()
         {
-            isDashing = false;
+            PlayerBase.Instance.playerState = PlayerBase.PlayerState.Idle;
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,10 +14,16 @@ namespace BananaSoup
         private bool isMovable = true;
         private bool isTurnable = true;
 
-        public enum PlayerStates
+        [SerializeField]
+        private TMP_Text playerStateText;
+
+        [HideInInspector]
+        public PlayerState playerState = 0;
+
+        public enum PlayerState
         {
-            Idle        = 0,
-            Running     = 1,
+            Idle        = 0, // Default state
+            Moving      = 1,
             Dashing     = 2,
             Attacking   = 3,
             Interacting = 4,
@@ -53,6 +60,11 @@ namespace BananaSoup
             }
 
             Setup();
+        }
+
+        private void Update()
+        {
+            playerStateText.SetText(playerState.ToString());
         }
 
         /// <summary>

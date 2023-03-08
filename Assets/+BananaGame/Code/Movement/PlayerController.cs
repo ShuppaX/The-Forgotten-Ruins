@@ -9,6 +9,8 @@ namespace BananaSoup
     [RequireComponent(typeof(PlayerBase))]
     public class PlayerController : MonoBehaviour
     {
+        public static PlayerController Instance { get; private set; }
+
         [Header("Movement")]
         [SerializeField, Tooltip("The amount of force for moving the character.")]
         private float movementForce = 5.0f;
@@ -43,8 +45,6 @@ namespace BananaSoup
         [SerializeField]
         private LayerMask groundLayer;
 
-        private bool wasGrounded = false;
-
         [Header("Slope variables")]
         [SerializeField, Tooltip("The maximum angle for a slope the player can walk on.")]
         private float maxSlopeAngle = 70.0f;
@@ -58,10 +58,7 @@ namespace BananaSoup
         private Vector3 movementInput = Vector3.zero;
         private Vector3 movementDirection = Vector3.zero;
 
-        public bool IsGrounded
-        {
-            get { return GroundCheck(); }
-        }
+        private bool isMoving = false;
 
         private void Start()
         {
@@ -91,7 +88,7 @@ namespace BananaSoup
             }
 
             playerCollider = GetComponent<CapsuleCollider>();
-            if (playerCollider == null )
+            if ( playerCollider == null )
             {
                 Debug.LogError("A CapsuleCollider couldn't be found on the " + gameObject + "!");
             }
@@ -109,6 +106,8 @@ namespace BananaSoup
 
         private void Update()
         {
+            SetPlayerState();
+
             //Debug.Log("Ground check = " + GroundCheck());
             //Debug.Log("Slope check = " + OnSlope());
             //Debug.Log("RigidBodys velocity = " + rb.velocity);
@@ -123,7 +122,9 @@ namespace BananaSoup
         {
             if ( PlayerBase.Instance.IsMovable )
             {
-                if ( SetDrag() )
+                SetDrag();
+
+                if ( WasGrounded() )
                 {
                     Move();
                 }
@@ -132,6 +133,22 @@ namespace BananaSoup
             if ( PlayerBase.Instance.IsTurnable )
             {
                 Look();
+            }
+        }
+
+        private void SetPlayerState()
+        {
+            if ( GroundCheck() && isMoving && PlayerBase.Instance.playerState != PlayerBase.PlayerState.Dashing )
+            {
+                PlayerBase.Instance.playerState = PlayerBase.PlayerState.Moving;
+            }
+            else if ( GroundCheck() && !isMoving && PlayerBase.Instance.playerState != PlayerBase.PlayerState.Dashing )
+            {
+                PlayerBase.Instance.playerState = PlayerBase.PlayerState.Idle;
+            }
+            else if ( !GroundCheck() && PlayerBase.Instance.playerState != PlayerBase.PlayerState.Dashing )
+            {
+                PlayerBase.Instance.playerState = PlayerBase.PlayerState.InAir;
             }
         }
 
@@ -144,6 +161,12 @@ namespace BananaSoup
             Vector2 input = context.ReadValue<Vector2>();
             movementInput.Set(input.x, 0, input.y);
             movementDirection = IsoVectorConvert(movementInput);
+            isMoving = true;
+
+            if ( context.phase == InputActionPhase.Canceled )
+            {
+                isMoving = false;
+            }
         }
 
         /// <summary>
@@ -168,6 +191,11 @@ namespace BananaSoup
         /// </summary>
         private void Move()
         {
+            if ( PlayerBase.Instance.playerState == PlayerBase.PlayerState.Dashing )
+            {
+                return;
+            }
+
             if ( OnSlope() )
             {
                 rb.AddForce(GetSlopeMoveDirection() * movementForce, ForceMode.Force);
@@ -187,21 +215,32 @@ namespace BananaSoup
         /// Method used to set the drag to be lower while the character is not grounded
         /// allowing faster falling speed.
         /// </summary>
-        /// <returns>True if the character was grounded on the previous frame, false if not.</returns>
-        private bool SetDrag()
+        private void SetDrag()
         {
             if ( GroundCheck() )
             {
                 rb.drag = groundDrag;
-                wasGrounded = true;
             }
             else
             {
                 rb.drag = fallingDrag;
-                wasGrounded = false;
             }
+        }
 
-            return wasGrounded;
+        /// <summary>
+        /// Method to check if the player was grounded on previous frame (used in FixedUpdate)
+        /// </summary>
+        /// <returns>True if the player was grounded, otherwise false.</returns>
+        private bool WasGrounded()
+        {
+            if ( GroundCheck() )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -233,16 +272,14 @@ namespace BananaSoup
             GroundCheckRay(2, negPositionZ);
             GroundCheckRay(3, posPositionZ);
 
-            foreach ( bool ray in raycasts )
+            foreach ( bool rayHit in raycasts )
             {
-                if ( ray )
+                if ( rayHit )
                 {
-                    // TODO: Set PlayerBase enum to grounded
                     return true;
                 }
             }
 
-            // TODO: Set PlayerBase enum to airborne
             return false;
         }
 
@@ -256,7 +293,7 @@ namespace BananaSoup
             raycasts[index] = UnityEngine.Physics.Raycast(position, Vector3.down, groundCheckRayLength);
 
             // This can be used for debugging the raycasts using the RotaryHeart physics debugging extension.
-            // It draws the ray green if it hits the groundchecklayer and red if it doesnt and there is also a red cross to mark the rayhit.
+            // The ray is green if it hits the groundCheckLayer and red if it doesnt and there is also a red cross to mark the rayhit.
             //raycasts[index] = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(position, Vector3.down, groundCheckRayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
         }
 
