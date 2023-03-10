@@ -13,15 +13,7 @@ namespace BananaSoup
 
         [Header("Movement")]
         [SerializeField, Tooltip("The amount of force for moving the character.")]
-        private float movementForce = 5.0f;
-        [SerializeField, Tooltip("The amount of drag used while the character is on the ground.")]
-        private float groundDrag = 3.5f;
-        [SerializeField, Tooltip("The amount of drag used while the character is not on the ground.")]
-        private float fallingDrag = 1.0f;
-
-        // This is used to keep the player down on the ground while walking up on slopes.
-        [SerializeField, Tooltip("The downward force on the character on slopes.")]
-        private float downwardSlopeForce = 1.0f;
+        private float movementSpeed = 7.0f;
 
         [SerializeField, Tooltip("The games camera angle. (Used to calculate correct movement directions.)")]
         private float cameraAngle = 45.0f;
@@ -120,26 +112,14 @@ namespace BananaSoup
         {
             SetPlayerState();
 
-            //Debug.Log("Ground check = " + GroundCheck());
-            //Debug.Log("Slope check = " + OnSlope());
             //Debug.Log("RigidBodys velocity = " + rb.velocity);
-
-            //Debug.Log("negPositionX: " + negPositionX);
-            //Debug.Log("posPositionX: " + posPositionX);
-            //Debug.Log("negPositionZ: " + negPositionZ);
-            //Debug.Log("posPositionZ: " + posPositionZ);
         }
 
         private void FixedUpdate()
         {
-            if ( PlayerBase.Instance.IsMovable )
+            if ( PlayerBase.Instance.IsMovable && WasGrounded() )
             {
-                SetDrag();
-
-                if ( WasGrounded() )
-                {
-                    Move();
-                }
+                Move();
             }
 
             if ( PlayerBase.Instance.IsTurnable )
@@ -216,34 +196,13 @@ namespace BananaSoup
                 return;
             }
 
-            if ( OnSlope() )
-            {
-                rb.AddForce(GetSlopeMoveDirection() * movementForce, ForceMode.Force);
-
-                if ( rb.velocity.y > 0 )
-                {
-                    rb.AddForce(Vector3.down * downwardSlopeForce, ForceMode.Force);
-                }
-            }
-            else if ( GroundCheck() )
-            {
-                rb.AddForce(movementDirection * movementForce, ForceMode.Force);
-            }
-        }
-
-        /// <summary>
-        /// Method used to set the drag to be lower while the character is not grounded
-        /// allowing faster falling speed.
-        /// </summary>
-        private void SetDrag()
-        {
             if ( GroundCheck() )
             {
-                rb.drag = groundDrag;
-            }
-            else
-            {
-                rb.drag = fallingDrag;
+                //rb.AddForce(movementDirection * movementForce, ForceMode.Force);
+
+                Vector3 forceToApply = GetMoveDirection() * movementSpeed;
+
+                rb.velocity = forceToApply;
             }
         }
 
@@ -329,44 +288,20 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// A method used to track if the player is on a slope or not. It uses a raycast
-        /// and calculates the angle between Vector3.up and the objects that the raycast hits normal.
-        /// </summary>
-        /// <returns>True if the angle between the Vector3.up and hit objects normal is less than the
-        /// maximum allowed slope angle and if the angle is not zero.</returns>
-        private bool OnSlope()
-        {
-            // RotaryHeart debug for this Slope Raycast
-            // RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, out slopeHit, (characterHeight / 2) + groundCheckOffset, PreviewCondition.Editor, 0, Color.green, Color.red)
-
-            if ( UnityEngine.Physics.Raycast(transform.position, Vector3.down, out slopeHit, (groundCheckRayLength / 2) + groundCheckOffset) )
-            {
-                float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                bool angleNotZero = (angle != 0);
-                bool angleLessThanMaxSlopeAngle = (angle < maxSlopeAngle);
-
-                if ( angleLessThanMaxSlopeAngle && angleNotZero )
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        /// <summary>
         /// Method used to calclulate the movement direction while on a slope.
         /// </summary>
         /// <returns>The normalized ProjectOnPlane Vector3 where the adjusted direction is calculated.</returns>
-        private Vector3 GetSlopeMoveDirection()
+        private Vector3 GetMoveDirection()
         {
+            UnityEngine.Physics.Raycast(transform.position, Vector3.down, out slopeHit, (groundCheckRayLength / 2) + groundCheckOffset);
+
             return Vector3.ProjectOnPlane(movementDirection, slopeHit.normal).normalized;
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(slopeHit.point, GetSlopeMoveDirection());
+            Gizmos.DrawRay(slopeHit.point, GetMoveDirection());
         }
     }
 }
