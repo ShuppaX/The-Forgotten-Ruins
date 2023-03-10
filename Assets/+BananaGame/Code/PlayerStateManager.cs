@@ -37,10 +37,12 @@ namespace BananaSoup
             }
         }
 
+#if UNITY_EDITOR
         // Show the current playerState on the UI
         private void Update()
         {
             playerStateText.SetText(playerState.ToString());
-        }
+        } 
+#endif
     }
 }
