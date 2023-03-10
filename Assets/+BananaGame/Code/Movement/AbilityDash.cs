@@ -17,6 +17,9 @@ namespace BananaSoup
         private float dashCooldown = 4.0f;
         [SerializeField, Tooltip("The duration of the dash.")]
         private float dashDuration = 0.25f;
+        [SerializeField, Tooltip("Does dash stop like a collision to a wall or slowly decrease speed.")]
+        private bool isLerpingDash = true;
+        [SerializeField] float lerpSpeed = 25.0f;
 
         private Rigidbody rb;
 
@@ -86,6 +89,17 @@ namespace BananaSoup
         /// </summary>
         private void ResetDash()
         {
+            if ( isLerpingDash )
+            {
+                rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, lerpSpeed * Time.deltaTime);
+
+                Debug.Log("step: " + lerpSpeed);
+            }
+            else
+            {
+                rb.velocity = Vector3.zero;
+            }
+
             PlayerStateManager.Instance.playerState = PlayerStateManager.State.Idle;
         }
 

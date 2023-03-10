@@ -209,6 +209,8 @@ MonoBehaviour:
   dashForce: 20
   dashCooldown: 2
   dashDuration: 0.25
+  isLerpingDash: 1
+  lerpSpeed: 25
 --- !u!114 &3221713547035849736
 MonoBehaviour:
   m_ObjectHideFlags: 0
