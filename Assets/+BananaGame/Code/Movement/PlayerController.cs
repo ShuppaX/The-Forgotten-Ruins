@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using RotaryHeart.Lib.PhysicsExtension;
+using JetBrains.Annotations;
 
 namespace BananaSoup
 {
@@ -24,15 +25,15 @@ namespace BananaSoup
 
         private bool[] raycasts = new bool[4];
 
-        private float groundCheckRayLength = 0.0f;
-
-        private Vector3 negPositionX;
-        private Vector3 posPositionX;
-        private Vector3 negPositionZ;
-        private Vector3 posPositionZ;
+        private Vector3 rayFrontPosition;
+        private Vector3 rayBackPosition;
+        private Vector3 rayRightPosition;
+        private Vector3 rayLeftPosition;
 
         private float groundCheckRayOffset = 0.0f;
         private float groundCheckRadiusMultiplier = 0.9f;
+
+        private float groundCheckRayLength = 0.0f;
 
         [SerializeField]
         private LayerMask groundLayer;
@@ -41,7 +42,14 @@ namespace BananaSoup
         [SerializeField, Tooltip("The maximum angle for a slope the player can walk on.")]
         private float maxSlopeAngle = 70.0f;
 
-        private RaycastHit slopeHit;
+        private RaycastHit rayHit;
+
+        [Header("GroundAhead variables")]
+        [SerializeField]
+        private float groundAheadRadiusMultiplier = 1.1f;
+        private float groundAheadRayLengthMultiplier = 2.0f;
+        private float groundAheadRayOffset = 0.0f;
+        private float groundAheadRayLength = 0.0f;
 
         // Variables used to store in script values and references.
         private Rigidbody rb;
@@ -105,6 +113,9 @@ namespace BananaSoup
         {
             groundCheckRayLength = (transform.localScale.y / 2) + groundCheckOffset;
             groundCheckRayOffset = playerCollider.radius * groundCheckRadiusMultiplier;
+
+            groundAheadRayOffset = playerCollider.radius * groundAheadRadiusMultiplier;
+            groundAheadRayLength = (transform.localScale.y * groundAheadRayLengthMultiplier);
         }
 
 
@@ -112,14 +123,25 @@ namespace BananaSoup
         {
             SetPlayerState();
 
+            //Debug.Log("AllowedSlope: " + AllowedSlope());
+            //Debug.Log("WasGrounded: " + WasGrounded());
+            //Debug.Log("GroundCheck: " + GroundCheck());
+
             //Debug.Log("RigidBodys velocity = " + rb.velocity);
         }
 
         private void FixedUpdate()
         {
-            if ( PlayerBase.Instance.IsMovable && WasGrounded() )
+            if ( PlayerBase.Instance.IsMovable )
             {
-                Move();
+                if ( WasGrounded() && AllowedSlope() && GroundAhead() )
+                {
+                    Move();
+                }
+                else if ( !GroundAhead() && GroundCheck() )
+                {
+                    rb.velocity = Vector3.zero;
+                }
             }
 
             if ( PlayerBase.Instance.IsTurnable )
@@ -241,15 +263,25 @@ namespace BananaSoup
         /// <summary>
         /// Uses four separate raycasts to track if the player is standing on something or not.
         /// </summary>
-        /// <returns>True if any of the rays is true, false if not.</returns>
+        /// <returns>True if any of the rays hit an object on the groundLayer, false if not.</returns>
         private bool GroundCheck()
         {
+            //if ( RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, groundCheckRayLength, PreviewCondition.Editor, 0, Color.green, Color.red) )
+            //{
+            //    return true;
+            //}
+
+            //if ( UnityEngine.Physics.Raycast(transform.position, Vector3.down, groundCheckRayLength) )
+            //{
+            //    return true;
+            //}
+
             CalculateGroundCheckRayStartPoints();
 
-            GroundCheckRay(0, negPositionX);
-            GroundCheckRay(1, posPositionX);
-            GroundCheckRay(2, negPositionZ);
-            GroundCheckRay(3, posPositionZ);
+            GroundCheckRay(0, rayFrontPosition);
+            GroundCheckRay(1, rayBackPosition);
+            GroundCheckRay(2, rayRightPosition);
+            GroundCheckRay(3, rayLeftPosition);
 
             foreach ( bool rayHit in raycasts )
             {
@@ -263,28 +295,75 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Creates a raycast with the given parameters. The ray(s) are used for the GroundCheck.
+        /// Method that makes a Raycast with given parameters. (Used with an array for
+        /// several Raycasts)
         /// </summary>
-        /// <param name="index">The index of the ray used (up to 4)</param>
-        /// <param name="position">The start position (offset) of the ray.</param>
+        /// <param name="index">The index of the array used to store the value of
+        /// the Raycast.</param>
+        /// <param name="position">The position the Raycast originates from.</param>
         private void GroundCheckRay(int index, Vector3 position)
         {
-            raycasts[index] = UnityEngine.Physics.Raycast(position, Vector3.down, groundCheckRayLength);
+            raycasts[index] = UnityEngine.Physics.Raycast(position, Vector3.down, groundCheckRayLength, groundLayer);
 
-            // This can be used for debugging the raycasts using the RotaryHeart physics debugging extension.
-            // The ray is green if it hits the groundCheckLayer and red if it doesnt and there is also a red cross to mark the rayhit.
+            // Can be used to debug and draw the Raycast(s) using the RotaryHeart
+            // Physics debug library.
             //raycasts[index] = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(position, Vector3.down, groundCheckRayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
         }
 
         /// <summary>
-        /// This method calculates the starting points for the four rays used for GroundCheck.
+        /// Method used to calculate and update the starting points of the Raycasts
+        /// used for the GroundCheck method.
         /// </summary>
         private void CalculateGroundCheckRayStartPoints()
         {
-            negPositionX.Set(transform.position.x - groundCheckRayOffset, transform.position.y, transform.position.z);
-            posPositionX.Set(transform.position.x + groundCheckRayOffset, transform.position.y, transform.position.z);
-            negPositionZ.Set(transform.position.x, transform.position.y, transform.position.z - groundCheckRayOffset);
-            posPositionZ.Set(transform.position.x, transform.position.y, transform.position.z + groundCheckRayOffset);
+            rayFrontPosition = transform.position + transform.forward * groundCheckOffset;
+            rayBackPosition = transform.position - transform.forward * groundCheckOffset;
+            rayRightPosition = transform.position + transform.right * groundCheckOffset;
+            rayLeftPosition = transform.position - transform.right * groundCheckOffset;
+        }
+
+        /// <summary>
+        /// Method used to check if the slope the player is on is one that they can
+        /// walk on or not. The calculation includes a Raycast from which the method
+        /// gets the normal of the object hit and then determines the angle between that
+        /// and Vector3.up.
+        /// </summary>
+        /// <returns>True if the angle between the hit objects normal and Vector3.up is within
+        /// the allowed range, otherwise false.</returns>
+        private bool AllowedSlope()
+        {
+            if ( UnityEngine.Physics.Raycast(transform.position, Vector3.down, out rayHit, groundCheckRayLength, groundLayer) )
+            {
+                float angle = Vector3.Angle(Vector3.up, rayHit.normal);
+                bool angleLessThanMaxSlopeAngle = (angle < maxSlopeAngle);
+
+                if ( angleLessThanMaxSlopeAngle )
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Method used to check if there is ground ahead of the player. Used in FixedUpdate()
+        /// to determine if the player can walk forward or not.
+        /// </summary>
+        /// <returns>True if the Raycast hits something on the groundLayer, otherwise false.</returns>
+        private bool GroundAhead()
+        {
+            if ( RotaryHeart.Lib.PhysicsExtension.Physics.Raycast((transform.position + transform.forward * groundAheadRayOffset), Vector3.down, groundAheadRayLength, groundLayer, PreviewCondition.Editor, 0, Color.magenta, Color.white) )
+            {
+                return true;
+            }
+
+            //if ( UnityEngine.Physics.Raycast((transform.position + transform.forward * groundAheadRayOffset), Vector3.down, groundAheadRayLength, groundLayer))
+            //{
+            //    return true;
+            //}
+
+            return false;
         }
 
         /// <summary>
@@ -293,15 +372,15 @@ namespace BananaSoup
         /// <returns>The normalized ProjectOnPlane Vector3 where the adjusted direction is calculated.</returns>
         private Vector3 GetMoveDirection()
         {
-            UnityEngine.Physics.Raycast(transform.position, Vector3.down, out slopeHit, (groundCheckRayLength / 2) + groundCheckOffset);
+            UnityEngine.Physics.Raycast(transform.position, Vector3.down, out rayHit, (groundCheckRayLength / 2) + groundCheckOffset);
 
-            return Vector3.ProjectOnPlane(movementDirection, slopeHit.normal).normalized;
+            return Vector3.ProjectOnPlane(movementDirection, rayHit.normal).normalized;
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(slopeHit.point, GetMoveDirection());
+            Gizmos.DrawRay(rayHit.point, GetMoveDirection());
         }
     }
 }
