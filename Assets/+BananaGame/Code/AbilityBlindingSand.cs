@@ -8,17 +8,13 @@ namespace BananaSoup
     public class AbilityBlindingSand : MonoBehaviour
     {
         [SerializeField] ParticleSystem sandParticles;
+        [Tooltip("Transform where the sand particle effect spawns.")]
         [SerializeField] private Transform handTransform;
+        [Tooltip("A delay to start Sand Particle Effect later to match it with the animation.")]
+        [SerializeField] private const string isSanding = "isSanding";
 
-        // The duration of the particle effect, taken automatically from Particle System's Start Lifetime.
         private float duration;
-
         private Coroutine activeParticleCoroutine;
-
-        // Sand Start delay
-        [SerializeField] private float activationDelay = 0.3f;
-        private Coroutine startDelayCoroutine;
-
         private Animator animator;
 
         private void Start()
@@ -26,6 +22,7 @@ namespace BananaSoup
             // set the particle system to inactive at start
             sandParticles.gameObject.SetActive(false);
 
+            // Set Coroutine duration to Particle Effect contant lenght
             duration = sandParticles.main.startLifetime.constant;
 
             animator = GetComponent<Animator>();
@@ -41,16 +38,14 @@ namespace BananaSoup
 
             if ( context.performed )
             {
-                animator.SetTrigger("isSanding");
-
-                startDelayCoroutine = StartCoroutine(ThrowSand());
+                animator.SetTrigger(isSanding);
             }
         }
 
-        private IEnumerator ThrowSand()
+        // ThrowSand is called from FennecCharacter@Throw animation by an event.
+        private void ThrowSand()
         {
-            yield return new WaitForSeconds(activationDelay);
-            startDelayCoroutine = null;
+            // TODO: Disable movement when sanding from StateManager
 
             // Set Particle Effect transform.
             sandParticles.gameObject.transform.parent = null;
@@ -78,12 +73,6 @@ namespace BananaSoup
             sandParticles.Stop();
             sandParticles.gameObject.SetActive(false);
             activeParticleCoroutine = null;
-        }
-
-        // NOTE: This should be on Particle System?
-        private void OnParticleCollision(GameObject other)
-        {
-            Debug.Log("Collision: " + other.name);
         }
     }
 }
