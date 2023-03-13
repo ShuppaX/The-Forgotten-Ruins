@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using RotaryHeart.Lib.PhysicsExtension;
-using JetBrains.Annotations;
+using UnityEngine.Events;
 
 namespace BananaSoup
 {
@@ -35,6 +33,8 @@ namespace BananaSoup
 
         private float groundCheckRayLength = 0.0f;
 
+        private bool groundCheckChanged = false;
+
         [SerializeField]
         private LayerMask groundLayer;
 
@@ -58,7 +58,22 @@ namespace BananaSoup
         private Vector3 movementInput = Vector3.zero;
         private Vector3 movementDirection = Vector3.zero;
 
-        private bool isMoving = false;
+        [Header("UnityActions to manage PlayerStates")]
+        public UnityAction onPlayerGroundedAndIdle;
+        public UnityAction onPlayerInAir;
+        public UnityAction onPlayerMoveInput;
+        public UnityAction onNoPlayerMoveInput;
+        public UnityAction onGroundCheck;
+
+        public bool IsGrounded
+        {
+            get { return GroundCheck(); }
+        }
+
+        public float PlayerMovementspeed
+        {
+            get { return Mathf.Round(rb.velocity.magnitude); }
+        }
 
         private void Awake()
         {
@@ -121,13 +136,19 @@ namespace BananaSoup
 
         private void Update()
         {
-            SetPlayerState();
+            InvokeEventOnGroundCheckValueChange();
+        }
 
-            //Debug.Log("AllowedSlope: " + AllowedSlope());
-            //Debug.Log("WasGrounded: " + WasGrounded());
-            //Debug.Log("GroundCheck: " + GroundCheck());
-
-            //Debug.Log("RigidBodys velocity = " + rb.velocity);
+        /// <summary>
+        /// Invoke the event, only once when the GroundCheck value changes.
+        /// </summary>
+        private void InvokeEventOnGroundCheckValueChange()
+        {
+            if ( groundCheckChanged != GroundCheck() )
+            {
+                groundCheckChanged = !groundCheckChanged;
+                onGroundCheck.Invoke();
+            }
         }
 
         private void FixedUpdate()
@@ -150,30 +171,6 @@ namespace BananaSoup
             }
         }
 
-        private void SetPlayerState()
-        {
-            if ( PlayerStateManager.Instance.playerState == PlayerStateManager.State.Dashing )
-            {
-                return;
-            }
-
-            if ( !GroundCheck() )
-            {
-                PlayerStateManager.Instance.playerState = PlayerStateManager.State.InAir;
-            }
-            else
-            {
-                if ( isMoving )
-                {
-                    PlayerStateManager.Instance.playerState = PlayerStateManager.State.Moving;
-                }
-                else if ( !isMoving )
-                {
-                    PlayerStateManager.Instance.playerState = PlayerStateManager.State.Idle;
-                }
-            }
-        }
-
         /// <summary>
         /// Used to get the players input and then store it into the movementInput Vector3
         /// </summary>
@@ -183,11 +180,11 @@ namespace BananaSoup
             Vector2 input = context.ReadValue<Vector2>();
             movementInput.Set(input.x, 0, input.y);
             movementDirection = IsoVectorConvert(movementInput);
-            isMoving = true;
+            onPlayerMoveInput.Invoke();
 
             if ( context.phase == InputActionPhase.Canceled )
             {
-                isMoving = false;
+                onNoPlayerMoveInput.Invoke();
             }
         }
 
@@ -213,34 +210,16 @@ namespace BananaSoup
         /// </summary>
         private void Move()
         {
-            if ( PlayerStateManager.Instance.playerState == PlayerStateManager.State.Dashing )
+            if ( PlayerStateManager.Instance.currentPlayerState == PlayerStateManager.PlayerState.Dashing )
             {
                 return;
             }
 
             if ( GroundCheck() )
             {
-                //rb.AddForce(movementDirection * movementForce, ForceMode.Force);
-
                 Vector3 forceToApply = GetMoveDirection() * movementSpeed;
 
                 rb.velocity = forceToApply;
-            }
-        }
-
-        /// <summary>
-        /// Method to check if the player was grounded on previous frame (used in FixedUpdate)
-        /// </summary>
-        /// <returns>True if the player was grounded, otherwise false.</returns>
-        private bool WasGrounded()
-        {
-            if ( GroundCheck() )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
             }
         }
 
@@ -255,7 +234,6 @@ namespace BananaSoup
             {
                 var rot = Quaternion.LookRotation(IsoVectorConvert(movementInput), Vector3.up);
 
-                // Use this for instant turning
                 transform.rotation = rot;
             }
         }
@@ -266,16 +244,6 @@ namespace BananaSoup
         /// <returns>True if any of the rays hit an object on the groundLayer, false if not.</returns>
         private bool GroundCheck()
         {
-            //if ( RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, groundCheckRayLength, PreviewCondition.Editor, 0, Color.green, Color.red) )
-            //{
-            //    return true;
-            //}
-
-            //if ( UnityEngine.Physics.Raycast(transform.position, Vector3.down, groundCheckRayLength) )
-            //{
-            //    return true;
-            //}
-
             CalculateGroundCheckRayStartPoints();
 
             GroundCheckRay(0, rayFrontPosition);
@@ -287,10 +255,14 @@ namespace BananaSoup
             {
                 if ( rayHit )
                 {
+                    onPlayerGroundedAndIdle.Invoke();
+                    //onGroundCheck.Invoke();
                     return true;
                 }
             }
 
+            onPlayerInAir.Invoke();
+            //onGroundCheck.Invoke();
             return false;
         }
 
@@ -316,10 +288,26 @@ namespace BananaSoup
         /// </summary>
         private void CalculateGroundCheckRayStartPoints()
         {
-            rayFrontPosition = transform.position + transform.forward * groundCheckOffset;
-            rayBackPosition = transform.position - transform.forward * groundCheckOffset;
-            rayRightPosition = transform.position + transform.right * groundCheckOffset;
-            rayLeftPosition = transform.position - transform.right * groundCheckOffset;
+            rayFrontPosition = transform.position + transform.forward * groundCheckRayOffset;
+            rayBackPosition = transform.position - transform.forward * groundCheckRayOffset;
+            rayRightPosition = transform.position + transform.right * groundCheckRayOffset;
+            rayLeftPosition = transform.position - transform.right * groundCheckRayOffset;
+        }
+
+        /// <summary>
+        /// Method to check if the player was grounded on previous frame (used in FixedUpdate)
+        /// </summary>
+        /// <returns>True if the player was grounded, otherwise false.</returns>
+        private bool WasGrounded()
+        {
+            if ( GroundCheck() )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>

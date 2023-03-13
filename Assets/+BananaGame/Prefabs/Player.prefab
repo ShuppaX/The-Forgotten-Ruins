@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStateText: {fileID: 0}
-  playerState: 0
+  currentPlayerState: 0
 --- !u!114 &8696953563904003536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +194,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   maxSlopeAngle: 40
-  groundAheadRadiusMultiplier: 1.3
+  groundAheadRadiusMultiplier: 1.5
+  onPlayerGrounded:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlayerInAir:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlayerMoving:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlayerNotMoving:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &9108917675126122351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +224,12 @@ MonoBehaviour:
   dashDuration: 0.25
   isLerpingDash: 1
   lerpSpeed: 25
+  onDashing:
+    m_PersistentCalls:
+      m_Calls: []
+  onNotDashing:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3221713547035849736
 MonoBehaviour:
   m_ObjectHideFlags: 0

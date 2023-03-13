@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 namespace BananaSoup
 {
@@ -21,10 +21,15 @@ namespace BananaSoup
         private bool isLerpingDash = true;
         [SerializeField] float lerpSpeed = 25.0f;
 
-        private Rigidbody rb;
-
         private bool dashOnCooldown = false;
         private Coroutine dashCooldownRoutine = null;
+
+        [Header("UnityActions used to manage PlayerStates")]
+        public UnityAction onDashAction;
+        public UnityAction onDashReset;
+
+        // Reference to players Rigidbody
+        private Rigidbody rb;
 
         private void Awake()
         {
@@ -68,7 +73,7 @@ namespace BananaSoup
             {
                 if ( !dashOnCooldown && context.phase == InputActionPhase.Performed )
                 {
-                    PlayerStateManager.Instance.playerState = PlayerStateManager.State.Dashing;
+                    onDashAction.Invoke();
                     Vector3 forceToApply = transform.forward * dashForce;
 
                     rb.velocity = forceToApply;
@@ -79,7 +84,7 @@ namespace BananaSoup
                         dashCooldownRoutine = StartCoroutine(nameof(DashCooldown));
                     }
 
-                    Invoke(nameof(ResetDash), dashDuration);
+                    Invoke(nameof(DashReset), dashDuration);
                 }
             }
         }
@@ -87,20 +92,18 @@ namespace BananaSoup
         /// <summary>
         /// Method which resets the maxSpeed set for the dash and sets the isDashing bool to false.
         /// </summary>
-        private void ResetDash()
+        private void DashReset()
         {
             if ( isLerpingDash )
             {
                 rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, lerpSpeed * Time.deltaTime);
-
-                Debug.Log("step: " + lerpSpeed);
             }
             else
             {
                 rb.velocity = Vector3.zero;
             }
 
-            PlayerStateManager.Instance.playerState = PlayerStateManager.State.Idle;
+            onDashReset.Invoke();
         }
 
         /// <summary>
