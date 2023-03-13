@@ -8,16 +8,18 @@ namespace BananaSoup
     public class AbilityBlindingSand : MonoBehaviour
     {
         [SerializeField] ParticleSystem sandParticles;
-        //[SerializeField, Tooltip("Angle of the cone in degrees")]
-        //private float coneAngle = 30.0f;
-        //[SerializeField, Tooltip("The length / distance of the cone")]
-        //private float coneDistance = 10.0f;
+        [SerializeField] private Transform handTransform;
 
         // The duration of the particle effect, taken automatically from Particle System's Start Lifetime.
         private float duration;
 
+        private Coroutine activeParticleCoroutine;
 
-        private Coroutine activeParticleEffect;
+        // Sand Start delay
+        [SerializeField] private float activationDelay = 0.3f;
+        private Coroutine startDelayCoroutine;
+
+        private Animator animator;
 
         private void Start()
         {
@@ -25,32 +27,45 @@ namespace BananaSoup
             sandParticles.gameObject.SetActive(false);
 
             duration = sandParticles.main.startLifetime.constant;
+
+            animator = GetComponent<Animator>();
         }
 
         public void OnAbility(InputAction.CallbackContext context)
         {
             // Don't cast a sand if old currently playing.
-            if ( activeParticleEffect != null )
+            if ( activeParticleCoroutine != null )
             {
                 return;
             }
 
             if ( context.performed )
             {
-                sandParticles.gameObject.transform.parent = null;
-                sandParticles.gameObject.transform.position = transform.position;
+                animator.SetTrigger("isSanding");
 
-                // TODO: Fix rotation
-                //Vector3 rotation = new Vector3(sandParticles.gameObject.transform.x, sandParticles.gameObject.transform.rotation.y);
-                //Debug.Log("Rotation: " + rotation);
-                //sandParticles.gameObject.transform.eulerAngles = rotation;
-                //Debug.Log("Particle rotation: " + sandParticles.gameObject.transform.localRotation);
-                sandParticles.gameObject.transform.rotation = transform.rotation;
-
-                sandParticles.gameObject.SetActive(true);
-
-                activeParticleEffect = StartCoroutine(DeactivateParticles());
+                startDelayCoroutine = StartCoroutine(ThrowSand());
             }
+        }
+
+        private IEnumerator ThrowSand()
+        {
+            yield return new WaitForSeconds(activationDelay);
+            startDelayCoroutine = null;
+
+            // Set Particle Effect transform.
+            sandParticles.gameObject.transform.parent = null;
+            sandParticles.gameObject.transform.position = handTransform.position;
+
+            // TODO: Fix rotation
+            //Vector3 rotation = new Vector3(sandParticles.gameObject.transform.x, sandParticles.gameObject.transform.rotation.y);
+            //Debug.Log("Rotation: " + rotation);
+            //sandParticles.gameObject.transform.eulerAngles = rotation;
+            //Debug.Log("Particle rotation: " + sandParticles.gameObject.transform.localRotation);
+            sandParticles.gameObject.transform.rotation = transform.rotation;
+
+            sandParticles.gameObject.SetActive(true);
+
+            activeParticleCoroutine = StartCoroutine(DeactivateParticles());
         }
 
         private IEnumerator DeactivateParticles()
@@ -62,7 +77,7 @@ namespace BananaSoup
             // deactivate the particle system
             sandParticles.Stop();
             sandParticles.gameObject.SetActive(false);
-            activeParticleEffect = null;
+            activeParticleCoroutine = null;
         }
 
         // NOTE: This should be on Particle System?
@@ -70,21 +85,5 @@ namespace BananaSoup
         {
             Debug.Log("Collision: " + other.name);
         }
-
-        //private void OnDrawGizmos()
-        //{
-        //    // draw cone to show area of effect in editor
-        //    Gizmos.color = Color.yellow;
-        //    Gizmos.DrawWireSphere(transform.position, 0.1f);
-        //    Gizmos.DrawRay(transform.position, transform.forward * coneDistance);
-
-        //    Vector3 leftRayDirection = Quaternion.Euler(0f, -coneAngle / 2f, 0f) * transform.forward;
-        //    Vector3 rightRayDirection = Quaternion.Euler(0f, coneAngle / 2f, 0f) * transform.forward;
-
-        //    Gizmos.DrawRay(transform.position, leftRayDirection * coneDistance);
-        //    Gizmos.DrawRay(transform.position, rightRayDirection * coneDistance);
-
-        //    Gizmos.DrawLine(transform.position + leftRayDirection * coneDistance, transform.position + rightRayDirection * coneDistance);
-        //}
     }
 }
