@@ -12,7 +12,7 @@ namespace BananaSoup
         [Serializable]
         public class SoundItem
         {
-            public SoundEffect Type;
+            //public SoundEffect Type;
             public AudioClip Clip;
         }
 
