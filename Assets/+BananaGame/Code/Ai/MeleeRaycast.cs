@@ -12,8 +12,8 @@ namespace BananaSoup
     public class MeleeRaycast : MonoBehaviour
     {
         //Definitions
-        private NavMeshAgent _enemy; // assign navmesh agent
-        private Transform _playerTarget; // reference to player's position
+        protected NavMeshAgent _enemy; // assign navmesh agent
+        protected Transform _playerTarget; // reference to player's position
         
         //Serialized
         [Header("Layer masks")]
@@ -29,7 +29,7 @@ namespace BananaSoup
         [SerializeField] private float _attackRange;
         
         //Updating Variables
-        private float _lastDidSomething; //refreshing timer to prevent non-stop actions
+        protected float _lastDidSomething; //refreshing timer to prevent non-stop actions
         private readonly float _pauseTime = 3f; //Time to pause after action
 
         //patrol
@@ -38,8 +38,8 @@ namespace BananaSoup
         private float _waypointRange;
 
         //Attack
-        private float _timeBetweenAttacks;
-        private bool _alreadyAttacked;
+        protected float _timeBetweenAttacks;
+        protected bool _alreadyAttacked;
 
         //states
         private bool _playerInSightRange;
@@ -105,7 +105,7 @@ namespace BananaSoup
             _enemy.SetDestination(_playerTarget.position);
         }
 
-        private void Attack()
+        public virtual void Attack()
         {
             //Stop enemy movement
             _enemy.SetDestination(transform.position);
@@ -123,7 +123,7 @@ namespace BananaSoup
             _lastDidSomething = Time.time;
         }
 
-        private void ResetAttack()
+        protected void ResetAttack()
         {
             _alreadyAttacked = false;
         }
