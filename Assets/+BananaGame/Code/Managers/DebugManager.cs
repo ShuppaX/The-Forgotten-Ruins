@@ -26,6 +26,9 @@ namespace BananaSoup
         [SerializeField]
         private GameObject groundCheckDisplay;
 
+        private AbilityDash abilityDash = null;
+        private PlayerController playerController = null;
+
         private void Awake()
         {
             if ( Instance == null )
@@ -40,26 +43,15 @@ namespace BananaSoup
 
         private void OnEnable()
         {
-            AbilityDash.Instance.onDashAction += UpdatePlayerStateText;
-            AbilityDash.Instance.onDashReset += UpdatePlayerStateText;
-            PlayerController.Instance.onPlayerGroundedAndIdle += UpdatePlayerStateText;
-            PlayerController.Instance.onPlayerInAir += UpdatePlayerStateText;
-            PlayerController.Instance.onPlayerMoveInput += UpdatePlayerStateText;
-            PlayerController.Instance.onPlayerMoveInput += UpdateMovementSpeedText;
-            PlayerController.Instance.onNoPlayerMoveInput += UpdateMovementSpeedText;
-            PlayerController.Instance.onGroundCheck += UpdateGroundCheckText;
+            if ( IsDebugActive )
+            {
+                TrySubscribing();
+            }
         }
 
         private void OnDisable()
         {
-            AbilityDash.Instance.onDashAction -= UpdatePlayerStateText;
-            AbilityDash.Instance.onDashReset -= UpdatePlayerStateText;
-            PlayerController.Instance.onPlayerGroundedAndIdle -= UpdatePlayerStateText;
-            PlayerController.Instance.onPlayerInAir -= UpdatePlayerStateText;
-            PlayerController.Instance.onPlayerMoveInput -= UpdatePlayerStateText;
-            PlayerController.Instance.onPlayerMoveInput -= UpdateMovementSpeedText;
-            PlayerController.Instance.onNoPlayerMoveInput -= UpdateMovementSpeedText;
-            PlayerController.Instance.onGroundCheck -= UpdateGroundCheckText;
+            UnsubscribeAll();
         }
 
         // Start is called before the first frame update
@@ -73,10 +65,77 @@ namespace BananaSoup
             }
             else
             {
+                Setup();
+                TrySubscribing();
+
                 playerStateDisplay.SetActive(true);
                 movementSpeedDisplay.SetActive(true);
                 groundCheckDisplay.SetActive(true);
             }
+        }
+
+        private void Setup()
+        {
+            abilityDash = PlayerBase.Instance.GetComponent<AbilityDash>();
+            if ( abilityDash == null )
+            {
+                Debug.LogError("Couldn't find a Component of type AbilityDash for " + gameObject.name + "!");
+            }
+
+            playerController = PlayerBase.Instance.GetComponent<PlayerController>();
+            if ( playerController == null )
+            {
+                Debug.LogError("Couldn't find a Component of type PlayerController for " + gameObject.name + "!");
+            }
+        }
+
+        private void TrySubscribing()
+        {
+            if ( abilityDash != null )
+            {
+                SubscribeAbilityDash();
+            }
+
+            if (playerController != null )
+            {
+                SubscribePlayerController();
+            }
+        }
+
+        private void SubscribeAbilityDash()
+        {
+            abilityDash.onDashAction += UpdatePlayerStateText;
+            abilityDash.onDashReset += UpdatePlayerStateText;
+        }
+
+        private void SubscribePlayerController()
+        {
+            playerController.onPlayerGroundedAndIdle += UpdatePlayerStateText;
+            playerController.onPlayerInAir += UpdatePlayerStateText;
+            playerController.onPlayerMoveInput += UpdatePlayerStateText;
+            playerController.onVelocityChanged += UpdateMovementSpeedText;
+            playerController.onGroundCheck += UpdateGroundCheckText;
+        }
+
+        private void UnsubscribeAll()
+        {
+            UnsubscribeAbilityDash();
+            UnsubscribePlayerController();
+        }
+
+        private void UnsubscribeAbilityDash()
+        {
+            abilityDash.onDashAction -= UpdatePlayerStateText;
+            abilityDash.onDashReset -= UpdatePlayerStateText;
+        }
+
+        private void UnsubscribePlayerController()
+        {
+            playerController.onPlayerGroundedAndIdle -= UpdatePlayerStateText;
+            playerController.onPlayerInAir -= UpdatePlayerStateText;
+            playerController.onPlayerMoveInput -= UpdatePlayerStateText;
+            playerController.onVelocityChanged -= UpdateMovementSpeedText;
+            playerController.onGroundCheck -= UpdateGroundCheckText;
         }
 
         public void UpdatePlayerStateText()
@@ -92,7 +151,7 @@ namespace BananaSoup
             if ( IsDebugActive )
             {
                 movementSpeedText.SetText("Movementspeed: "
-                + PlayerController.Instance.PlayerMovementspeed.ToString());
+                + playerController.PlayerMovementspeed.ToString());
             }
         }
 
@@ -101,7 +160,7 @@ namespace BananaSoup
             if ( IsDebugActive )
             {
                 groundCheckText.SetText("GroundCheck: "
-                + PlayerController.Instance.IsGrounded);
+                + playerController.IsGrounded);
             }
         }
     }

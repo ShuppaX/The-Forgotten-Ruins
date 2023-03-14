@@ -9,6 +9,9 @@ namespace BananaSoup
         [HideInInspector]
         public PlayerState currentPlayerState = 0;
 
+        private AbilityDash abilityDash = null;
+        private PlayerController playerController = null;
+
         // NOTE: If you add or remove a PlayerState, DON'T CHANGE ID NUMBERS
         public enum PlayerState
         {
@@ -34,22 +37,78 @@ namespace BananaSoup
 
         private void OnEnable()
         {
-            AbilityDash.Instance.onDashAction += PlayerDashing;
-            AbilityDash.Instance.onDashReset += PlayerIdleAfterDashOrMove;
-            PlayerController.Instance.onPlayerGroundedAndIdle += PlayerIdle;
-            PlayerController.Instance.onPlayerInAir += PlayerInAir;
-            PlayerController.Instance.onPlayerMoveInput += PlayerMoving;
-            PlayerController.Instance.onNoPlayerMoveInput += PlayerIdleAfterDashOrMove;
+            TrySubscribing();
         }
 
         private void OnDisable()
         {
-            AbilityDash.Instance.onDashAction -= PlayerDashing;
-            AbilityDash.Instance.onDashReset -= PlayerIdleAfterDashOrMove;
-            PlayerController.Instance.onPlayerGroundedAndIdle -= PlayerIdle;
-            PlayerController.Instance.onPlayerInAir -= PlayerInAir;
-            PlayerController.Instance.onPlayerMoveInput -= PlayerMoving;
-            PlayerController.Instance.onNoPlayerMoveInput -= PlayerIdleAfterDashOrMove;
+            UnsubscribeAll();
+        }
+
+        private void Start()
+        {
+            Setup();
+            TrySubscribing();
+        }
+        private void Setup()
+        {
+            abilityDash = GetComponent<AbilityDash>();
+            if ( abilityDash == null )
+            {
+                Debug.LogError("Couldn't find a Component of type AbilityDash for " + gameObject.name + "!");
+            }
+
+            playerController = GetComponent<PlayerController>();
+            if ( playerController == null )
+            {
+                Debug.LogError("Couldn't find a Component of type PlayerController for " + gameObject.name + "!");
+            }
+        }
+
+        private void TrySubscribing()
+        {
+            if ( abilityDash != null )
+            {
+                SubscribeAbilityDash();
+            }
+
+            if ( playerController != null )
+            {
+                SubscribePlayerController();
+            }
+        }
+
+        private void SubscribeAbilityDash()
+        {
+            abilityDash.onDashAction += PlayerDashing;
+            abilityDash.onDashReset += PlayerIdleAfterDashOrMove;
+        }
+        private void SubscribePlayerController()
+        {
+            playerController.onPlayerGroundedAndIdle += PlayerIdle;
+            playerController.onPlayerInAir += PlayerInAir;
+            playerController.onPlayerMoveInput += PlayerMoving;
+            playerController.onNoPlayerMoveInput += PlayerIdleAfterDashOrMove;
+        }
+
+        private void UnsubscribeAll()
+        {
+            UnsubscribeAbilityDash();
+            UnsubscribePlayerController();
+        }
+
+        private void UnsubscribeAbilityDash()
+        {
+            abilityDash.onDashAction -= PlayerDashing;
+            abilityDash.onDashReset -= PlayerIdleAfterDashOrMove;
+        }
+
+        private void UnsubscribePlayerController()
+        {
+            playerController.onPlayerGroundedAndIdle -= PlayerIdle;
+            playerController.onPlayerInAir -= PlayerInAir;
+            playerController.onPlayerMoveInput -= PlayerMoving;
+            playerController.onNoPlayerMoveInput -= PlayerIdleAfterDashOrMove;
         }
 
         // Public methods which are called with UnityEvents in scripts when the

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8696953563904003536}
   - component: {fileID: 9108917675126122351}
   - component: {fileID: 3221713547035849736}
+  - component: {fileID: 65683560828549127}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -173,7 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57fab8125834a454e802711344b58527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStateText: {fileID: 0}
   currentPlayerState: 0
 --- !u!114 &8696953563904003536
 MonoBehaviour:
@@ -189,24 +189,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 7
   cameraAngle: 45
-  groundCheckOffset: 0.25
+  groundCheckRayLengthOffset: 0.25
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
   maxSlopeAngle: 40
   groundAheadRadiusMultiplier: 1.5
-  onPlayerGrounded:
-    m_PersistentCalls:
-      m_Calls: []
-  onPlayerInAir:
-    m_PersistentCalls:
-      m_Calls: []
-  onPlayerMoving:
-    m_PersistentCalls:
-      m_Calls: []
-  onPlayerNotMoving:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &9108917675126122351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,12 +212,6 @@ MonoBehaviour:
   dashDuration: 0.25
   isLerpingDash: 1
   lerpSpeed: 25
-  onDashing:
-    m_PersistentCalls:
-      m_Calls: []
-  onNotDashing:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &3221713547035849736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,6 +230,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 2
+--- !u!114 &65683560828549127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696953563904003545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d837ce35a42a8c8438fa25e87ca4c3ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1917810182540892288
 PrefabInstance:
   m_ObjectHideFlags: 0

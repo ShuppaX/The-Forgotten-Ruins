@@ -5,11 +5,9 @@ using UnityEngine.Events;
 
 namespace BananaSoup
 {
-    [RequireComponent(typeof(PlayerBase), typeof(PlayerStateManager))]
+    [RequireComponent(typeof(PlayerBase), typeof(PlayerStateManager), typeof(CalculateMovementDirection))]
     public class AbilityDash : MonoBehaviour
     {
-        public static AbilityDash Instance { get; private set; }
-
         [Header("Dash variables")]
         [SerializeField, Tooltip("The amount of force for dashing.")]
         private float dashForce = 5.0f;
@@ -30,18 +28,7 @@ namespace BananaSoup
 
         // Reference to players Rigidbody
         private Rigidbody rb;
-
-        private void Awake()
-        {
-            if ( Instance == null )
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
+        private CalculateMovementDirection directionCalculator;
 
         private void Start()
         {
