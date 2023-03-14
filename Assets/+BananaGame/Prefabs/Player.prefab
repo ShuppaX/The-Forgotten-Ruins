@@ -245,7 +245,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sandParticles: {fileID: 1568428128}
   handTransform: {fileID: 1864132260207330290}
-  activationDelay: 0.4
 --- !u!95 &6045675434316279883
 Animator:
   serializedVersion: 5
