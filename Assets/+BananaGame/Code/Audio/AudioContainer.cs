@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BananaSoup
 {
@@ -12,8 +13,8 @@ namespace BananaSoup
         [Serializable]
         public class SoundItem
         {
-            //public SoundEffect Type;
-            public AudioClip Clip;
+            public SoundEffect type;
+            public AudioClip clip;
         }
 
         [SerializeField] private SoundItem[] soundEffects;
@@ -27,9 +28,9 @@ namespace BananaSoup
         {
             foreach (SoundItem soundEffect in soundEffects)
             {
-                if (soundEffect.Type == effectType)
+                if (soundEffect.type == effectType)
                 {
-                    return soundEffect.Clip;
+                    return soundEffect.clip;
                 }
             }
 
