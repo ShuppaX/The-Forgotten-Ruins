@@ -55,6 +55,15 @@ namespace BananaSoup
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability"",
+                    ""type"": ""Button"",
+                    ""id"": ""427d50da-4e21-4585-bb23-94ebe139ff76"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -167,6 +176,28 @@ namespace BananaSoup
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c9c1dc51-5dd4-4ec0-81c7-587448bdf913"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c70e80c-36c7-4126-8e86-4e48a350ac27"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse and keyboard"",
+                    ""action"": ""Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -206,6 +237,7 @@ namespace BananaSoup
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+            m_Player_Ability = m_Player.FindAction("Ability", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -268,6 +300,7 @@ namespace BananaSoup
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Dash;
         private readonly InputAction m_Player_Interact;
+        private readonly InputAction m_Player_Ability;
         public struct PlayerActions
         {
             private @PlayerInput m_Wrapper;
@@ -275,6 +308,7 @@ namespace BananaSoup
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Dash => m_Wrapper.m_Player_Dash;
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
+            public InputAction @Ability => m_Wrapper.m_Player_Ability;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -293,6 +327,9 @@ namespace BananaSoup
                     @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                     @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                     @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                    @Ability.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility;
+                    @Ability.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility;
+                    @Ability.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -306,6 +343,9 @@ namespace BananaSoup
                     @Interact.started += instance.OnInteract;
                     @Interact.performed += instance.OnInteract;
                     @Interact.canceled += instance.OnInteract;
+                    @Ability.started += instance.OnAbility;
+                    @Ability.performed += instance.OnAbility;
+                    @Ability.canceled += instance.OnAbility;
                 }
             }
         }
@@ -333,6 +373,7 @@ namespace BananaSoup
             void OnMove(InputAction.CallbackContext context);
             void OnDash(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnAbility(InputAction.CallbackContext context);
         }
     }
 }

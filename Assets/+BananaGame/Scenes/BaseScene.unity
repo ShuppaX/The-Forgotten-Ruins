@@ -547,6 +547,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PLH_PostProssessing
       objectReference: {fileID: 0}
+    - target: {fileID: 5047413596430109906, guid: fa281b2fd9c25864dba3fa0d5381a9a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5047413596430109908, guid: fa281b2fd9c25864dba3fa0d5381a9a6,
         type: 3}
       propertyPath: m_RootOrder
@@ -888,6 +893,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PLH_Sky and Fog Volume
+      objectReference: {fileID: 0}
+    - target: {fileID: 6529670389089175927, guid: 7fb8621de5670374db8905182b6faea6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fb8621de5670374db8905182b6faea6, type: 3}
