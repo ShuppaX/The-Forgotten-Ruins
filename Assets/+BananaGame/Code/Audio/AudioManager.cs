@@ -7,25 +7,25 @@ namespace BananaSoup
 {
     
     /// <summary>
-    /// To use playClip from other scripts:
+    /// To use playClip for sound effects from other scripts:
     /// AudioManager.PlayClip(openAudio, Folder.SoundEffect.EnumName);
-    /// AudioManager.PlayClip(openAudio, Audio.SoundEffect.ChestOpen);
+    /// AudioManager.PlayClip(openAudio, Audio.SoundEffect.Interact);
     /// </summary>
     public static class AudioManager
     {
         private const string AudioContainerName = "AudioData";
-        private static AudioContainer container;
+        private static AudioContainer _container;
 
         public static AudioContainer Container
         {
             get
             {
-                if (container == null)
+                if (_container == null)
                 {
-                    container = Resources.Load<AudioContainer>(AudioContainerName);
+                    _container = Resources.Load<AudioContainer>(AudioContainerName);
                 }
 
-                return container;
+                return _container;
             }
         }
 
