@@ -6,8 +6,13 @@ namespace BananaSoup
 {
     public class SimpleObjectFollower : MonoBehaviour
     {
-        [SerializeField] private Transform target;
         [SerializeField] private Vector3 offsets;
+        private Transform target;
+
+        private void Start()
+        {
+            target = PlayerBase.Instance.transform;
+        }
 
         private void LateUpdate()
         {

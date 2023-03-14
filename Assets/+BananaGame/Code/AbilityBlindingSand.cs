@@ -19,6 +19,11 @@ namespace BananaSoup
 
         private void Start()
         {
+            Setup();
+        }
+
+        private void Setup()
+        {
             // set the particle system to inactive at start
             sandParticles.gameObject.SetActive(false);
 
@@ -26,18 +31,26 @@ namespace BananaSoup
             duration = sandParticles.main.startLifetime.constant;
 
             animator = GetComponent<Animator>();
+            if ( animator == null )
+            {
+                Debug.LogError(name + "'s Animator is null and it shouldn't be!");
+            }
         }
 
         public void OnAbility(InputAction.CallbackContext context)
         {
+            Debug.Log("OnAbility");
+
             // Don't cast a sand if old currently playing.
             if ( activeParticleCoroutine != null )
             {
+                Debug.Log("Already sanding");
                 return;
             }
 
             if ( context.performed )
             {
+                Debug.Log("Set animation");
                 animator.SetTrigger(isSanding);
             }
         }

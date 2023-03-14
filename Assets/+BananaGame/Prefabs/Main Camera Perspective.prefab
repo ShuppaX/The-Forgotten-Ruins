@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5380686085320220871}
   - component: {fileID: 5380686085320220872}
   m_Layer: 0
-  m_Name: PLH_Main Camera Perspective
+  m_Name: Main Camera Perspective
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,5 +223,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52716df99ccb97c46abf3747753114cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   offsets: {x: -24, y: 20, z: -24}
