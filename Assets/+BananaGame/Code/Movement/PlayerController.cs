@@ -44,7 +44,7 @@ namespace BananaSoup
 
         [Header("GroundAhead variables")]
         [SerializeField]
-        private float groundAheadRadiusMultiplier = 1.1f;
+        private float groundAheadRadiusMultiplier = 1.6f;
         private float groundAheadRayLengthMultiplier = 2.0f;
         private float groundAheadSphereOffset = 0.0f;
         private float groundAheadRayLength = 0.0f;
@@ -55,7 +55,9 @@ namespace BananaSoup
         private Vector3 groundAheadCenterOrigin = Vector3.zero;
         private Vector3 groundAheadRightOrigin = Vector3.zero;
 
-        private float groundAheadSphereRadius = 0.05f;
+        private float groundAheadSphereRadius = 0.025f;
+
+        private bool wasPushed = false;
 
         // Variables used to store in script values and references.
         private Rigidbody rb;
@@ -166,13 +168,14 @@ namespace BananaSoup
         {
             if ( PlayerBase.Instance.IsMovable )
             {
-                if ( AllowedSlope() && GroundAhead() && WasGrounded() )
+                if ( AllowedSlope() && GroundAhead() && WasGrounded() && !wasPushed )
                 {
                     Move();
                 }
                 else if ( !GroundAhead() && WasGrounded() )
                 {
-                    rb.velocity = Vector3.zero;
+                    rb.velocity = -transform.forward;
+                    wasPushed = true;
                 }
             }
 
@@ -373,24 +376,25 @@ namespace BananaSoup
                 }
             }
 
+            wasPushed = false;
             return true;
         }
 
         private void CalculateGroundAheadSphereOriginPoints()
         {
             groundAheadLeftOrigin = transform.position + (transform.forward * groundAheadSphereOffset) * 0.71f - (transform.right * groundAheadSphereOffset) * 0.71f;
-            groundAheadCenterOrigin = transform.position + transform.forward * groundAheadSphereOffset;
+            groundAheadCenterOrigin = transform.position + transform.forward * playerCollider.radius * 2.0f;
             groundAheadRightOrigin = transform.position + (transform.forward * groundAheadSphereOffset) * 0.71f + (transform.right * groundAheadSphereOffset) * 0.71f;
         }
 
         private void GroundAheadSphereCast(int index, Vector3 position)
         {
             RaycastHit hit;
-            groundAheadSpheres[index] = UnityEngine.Physics.SphereCast(position, groundAheadSphereRadius, Vector3.down, out hit, groundAheadRayLength, groundLayer);
+            //groundAheadSpheres[index] = UnityEngine.Physics.SphereCast(position, groundAheadSphereRadius, Vector3.down, out hit, groundAheadRayLength, groundLayer);
 
             // Can be used to debug and draw the Raycast(s) using the RotaryHeart
             // Physics debug library.
-            //groundAheadSpheres[index] = RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(position, groundAheadSphereRadius, Vector3.down, groundAheadRayLength, out hit, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
+            groundAheadSpheres[index] = RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(position, groundAheadSphereRadius, Vector3.down, groundAheadRayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
 
         }
 
