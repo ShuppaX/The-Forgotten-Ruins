@@ -3790,7 +3790,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -4826,3 +4826,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16034e5f349edfc46a3e2f976f79c25e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collideWithLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  enemyLayer: Enemy
+  torchLayer: Default

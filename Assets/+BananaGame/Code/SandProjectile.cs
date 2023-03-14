@@ -1,12 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 namespace BananaSoup
 {
     public class SandProjectile : MonoBehaviour
     {
+        [SerializeField] private LayerMask collideWithLayers;
+        [SerializeField][Layer] private string enemyLayer;
+        // TODO: Add a layer to torches
+        // [SerializeField][Layer] private string torchLayer;
+        private bool isCollisionDetected;
         private ParticleSystem sandEffect;
+
+        private void OnEnable()
+        {
+            isCollisionDetected = false;
+        }
 
         private void Start()
         {
@@ -22,13 +33,21 @@ namespace BananaSoup
             }
         }
 
-        // TODO: Add shadow to particle effect.
-
         private void OnParticleCollision(GameObject other)
         {
-            // TODO: Set collision with an enemy.
-            // TODO: Set collision with an torch (put the fire out).
-            Debug.Log("Collision with: " + other.name);
+            // Sand particles collided with an enemy.
+            if ( !isCollisionDetected && other.gameObject.layer == LayerMask.NameToLayer(enemyLayer) )
+            {
+                Debug.Log(name + " collided with: " + other.name);
+                isCollisionDetected = true;
+            }
+
+            // TODO: Set collision with an torch and put the fire out.
+            //if ( !isCollisionDetected && other.gameObject.layer == LayerMask.NameToLayer(torchLayer) )
+            //{
+            //    Debug.Log(name + " collided with: " + other.name);
+            //    isCollisionDetected = true;
+            //}
         }
     }
 }
