@@ -27,6 +27,8 @@ namespace BananaSoup
         [Header("Vision")]
         [SerializeField] private float _sightRange;
         [SerializeField] private float _attackRange;
+        protected Transform _lookAtTarget;
+        protected float _damp = 6f;
         
         //Updating Variables
         protected float _lastDidSomething; //refreshing timer to prevent non-stop actions
@@ -62,6 +64,14 @@ namespace BananaSoup
 
             _playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, whatIsPlayer);
             _playerInAttackRange = Physics.CheckSphere(transform.position, _attackRange, whatIsPlayer);
+
+            if (_playerInSightRange)
+            {
+                
+                var rotate = Quaternion.LookRotation(_playerTarget.position - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
+                
+            }
 
 
             //compressed if statements for clarity
@@ -110,11 +120,14 @@ namespace BananaSoup
             //Stop enemy movement
             _enemy.SetDestination(transform.position);
 
-            transform.LookAt(_playerTarget);
+
+            
+            //transform.LookAt(_playerTarget);
 
             if (!_alreadyAttacked)
             {
                 //TODO Attack code here
+                Debug.Log("Enemy Swings");
 
                 _alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), _timeBetweenAttacks);
