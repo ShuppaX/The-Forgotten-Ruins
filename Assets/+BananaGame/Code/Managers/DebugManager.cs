@@ -28,6 +28,7 @@ namespace BananaSoup
 
         private AbilityDash abilityDash = null;
         private PlayerController playerController = null;
+        private GroundCheck groundCheck = null;
 
         private void Awake()
         {
@@ -79,13 +80,19 @@ namespace BananaSoup
             abilityDash = PlayerBase.Instance.GetComponent<AbilityDash>();
             if ( abilityDash == null )
             {
-                Debug.LogError("Couldn't find a Component of type AbilityDash on the " + gameObject.name + "!");
+                Debug.LogError("A AbilityDash component couldn't be found for the " + gameObject.name + "!");
             }
 
             playerController = PlayerBase.Instance.GetComponent<PlayerController>();
             if ( playerController == null )
             {
-                Debug.LogError("Couldn't find a Component of type PlayerController on the " + gameObject.name + "!");
+                Debug.LogError("A PlayerController component couldn't be found for the " + gameObject.name + "!");
+            }
+
+            groundCheck = PlayerBase.Instance.GetComponent<GroundCheck>();
+            if ( groundCheck == null )
+            {
+                Debug.LogError("A GroundCheck component couldn't be found for the " + gameObject.name + "!");
             }
         }
 
@@ -96,9 +103,14 @@ namespace BananaSoup
                 SubscribeAbilityDash();
             }
 
-            if (playerController != null )
+            if ( playerController != null )
             {
                 SubscribePlayerController();
+            }
+
+            if ( groundCheck != null )
+            {
+                SubscribeGroundCheck();
             }
         }
 
@@ -110,17 +122,22 @@ namespace BananaSoup
 
         private void SubscribePlayerController()
         {
-            playerController.onPlayerGroundedAndIdle += UpdatePlayerStateText;
-            playerController.onPlayerInAir += UpdatePlayerStateText;
             playerController.onPlayerMoveInput += UpdatePlayerStateText;
             playerController.onVelocityChanged += UpdateMovementSpeedText;
-            playerController.onGroundCheck += UpdateGroundCheckText;
+        }
+
+        private void SubscribeGroundCheck()
+        {
+            groundCheck.onPlayerGroundedAndIdle += UpdatePlayerStateText;
+            groundCheck.onPlayerInAir += UpdatePlayerStateText;
+            groundCheck.onGroundedChanged += UpdateGroundCheckText;
         }
 
         private void UnsubscribeAll()
         {
             UnsubscribeAbilityDash();
             UnsubscribePlayerController();
+            UnsubscribeGroundCheck();
         }
 
         private void UnsubscribeAbilityDash()
@@ -131,11 +148,15 @@ namespace BananaSoup
 
         private void UnsubscribePlayerController()
         {
-            playerController.onPlayerGroundedAndIdle -= UpdatePlayerStateText;
-            playerController.onPlayerInAir -= UpdatePlayerStateText;
             playerController.onPlayerMoveInput -= UpdatePlayerStateText;
             playerController.onVelocityChanged -= UpdateMovementSpeedText;
-            playerController.onGroundCheck -= UpdateGroundCheckText;
+        }
+
+        private void UnsubscribeGroundCheck()
+        {
+            groundCheck.onPlayerGroundedAndIdle -= UpdatePlayerStateText;
+            groundCheck.onPlayerInAir -= UpdatePlayerStateText;
+            groundCheck.onGroundedChanged -= UpdateGroundCheckText;
         }
 
         public void UpdatePlayerStateText()
@@ -160,7 +181,7 @@ namespace BananaSoup
             if ( IsDebugActive )
             {
                 groundCheckText.SetText("GroundCheck: "
-                + playerController.IsGrounded);
+                + groundCheck.IsGrounded);
             }
         }
     }

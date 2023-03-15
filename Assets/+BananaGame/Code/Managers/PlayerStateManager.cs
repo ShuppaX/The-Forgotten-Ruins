@@ -11,16 +11,17 @@ namespace BananaSoup
 
         private AbilityDash abilityDash = null;
         private PlayerController playerController = null;
+        private GroundCheck groundCheck = null;
 
         // NOTE: If you add or remove a PlayerState, DON'T CHANGE ID NUMBERS
         public enum PlayerState
         {
-            Idle        = 0, // Default state
-            Moving      = 1,
-            Dashing     = 2,
-            Attacking   = 3,
+            Idle = 0, // Default state
+            Moving = 1,
+            Dashing = 2,
+            Attacking = 3,
             Interacting = 4,
-            InAir       = 5
+            InAir = 5
         }
 
         private void Awake()
@@ -55,13 +56,19 @@ namespace BananaSoup
             abilityDash = GetComponent<AbilityDash>();
             if ( abilityDash == null )
             {
-                Debug.LogError("Couldn't find a Component of type AbilityDash on the " + gameObject.name + "!");
+                Debug.LogError("A AbilityDash component couldn't be found on " + gameObject.name + "!");
             }
 
             playerController = GetComponent<PlayerController>();
             if ( playerController == null )
             {
-                Debug.LogError("Couldn't find a Component of type PlayerController on the " + gameObject.name + "!");
+                Debug.LogError("A PlayerController component couldn't be found on " + gameObject.name + "!");
+            }
+
+            groundCheck = GetComponent<GroundCheck>();
+            if ( groundCheck == null )
+            {
+                Debug.LogError("A GroundCheck component couldn't be found on " + gameObject.name + "!");
             }
         }
 
@@ -76,6 +83,11 @@ namespace BananaSoup
             {
                 SubscribePlayerController();
             }
+
+            if ( groundCheck != null )
+            {
+                SubscribeGroundCheck();
+            }
         }
 
         private void SubscribeAbilityDash()
@@ -85,16 +97,21 @@ namespace BananaSoup
         }
         private void SubscribePlayerController()
         {
-            playerController.onPlayerGroundedAndIdle += PlayerIdle;
-            playerController.onPlayerInAir += PlayerInAir;
             playerController.onPlayerMoveInput += PlayerMoving;
             playerController.onNoPlayerMoveInput += PlayerIdleAfterDashOrMove;
+        }
+
+        private void SubscribeGroundCheck()
+        {
+            groundCheck.onPlayerGroundedAndIdle += PlayerIdle;
+            groundCheck.onPlayerInAir += PlayerInAir;
         }
 
         private void UnsubscribeAll()
         {
             UnsubscribeAbilityDash();
             UnsubscribePlayerController();
+            UnsubscribeGroundCheck();
         }
 
         private void UnsubscribeAbilityDash()
@@ -105,17 +122,21 @@ namespace BananaSoup
 
         private void UnsubscribePlayerController()
         {
-            playerController.onPlayerGroundedAndIdle -= PlayerIdle;
-            playerController.onPlayerInAir -= PlayerInAir;
             playerController.onPlayerMoveInput -= PlayerMoving;
             playerController.onNoPlayerMoveInput -= PlayerIdleAfterDashOrMove;
+        }
+
+        private void UnsubscribeGroundCheck()
+        {
+            groundCheck.onPlayerGroundedAndIdle -= PlayerIdle;
+            groundCheck.onPlayerInAir -= PlayerInAir;
         }
 
         // Public methods which are called with UnityEvents in scripts when the
         // currentPlayerState should be updated.
         public void PlayerIdle()
         {
-            if ( currentPlayerState == PlayerState.Moving 
+            if ( currentPlayerState == PlayerState.Moving
                 || currentPlayerState == PlayerState.Dashing )
             {
                 return;

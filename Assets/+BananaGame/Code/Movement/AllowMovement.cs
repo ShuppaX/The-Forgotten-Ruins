@@ -4,17 +4,17 @@ namespace BananaSoup
 {
     public class AllowMovement : MonoBehaviour
     {
-        [SerializeField, Tooltip("The offset added to the AllowMovement Raycast length.")]
-        private float allowMovementRayLengthOffset = 0.25f;
-        [SerializeField, Tooltip("The groundLayer LayerMask.")]
-        private LayerMask groundLayer;
-
+        private float allowMovementRayLengthOffset = 0.0f;
         private float allowMovementRayLength = 0.0f;
+
+        private LayerMask groundLayer;
 
         private RaycastHit slopeHit;
 
         private void Start()
         {
+            allowMovementRayLengthOffset = GetComponent<PlayerController>().CheckRayLengthOffset;
+            groundLayer = GetComponent<PlayerController>().GroundLayer;
             allowMovementRayLength = (transform.localScale.y / 2) + allowMovementRayLengthOffset;
         }
 

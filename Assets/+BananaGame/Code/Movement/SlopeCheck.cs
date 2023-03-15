@@ -4,17 +4,17 @@ namespace BananaSoup
 {
     public class SlopeCheck : MonoBehaviour
     {
-        [SerializeField, Tooltip("The offset added to the slopeCheck Raycast length.")]
-        private float slopeCheckRayLengthOffset = 0.25f;
-        [SerializeField, Tooltip("The groundLayer LayerMask.")]
-        private LayerMask groundLayer;
-
+        private float slopeCheckRayLengthOffset = 0.0f;
         private float slopeCheckRayLength = 0.0f;
+
+        private LayerMask groundLayer;
 
         private RaycastHit slopeHit;
 
         private void Start()
         {
+            slopeCheckRayLengthOffset = GetComponent<PlayerController>().CheckRayLengthOffset;
+            groundLayer = GetComponent<PlayerController>().GroundLayer;
             slopeCheckRayLength = (transform.localScale.y / 2) + slopeCheckRayLengthOffset;
         }
 

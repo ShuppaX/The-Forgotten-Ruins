@@ -30,9 +30,9 @@ namespace BananaSoup
         public UnityAction onDashReset;
 
         // Reference to players Rigidbody
-        private Rigidbody rb;
-        private CalculateMovementDirection directionCalculator;
-        private SlopeCheck slopeCheck;
+        private Rigidbody rb = null;
+        private CalculateMovementDirection directionCalculator = null;
+        private SlopeCheck slopeCheck = null;
 
         private void Start()
         {
