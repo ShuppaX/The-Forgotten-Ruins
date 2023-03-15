@@ -16,7 +16,7 @@ namespace BananaSoup
             //Stop enemy movement
             _enemy.SetDestination(transform.position);
 
-            transform.LookAt(_playerTarget);
+            // transform.LookAt(_playerTarget);
 
             if (!_alreadyAttacked)
             {
