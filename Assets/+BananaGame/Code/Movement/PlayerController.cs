@@ -6,6 +6,7 @@ using UnityEngine.Events;
 namespace BananaSoup
 {
     [RequireComponent(typeof(PlayerBase), typeof(PlayerStateManager), typeof(CalculateMovementDirection))]
+    [RequireComponent(typeof(AllowMovement))]
     public class PlayerController : MonoBehaviour
     {
         [Header("Movement")]
@@ -14,6 +15,9 @@ namespace BananaSoup
 
         [SerializeField, Tooltip("The games camera angle. (Used to calculate correct movement directions.)")]
         private float cameraAngle = 45.0f;
+
+        [SerializeField, Tooltip("Maximum allowed slope angle for moving.")]
+        private float maxSlopeAngle = 40.0f;
 
         [Header("GroundCheck variables")]
         [SerializeField]
@@ -35,11 +39,7 @@ namespace BananaSoup
 
         [SerializeField]
         private LayerMask groundLayer;
-
-        [Header("Slope variables")]
-        [SerializeField, Tooltip("The maximum angle for a slope the player can walk on.")]
-        private float maxSlopeAngle = 70.0f;
-
+        
         private RaycastHit allowedSlopeRayHit;
 
         [Header("GroundAhead variables")]
@@ -63,6 +63,7 @@ namespace BananaSoup
         private Rigidbody rb;
         private CapsuleCollider playerCollider;
         private CalculateMovementDirection directionCalculator;
+        private AllowMovement allowMovement;
 
         private Vector3 movementInput = Vector3.zero;
         private Vector3 movementDirection = Vector3.zero;
@@ -76,6 +77,11 @@ namespace BananaSoup
         public UnityAction onNoPlayerMoveInput;
         public UnityAction onVelocityChanged;
         public UnityAction onGroundCheck;
+
+        public float MaxSlopeAngle
+        {
+            get { return maxSlopeAngle; }
+        }
 
         public bool IsGrounded
         {
@@ -108,22 +114,30 @@ namespace BananaSoup
         /// </summary>
         private void GetComponents()
         {
+            Debug.Log(gameObject.name);
+
             rb = GetComponent<Rigidbody>();
             if ( rb == null )
             {
-                Debug.LogError("A Rigidbody component couldn't be found for the " + gameObject.name + "!");
+                Debug.LogError("A Rigidbody component couldn't be found on the " + gameObject.name + "!");
             }
 
             playerCollider = GetComponent<CapsuleCollider>();
             if ( playerCollider == null )
             {
-                Debug.LogError("A CapsuleCollider component couldn't be found for the " + gameObject.name + "!");
+                Debug.LogError("A CapsuleCollider component couldn't be found on the " + gameObject.name + "!");
             }
 
             directionCalculator = GetComponent<CalculateMovementDirection>();
             if ( directionCalculator == null )
             {
-                Debug.LogError("A CalculateMovementDirection component couldn't be found for the " + gameObject.name + "!");
+                Debug.LogError("A CalculateMovementDirection component couldn't be found on the " + gameObject.name + "!");
+            }
+
+            allowMovement = GetComponent<AllowMovement>();
+            if ( allowMovement == null )
+            {
+                Debug.LogError("A AllowMovement component couldn't be found on the " + gameObject.name + "!");
             }
         }
 
@@ -174,7 +188,7 @@ namespace BananaSoup
         {
             if ( PlayerBase.Instance.IsMovable )
             {
-                if ( AllowedSlope() && GroundAhead() && WasGrounded() && !wasPushed )
+                if ( IsMovementAllowed() && GroundAhead() && WasGrounded() && !wasPushed )
                 {
                     Move();
                 }
@@ -247,7 +261,12 @@ namespace BananaSoup
         private Vector3 GetMovementDirection()
         {
             return directionCalculator.CalculateDirection(
-                    allowedSlopeRayHit, groundCheckRayLength / 2, groundCheckRayLengthOffset, movementDirection);
+                    groundCheckRayLength / 2, groundCheckRayLengthOffset, movementDirection);
+        }
+
+        private bool IsMovementAllowed()
+        {
+            return allowMovement.CanMove(maxSlopeAngle);
         }
 
         /// <summary>
@@ -333,30 +352,6 @@ namespace BananaSoup
             {
                 return false;
             }
-        }
-
-        /// <summary>
-        /// Method used to check if the slope the player is on is one that they can
-        /// walk on or not. The calculation includes a Raycast from which the method
-        /// gets the normal of the object hit and then determines the angle between that
-        /// and Vector3.up.
-        /// </summary>
-        /// <returns>True if the angle between the hit objects normal and Vector3.up is within
-        /// the allowed range, otherwise false.</returns>
-        private bool AllowedSlope()
-        {
-            if ( UnityEngine.Physics.Raycast(transform.position, Vector3.down, out allowedSlopeRayHit, groundCheckRayLength, groundLayer) )
-            {
-                float angle = Vector3.Angle(Vector3.up, allowedSlopeRayHit.normal);
-                bool angleLessThanMaxSlopeAngle = (angle < maxSlopeAngle);
-
-                if ( angleLessThanMaxSlopeAngle )
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
 
         /// <summary>

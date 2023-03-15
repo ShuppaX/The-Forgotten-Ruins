@@ -6,6 +6,7 @@ using UnityEngine.Events;
 namespace BananaSoup
 {
     [RequireComponent(typeof(PlayerBase), typeof(PlayerStateManager), typeof(CalculateMovementDirection))]
+    [RequireComponent(typeof(SlopeCheck))]
     public class AbilityDash : MonoBehaviour
     {
         [Header("Dash variables")]
@@ -22,6 +23,8 @@ namespace BananaSoup
         private bool dashOnCooldown = false;
         private Coroutine dashCooldownRoutine = null;
 
+        private float maxSlopeAngle = 0.0f;
+
         [Header("UnityActions used to manage PlayerStates")]
         public UnityAction onDashAction;
         public UnityAction onDashReset;
@@ -29,6 +32,7 @@ namespace BananaSoup
         // Reference to players Rigidbody
         private Rigidbody rb;
         private CalculateMovementDirection directionCalculator;
+        private SlopeCheck slopeCheck;
 
         private void Start()
         {
@@ -38,11 +42,24 @@ namespace BananaSoup
         private void Setup()
         {
             rb = GetComponent<Rigidbody>();
-
             if ( rb == null )
             {
-                Debug.LogError("The dash ability couldn't find a Rigidbody on the gameObject: " + gameObject + "!");
+                Debug.LogError("A Rigidbody component couldn't be found on the " + gameObject.name + "!");
             }
+
+            directionCalculator = GetComponent<CalculateMovementDirection>();
+            if ( directionCalculator == null )
+            {
+                Debug.LogError("A CalculateMovementDirection component couldn't be found on the " + gameObject.name + "!");
+            }
+
+            slopeCheck = GetComponent<SlopeCheck>();
+            if ( slopeCheck == null )
+            {
+                Debug.LogError("A SlopeCheck component couldn't be found on the " + gameObject.name + "!");
+            }
+
+            maxSlopeAngle = GetComponent<PlayerController>().MaxSlopeAngle;
         }
 
         //TODO: Have the dash disable gravity for the duration of the dash and possibly

@@ -55,13 +55,13 @@ namespace BananaSoup
             abilityDash = GetComponent<AbilityDash>();
             if ( abilityDash == null )
             {
-                Debug.LogError("Couldn't find a Component of type AbilityDash for " + gameObject.name + "!");
+                Debug.LogError("Couldn't find a Component of type AbilityDash on the " + gameObject.name + "!");
             }
 
             playerController = GetComponent<PlayerController>();
             if ( playerController == null )
             {
-                Debug.LogError("Couldn't find a Component of type PlayerController for " + gameObject.name + "!");
+                Debug.LogError("Couldn't find a Component of type PlayerController on the " + gameObject.name + "!");
             }
         }
 
