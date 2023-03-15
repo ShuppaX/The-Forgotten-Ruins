@@ -39,7 +39,7 @@ namespace BananaSoup
 
         [SerializeField]
         private LayerMask groundLayer;
-        
+
         private RaycastHit allowedSlopeRayHit;
 
         [Header("GroundAhead variables")]
@@ -77,6 +77,10 @@ namespace BananaSoup
         public UnityAction onNoPlayerMoveInput;
         public UnityAction onVelocityChanged;
         public UnityAction onGroundCheck;
+
+        [Header("Debug")]
+        [SerializeField] private bool isDrawingGroundChecks = false;
+        [SerializeField] private bool isDrawingGroundAheadChecks = false;
 
         public float MaxSlopeAngle
         {
@@ -177,7 +181,7 @@ namespace BananaSoup
         /// </summary>
         private void InvokeEventOnRbVelocityChanged()
         {
-            if( latestMovementspeed != rb.velocity.sqrMagnitude )
+            if ( latestMovementspeed != rb.velocity.sqrMagnitude )
             {
                 latestMovementspeed = rb.velocity.sqrMagnitude;
                 onVelocityChanged.Invoke();
@@ -319,11 +323,16 @@ namespace BananaSoup
         /// <param name="position">The position the Raycast originates from.</param>
         private void GroundCheckRay(int index, Vector3 position)
         {
-            groundCheckRays[index] = UnityEngine.Physics.Raycast(position, Vector3.down, groundCheckRayLength, groundLayer);
-
-            // Can be used to debug and draw the Raycast(s) using the RotaryHeart
-            // Physics debug library.
-            //raycasts[index] = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(position, Vector3.down, groundCheckRayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
+            if ( !isDrawingGroundChecks )
+            {
+                groundCheckRays[index] = UnityEngine.Physics.Raycast(position, Vector3.down, groundCheckRayLength, groundLayer);
+            }
+            else
+            {
+                // Can be used to debug and draw the Raycast(s) using the RotaryHeart
+                // Physics debug library.
+                groundCheckRays[index] = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(position, Vector3.down, groundCheckRayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
+            }
         }
 
         /// <summary>
@@ -389,12 +398,17 @@ namespace BananaSoup
 
         private void GroundAheadSphereCast(int index, Vector3 position)
         {
-            RaycastHit hit;
-            groundAheadSpheres[index] = UnityEngine.Physics.SphereCast(position, groundAheadSphereRadius, Vector3.down, out hit, groundAheadRayLength, groundLayer);
-
-            // Can be used to debug and draw the Raycast(s) using the RotaryHeart
-            // Physics debug library.
-            //groundAheadSpheres[index] = RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(position, groundAheadSphereRadius, Vector3.down, groundAheadRayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
+            if ( !isDrawingGroundAheadChecks )
+            {
+                RaycastHit hit;
+                groundAheadSpheres[index] = UnityEngine.Physics.SphereCast(position, groundAheadSphereRadius, Vector3.down, out hit, groundAheadRayLength, groundLayer);
+            }
+            else
+            {
+                // Can be used to debug and draw the Raycast(s) using the RotaryHeart
+                // Physics debug library.
+                groundAheadSpheres[index] = RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(position, groundAheadSphereRadius, Vector3.down, groundAheadRayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
+            }
         }
     }
 }

@@ -58,6 +58,7 @@ namespace BananaSoup
         // ThrowSand is called from FennecCharacter@Throw animation by an event.
         private void ThrowSand()
         {
+            // TODO: Allow throw only once
             // TODO: Disable movement when sanding from StateManager
 
             // Set Particle Effect transform.
@@ -65,11 +66,15 @@ namespace BananaSoup
             sandParticles.gameObject.transform.position = handTransform.position;
 
             // TODO: Fix rotation
-            //Vector3 rotation = new Vector3(sandParticles.gameObject.transform.x, sandParticles.gameObject.transform.rotation.y);
+            //Vector3 rotation = new Vector3(sandParticles.gameObject.transform.rotation.x, sandParticles.gameObject.transform.rotation.y);
             //Debug.Log("Rotation: " + rotation);
             //sandParticles.gameObject.transform.eulerAngles = rotation;
+            Vector3 rotation = new Vector3(sandParticles.gameObject.transform.rotation.x, PlayerBase.Instance.transform.rotation.y);
+            //Debug.Log("Rotation: " + rotation);
+            sandParticles.gameObject.transform.rotation.Set(rotation.x, PlayerBase.Instance.transform.rotation.y, PlayerBase.Instance.transform.rotation.z, PlayerBase.Instance.transform.rotation.w);
             //Debug.Log("Particle rotation: " + sandParticles.gameObject.transform.localRotation);
-            sandParticles.gameObject.transform.rotation = transform.rotation;
+
+            //sandParticles.gameObject.transform.rotation = transform.rotation;
 
             sandParticles.gameObject.SetActive(true);
 
