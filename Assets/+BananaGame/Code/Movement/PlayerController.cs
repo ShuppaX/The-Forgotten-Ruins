@@ -111,13 +111,19 @@ namespace BananaSoup
             rb = GetComponent<Rigidbody>();
             if ( rb == null )
             {
-                Debug.LogError("A Rigidbody couldn't be found on the " + gameObject + "!");
+                Debug.LogError("A Rigidbody component couldn't be found for the " + gameObject.name + "!");
             }
 
             playerCollider = GetComponent<CapsuleCollider>();
             if ( playerCollider == null )
             {
-                Debug.LogError("A CapsuleCollider couldn't be found on the " + gameObject + "!");
+                Debug.LogError("A CapsuleCollider component couldn't be found for the " + gameObject.name + "!");
+            }
+
+            directionCalculator = GetComponent<CalculateMovementDirection>();
+            if ( directionCalculator == null )
+            {
+                Debug.LogError("A CalculateMovementDirection component couldn't be found for the " + gameObject.name + "!");
             }
         }
 
@@ -172,7 +178,7 @@ namespace BananaSoup
                 {
                     Move();
                 }
-                else if ( !GroundAhead() && WasGrounded() )
+                else if ( !GroundAhead() && GroundCheck() )
                 {
                     rb.velocity = -transform.forward;
                     wasPushed = true;
@@ -231,8 +237,7 @@ namespace BananaSoup
 
             if ( GroundCheck() )
             {
-                Vector3 forceToApply = GetMoveDirection() * movementSpeed;
-                //Vector3 forceToApply = GetMovementDirection() * movementSpeed;
+                Vector3 forceToApply = GetMovementDirection() * movementSpeed;
 
 
                 rb.velocity = forceToApply;
@@ -390,30 +395,11 @@ namespace BananaSoup
         private void GroundAheadSphereCast(int index, Vector3 position)
         {
             RaycastHit hit;
-            //groundAheadSpheres[index] = UnityEngine.Physics.SphereCast(position, groundAheadSphereRadius, Vector3.down, out hit, groundAheadRayLength, groundLayer);
+            groundAheadSpheres[index] = UnityEngine.Physics.SphereCast(position, groundAheadSphereRadius, Vector3.down, out hit, groundAheadRayLength, groundLayer);
 
             // Can be used to debug and draw the Raycast(s) using the RotaryHeart
             // Physics debug library.
-            groundAheadSpheres[index] = RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(position, groundAheadSphereRadius, Vector3.down, groundAheadRayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
-
-        }
-
-        /// <summary>
-        /// Method used to calclulate the movement direction while on a slope.
-        /// </summary>
-        /// <returns>The normalized ProjectOnPlane Vector3 where the adjusted direction is calculated.</returns>
-        private Vector3 GetMoveDirection()
-        {
-            UnityEngine.Physics.Raycast(transform.position, Vector3.down, out allowedSlopeRayHit, (groundCheckRayLength / 2) + groundCheckRayLengthOffset);
-
-            return Vector3.ProjectOnPlane(movementDirection, allowedSlopeRayHit.normal).normalized;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(allowedSlopeRayHit.point, GetMoveDirection());
-            //Gizmos.DrawRay(allowedSlopeRayHit.point, GetMovementDirection());
+            //groundAheadSpheres[index] = RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(position, groundAheadSphereRadius, Vector3.down, groundAheadRayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
         }
     }
 }

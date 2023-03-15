@@ -4,6 +4,12 @@ namespace BananaSoup
 {
     public class CalculateMovementDirection : MonoBehaviour
     {
+        [SerializeField]
+        private bool debugActive = false;
+
+        private RaycastHit calculatorHit;
+        private Vector3 calculatedDirection;
+
         /// <summary>
         /// Method used to calculate correct movement direction based on the plane the
         /// gameObject is on.
@@ -16,7 +22,18 @@ namespace BananaSoup
         public Vector3 CalculateDirection(RaycastHit hit, float rayLength, float rayLengthOffset, Vector3 direction)
         {
             Physics.Raycast(transform.position, Vector3.down, out hit, rayLength + rayLengthOffset);
+            calculatorHit = hit;
+            calculatedDirection = Vector3.ProjectOnPlane(direction, hit.normal).normalized;
             return Vector3.ProjectOnPlane(direction, hit.normal).normalized;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (debugActive)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawRay(calculatorHit.point, calculatedDirection);
+            }
         }
     }
 }
