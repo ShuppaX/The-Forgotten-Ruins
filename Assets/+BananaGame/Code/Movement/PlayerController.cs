@@ -30,7 +30,7 @@ namespace BananaSoup
 
         // Variables used to store in script values
         private Vector3 movementInput = Vector3.zero;
-        private Vector3 movementDirection = Vector3.zero;
+        private Vector3 isometricDirection = Vector3.zero;
 
         private float latestMovementspeed = 0.0f;
 
@@ -71,8 +71,7 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Setup method which is called in Start() to get different constant variables
-        /// and/or components etc.
+        /// Setup method which is called in Start() to get components.
         /// </summary>
         private void Setup()
         {
@@ -140,6 +139,9 @@ namespace BananaSoup
             }
         }
 
+        /// <summary>
+        /// Method used to set wasPushed to false if the player has ground in front of them
+        /// </summary>
         private void SetWasPushedFalse()
         {
             if ( groundAhead.IsGroundAhead )
@@ -171,13 +173,15 @@ namespace BananaSoup
 
         /// <summary>
         /// Used to get the players input and then store it into the movementInput Vector3
+        /// which is then converted with the IsoVectorConvert method and stored in
+        /// movementDirection.
         /// </summary>
         /// <param name="context">The players movement input.</param>
         public void OnMove(InputAction.CallbackContext context)
         {
             Vector2 input = context.ReadValue<Vector2>();
             movementInput.Set(input.x, 0, input.y);
-            movementDirection = IsoVectorConvert(movementInput);
+            isometricDirection = IsoVectorConvert(movementInput);
             onPlayerMoveInput.Invoke();
 
             if ( context.phase == InputActionPhase.Canceled )
@@ -203,8 +207,8 @@ namespace BananaSoup
 
         /// <summary>
         /// Moves the character in the direction of the players input.
-        /// Uses the method above to translate the movementInput to fit the isometric
-        /// view and then multiplies it by the movementForce.
+        /// Uses the method GetMovementDirection to get the corrected direction for
+        /// slopes and even ground and then that is multiplied by the movementSpeed.
         /// </summary>
         private void Move()
         {
@@ -215,16 +219,27 @@ namespace BananaSoup
 
             if ( groundCheck.IsGrounded )
             {
-                Vector3 forceToApply = GetMovementDirection() * movementSpeed;
+                Vector3 forceToApply = GetMovementDirection(isometricDirection) * movementSpeed;
                 rb.velocity = forceToApply;
             }
         }
 
-        private Vector3 GetMovementDirection()
+        /// <summary>
+        /// Method used to get the corrected and calculated direction from directionCalculator.
+        /// </summary>
+        /// <param name="direction">The direction you want to correct.</param>
+        /// <returns>The corrected Vector3 direction.</returns>
+        private Vector3 GetMovementDirection(Vector3 direction)
         {
-            return directionCalculator.CalculateDirection(movementDirection);
+            return directionCalculator.CalculateDirection(direction);
         }
 
+        /// <summary>
+        /// Method used to check the allowMovement.CanMove value with the allowed
+        /// maximum slope angle.
+        /// </summary>
+        /// <returns>True if the player is allowed to move on the ground they're on,
+        /// false if not.</returns>
         private bool IsMovementAllowed()
         {
             return allowMovement.CanMove(maxSlopeAngle);
