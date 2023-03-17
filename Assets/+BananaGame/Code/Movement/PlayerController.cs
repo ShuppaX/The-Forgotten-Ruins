@@ -16,7 +16,7 @@ namespace BananaSoup
         [SerializeField, Tooltip("Maximum allowed slope angle for moving.")]
         private float maxSlopeAngle = 40.0f;
         [SerializeField, Tooltip("Offset which is added to different Raycasts length. (GroundCheck, SlopeCheck, AllowMovement)")]
-        private float raycastLengthOffset = 0.25f;
+        private float raycastLength = 0.25f;
         [SerializeField]
         private LayerMask groundLayer;
 
@@ -46,9 +46,13 @@ namespace BananaSoup
             get { return maxSlopeAngle; }
         }
 
-        public float CheckRayLengthOffset
+        /// <summary>
+        /// Public property for raycastLength which is used to define the length of the
+        /// GroundCheck and AllowMovement Raycasts length.
+        /// </summary>
+        public float RayLength
         {
-            get { return raycastLengthOffset; }
+            get { return raycastLength; }
         }
 
         public LayerMask GroundLayer
@@ -148,7 +152,7 @@ namespace BananaSoup
         {
             if ( PlayerBase.Instance.IsMovable )
             {
-                if ( IsMovementAllowed() && groundAhead.IsGroundAhead && groundCheck.WasGrounded && !wasPushed )
+                if ( IsMovementAllowed() && groundAhead.IsGroundAhead && !wasPushed )
                 {
                     Move();
                 }
@@ -185,9 +189,9 @@ namespace BananaSoup
         /// <summary>
         /// Method used to convert the original movement vector to match the correct
         /// angles of movement for the isometric view. The method uses the cameras angle
-        /// in a matrix.
+        /// in a Quaternion and then that Quaternion is converted into a 4x4.Rotate Matrix.
         /// </summary>
-        /// <param name="vector"></param>
+        /// <param name="vector">The vector that you want to convert.</param>
         /// <returns>The converted movement vector.</returns>
         private Vector3 IsoVectorConvert(Vector3 vector)
         {
@@ -212,8 +216,6 @@ namespace BananaSoup
             if ( groundCheck.IsGrounded )
             {
                 Vector3 forceToApply = GetMovementDirection() * movementSpeed;
-
-
                 rb.velocity = forceToApply;
             }
         }

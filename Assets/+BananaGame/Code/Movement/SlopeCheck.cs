@@ -13,7 +13,7 @@ namespace BananaSoup
 
         private void Start()
         {
-            slopeCheckRayLengthOffset = GetComponent<PlayerController>().CheckRayLengthOffset;
+            slopeCheckRayLengthOffset = GetComponent<PlayerController>().RayLength;
             groundLayer = GetComponent<PlayerController>().GroundLayer;
             slopeCheckRayLength = (transform.localScale.y / 2) + slopeCheckRayLengthOffset;
         }

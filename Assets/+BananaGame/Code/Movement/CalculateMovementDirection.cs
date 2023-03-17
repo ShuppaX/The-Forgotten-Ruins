@@ -15,7 +15,7 @@ namespace BananaSoup
 
         private void Start()
         {
-            rayLengthOffset = GetComponent<PlayerController>().CheckRayLengthOffset;
+            rayLengthOffset = GetComponent<PlayerController>().RayLength;
             rayLength = (transform.localScale.y / 2) + rayLengthOffset;
         }
 

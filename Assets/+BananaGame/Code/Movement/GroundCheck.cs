@@ -6,6 +6,9 @@ namespace BananaSoup
 {
     public class GroundCheck : MonoBehaviour
     {
+        [SerializeField]
+        private bool isDrawingRays = false;
+
         private bool[] rays = new bool[4];
 
         private Vector3 frontRayOrigin = Vector3.zero;
@@ -17,14 +20,10 @@ namespace BananaSoup
         private float colliderRadiusMultiplier = 0.9f;
 
         private float rayLength = 0.0f;
-        private float rayLengthOffset = 0.0f;
 
         private bool groundCheckChanged = false;
 
         private LayerMask groundLayer;
-
-        [SerializeField]
-        private bool isDrawingRays = false;
 
         private CapsuleCollider playerCollider;
 
@@ -38,19 +37,13 @@ namespace BananaSoup
             get { return Grounded(); }
         }
 
-        public bool WasGrounded
-        {
-            get { return WasGroundedOnLastFrame(); }
-        }
-
         // Start is called before the first frame update
         void Start()
         {
             playerCollider = GetComponent<CapsuleCollider>();
             groundLayer = GetComponent<PlayerController>().GroundLayer;
 
-            rayLengthOffset = GetComponent<PlayerController>().CheckRayLengthOffset;
-            rayLength = (transform.localScale.y / 2) + rayLengthOffset;
+            rayLength = GetComponent<PlayerController>().RayLength;
             rayOriginOffset = playerCollider.radius * colliderRadiusMultiplier;
         }
 
@@ -65,7 +58,8 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Uses four separate raycasts to track if the player is standing on something or not.
+        /// Uses four separate Raycasts to track if the player is standing on something or not.
+        /// The Raycasts are set to originate from within the players colliders radius.
         /// </summary>
         /// <returns>True if any of the rays hit an object on the groundLayer, false if not.</returns>
         private bool Grounded()
@@ -91,7 +85,7 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Method used to calculate and update the starting points of the Raycasts
+        /// Method used to calculate and update the origin points of the Raycasts
         /// used for the GroundCheck method.
         /// </summary>
         private void CalculateGroundCheckRayOriginPoints()
@@ -106,7 +100,7 @@ namespace BananaSoup
         /// Method that makes a Raycast with given parameters. (Used with an array for
         /// several Raycasts)
         /// </summary>
-        /// <param name="index">The index of the array used to store the value of
+        /// <param name="index">The index of the Raycast used to store the value of
         /// the Raycast.</param>
         /// <param name="position">The position the Raycast originates from.</param>
         private void GroundCheckRay(int index, Vector3 position)
@@ -120,22 +114,6 @@ namespace BananaSoup
                 // Can be used to debug and draw the Raycast(s) using the RotaryHeart
                 // Physics debug library.
                 rays[index] = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(position, Vector3.down, rayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
-            }
-        }
-
-        /// <summary>
-        /// Method to check if the player was grounded on previous frame (used in FixedUpdate)
-        /// </summary>
-        /// <returns>True if the player was grounded, otherwise false.</returns>
-        private bool WasGroundedOnLastFrame()
-        {
-            if ( Grounded() )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
             }
         }
     }
