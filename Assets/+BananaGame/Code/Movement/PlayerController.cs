@@ -11,6 +11,8 @@ namespace BananaSoup
         [Header("Movement")]
         [SerializeField, Tooltip("The amount of force for moving the character.")]
         private float movementSpeed = 7.0f;
+        [SerializeField, Tooltip("The multiplier for y-velocity when falling.")]
+        private float fallingVelocityMultiplier = 1.5f;
         [SerializeField, Tooltip("The games camera angle. (Used to calculate correct movement directions.)")]
         private float cameraAngle = 45.0f;
         [SerializeField, Tooltip("Maximum allowed slope angle for moving.")]
@@ -168,6 +170,13 @@ namespace BananaSoup
             if ( PlayerBase.Instance.IsTurnable )
             {
                 Look();
+            }
+
+            // If the character is not grounded and is falling apply a multiplied
+            // Physics.gravity.y to make the character fall down faster.
+            if ( rb.velocity.y < 0 && !groundCheck.IsGrounded )
+            {
+                rb.velocity += transform.up * Physics.gravity.y * fallingVelocityMultiplier;
             }
         }
 

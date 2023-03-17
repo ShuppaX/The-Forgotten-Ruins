@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 5249730237051378977}
   - component: {fileID: 1353257476666937539}
   - component: {fileID: 6640032792856575930}
+  - component: {fileID: 869360056293319460}
+  - component: {fileID: 1529940321108571192}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -211,13 +213,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 7
+  fallingVelocityMultiplier: 0.75
   cameraAngle: 45
   maxSlopeAngle: 40
-  groundCheckRayLengthOffset: 0.25
+  raycastLength: 0.25
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
-  groundAheadRadiusMultiplier: 1.5
 --- !u!114 &9108917675126122351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d837ce35a42a8c8438fa25e87ca4c3ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugActive: 0
+  isDrawingRaycast: 0
 --- !u!114 &8933686164545328636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,10 +314,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77fc7567be257c9469d18c5fa2848d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowMovementRayLengthOffset: 0.25
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!114 &6640032792856575930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,10 +326,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1669c611bc4fe54396540636dac1f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slopeCheckRayLengthOffset: 0.25
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 128
+--- !u!114 &869360056293319460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696953563904003545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5453189f83c78ae49be502175f94f4a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDrawingRays: 0
+--- !u!114 &1529940321108571192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696953563904003545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b79215a04829c694780f7fd59569a3c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDrawingSphereCasts: 0
 --- !u!1001 &1687286708310833824
 PrefabInstance:
   m_ObjectHideFlags: 0
