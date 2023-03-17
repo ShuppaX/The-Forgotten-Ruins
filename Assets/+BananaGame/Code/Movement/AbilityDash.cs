@@ -80,7 +80,7 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Method used to update the remaining velocity of a dash.
+        /// Method used to update the direction of the remaining velocity of a dash.
         /// Invoked if slopeCheck.OnSlope() value changes.
         /// Stores the remaining velocity as a Vector3, sets the current rb.velocity to
         /// zero and then sets the velocity to the remainingVelocity with corrected direction.
