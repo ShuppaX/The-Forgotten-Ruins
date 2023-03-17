@@ -65,7 +65,11 @@ namespace BananaSoup
             OnSlopeCheckValueChanged();
         }
 
-        //TODO: Have the player "forced" to the ground while dashing.
+        /// <summary>
+        /// Method to check if the value of slopeChecks OnSlope() has changed.
+        /// If it has invoke the UpdateDash method to correct the dash direction, so that
+        /// the player stays on the ground.
+        /// </summary>
         private void OnSlopeCheckValueChanged()
         {
             if ( slopeCheckChanged != slopeCheck.OnSlope() )
@@ -75,6 +79,12 @@ namespace BananaSoup
             }
         }
 
+        /// <summary>
+        /// Method used to update the remaining velocity of a dash.
+        /// Invoked if slopeCheck.OnSlope() value changes.
+        /// Stores the remaining velocity as a Vector3, sets the current rb.velocity to
+        /// zero and then sets the velocity to the remainingVelocity with corrected direction.
+        /// </summary>
         private void UpdateDash()
         {
             Vector3 remainingVelocity = rb.velocity;
@@ -86,7 +96,7 @@ namespace BananaSoup
         /// A dash movement for the player character. Allows the character to dash if
         /// dash isn't on cooldown.
         /// </summary>
-        /// <param name="context">The players dash input.</param>
+        /// <param name="context">The players dash InputAction.</param>
         public void OnDash(InputAction.CallbackContext context)
         {
             if ( PlayerBase.Instance.AreAbilitiesEnabled )
@@ -109,13 +119,21 @@ namespace BananaSoup
             }
         }
 
+        /// <summary>
+        /// Method used to get calculated corrected direction depending on if the player
+        /// is on a slope or on even ground.
+        /// </summary>
+        /// <param name="direction">The current direction of movement. (transform.forward for dash)</param>
+        /// <returns></returns>
         private Vector3 GetCalculatedDirection(Vector3 direction)
         {
             return directionCalculator.CalculateDirection(direction);
         }
 
         /// <summary>
-        /// Method which resets the maxSpeed set for the dash and sets the isDashing bool to false.
+        /// Method which resets the players velocity to zero.
+        /// Toggleable lerp for the velocity reset.
+        /// Also used to invoke statechange after Dash is reset.
         /// </summary>
         private void DashReset()
         {
