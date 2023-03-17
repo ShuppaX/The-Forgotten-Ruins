@@ -75,7 +75,7 @@ namespace BananaSoup
             if ( slopeCheckChanged != slopeCheck.OnSlope() )
             {
                 slopeCheckChanged = !slopeCheckChanged;
-                UpdateDash();
+                UpdateRemainingVelocityDirection();
             }
         }
 
@@ -85,7 +85,7 @@ namespace BananaSoup
         /// Stores the remaining velocity as a Vector3, sets the current rb.velocity to
         /// zero and then sets the velocity to the remainingVelocity with corrected direction.
         /// </summary>
-        private void UpdateDash()
+        private void UpdateRemainingVelocityDirection()
         {
             Vector3 remainingVelocity = rb.velocity;
             rb.velocity = Vector3.zero;
