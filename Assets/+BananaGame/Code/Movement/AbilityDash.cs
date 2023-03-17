@@ -62,9 +62,10 @@ namespace BananaSoup
 
         private void Update()
         {
-            //OnSlopeCheckValueChanged();
+            OnSlopeCheckValueChanged();
         }
 
+        //TODO: Have the player "forced" to the ground while dashing.
         private void OnSlopeCheckValueChanged()
         {
             if ( slopeCheckChanged != slopeCheck.OnSlope() )
@@ -77,13 +78,9 @@ namespace BananaSoup
         private void UpdateDash()
         {
             Vector3 remainingVelocity = rb.velocity;
-            GetCalculatedDirection(remainingVelocity);
-            rb.velocity = remainingVelocity;
+            rb.velocity = Vector3.zero;
+            rb.velocity = GetCalculatedDirection(remainingVelocity);
         }
-
-        //TODO: Have the dash disable gravity for the duration of the dash and possibly
-        //TODO: have the character rise a bit when dashing?
-        //TODO: Also have the player "forced" to the ground while dashing.
 
         /// <summary>
         /// A dash movement for the player character. Allows the character to dash if
