@@ -6,6 +6,7 @@ namespace BananaSoup
     {
         private float slopeCheckRayLengthOffset = 0.0f;
         private float slopeCheckRayLength = 0.0f;
+        private float maxAngle = 0.0f;
 
         private LayerMask groundLayer;
 
@@ -14,11 +15,12 @@ namespace BananaSoup
         private void Start()
         {
             slopeCheckRayLengthOffset = GetComponent<PlayerController>().RayLength;
+            maxAngle = GetComponent<PlayerController>().MaxSlopeAngle;
             groundLayer = GetComponent<PlayerController>().GroundLayer;
             slopeCheckRayLength = (transform.localScale.y / 2) + slopeCheckRayLengthOffset;
         }
 
-        public bool OnSlope(float maxAngle)
+        public bool OnSlope()
         {
             if ( Physics.Raycast(transform.position, Vector3.down, out slopeHit, slopeCheckRayLength, groundLayer) )
             {

@@ -21,9 +21,9 @@ namespace BananaSoup
         [SerializeField] float lerpSpeed = 25.0f;
 
         private bool dashOnCooldown = false;
-        private Coroutine dashCooldownRoutine = null;
+        private bool slopeCheckChanged = false;
 
-        private float maxSlopeAngle = 0.0f;
+        private Coroutine dashCooldownRoutine = null;
 
         [Header("UnityActions used to manage PlayerStates")]
         public UnityAction onDashAction;
@@ -58,8 +58,27 @@ namespace BananaSoup
             {
                 Debug.LogError("A SlopeCheck component couldn't be found on the " + gameObject.name + "!");
             }
+        }
 
-            maxSlopeAngle = GetComponent<PlayerController>().MaxSlopeAngle;
+        private void Update()
+        {
+            //OnSlopeCheckValueChanged();
+        }
+
+        private void OnSlopeCheckValueChanged()
+        {
+            if ( slopeCheckChanged != slopeCheck.OnSlope() )
+            {
+                slopeCheckChanged = !slopeCheckChanged;
+                UpdateDash();
+            }
+        }
+
+        private void UpdateDash()
+        {
+            Vector3 remainingVelocity = rb.velocity;
+            GetCalculatedDirection(remainingVelocity);
+            rb.velocity = remainingVelocity;
         }
 
         //TODO: Have the dash disable gravity for the duration of the dash and possibly
@@ -78,7 +97,7 @@ namespace BananaSoup
                 if ( !dashOnCooldown && context.phase == InputActionPhase.Performed )
                 {
                     onDashAction.Invoke();
-                    Vector3 forceToApply = transform.forward * dashForce;
+                    Vector3 forceToApply = GetCalculatedDirection(transform.forward) * dashForce;
 
                     rb.velocity = forceToApply;
                     dashOnCooldown = true;
@@ -91,6 +110,11 @@ namespace BananaSoup
                     Invoke(nameof(DashReset), dashDuration);
                 }
             }
+        }
+
+        private Vector3 GetCalculatedDirection(Vector3 direction)
+        {
+            return directionCalculator.CalculateDirection(direction);
         }
 
         /// <summary>
