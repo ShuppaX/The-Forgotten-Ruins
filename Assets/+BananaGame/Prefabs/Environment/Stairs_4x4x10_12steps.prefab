@@ -2133,7 +2133,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1876
+  m_VersionIndex: 1888
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2247,14 +2247,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7529775552386673148}
-  m_LocalRotation: {x: -0.19080894, y: 0, z: 0, w: 0.9816273}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.18995228, y: 0, z: 0, w: 0.98179334}
+  m_LocalPosition: {x: 0, y: -0.007, z: -0.077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5528537178666850689}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -22, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -21.9, y: 0, z: 0}
 --- !u!65 &3319048060208598740
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2266,5 +2266,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4, y: 0.920622, z: 10.751712}
-  m_Center: {x: 2.093988, y: 1.9103155, z: -2.104149}
+  m_Size: {x: 4, y: 0.920622, z: 10.9}
+  m_Center: {x: 2.093988, y: 1.9103155, z: -2.12}
