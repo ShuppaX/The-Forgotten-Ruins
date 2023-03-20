@@ -18,8 +18,7 @@ namespace BananaSoup
 
         public void OnSandAttack()
         {
-            var main = fireParticles.main;
-            main.loop = false;
+            fireParticles.Stop(false);
         }
     }
 }
