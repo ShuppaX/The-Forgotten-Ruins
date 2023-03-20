@@ -27,7 +27,8 @@ namespace BananaSoup
 
         [Header("UnityActions used to manage PlayerStates")]
         public UnityAction onDashAction;
-        public UnityAction onDashReset;
+        public UnityAction onDashResetToMoving;
+        public UnityAction onDashResetToIdle;
 
         // Reference to players Rigidbody
         private Rigidbody rb = null;
@@ -146,7 +147,14 @@ namespace BananaSoup
                 rb.velocity = Vector3.zero;
             }
 
-            onDashReset.Invoke();
+            if ( GetComponent<PlayerController>().IsMoving )
+            {
+                onDashResetToMoving.Invoke();
+            }
+            else
+            {
+                onDashResetToIdle.Invoke();
+            }
         }
 
         /// <summary>

@@ -36,6 +36,7 @@ namespace BananaSoup
 
         private float latestMovementspeed = 0.0f;
 
+        private bool isMoving = false;
         private bool wasPushed = false;
 
         [Header("UnityActions to manage PlayerStates")]
@@ -65,6 +66,11 @@ namespace BananaSoup
         public float PlayerMovementspeed
         {
             get { return Mathf.Round(rb.velocity.magnitude); }
+        }
+
+        public bool IsMoving
+        {
+            get { return isMoving; }
         }
 
         private void Start()
@@ -191,10 +197,12 @@ namespace BananaSoup
             Vector2 input = context.ReadValue<Vector2>();
             movementInput.Set(input.x, 0.0f, input.y);
             isometricDirection = IsoVectorConvert(movementInput);
+            isMoving = true;
 
             if ( context.phase == InputActionPhase.Canceled )
             {
                 movementInput = Vector3.zero;
+                isMoving = false;
                 onNoPlayerMoveInput.Invoke();
             }
         }

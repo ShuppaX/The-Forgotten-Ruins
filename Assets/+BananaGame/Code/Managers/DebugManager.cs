@@ -117,7 +117,8 @@ namespace BananaSoup
         private void SubscribeAbilityDash()
         {
             abilityDash.onDashAction += UpdatePlayerStateText;
-            abilityDash.onDashReset += UpdatePlayerStateText;
+            abilityDash.onDashResetToMoving += UpdatePlayerStateText;
+            abilityDash.onDashResetToIdle += UpdatePlayerStateText;
         }
 
         private void SubscribePlayerController()
@@ -143,7 +144,8 @@ namespace BananaSoup
         private void UnsubscribeAbilityDash()
         {
             abilityDash.onDashAction -= UpdatePlayerStateText;
-            abilityDash.onDashReset -= UpdatePlayerStateText;
+            abilityDash.onDashResetToMoving -= UpdatePlayerStateText;
+            abilityDash.onDashResetToIdle -= UpdatePlayerStateText;
         }
 
         private void UnsubscribePlayerController()
@@ -159,7 +161,7 @@ namespace BananaSoup
             groundCheck.onGroundedChanged -= UpdateGroundCheckText;
         }
 
-        public void UpdatePlayerStateText()
+        private void UpdatePlayerStateText()
         {
             if ( IsDebugActive )
             {
@@ -167,7 +169,7 @@ namespace BananaSoup
             }
         }
 
-        public void UpdateMovementSpeedText()
+        private void UpdateMovementSpeedText()
         {
             if ( IsDebugActive )
             {
@@ -176,7 +178,7 @@ namespace BananaSoup
             }
         }
 
-        public void UpdateGroundCheckText()
+        private void UpdateGroundCheckText()
         {
             if ( IsDebugActive )
             {

@@ -93,7 +93,8 @@ namespace BananaSoup
         private void SubscribeAbilityDash()
         {
             abilityDash.onDashAction += PlayerDashing;
-            abilityDash.onDashReset += PlayerIdleAfterDash;
+            abilityDash.onDashResetToMoving += PlayerMoving;
+            abilityDash.onDashResetToIdle += PlayerIdleAfterDash;
         }
         private void SubscribePlayerController()
         {
@@ -117,7 +118,8 @@ namespace BananaSoup
         private void UnsubscribeAbilityDash()
         {
             abilityDash.onDashAction -= PlayerDashing;
-            abilityDash.onDashReset -= PlayerIdleAfterDash;
+            abilityDash.onDashResetToMoving -= PlayerMoving;
+            abilityDash.onDashResetToIdle -= PlayerIdleAfterDash;
         }
 
         private void UnsubscribePlayerController()
@@ -132,9 +134,9 @@ namespace BananaSoup
             groundCheck.onPlayerInAir -= PlayerInAir;
         }
 
-        // Public methods which are called with UnityEvents in scripts when the
+        // Methods which are called with UnityEvents in scripts when the
         // currentPlayerState should be updated.
-        public void PlayerIdle()
+        private void PlayerIdle()
         {
             if ( currentPlayerState == PlayerState.Moving
                 || currentPlayerState == PlayerState.Dashing )
@@ -165,32 +167,27 @@ namespace BananaSoup
             currentPlayerState = PlayerState.Idle;
         }
 
-        public void PlayerMoving()
+        private void PlayerMoving()
         {
-            if ( currentPlayerState == PlayerState.Dashing )
-            {
-                return;
-            }
-
             currentPlayerState = PlayerState.Moving;
         }
 
-        public void PlayerDashing()
+        private void PlayerDashing()
         {
             currentPlayerState = PlayerState.Dashing;
         }
 
-        public void PlayerAttacking()
+        private void PlayerAttacking()
         {
             currentPlayerState = PlayerState.Attacking;
         }
 
-        public void PlayerInteracting()
+        private void PlayerInteracting()
         {
             currentPlayerState = PlayerState.Interacting;
         }
 
-        public void PlayerInAir()
+        private void PlayerInAir()
         {
             currentPlayerState = PlayerState.InAir;
         }
