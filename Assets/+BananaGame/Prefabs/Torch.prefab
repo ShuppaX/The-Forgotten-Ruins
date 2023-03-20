@@ -9689,7 +9689,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -9706,6 +9706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireParticles: {fileID: 3394220984990786356}
+  torchPuzzleParent: {fileID: 0}
 --- !u!1 &5672393115507406018
 GameObject:
   m_ObjectHideFlags: 0

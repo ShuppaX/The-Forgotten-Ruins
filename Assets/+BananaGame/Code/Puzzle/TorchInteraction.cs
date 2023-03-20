@@ -7,6 +7,7 @@ namespace BananaSoup
     public class TorchInteraction : MonoBehaviour, ISandable
     {
         [SerializeField] private ParticleSystem fireParticles;
+        [SerializeField] private TorchPuzzle torchPuzzleParent;
 
         private void Start()
         {
@@ -14,11 +15,17 @@ namespace BananaSoup
             {
                 Debug.LogError(name + " is missing Fire ParticleSystem");
             }
+
+            if ( torchPuzzleParent == null )
+            {
+                Debug.LogError(name + " is missing TorchPuzzleParent");
+            }
         }
 
         public void OnSandAttack()
         {
             fireParticles.Stop(false);
+            torchPuzzleParent.SetTorchExtinguished = 1;
         }
     }
 }
