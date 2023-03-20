@@ -8,31 +8,30 @@ namespace BananaSoup
     //Requirements
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Rigidbody))]
-    
     public class MeleeRaycast : MonoBehaviour
     {
         //Definitions
         protected NavMeshAgent _enemy; // assign navmesh agent
         protected Transform _playerTarget; // reference to player's position
-        
+        protected Vector3 _playerDirection;
+
         //Serialized
-        [Header("Layer masks")]
-        [SerializeField] private LayerMask whatIsGround;
+        [Header("Layer masks")] [SerializeField]
+        private LayerMask whatIsGround;
+
         [SerializeField] private LayerMask whatIsPlayer;
-        
-        [Header("Combat")]
-        [SerializeField] private float health;
+
+        [Header("Combat")] [SerializeField] private float health;
         [SerializeField] private float damage = 1;
-        
-        [Header("Vision")]
-        [SerializeField] private float _sightRange;
+
+        [Header("Vision")] [SerializeField] private float _sightRange;
         [SerializeField] private float _attackRange;
         protected Transform _lookAtTarget;
         protected float _damp = 6f;
-        
+
         //Updating Variables
         protected float _lastDidSomething; //refreshing timer to prevent non-stop actions
-        private readonly float _pauseTime = 3f; //Time to pause after action
+        private readonly float _pauseTime = 1f; //Time to pause after action
 
         //patrol
         public Vector3 waypoint;
@@ -42,6 +41,8 @@ namespace BananaSoup
         //Attack
         protected float _timeBetweenAttacks;
         protected bool _alreadyAttacked;
+        private Vector3 whereIsPlayer;
+        private float angle;
 
         //states
         private bool _playerInSightRange;
@@ -55,23 +56,31 @@ namespace BananaSoup
 
         private void Start()
         {
-            _playerTarget = PlayerBase.Instance.transform;
+            var transform1 = PlayerBase.Instance.transform;
+            _playerTarget = transform1;
+            _playerDirection = transform1.position;
         }
 
         private void Update()
         {
-            if (Time.time < _lastDidSomething + _pauseTime) return;
+            //Variables
+            var position = transform.position;
+            whereIsPlayer = _playerDirection - position;
+            angle = Vector3.Angle(whereIsPlayer, transform.forward);
 
-            _playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, whatIsPlayer);
-            _playerInAttackRange = Physics.CheckSphere(transform.position, _attackRange, whatIsPlayer);
+            _playerInSightRange = Physics.CheckSphere(position, _sightRange, whatIsPlayer);
+            _playerInAttackRange = Physics.CheckSphere(position, _attackRange, whatIsPlayer);
+
 
             if (_playerInSightRange)
-            {
-                
-                var rotate = Quaternion.LookRotation(_playerTarget.position - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
-                
-            }
+                //Smoothed turning towards player
+                if (angle > 5.0f)
+                {
+                    var rotate = Quaternion.LookRotation(_playerTarget.position - transform.position);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
+                }
+
+            if (Time.time < _lastDidSomething + _pauseTime) return;
 
 
             //compressed if statements for clarity
@@ -99,14 +108,11 @@ namespace BananaSoup
             var randomZ = Random.Range(-_waypointRange, _waypointRange);
             var randomX = Random.Range(-_waypointRange, _waypointRange);
             var position = transform.position;
-            
+
             waypoint = new Vector3(position.x + randomX, position.y,
                 position.z + randomZ);
 
-            if (Physics.Raycast(waypoint, -transform.up, 2f, whatIsGround))
-            {
-                _waypointSet = true;
-            }
+            if (Physics.Raycast(waypoint, -transform.up, 2f, whatIsGround)) _waypointSet = true;
             _lastDidSomething = Time.time;
         }
 
@@ -121,7 +127,6 @@ namespace BananaSoup
             _enemy.SetDestination(transform.position);
 
 
-            
             //transform.LookAt(_playerTarget);
 
             if (!_alreadyAttacked)
@@ -156,9 +161,8 @@ namespace BananaSoup
         //Display sight and attack ranges
         private void OnDrawGizmos()
         {
-            
             var position = transform.position;
-            
+
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(position, _attackRange);
             Gizmos.color = Color.yellow;
