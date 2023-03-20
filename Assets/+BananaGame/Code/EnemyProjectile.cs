@@ -13,7 +13,9 @@ namespace BananaSoup
         private float _durationTimer;
 
         private Rigidbody _rb;
-        private bool _isFired;
+        private bool _isFired = true;
+        [SerializeField] private float forwardForce = 10.0f;
+        [SerializeField] private float upForce = 8.0f;
 
         private void Awake()
         {
@@ -29,8 +31,8 @@ namespace BananaSoup
         {
             if (_isFired)
             {
-                _rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-                _rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+                _rb.AddForce(transform.forward * forwardForce, ForceMode.Impulse);
+                _rb.AddForce(transform.up * upForce, ForceMode.Impulse);
             }
         }
 
