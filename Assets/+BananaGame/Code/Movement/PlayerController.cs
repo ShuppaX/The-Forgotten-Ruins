@@ -176,7 +176,7 @@ namespace BananaSoup
             // Physics.gravity.y to make the character fall down faster.
             if ( rb.velocity.y < 0 && !groundCheck.IsGrounded )
             {
-                rb.velocity += transform.up * Physics.gravity.y * fallingVelocityMultiplier;
+                rb.velocity -= transform.up * fallingVelocityMultiplier;
             }
         }
 
