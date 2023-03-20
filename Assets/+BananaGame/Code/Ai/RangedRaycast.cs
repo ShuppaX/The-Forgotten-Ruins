@@ -8,9 +8,10 @@ namespace BananaSoup
     {
         public GameObject projectile;
         public GameObject firingPoint;
-        
-        
-        
+
+        [SerializeField] private Transform aimpoint;
+
+
         public override void Attack()
         {
             //Stop enemy movement
@@ -21,7 +22,7 @@ namespace BananaSoup
             if (!_alreadyAttacked)
             {
 
-                Rigidbody rb = Instantiate(projectile, firingPoint.transform.position, Quaternion.identity)
+                Rigidbody rb = Instantiate(projectile, firingPoint.transform.position, aimpoint.rotation)
                     .GetComponent<Rigidbody>();
                 Debug.Log("pew");
 
