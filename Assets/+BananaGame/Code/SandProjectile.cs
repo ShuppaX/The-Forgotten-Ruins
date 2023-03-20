@@ -31,7 +31,7 @@ namespace BananaSoup
 
         private void OnParticleCollision(GameObject other)
         {
-            if ( !isCollisionDetected )
+            if ( isCollisionDetected )
             {
                 return;
             }
