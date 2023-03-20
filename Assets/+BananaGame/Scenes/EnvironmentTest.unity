@@ -2353,6 +2353,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8235452771116421138}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1210863770 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1607811416821434316, guid: 39d19e9d404da7b498ea9db0cadd44f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 8235452771116421138}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1263290894
 GameObject:
   m_ObjectHideFlags: 0
@@ -4437,6 +4443,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicRangedEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8235452770126603850, guid: 39d19e9d404da7b498ea9db0cadd44f0,
+        type: 3}
+      propertyPath: aimpoint
+      value: 
+      objectReference: {fileID: 1210863770}
     - target: {fileID: 8235452770126603850, guid: 39d19e9d404da7b498ea9db0cadd44f0,
         type: 3}
       propertyPath: projectile

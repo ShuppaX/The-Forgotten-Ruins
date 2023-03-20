@@ -16,10 +16,13 @@ namespace BananaSoup
         private bool _isFired = true;
         [SerializeField] private float forwardForce = 10.0f;
         [SerializeField] private float upForce = 8.0f;
+        private Vector3 _playerDirection;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
+            
+            
             if (_rb == null)
             {
                 Debug.LogError("No Rigidbody on projectile");
@@ -29,6 +32,8 @@ namespace BananaSoup
 
         private void FixedUpdate()
         {
+            //_playerDirection = PlayerBase.transform.position;
+            var whereisPlayer = _playerDirection;
             if (_isFired)
             {
                 _rb.AddForce(transform.forward * forwardForce, ForceMode.Impulse);

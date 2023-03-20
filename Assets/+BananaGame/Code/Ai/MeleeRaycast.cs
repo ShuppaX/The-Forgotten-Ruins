@@ -47,6 +47,7 @@ namespace BananaSoup
         //states
         private bool _playerInSightRange;
         private bool _playerInAttackRange;
+        private bool _stunned;
 
 
         private void Awake()
@@ -74,7 +75,7 @@ namespace BananaSoup
 
             if (_playerInSightRange)
                 //Smoothed turning towards player
-                if (angle > 5.0f)
+                if (angle > 2.5f)
                 {
                     var rotate = Quaternion.LookRotation(_playerTarget.position - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
@@ -83,10 +84,17 @@ namespace BananaSoup
             if (Time.time < _lastDidSomething + _pauseTime) return;
 
 
-            //compressed if statements for clarity
-            if (!_playerInSightRange && !_playerInAttackRange) Patrol();
-            if (_playerInSightRange && !_playerInAttackRange) Chase();
-            if (_playerInSightRange && _playerInAttackRange) Attack();
+
+            if (!_stunned)
+            {
+                
+                //compressed if statements for clarity
+                if (!_playerInSightRange && !_playerInAttackRange) Patrol();
+                if (_playerInSightRange && !_playerInAttackRange) Chase();
+                if (_playerInSightRange && _playerInAttackRange) Attack();
+                
+            }
+            
         }
 
         private void Patrol()
@@ -103,6 +111,8 @@ namespace BananaSoup
             _lastDidSomething = Time.time;
         }
 
+        
+        //Looks for a new waypoint through navmesh
         private void SearchWaypoint()
         {
             var randomZ = Random.Range(-_waypointRange, _waypointRange);
