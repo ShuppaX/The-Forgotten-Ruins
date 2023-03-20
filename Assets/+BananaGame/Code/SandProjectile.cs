@@ -7,10 +7,6 @@ namespace BananaSoup
 {
     public class SandProjectile : MonoBehaviour
     {
-        [SerializeField] private LayerMask collideWithLayers;
-        [SerializeField][Layer] private string enemyLayer;
-        // TODO: Add a layer to torches
-        // [SerializeField][Layer] private string torchLayer;
         private bool isCollisionDetected;
         private ParticleSystem sandEffect;
 
@@ -35,19 +31,16 @@ namespace BananaSoup
 
         private void OnParticleCollision(GameObject other)
         {
-            // Sand particles collided with an enemy.
-            if ( !isCollisionDetected && other.gameObject.layer == LayerMask.NameToLayer(enemyLayer) )
+            if ( !isCollisionDetected )
             {
-                Debug.Log(name + " collided with: " + other.name);
-                isCollisionDetected = true;
+                return;
             }
 
-            // TODO: Set collision with an torch and put the fire out.
-            //if ( !isCollisionDetected && other.gameObject.layer == LayerMask.NameToLayer(torchLayer) )
-            //{
-            //    Debug.Log(name + " collided with: " + other.name);
-            //    isCollisionDetected = true;
-            //}
+            if ( other.TryGetComponent(out ISandable sandable) )
+            {
+                isCollisionDetected = true;
+                sandable.OnSandAttack();
+            }
         }
     }
 }

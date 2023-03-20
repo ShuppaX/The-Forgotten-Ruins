@@ -39,18 +39,14 @@ namespace BananaSoup
 
         public void OnAbility(InputAction.CallbackContext context)
         {
-            Debug.Log("OnAbility");
-
             // Don't cast a sand if old currently playing.
             if ( activeParticleCoroutine != null )
             {
-                Debug.Log("Already sanding");
                 return;
             }
 
             if ( context.performed )
             {
-                Debug.Log("Set animation");
                 animator.SetTrigger(isSanding);
             }
         }
