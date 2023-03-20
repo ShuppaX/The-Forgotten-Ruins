@@ -23,13 +23,15 @@ namespace BananaSoup
 
         private float sphereRadius = 0.025f;
 
+        private bool isGroundAhead = false;
+
         private LayerMask groundLayer;
 
         private CapsuleCollider playerCollider = null;
 
         public bool IsGroundAhead
         {
-            get { return CheckIfGroundAhead(); }
+            get { return isGroundAhead; }
         }
 
         // Start is called before the first frame update
@@ -38,9 +40,15 @@ namespace BananaSoup
             playerCollider = GetComponent<CapsuleCollider>();
             groundLayer = GetComponent<PlayerController>().GroundLayer;
 
+
             castOriginOffset = playerCollider.radius * colliderRadiusMultiplier;
             castLength = (transform.localScale.y * castLengthMultiplier);
-            originHeightOffset.Set(0, (playerCollider.height / 2f), 0);
+            originHeightOffset.Set(0.0f, (playerCollider.height / 2.0f), 0.0f);
+        }
+
+        private void Update()
+        {
+            isGroundAhead = CheckIfGroundAhead();
         }
 
         /// <summary>

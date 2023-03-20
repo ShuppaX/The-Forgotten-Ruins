@@ -189,12 +189,12 @@ namespace BananaSoup
         public void OnMove(InputAction.CallbackContext context)
         {
             Vector2 input = context.ReadValue<Vector2>();
-            movementInput.Set(input.x, 0, input.y);
+            movementInput.Set(input.x, 0.0f, input.y);
             isometricDirection = IsoVectorConvert(movementInput);
-            onPlayerMoveInput.Invoke();
 
             if ( context.phase == InputActionPhase.Canceled )
             {
+                movementInput = Vector3.zero;
                 onNoPlayerMoveInput.Invoke();
             }
         }
@@ -208,7 +208,7 @@ namespace BananaSoup
         /// <returns>The converted movement vector.</returns>
         private Vector3 IsoVectorConvert(Vector3 vector)
         {
-            Quaternion rotation = Quaternion.Euler(0, cameraAngle, 0);
+            Quaternion rotation = Quaternion.Euler(0.0f, cameraAngle, 0.0f);
             Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
             Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
             return result;
@@ -226,10 +226,15 @@ namespace BananaSoup
                 return;
             }
 
-            if ( groundCheck.IsGrounded )
+            if ( groundCheck.IsGrounded && movementInput.sqrMagnitude != 0.0f )
             {
+                onPlayerMoveInput.Invoke();
                 Vector3 forceToApply = GetMovementDirection(isometricDirection) * movementSpeed;
                 rb.velocity = forceToApply;
+            }
+            else if ( movementInput.sqrMagnitude == 0.0f )
+            {
+                rb.velocity = Vector3.zero;
             }
         }
 
@@ -251,7 +256,7 @@ namespace BananaSoup
         /// false if not.</returns>
         private bool IsMovementAllowed()
         {
-            return allowMovement.CanMove(maxSlopeAngle);
+            return allowMovement.IsMovementAllowed;
         }
 
         /// <summary>
@@ -261,7 +266,8 @@ namespace BananaSoup
         /// </summary>
         private void Look()
         {
-            if ( movementInput != Vector3.zero )
+            if ( movementInput.sqrMagnitude != 0.0f &&
+                PlayerStateManager.Instance.currentPlayerState != PlayerStateManager.PlayerState.Dashing )
             {
                 var rot = Quaternion.LookRotation(IsoVectorConvert(movementInput), Vector3.up);
 

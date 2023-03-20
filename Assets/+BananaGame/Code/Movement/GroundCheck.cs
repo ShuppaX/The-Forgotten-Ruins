@@ -16,11 +16,14 @@ namespace BananaSoup
         private Vector3 rightRayOrigin = Vector3.zero;
         private Vector3 leftRayOrigin = Vector3.zero;
 
+        private Vector3 originHeightOffset = Vector3.zero;
+
         private float rayOriginOffset = 0.0f;
         private float colliderRadiusMultiplier = 0.9f;
 
         private float rayLength = 0.0f;
 
+        private bool isGrounded = false;
         private bool groundCheckChanged = false;
 
         private LayerMask groundLayer;
@@ -34,7 +37,7 @@ namespace BananaSoup
 
         public bool IsGrounded
         {
-            get { return Grounded(); }
+            get { return isGrounded; }
         }
 
         // Start is called before the first frame update
@@ -43,13 +46,16 @@ namespace BananaSoup
             playerCollider = GetComponent<CapsuleCollider>();
             groundLayer = GetComponent<PlayerController>().GroundLayer;
 
-            rayLength = GetComponent<PlayerController>().RayLength;
+            rayLength = (playerCollider.height / 2.0f) + GetComponent<PlayerController>().RayLength;
             rayOriginOffset = playerCollider.radius * colliderRadiusMultiplier;
+            originHeightOffset.Set(0.0f, (playerCollider.height / 2.0f), 0.0f);
         }
 
         // Update is called once per frame
         void Update()
         {
+            isGrounded = Grounded();
+
             if ( groundCheckChanged != Grounded() )
             {
                 groundCheckChanged = !groundCheckChanged;
@@ -90,10 +96,10 @@ namespace BananaSoup
         /// </summary>
         private void CalculateGroundCheckRayOriginPoints()
         {
-            frontRayOrigin = transform.position + transform.forward * rayOriginOffset;
-            backRayOrigin = transform.position - transform.forward * rayOriginOffset;
-            rightRayOrigin = transform.position + transform.right * rayOriginOffset;
-            leftRayOrigin = transform.position - transform.right * rayOriginOffset;
+            frontRayOrigin = transform.position + originHeightOffset + transform.forward * rayOriginOffset;
+            backRayOrigin = transform.position + originHeightOffset - transform.forward * rayOriginOffset;
+            rightRayOrigin = transform.position + originHeightOffset + transform.right * rayOriginOffset;
+            leftRayOrigin = transform.position + originHeightOffset - transform.right * rayOriginOffset;
         }
 
         /// <summary>

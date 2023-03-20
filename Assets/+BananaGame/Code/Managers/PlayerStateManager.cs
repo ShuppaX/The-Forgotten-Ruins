@@ -93,12 +93,12 @@ namespace BananaSoup
         private void SubscribeAbilityDash()
         {
             abilityDash.onDashAction += PlayerDashing;
-            abilityDash.onDashReset += PlayerIdleAfterDashOrMove;
+            abilityDash.onDashReset += PlayerIdleAfterDash;
         }
         private void SubscribePlayerController()
         {
             playerController.onPlayerMoveInput += PlayerMoving;
-            playerController.onNoPlayerMoveInput += PlayerIdleAfterDashOrMove;
+            playerController.onNoPlayerMoveInput += PlayerIdleAfterMove;
         }
 
         private void SubscribeGroundCheck()
@@ -117,13 +117,13 @@ namespace BananaSoup
         private void UnsubscribeAbilityDash()
         {
             abilityDash.onDashAction -= PlayerDashing;
-            abilityDash.onDashReset -= PlayerIdleAfterDashOrMove;
+            abilityDash.onDashReset -= PlayerIdleAfterDash;
         }
 
         private void UnsubscribePlayerController()
         {
             playerController.onPlayerMoveInput -= PlayerMoving;
-            playerController.onNoPlayerMoveInput -= PlayerIdleAfterDashOrMove;
+            playerController.onNoPlayerMoveInput -= PlayerIdleAfterMove;
         }
 
         private void UnsubscribeGroundCheck()
@@ -145,8 +145,23 @@ namespace BananaSoup
             currentPlayerState = PlayerState.Idle;
         }
 
-        private void PlayerIdleAfterDashOrMove()
+        private void PlayerIdleAfterDash()
         {
+            if ( currentPlayerState == PlayerState.Moving )
+            {
+                return;
+            }
+
+            currentPlayerState = PlayerState.Idle;
+        }
+
+        private void PlayerIdleAfterMove()
+        {
+            if ( currentPlayerState == PlayerState.Dashing )
+            {
+                return;
+            }
+
             currentPlayerState = PlayerState.Idle;
         }
 

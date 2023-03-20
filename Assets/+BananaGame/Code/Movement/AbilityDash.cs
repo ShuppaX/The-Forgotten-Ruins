@@ -72,7 +72,7 @@ namespace BananaSoup
         /// </summary>
         private void OnSlopeCheckValueChanged()
         {
-            if ( slopeCheckChanged != slopeCheck.OnSlope() )
+            if ( slopeCheckChanged != slopeCheck.IsOnSlope )
             {
                 slopeCheckChanged = !slopeCheckChanged;
                 UpdateRemainingVelocityDirection();

@@ -4,20 +4,39 @@ namespace BananaSoup
 {
     public class SlopeCheck : MonoBehaviour
     {
-        private float slopeCheckRayLengthOffset = 0.0f;
-        private float slopeCheckRayLength = 0.0f;
+        private float rayLengthOffset = 0.0f;
+        private float rayLength = 0.0f;
         private float maxAngle = 0.0f;
+
+        private bool isOnSlope = false;
+
+        private Vector3 originHeightOffset = Vector3.zero;
 
         private LayerMask groundLayer;
 
         private RaycastHit slopeHit;
 
+        private CapsuleCollider playerCollider;
+
+        public bool IsOnSlope
+        {
+            get { return isOnSlope; }
+        }
+
         private void Start()
         {
-            slopeCheckRayLengthOffset = GetComponent<PlayerController>().RayLength;
+            playerCollider = GetComponent<CapsuleCollider>();
+
+            rayLengthOffset = GetComponent<PlayerController>().RayLength;
             maxAngle = GetComponent<PlayerController>().MaxSlopeAngle;
             groundLayer = GetComponent<PlayerController>().GroundLayer;
-            slopeCheckRayLength = (transform.localScale.y / 2) + slopeCheckRayLengthOffset;
+            rayLength = playerCollider.height + rayLengthOffset;
+            originHeightOffset.Set(0.0f, (playerCollider.height / 2.0f), 0.0f);
+        }
+
+        private void Update()
+        {
+            isOnSlope = OnSlope();
         }
 
         /// <summary>
@@ -28,11 +47,11 @@ namespace BananaSoup
         /// <returns>True if the player is on a slope, otherwise false.</returns>
         public bool OnSlope()
         {
-            if ( Physics.Raycast(transform.position, Vector3.down, out slopeHit, slopeCheckRayLength, groundLayer) )
+            if ( Physics.Raycast(transform.position + originHeightOffset, Vector3.down, out slopeHit, rayLength, groundLayer) )
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
                 bool angleLessThanMaxSlopeAngle = (angle < maxAngle);
-                bool angleNotZero = (angle != 0);
+                bool angleNotZero = (angle != 0.0f);
 
                 if ( angleLessThanMaxSlopeAngle && angleNotZero )
                 {

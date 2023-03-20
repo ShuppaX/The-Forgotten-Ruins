@@ -211,10 +211,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 7
-  fallingVelocityMultiplier: 0.75
+  fallingVelocityMultiplier: 1.1
   cameraAngle: 45
   maxSlopeAngle: 40
-  raycastLength: 0.25
+  raycastLength: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 128

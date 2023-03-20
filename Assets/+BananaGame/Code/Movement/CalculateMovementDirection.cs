@@ -28,14 +28,8 @@ namespace BananaSoup
         public Vector3 CalculateDirection(Vector3 direction)
         {
             Physics.Raycast(transform.position, Vector3.down, out calculatorHit, rayLength);
-
-            // If debugging is on the calculated direction is stored
-            if (isDrawingRaycast)
-            {
-                calculatedDirection = Vector3.ProjectOnPlane(direction, calculatorHit.normal);
-            }
-
-            return Vector3.ProjectOnPlane(direction, calculatorHit.normal);
+            calculatedDirection = Vector3.ProjectOnPlane(direction, calculatorHit.normal);
+            return calculatedDirection;
         }
 
         private void OnDrawGizmos()
