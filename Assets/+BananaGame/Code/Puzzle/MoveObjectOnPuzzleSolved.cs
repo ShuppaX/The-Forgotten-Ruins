@@ -25,6 +25,7 @@ namespace BananaSoup
                 float distance = (transform.position - endPoint).sqrMagnitude;
                 if( distance < distanceCompare )
                 {
+                    transform.position = endPoint;
                     hasMoved = true;
                 }
             }
