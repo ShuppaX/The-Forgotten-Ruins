@@ -31,9 +31,8 @@ namespace BananaSoup
         private CapsuleCollider playerCollider;
 
         [Header("UnityActions to manage PlayerStates")]
-        public UnityAction onPlayerGroundedAndIdle;
+        public UnityAction onPlayerGrounded;
         public UnityAction onPlayerInAir;
-        public UnityAction onGroundedChanged;
 
         public bool IsGrounded
         {
@@ -59,7 +58,7 @@ namespace BananaSoup
             if ( groundCheckChanged != Grounded() )
             {
                 groundCheckChanged = !groundCheckChanged;
-                onGroundedChanged.Invoke();
+                onPlayerGrounded.Invoke();
             }
         }
 
@@ -81,7 +80,6 @@ namespace BananaSoup
             {
                 if ( groundCheckRay )
                 {
-                    onPlayerGroundedAndIdle.Invoke();
                     return true;
                 }
             }

@@ -1,3 +1,4 @@
+using BananaSoup.InteractSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,6 +14,8 @@ namespace BananaSoup
         private AbilityDash abilityDash = null;
         private PlayerController playerController = null;
         private GroundCheck groundCheck = null;
+        private AbilityInteract interact = null;
+        private AbilityBlindingSand blindingSand = null;
         public UnityAction stateChanged;
 
         // NOTE: If you add or remove a PlayerState, DON'T CHANGE ID NUMBERS
@@ -23,7 +26,9 @@ namespace BananaSoup
             Dashing = 2,
             Attacking = 3,
             Interacting = 4,
-            InAir = 5
+            InAir = 5,
+            Sanding = 6,
+            Sparking = 7
         }
 
         private void Awake()
@@ -72,6 +77,18 @@ namespace BananaSoup
             {
                 Debug.LogError("A GroundCheck component couldn't be found on " + gameObject.name + "!");
             }
+
+            interact = GetComponent<AbilityInteract>();
+            if (interact == null )
+            {
+                Debug.LogError("A AbilityInteract component couldn't be found on " + gameObject.name + "!");
+            }
+
+            blindingSand = GetComponent<AbilityBlindingSand>();
+            if ( blindingSand == null )
+            {
+                Debug.LogError("A AbilityBlindingSand component couldn't be found on " + gameObject.name + "!");
+            }
         }
 
         private void TrySubscribing()
@@ -90,24 +107,46 @@ namespace BananaSoup
             {
                 SubscribeGroundCheck();
             }
+
+            if ( interact != null )
+            {
+                SubscribeInteract();
+            }
+
+            if ( blindingSand != null )
+            {
+                SubscribeBlindingSand();
+            }
         }
 
         private void SubscribeAbilityDash()
         {
             abilityDash.onDashAction += PlayerDashing;
             abilityDash.onDashResetToMoving += PlayerMoving;
-            abilityDash.onDashResetToIdle += PlayerIdleAfterDash;
+            abilityDash.onDashResetToIdle += PlayerIdle;
         }
         private void SubscribePlayerController()
         {
             playerController.onPlayerMoveInput += PlayerMoving;
-            playerController.onNoPlayerMoveInput += PlayerIdleAfterMove;
+            playerController.onNoPlayerMoveInput += PlayerIdle;
         }
 
         private void SubscribeGroundCheck()
         {
-            groundCheck.onPlayerGroundedAndIdle += PlayerIdle;
+            groundCheck.onPlayerGrounded += PlayerIdle;
             groundCheck.onPlayerInAir += PlayerInAir;
+        }
+
+        private void SubscribeInteract()
+        {
+            interact.onInteracting += PlayerInteracting;
+            interact.onInteractionCancelled += PlayerIdle;
+        }
+
+        private void SubscribeBlindingSand()
+        {
+            blindingSand.onSanding += PlayerSanding;
+            blindingSand.onSandingFinished += PlayerIdle;
         }
 
         private void UnsubscribeAll()
@@ -115,55 +154,46 @@ namespace BananaSoup
             UnsubscribeAbilityDash();
             UnsubscribePlayerController();
             UnsubscribeGroundCheck();
+            UnsubscribeInteract();
+            UnsubscribeBlindingSand();
         }
 
         private void UnsubscribeAbilityDash()
         {
             abilityDash.onDashAction -= PlayerDashing;
             abilityDash.onDashResetToMoving -= PlayerMoving;
-            abilityDash.onDashResetToIdle -= PlayerIdleAfterDash;
+            abilityDash.onDashResetToIdle -= PlayerIdle;
         }
 
         private void UnsubscribePlayerController()
         {
             playerController.onPlayerMoveInput -= PlayerMoving;
-            playerController.onNoPlayerMoveInput -= PlayerIdleAfterMove;
+            playerController.onNoPlayerMoveInput -= PlayerIdle;
         }
 
         private void UnsubscribeGroundCheck()
         {
-            groundCheck.onPlayerGroundedAndIdle -= PlayerIdle;
+            groundCheck.onPlayerGrounded -= PlayerIdle;
             groundCheck.onPlayerInAir -= PlayerInAir;
+        }
+
+        private void UnsubscribeInteract()
+        {
+            interact.onInteracting -= PlayerInteracting;
+            interact.onInteractionCancelled -= PlayerIdle;
+        }
+
+        private void UnsubscribeBlindingSand()
+        {
+            blindingSand.onSanding -= PlayerSanding;
+            blindingSand.onSandingFinished -= PlayerIdle;
         }
 
         // Methods which are called with UnityEvents in scripts when the
         // currentPlayerState should be updated.
         private void PlayerIdle()
         {
-            if ( currentPlayerState == PlayerState.Moving
-                || currentPlayerState == PlayerState.Dashing )
-            {
-                return;
-            }
-
-            currentPlayerState = PlayerState.Idle;
-            InvokeStateChangeEvent();
-        }
-
-        private void PlayerIdleAfterDash()
-        {
-            if ( currentPlayerState == PlayerState.Moving )
-            {
-                return;
-            }
-
-            currentPlayerState = PlayerState.Idle;
-            InvokeStateChangeEvent();
-        }
-
-        private void PlayerIdleAfterMove()
-        {
-            if ( currentPlayerState == PlayerState.Dashing )
+            if ( currentPlayerState == PlayerState.Idle )
             {
                 return;
             }
@@ -174,31 +204,80 @@ namespace BananaSoup
 
         private void PlayerMoving()
         {
+            if ( currentPlayerState == PlayerState.Moving
+                || currentPlayerState == PlayerState.Interacting )
+            {
+                return;
+            }
+
             currentPlayerState = PlayerState.Moving;
             InvokeStateChangeEvent();
         }
 
         private void PlayerDashing()
         {
+            if ( currentPlayerState == PlayerState.Dashing )
+            {
+                return;
+            }
+
             currentPlayerState = PlayerState.Dashing;
             InvokeStateChangeEvent();
         }
 
         private void PlayerAttacking()
         {
+            if ( currentPlayerState == PlayerState.Attacking )
+            {
+                return;
+            }
+
             currentPlayerState = PlayerState.Attacking;
             InvokeStateChangeEvent();
         }
 
         private void PlayerInteracting()
         {
+            if ( currentPlayerState == PlayerState.Interacting )
+            {
+                return;
+            }
+
             currentPlayerState = PlayerState.Interacting;
             InvokeStateChangeEvent();
         }
 
         private void PlayerInAir()
         {
+            if ( currentPlayerState == PlayerState.InAir
+                || currentPlayerState == PlayerState.Dashing )
+            {
+                return;
+            }
+
             currentPlayerState = PlayerState.InAir;
+            InvokeStateChangeEvent();
+        }
+
+        private void PlayerSanding()
+        {
+            if ( currentPlayerState == PlayerState.Sanding )
+            {
+                return;
+            }
+
+            currentPlayerState = PlayerState.Sanding;
+            InvokeStateChangeEvent();
+        }
+
+        private void PlayerSparking()
+        {
+            if (currentPlayerState == PlayerState.Sparking )
+            {
+                return;
+            }
+
+            currentPlayerState = PlayerState.Sparking;
             InvokeStateChangeEvent();
         }
 

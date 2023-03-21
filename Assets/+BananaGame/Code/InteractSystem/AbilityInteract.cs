@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace BananaSoup.InteractSystem
@@ -19,6 +20,10 @@ namespace BananaSoup.InteractSystem
         private Vector3 interactPoint;
         private Interactable currentInteractable;
         private bool isLookingAtTarget = true;
+
+        [Header("UnityActions to manage PlayerStates")]
+        public UnityAction onInteracting;
+        public UnityAction onInteractionCancelled;
 
         // Gizmo
         private float currentHitDistance;
@@ -47,7 +52,7 @@ namespace BananaSoup.InteractSystem
             playerBase = GetComponent<PlayerBase>();
             if ( playerBase == null )
             {
-                Debug.LogError("A PlayerBase couldn't be found on the " + gameObject + "!");
+                Debug.LogError("A PlayerBase couldn't be found on the " + gameObject.name + "!");
             }
         }
 
@@ -60,11 +65,12 @@ namespace BananaSoup.InteractSystem
                 return;
             }
 
-            // If the player is already selected an Interactable and moving towards it,
+            // If the player has already selected an Interactable and moving towards it,
             // cancel the movement and don't select a new Interactable target.
             if ( hasSelectedInteractable )
             {
                 hasSelectedInteractable = false;
+                onInteractionCancelled.Invoke();
                 SetPlayerInputs(true);
                 return;
             }
@@ -74,6 +80,7 @@ namespace BananaSoup.InteractSystem
             {
                 if ( currentInteractable.IsInteracting == true )
                 {
+                    onInteractionCancelled.Invoke();
                     currentInteractable.InteractCompleted();
                     SetPlayerInputs(true);
                     return;
@@ -100,6 +107,7 @@ namespace BananaSoup.InteractSystem
             if ( hit.transform.TryGetComponent(out Interactable interactable) )
             {
                 SetPlayerInputs(false);
+                onInteracting.Invoke();
                 hasSelectedInteractable = true;
 
                 currentInteractable = interactable;

@@ -152,7 +152,7 @@ namespace BananaSoup
         /// </summary>
         private void SetWasPushedFalse()
         {
-            if ( groundAhead.IsGroundAhead )
+            if ( groundAhead.IsGroundAhead && wasPushed == true )
             {
                 wasPushed = false;
             }
@@ -204,6 +204,7 @@ namespace BananaSoup
                 movementInput = Vector3.zero;
                 isMoving = false;
                 onNoPlayerMoveInput.Invoke();
+                Debug.Log("The playerstate should be idle now.");
             }
         }
 
@@ -236,12 +237,15 @@ namespace BananaSoup
 
             if ( groundCheck.IsGrounded && movementInput.sqrMagnitude != 0.0f )
             {
+                Debug.Log("movementInput.sqrMagnitude = " + movementInput.sqrMagnitude);
                 onPlayerMoveInput.Invoke();
                 Vector3 forceToApply = GetMovementDirection(isometricDirection) * movementSpeed;
                 rb.velocity = forceToApply;
             }
             else if ( movementInput.sqrMagnitude == 0.0f )
             {
+                Debug.Log("movementInput.sqrMagnitude = " + movementInput.sqrMagnitude);
+                onNoPlayerMoveInput.Invoke();
                 rb.velocity = Vector3.zero;
             }
         }

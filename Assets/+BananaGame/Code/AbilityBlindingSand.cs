@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace BananaSoup
@@ -16,6 +17,10 @@ namespace BananaSoup
         private float duration;
         private Coroutine activeParticleCoroutine;
         private Animator animator;
+
+        [Header("UnityActions to manage PlayerStates")]
+        public UnityAction onSanding;
+        public UnityAction onSandingFinished;
 
         private void Start()
         {
@@ -47,6 +52,7 @@ namespace BananaSoup
 
             if ( context.performed )
             {
+                onSanding.Invoke();
                 animator.SetTrigger(isSanding);
             }
         }
@@ -74,6 +80,7 @@ namespace BananaSoup
 
             sandParticles.gameObject.SetActive(true);
 
+            onSandingFinished.Invoke();
             activeParticleCoroutine = StartCoroutine(DeactivateParticles());
         }
 

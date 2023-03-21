@@ -1,3 +1,4 @@
+using BananaSoup.InteractSystem;
 using TMPro;
 using UnityEngine;
 
@@ -29,6 +30,8 @@ namespace BananaSoup
         private AbilityDash abilityDash = null;
         private PlayerController playerController = null;
         private GroundCheck groundCheck = null;
+        private AbilityInteract interact = null;
+        private AbilityBlindingSand blindingSand = null;
 
         private void Awake()
         {
@@ -94,6 +97,18 @@ namespace BananaSoup
             {
                 Debug.LogError("A GroundCheck component couldn't be found for the " + gameObject.name + "!");
             }
+
+            interact = PlayerBase.Instance.GetComponent<AbilityInteract>();
+            if ( interact == null )
+            {
+                Debug.LogError("A AbilityInteract component couldn't be found for the " + gameObject.name + "!");
+            }
+
+            blindingSand = PlayerBase.Instance.GetComponent<AbilityBlindingSand>();
+            if ( blindingSand == null )
+            {
+                Debug.LogError("A AbilityBlindingSand component couldn't be found for the " + gameObject.name + "!");
+            }
         }
 
         private void TrySubscribing()
@@ -112,6 +127,16 @@ namespace BananaSoup
             {
                 SubscribeGroundCheck();
             }
+
+            if ( interact != null )
+            {
+                SubscribeInteract();
+            }
+
+            if ( blindingSand != null )
+            {
+                SubscribeBlindingSand();
+            }
         }
 
         private void SubscribeAbilityDash()
@@ -124,14 +149,26 @@ namespace BananaSoup
         private void SubscribePlayerController()
         {
             playerController.onPlayerMoveInput += UpdatePlayerStateText;
+            playerController.onNoPlayerMoveInput += UpdatePlayerStateText;
             playerController.onVelocityChanged += UpdateMovementSpeedText;
         }
 
         private void SubscribeGroundCheck()
         {
-            groundCheck.onPlayerGroundedAndIdle += UpdatePlayerStateText;
+            groundCheck.onPlayerGrounded += UpdatePlayerStateText;
             groundCheck.onPlayerInAir += UpdatePlayerStateText;
-            groundCheck.onGroundedChanged += UpdateGroundCheckText;
+        }
+
+        private void SubscribeInteract()
+        {
+            interact.onInteracting += UpdatePlayerStateText;
+            interact.onInteractionCancelled += UpdatePlayerStateText;
+        }
+
+        private void SubscribeBlindingSand()
+        {
+            blindingSand.onSanding += UpdatePlayerStateText;
+            blindingSand.onSandingFinished += UpdatePlayerStateText;
         }
 
         private void UnsubscribeAll()
@@ -139,6 +176,8 @@ namespace BananaSoup
             UnsubscribeAbilityDash();
             UnsubscribePlayerController();
             UnsubscribeGroundCheck();
+            UnsubscribeInteract();
+            UnsubscribeBlindingSand();
         }
 
         private void UnsubscribeAbilityDash()
@@ -151,14 +190,26 @@ namespace BananaSoup
         private void UnsubscribePlayerController()
         {
             playerController.onPlayerMoveInput -= UpdatePlayerStateText;
+            playerController.onNoPlayerMoveInput -= UpdatePlayerStateText;
             playerController.onVelocityChanged -= UpdateMovementSpeedText;
         }
 
         private void UnsubscribeGroundCheck()
         {
-            groundCheck.onPlayerGroundedAndIdle -= UpdatePlayerStateText;
+            groundCheck.onPlayerGrounded -= UpdatePlayerStateText;
             groundCheck.onPlayerInAir -= UpdatePlayerStateText;
-            groundCheck.onGroundedChanged -= UpdateGroundCheckText;
+        }
+
+        private void UnsubscribeInteract()
+        {
+            interact.onInteracting += UpdatePlayerStateText;
+            interact.onInteractionCancelled += UpdatePlayerStateText;
+        }
+
+        private void UnsubscribeBlindingSand()
+        {
+            blindingSand.onSanding += UpdatePlayerStateText;
+            blindingSand.onSandingFinished += UpdatePlayerStateText;
         }
 
         private void UpdatePlayerStateText()
