@@ -166,7 +166,7 @@ namespace BananaSoup
                 {
                     Move();
                 }
-                else if ( !groundAhead.IsGroundAhead && groundCheck.IsGrounded )
+                else if ( !groundAhead.IsGroundAhead )
                 {
                     rb.velocity = -transform.forward;
                     wasPushed = true;

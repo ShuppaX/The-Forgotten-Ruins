@@ -1,11 +1,14 @@
 using UnityEngine;
+using RotaryHeart.Lib.PhysicsExtension;
 
 namespace BananaSoup
 {
     public class SlopeCheck : MonoBehaviour
     {
-        private float rayLengthOffset = 0.0f;
-        private float rayLength = 0.0f;
+        [SerializeField]
+        private bool IsDrawingRay = false;
+
+        private float rayLength = 10.0f;
         private float maxAngle = 0.0f;
 
         private bool isOnSlope = false;
@@ -27,10 +30,8 @@ namespace BananaSoup
         {
             playerCollider = GetComponent<CapsuleCollider>();
 
-            rayLengthOffset = GetComponent<PlayerController>().RayLength;
             maxAngle = GetComponent<PlayerController>().MaxSlopeAngle;
             groundLayer = GetComponent<PlayerController>().GroundLayer;
-            rayLength = playerCollider.height + rayLengthOffset;
             originHeightOffset.Set(0.0f, (playerCollider.height / 2.0f), 0.0f);
         }
 
@@ -47,7 +48,17 @@ namespace BananaSoup
         /// <returns>True if the player is on a slope, otherwise false.</returns>
         public bool OnSlope()
         {
-            if ( Physics.Raycast(transform.position + originHeightOffset, Vector3.down, out slopeHit, rayLength, groundLayer) )
+            bool ray;
+            if ( IsDrawingRay )
+            {
+                ray = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position + originHeightOffset, Vector3.down, out slopeHit, rayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
+            }
+            else
+            {
+                ray = UnityEngine.Physics.Raycast(transform.position + originHeightOffset, Vector3.down, out slopeHit, rayLength, groundLayer);
+            }
+
+            if ( ray )
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
                 bool angleLessThanMaxSlopeAngle = (angle < maxAngle);

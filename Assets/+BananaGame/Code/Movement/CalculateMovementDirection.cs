@@ -7,17 +7,10 @@ namespace BananaSoup
         [SerializeField]
         private bool isDrawingRaycast = false;
 
-        private float rayLengthOffset = 0.0f;
-        private float rayLength = 0.0f;
+        private float rayLength = 10.0f;
 
         private RaycastHit calculatorHit;
         private Vector3 calculatedDirection;
-
-        private void Start()
-        {
-            rayLengthOffset = GetComponent<PlayerController>().RayLength;
-            rayLength = (transform.localScale.y / 2) + rayLengthOffset;
-        }
 
         /// <summary>
         /// Method used to calculate correct movement direction based on the plane the
