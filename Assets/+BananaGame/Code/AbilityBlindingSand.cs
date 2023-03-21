@@ -11,7 +11,7 @@ namespace BananaSoup
         [Tooltip("Transform where the sand particle effect spawns.")]
         [SerializeField] private Transform handTransform;
         [Tooltip("A delay to start Sand Particle Effect later to match it with the animation.")]
-        [SerializeField] private const string isSanding = "isSanding";
+        [SerializeField] private const string isSanding = "sandThrow";
 
         private float duration;
         private Coroutine activeParticleCoroutine;

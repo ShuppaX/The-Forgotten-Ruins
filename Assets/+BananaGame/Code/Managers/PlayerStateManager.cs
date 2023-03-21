@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace BananaSoup
 {
@@ -12,6 +13,7 @@ namespace BananaSoup
         private AbilityDash abilityDash = null;
         private PlayerController playerController = null;
         private GroundCheck groundCheck = null;
+        public UnityAction stateChanged;
 
         // NOTE: If you add or remove a PlayerState, DON'T CHANGE ID NUMBERS
         public enum PlayerState
@@ -145,6 +147,7 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.Idle;
+            stateChanged.Invoke();
         }
 
         private void PlayerIdleAfterDash()
@@ -155,6 +158,7 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.Idle;
+            stateChanged.Invoke();
         }
 
         private void PlayerIdleAfterMove()
@@ -165,31 +169,37 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.Idle;
+            stateChanged.Invoke();
         }
 
         private void PlayerMoving()
         {
             currentPlayerState = PlayerState.Moving;
+            stateChanged.Invoke();
         }
 
         private void PlayerDashing()
         {
             currentPlayerState = PlayerState.Dashing;
+            stateChanged.Invoke();
         }
 
         private void PlayerAttacking()
         {
             currentPlayerState = PlayerState.Attacking;
+            stateChanged.Invoke();
         }
 
         private void PlayerInteracting()
         {
             currentPlayerState = PlayerState.Interacting;
+            stateChanged.Invoke();
         }
 
         private void PlayerInAir()
         {
             currentPlayerState = PlayerState.InAir;
+            stateChanged.Invoke();
         }
     }
 }
