@@ -147,7 +147,7 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.Idle;
-            stateChanged.Invoke();
+            InvokeStateChangeEvent();
         }
 
         private void PlayerIdleAfterDash()
@@ -158,7 +158,7 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.Idle;
-            stateChanged.Invoke();
+            InvokeStateChangeEvent();
         }
 
         private void PlayerIdleAfterMove()
@@ -169,36 +169,41 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.Idle;
-            stateChanged.Invoke();
+            InvokeStateChangeEvent();
         }
 
         private void PlayerMoving()
         {
             currentPlayerState = PlayerState.Moving;
-            stateChanged.Invoke();
+            InvokeStateChangeEvent();
         }
 
         private void PlayerDashing()
         {
             currentPlayerState = PlayerState.Dashing;
-            stateChanged.Invoke();
+            InvokeStateChangeEvent();
         }
 
         private void PlayerAttacking()
         {
             currentPlayerState = PlayerState.Attacking;
-            stateChanged.Invoke();
+            InvokeStateChangeEvent();
         }
 
         private void PlayerInteracting()
         {
             currentPlayerState = PlayerState.Interacting;
-            stateChanged.Invoke();
+            InvokeStateChangeEvent();
         }
 
         private void PlayerInAir()
         {
             currentPlayerState = PlayerState.InAir;
+            InvokeStateChangeEvent();
+        }
+
+        private void InvokeStateChangeEvent()
+        {
             stateChanged.Invoke();
         }
     }

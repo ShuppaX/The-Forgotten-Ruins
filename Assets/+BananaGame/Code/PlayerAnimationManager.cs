@@ -40,7 +40,8 @@ namespace BananaSoup
         {
             if ( playerStateManager != null )
             {
-                PlayerStateManager.Instance.stateChanged += SetAnimation;
+                playerStateManager = PlayerStateManager.Instance;
+                playerStateManager.stateChanged += SetAnimation;
             }
         }
 

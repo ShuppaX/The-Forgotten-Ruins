@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 3221713547035849736}
   - component: {fileID: 8933686164545328636}
   - component: {fileID: 5249730237051378977}
+  - component: {fileID: 1999600809}
   - component: {fileID: 1353257476666937539}
   - component: {fileID: 6640032792856575930}
   - component: {fileID: 65683560828549127}
@@ -287,6 +288,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1999600809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696953563904003545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dd844fe5180c1441bf9e0b93e3ff03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1353257476666937539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77fc7567be257c9469d18c5fa2848d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDrawingRay: 0
 --- !u!114 &6640032792856575930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,6 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1669c611bc4fe54396540636dac1f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsDrawingRay: 0
 --- !u!114 &65683560828549127
 MonoBehaviour:
   m_ObjectHideFlags: 0
