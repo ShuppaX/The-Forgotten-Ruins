@@ -1,4 +1,5 @@
 using BananaSoup.InteractSystem;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -284,6 +285,40 @@ namespace BananaSoup
         private void InvokeStateChangeEvent()
         {
             stateChanged.Invoke();
+        }
+
+        public void SetPlayerState(string caseValue)
+        {
+            switch (caseValue)
+            {
+                case "Idle":
+                    PlayerIdle();
+                    break;
+                case "Moving":
+                    PlayerMoving();
+                    break;
+                case "Dashing":
+                    PlayerDashing();
+                    break;
+                case "Attacking":
+                    PlayerAttacking();
+                    break;
+                case "Interacting":
+                    PlayerInteracting();
+                    break;
+                case "InAir":
+                    PlayerInAir();
+                    break;
+                case "Sanding":
+                    PlayerSanding();
+                    break;
+                case "Sparking":
+                    PlayerSparking();
+                    break;
+                default:
+                    PlayerIdle();
+                    break;
+            }
         }
     }
 }
