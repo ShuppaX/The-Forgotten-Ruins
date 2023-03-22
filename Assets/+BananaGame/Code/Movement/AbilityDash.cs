@@ -118,6 +118,8 @@ namespace BananaSoup
                     debug.UpdatePlayerStateText();
                     PlayerBase.Instance.IsMovable = false;
                     PlayerBase.Instance.IsTurnable = false;
+                    PlayerBase.Instance.IsInteractingEnabled = false;
+                    PlayerBase.Instance.AreAbilitiesEnabled = false;
                     Vector3 forceToApply = GetCalculatedDirection(transform.forward) * dashForce;
 
                     rb.velocity = forceToApply;
@@ -164,6 +166,8 @@ namespace BananaSoup
             debug.UpdatePlayerStateText();
             PlayerBase.Instance.IsMovable = true;
             PlayerBase.Instance.IsTurnable = true;
+            PlayerBase.Instance.IsInteractingEnabled = true;
+            PlayerBase.Instance.AreAbilitiesEnabled = true;
         }
 
         /// <summary>

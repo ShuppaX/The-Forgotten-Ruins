@@ -11,6 +11,7 @@ namespace BananaSoup
         public static PlayerBase Instance { get; private set; }
         private PlayerInput playerInput;
         private bool areAbilitiesEnabled = true;
+        private bool isInteractingEnabled = true;
         private bool isMovable = true;
         private bool isTurnable = true;
 
@@ -18,6 +19,12 @@ namespace BananaSoup
         {
             get { return areAbilitiesEnabled; }
             set { areAbilitiesEnabled = value; }
+        }
+
+        public bool IsInteractingEnabled
+        {
+            get { return isInteractingEnabled; }
+            set { isInteractingEnabled = value; }
         }
 
         public bool IsMovable

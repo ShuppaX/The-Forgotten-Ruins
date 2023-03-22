@@ -65,6 +65,11 @@ namespace BananaSoup.InteractSystem
 
         public void OnInteract(InputAction.CallbackContext context)
         {
+            if ( !PlayerBase.Instance.IsInteractingEnabled )
+            {
+                return;
+            }
+
             // Check did user performed Interact Ability.
             // If not, return.
             if ( !context.performed )

@@ -50,6 +50,11 @@ namespace BananaSoup
 
         public void OnAbility(InputAction.CallbackContext context)
         {
+            if ( !PlayerBase.Instance.AreAbilitiesEnabled )
+            {
+                return;
+            }
+
             // Don't cast a sand if old currently playing.
             if ( activeParticleCoroutine != null )
             {
@@ -62,6 +67,8 @@ namespace BananaSoup
                 debug.UpdatePlayerStateText();
                 PlayerBase.Instance.IsMovable = false;
                 PlayerBase.Instance.IsTurnable = false;
+                PlayerBase.Instance.IsInteractingEnabled = false;
+                PlayerBase.Instance.AreAbilitiesEnabled = false;
                 animator.SetTrigger(isSanding);
             }
         }
@@ -105,6 +112,8 @@ namespace BananaSoup
         {
             PlayerBase.Instance.IsMovable = true;
             PlayerBase.Instance.IsTurnable = true;
+            PlayerBase.Instance.IsInteractingEnabled = true;
+            PlayerBase.Instance.AreAbilitiesEnabled = true;
             psm.SetPlayerState(sandingOver);
             debug.UpdatePlayerStateText();
         }
