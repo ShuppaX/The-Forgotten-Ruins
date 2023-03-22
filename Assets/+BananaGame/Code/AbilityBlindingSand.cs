@@ -57,26 +57,22 @@ namespace BananaSoup
             }
         }
 
-        // ThrowSand is called from FennecCharacter@Throw animation by an event.
+        // ThrowSand() is called from Fennec@SandThrow animation by an event.
         private void ThrowSand()
         {
             // TODO: Allow throw only once
             // TODO: Disable movement when sanding from StateManager
 
-            // Set Particle Effect transform.
+            // Set Particle Effect parent to null, so the player's movements won't affect it.
             sandParticles.gameObject.transform.parent = null;
+
+            // Set Particle Effect position.
             sandParticles.gameObject.transform.position = handTransform.position;
 
-            // TODO: Fix rotation
-            //Vector3 rotation = new Vector3(sandParticles.gameObject.transform.rotation.x, sandParticles.gameObject.transform.rotation.y);
-            //Debug.Log("Rotation: " + rotation);
-            //sandParticles.gameObject.transform.eulerAngles = rotation;
-            Vector3 rotation = new Vector3(sandParticles.gameObject.transform.rotation.x, PlayerBase.Instance.transform.rotation.y);
-            //Debug.Log("Rotation: " + rotation);
-            sandParticles.gameObject.transform.rotation.Set(rotation.x, PlayerBase.Instance.transform.rotation.y, PlayerBase.Instance.transform.rotation.z, PlayerBase.Instance.transform.rotation.w);
-            //Debug.Log("Particle rotation: " + sandParticles.gameObject.transform.localRotation);
-
-            //sandParticles.gameObject.transform.rotation = transform.rotation;
+            // Set Particle Effect rotation.
+            var playerRotation = transform.eulerAngles;
+            var sandRotationX = sandParticles.gameObject.transform.eulerAngles.x;
+            sandParticles.gameObject.transform.rotation = Quaternion.Euler(sandRotationX, playerRotation.y, playerRotation.z);
 
             sandParticles.gameObject.SetActive(true);
 
@@ -94,6 +90,12 @@ namespace BananaSoup
             sandParticles.Stop();
             sandParticles.gameObject.SetActive(false);
             activeParticleCoroutine = null;
+        }
+
+        // SetSandingDone() is called from Fennec@SandThrow animation by an event.
+        private void SetSandingDone()
+        {
+            Debug.Log("Launch sanding done method");
         }
     }
 }
