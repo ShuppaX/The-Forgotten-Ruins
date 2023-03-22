@@ -18,7 +18,7 @@ namespace BananaSoup
         [SerializeField, Tooltip("Maximum allowed slope angle for moving.")]
         private float maxSlopeAngle = 40.0f;
         [SerializeField, Tooltip("Offset which is added to different Raycasts length. (GroundCheck, SlopeCheck, AllowMovement)")]
-        private float raycastLength = 0.25f;
+        private float groundCheckLength = 0.1f;
         [SerializeField]
         private LayerMask groundLayer;
 
@@ -29,6 +29,8 @@ namespace BananaSoup
         private AllowMovement allowMovement = null;
         private GroundCheck groundCheck = null;
         private GroundAhead groundAhead = null;
+        private PlayerStateManager psm = null;
+        private DebugManager debug = null;
 
         // Variables used to store in script values
         private Vector3 movementInput = Vector3.zero;
@@ -36,13 +38,12 @@ namespace BananaSoup
 
         private float latestMovementspeed = 0.0f;
 
-        private bool isMoving = false;
+        private bool hasMoveInput = false;
         private bool wasPushed = false;
 
-        [Header("UnityActions to manage PlayerStates")]
-        public UnityAction onPlayerMoveInput;
-        public UnityAction onNoPlayerMoveInput;
-        public UnityAction onVelocityChanged;
+        [Header("Constant strings used for PlayerState handling")]
+        public const string moving = "Moving";
+        public const string notMoving = "Idle";
 
         public float MaxSlopeAngle
         {
@@ -53,9 +54,9 @@ namespace BananaSoup
         /// Public property for raycastLength which is used to define the length of the
         /// GroundCheck and AllowMovement Raycasts length.
         /// </summary>
-        public float RayLength
+        public float GroundCheckLength
         {
-            get { return raycastLength; }
+            get { return groundCheckLength; }
         }
 
         public LayerMask GroundLayer
@@ -63,14 +64,9 @@ namespace BananaSoup
             get { return groundLayer; }
         }
 
-        public float PlayerMovementspeed
-        {
-            get { return Mathf.Round(rb.velocity.magnitude); }
-        }
-
         public bool IsMoving
         {
-            get { return isMoving; }
+            get { return hasMoveInput; }
         }
 
         private void Start()
@@ -92,6 +88,9 @@ namespace BananaSoup
         /// </summary>
         private void GetComponents()
         {
+            psm = PlayerStateManager.Instance;
+            debug = DebugManager.Instance;
+
             rb = GetComponent<Rigidbody>();
             if ( rb == null )
             {
@@ -131,19 +130,19 @@ namespace BananaSoup
 
         private void Update()
         {
-            InvokeEventOnRbVelocityChanged();
+            UpdateMovementspeedDebug();
             SetWasPushedFalse();
         }
 
         /// <summary>
         /// Invoke the event once when the rb.velocity.sqrMagnitude changes.
         /// </summary>
-        private void InvokeEventOnRbVelocityChanged()
+        private void UpdateMovementspeedDebug()
         {
             if ( latestMovementspeed != rb.velocity.sqrMagnitude )
             {
                 latestMovementspeed = rb.velocity.sqrMagnitude;
-                onVelocityChanged.Invoke();
+                debug.UpdateMovementSpeedText(Mathf.Round(rb.velocity.magnitude));
             }
         }
 
@@ -162,20 +161,25 @@ namespace BananaSoup
         {
             if ( PlayerBase.Instance.IsMovable )
             {
-                if ( IsMovementAllowed() && groundAhead.IsGroundAhead && !wasPushed )
+                if ( hasMoveInput && groundAhead.IsGroundAhead )
                 {
                     Move();
                 }
-                else if ( !groundAhead.IsGroundAhead )
+                else if ( !hasMoveInput )
                 {
-                    rb.velocity = -transform.forward;
-                    wasPushed = true;
+                    StoppedMoving();
                 }
             }
 
             if ( PlayerBase.Instance.IsTurnable )
             {
                 Look();
+            }
+
+            if ( !groundAhead.IsGroundAhead )
+            {
+                rb.velocity = -transform.forward;
+                wasPushed = true;
             }
 
             // If the character is not grounded and is falling apply a multiplied
@@ -197,14 +201,12 @@ namespace BananaSoup
             Vector2 input = context.ReadValue<Vector2>();
             movementInput.Set(input.x, 0.0f, input.y);
             isometricDirection = IsoVectorConvert(movementInput);
-            isMoving = true;
+            hasMoveInput = true;
 
             if ( context.phase == InputActionPhase.Canceled )
             {
                 movementInput = Vector3.zero;
-                isMoving = false;
-                onNoPlayerMoveInput.Invoke();
-                Debug.Log("The playerstate should be idle now.");
+                hasMoveInput = false;
             }
         }
 
@@ -230,23 +232,32 @@ namespace BananaSoup
         /// </summary>
         private void Move()
         {
-            if ( PlayerStateManager.Instance.currentPlayerState == PlayerStateManager.PlayerState.Dashing )
+            if ( !IsMovementAllowed() )
             {
                 return;
             }
 
-            if ( groundCheck.IsGrounded && movementInput.sqrMagnitude != 0.0f )
+            if ( wasPushed )
             {
-                Debug.Log("movementInput.sqrMagnitude = " + movementInput.sqrMagnitude);
-                onPlayerMoveInput.Invoke();
+                return;
+            }
+
+            if ( groundCheck.IsGrounded )
+            {
                 Vector3 forceToApply = GetMovementDirection(isometricDirection) * movementSpeed;
                 rb.velocity = forceToApply;
+                psm.SetPlayerState(moving);
+                debug.UpdatePlayerStateText();
             }
-            else if ( movementInput.sqrMagnitude == 0.0f )
+        }
+
+        private void StoppedMoving()
+        {
+            if ( psm.currentPlayerState == PlayerStateManager.PlayerState.Moving )
             {
-                Debug.Log("movementInput.sqrMagnitude = " + movementInput.sqrMagnitude);
-                onNoPlayerMoveInput.Invoke();
                 rb.velocity = Vector3.zero;
+                psm.SetPlayerState(notMoving);
+                debug.UpdatePlayerStateText();
             }
         }
 
@@ -278,8 +289,7 @@ namespace BananaSoup
         /// </summary>
         private void Look()
         {
-            if ( movementInput.sqrMagnitude != 0.0f &&
-                PlayerStateManager.Instance.currentPlayerState != PlayerStateManager.PlayerState.Dashing )
+            if ( hasMoveInput )
             {
                 var rot = Quaternion.LookRotation(IsoVectorConvert(movementInput), Vector3.up);
 

@@ -8,7 +8,7 @@ namespace BananaSoup
         [SerializeField]
         private bool isDrawingRay = false;
 
-        private float rayLength = 0.0f;
+        private float rayLength = 5.0f;
         private float maxAngle = 0.0f;
 
         private bool isMovementAllowed = false;
@@ -24,7 +24,6 @@ namespace BananaSoup
 
         private void Start()
         {
-            rayLength = GetComponent<PlayerController>().RayLength;
             maxAngle = GetComponent<PlayerController>().MaxSlopeAngle;
             groundLayer = GetComponent<PlayerController>().GroundLayer;
         }

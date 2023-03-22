@@ -1341,9 +1341,7 @@ MonoBehaviour:
   playerStateText: {fileID: 228296213}
   movementSpeedText: {fileID: 755029717}
   groundCheckText: {fileID: 2015539979}
-  playerStateDisplay: {fileID: 228296211}
-  movementSpeedDisplay: {fileID: 755029714}
-  groundCheckDisplay: {fileID: 2015539976}
+  debugUI: {fileID: 1722704516}
 --- !u!4 &1434803921
 Transform:
   m_ObjectHideFlags: 0

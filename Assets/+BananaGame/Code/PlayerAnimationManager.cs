@@ -40,14 +40,13 @@ namespace BananaSoup
         {
             if ( playerStateManager != null )
             {
-                playerStateManager = PlayerStateManager.Instance;
                 playerStateManager.stateChanged += SetAnimation;
             }
         }
 
         private void SetAnimation()
         {
-            Debug.Log("State changed. Set new animation");
+            //Debug.Log("State changed. Set new animation");
         }
     }
 }

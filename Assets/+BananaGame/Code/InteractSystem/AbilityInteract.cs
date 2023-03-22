@@ -15,15 +15,19 @@ namespace BananaSoup.InteractSystem
         [Tooltip("The speed that player character will travel to the InteractPoint when interacted with an Interactable.")]
         [SerializeField] float moveSpeed = 2.0f;
 
-        private PlayerBase playerBase;
         private bool hasSelectedInteractable;
-        private Vector3 interactPoint;
-        private Interactable currentInteractable;
         private bool isLookingAtTarget = true;
 
-        [Header("UnityActions to manage PlayerStates")]
-        public UnityAction onInteracting;
-        public UnityAction onInteractionCancelled;
+        private Vector3 interactPoint;
+
+        private PlayerBase playerBase = null;
+        private Interactable currentInteractable = null;
+        private PlayerStateManager psm = null;
+        private DebugManager debug = null;
+
+        [Header("Constant strings used for PlayerState handling")]
+        public const string interacting = "Interacting";
+        public const string interactOver = "Idle";
 
         // Gizmo
         private float currentHitDistance;
@@ -49,7 +53,10 @@ namespace BananaSoup.InteractSystem
 
         private void Setup()
         {
-            playerBase = GetComponent<PlayerBase>();
+            psm = PlayerStateManager.Instance;
+            debug = DebugManager.Instance;
+
+            playerBase = PlayerBase.Instance;
             if ( playerBase == null )
             {
                 Debug.LogError("A PlayerBase couldn't be found on the " + gameObject.name + "!");
@@ -70,7 +77,8 @@ namespace BananaSoup.InteractSystem
             if ( hasSelectedInteractable )
             {
                 hasSelectedInteractable = false;
-                onInteractionCancelled.Invoke();
+                psm.SetPlayerState(interactOver);
+                debug.UpdatePlayerStateText();
                 SetPlayerInputs(true);
                 return;
             }
@@ -80,7 +88,8 @@ namespace BananaSoup.InteractSystem
             {
                 if ( currentInteractable.IsInteracting == true )
                 {
-                    onInteractionCancelled.Invoke();
+                    psm.SetPlayerState(interactOver);
+                    debug.UpdatePlayerStateText();
                     currentInteractable.InteractCompleted();
                     SetPlayerInputs(true);
                     return;
@@ -107,7 +116,8 @@ namespace BananaSoup.InteractSystem
             if ( hit.transform.TryGetComponent(out Interactable interactable) )
             {
                 SetPlayerInputs(false);
-                onInteracting.Invoke();
+                psm.SetPlayerState(interacting);
+                debug.UpdatePlayerStateText();
                 hasSelectedInteractable = true;
 
                 currentInteractable = interactable;

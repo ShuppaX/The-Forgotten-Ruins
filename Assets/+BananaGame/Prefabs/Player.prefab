@@ -215,7 +215,7 @@ MonoBehaviour:
   fallingVelocityMultiplier: 1.1
   cameraAngle: 45
   maxSlopeAngle: 40
-  raycastLength: 0.1
+  groundCheckLength: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 128

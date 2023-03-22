@@ -15,12 +15,15 @@ namespace BananaSoup
         [SerializeField] private const string isSanding = "sandThrow";
 
         private float duration;
-        private Coroutine activeParticleCoroutine;
-        private Animator animator;
 
-        [Header("UnityActions to manage PlayerStates")]
-        public UnityAction onSanding;
-        public UnityAction onSandingFinished;
+        private Coroutine activeParticleCoroutine = null;
+        private Animator animator = null;
+        private PlayerStateManager psm = null;
+        private DebugManager debug = null;
+
+        [Header("Constant strings used for PlayerState handling")]
+        public const string sanding = "Sanding";
+        public const string sandingOver = "Idle";
 
         private void Start()
         {
@@ -34,6 +37,9 @@ namespace BananaSoup
 
             // Set Coroutine duration to Particle Effect contant lenght
             duration = sandParticles.main.startLifetime.constant;
+
+            psm = PlayerStateManager.Instance;
+            debug = DebugManager.Instance;
 
             animator = GetComponent<Animator>();
             if ( animator == null )
@@ -52,7 +58,10 @@ namespace BananaSoup
 
             if ( context.performed )
             {
-                onSanding.Invoke();
+                psm.SetPlayerState(sanding);
+                debug.UpdatePlayerStateText();
+                PlayerBase.Instance.IsMovable = false;
+                PlayerBase.Instance.IsTurnable = false;
                 animator.SetTrigger(isSanding);
             }
         }
@@ -94,7 +103,10 @@ namespace BananaSoup
         // SetSandingDone() is called from Fennec@SandThrow animation by an event.
         private void SetSandingDone()
         {
-            onSandingFinished.Invoke();
+            PlayerBase.Instance.IsMovable = true;
+            PlayerBase.Instance.IsTurnable = true;
+            psm.SetPlayerState(sandingOver);
+            debug.UpdatePlayerStateText();
         }
     }
 }

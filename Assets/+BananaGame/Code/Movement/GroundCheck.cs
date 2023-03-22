@@ -28,11 +28,13 @@ namespace BananaSoup
 
         private LayerMask groundLayer;
 
-        private CapsuleCollider playerCollider;
+        private CapsuleCollider playerCollider = null;
+        private PlayerStateManager psm = null;
+        private DebugManager debug = null;
 
-        [Header("UnityActions to manage PlayerStates")]
-        public UnityAction onPlayerGrounded;
-        public UnityAction onPlayerInAir;
+        [Header("Constant strings used for PlayerState handling")]
+        public const string grounded = "Idle";
+        public const string inAir = "InAir";
 
         public bool IsGrounded
         {
@@ -43,9 +45,12 @@ namespace BananaSoup
         void Start()
         {
             playerCollider = GetComponent<CapsuleCollider>();
+            psm = PlayerStateManager.Instance;
+            debug = DebugManager.Instance;
+
             groundLayer = GetComponent<PlayerController>().GroundLayer;
 
-            rayLength = (playerCollider.height / 2.0f) + GetComponent<PlayerController>().RayLength;
+            rayLength = (playerCollider.height / 2.0f) + GetComponent<PlayerController>().GroundCheckLength;
             rayOriginOffset = playerCollider.radius * colliderRadiusMultiplier;
             originHeightOffset.Set(0.0f, (playerCollider.height / 2.0f), 0.0f);
         }
@@ -58,7 +63,18 @@ namespace BananaSoup
             if ( groundCheckChanged != Grounded() )
             {
                 groundCheckChanged = !groundCheckChanged;
-                onPlayerGrounded.Invoke();
+
+                if ( !Grounded() )
+                {
+                    psm.SetPlayerState(inAir);
+                }
+                else if ( Grounded() )
+                {
+                    psm.SetPlayerState(grounded);
+                }
+
+                debug.UpdateGroundCheckText(isGrounded);
+                debug.UpdatePlayerStateText();
             }
         }
 
@@ -84,7 +100,8 @@ namespace BananaSoup
                 }
             }
 
-            onPlayerInAir.Invoke();
+            //onPlayerInAir.Invoke();
+            //psm.SetPlayerState(inAir);
             return false;
         }
 

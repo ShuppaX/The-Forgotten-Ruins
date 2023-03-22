@@ -25,6 +25,10 @@ namespace BananaSoup
 
         private Coroutine dashCooldownRoutine = null;
 
+        [Header("Constant strings used for PlayerState handling")]
+        public const string dashing = "Dashing";
+        public const string dashOver = "Idle";
+
         [Header("UnityActions used to manage PlayerStates")]
         public UnityAction onDashAction;
         public UnityAction onDashResetToMoving;
@@ -34,6 +38,8 @@ namespace BananaSoup
         private Rigidbody rb = null;
         private CalculateMovementDirection directionCalculator = null;
         private SlopeCheck slopeCheck = null;
+        private PlayerStateManager psm = null;
+        private DebugManager debug = null;
 
         private void Start()
         {
@@ -42,6 +48,9 @@ namespace BananaSoup
 
         private void Setup()
         {
+            psm = PlayerStateManager.Instance;
+            debug = DebugManager.Instance;
+
             rb = GetComponent<Rigidbody>();
             if ( rb == null )
             {
@@ -64,6 +73,7 @@ namespace BananaSoup
         private void Update()
         {
             OnSlopeCheckValueChanged();
+            Debug.Log("rb.velocity: " + rb.velocity);
         }
 
         /// <summary>
@@ -104,7 +114,10 @@ namespace BananaSoup
             {
                 if ( !dashOnCooldown && context.phase == InputActionPhase.Performed )
                 {
-                    onDashAction.Invoke();
+                    psm.SetPlayerState(dashing);
+                    debug.UpdatePlayerStateText();
+                    PlayerBase.Instance.IsMovable = false;
+                    PlayerBase.Instance.IsTurnable = false;
                     Vector3 forceToApply = GetCalculatedDirection(transform.forward) * dashForce;
 
                     rb.velocity = forceToApply;
@@ -147,14 +160,10 @@ namespace BananaSoup
                 rb.velocity = Vector3.zero;
             }
 
-            if ( GetComponent<PlayerController>().IsMoving )
-            {
-                onDashResetToMoving.Invoke();
-            }
-            else
-            {
-                onDashResetToIdle.Invoke();
-            }
+            psm.SetPlayerState(dashOver);
+            debug.UpdatePlayerStateText();
+            PlayerBase.Instance.IsMovable = true;
+            PlayerBase.Instance.IsTurnable = true;
         }
 
         /// <summary>
