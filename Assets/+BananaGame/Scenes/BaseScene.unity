@@ -459,16 +459,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9108917675126122351, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: lerpSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 9108917675126122351, guid: 282df8200b8684c4683d177cd8e6ceea,
-        type: 3}
-      propertyPath: isLerpingDash
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 282df8200b8684c4683d177cd8e6ceea, type: 3}
 --- !u!1 &542045551
