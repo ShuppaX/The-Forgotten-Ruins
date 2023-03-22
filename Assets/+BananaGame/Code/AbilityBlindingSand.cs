@@ -76,7 +76,6 @@ namespace BananaSoup
 
             sandParticles.gameObject.SetActive(true);
 
-            onSandingFinished.Invoke();
             activeParticleCoroutine = StartCoroutine(DeactivateParticles());
         }
 
@@ -95,7 +94,7 @@ namespace BananaSoup
         // SetSandingDone() is called from Fennec@SandThrow animation by an event.
         private void SetSandingDone()
         {
-            Debug.Log("Launch sanding done method");
+            onSandingFinished.Invoke();
         }
     }
 }
