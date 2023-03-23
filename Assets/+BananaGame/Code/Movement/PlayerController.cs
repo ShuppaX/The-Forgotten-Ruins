@@ -160,6 +160,9 @@ namespace BananaSoup
 
         private void FixedUpdate()
         {
+            // If the character is movable, has movement input and has ground in
+            // front of it call Move method.
+            // If it is movable and has no movement input then call StoppedMoving.
             if ( PlayerBase.Instance.IsMovable )
             {
                 if ( hasMoveInput && groundAhead.IsGroundAhead )
@@ -172,11 +175,19 @@ namespace BananaSoup
                 }
             }
 
+            if ( !PlayerBase.Instance.IsMovable )
+            {
+                StopMovement();
+            }
+
+            // If the character can be turned call the Look method.
             if ( PlayerBase.Instance.IsTurnable )
             {
                 Look();
             }
 
+            // If the character doesn't have ground in front of it it gets
+            // pushed back and the bool wasPushed is set to true.
             if ( !groundAhead.IsGroundAhead )
             {
                 rb.velocity = -transform.forward;
@@ -266,6 +277,14 @@ namespace BananaSoup
                 psm.SetPlayerState(notMoving);
                 debug.UpdatePlayerStateText();
             }
+        }
+
+        /// <summary>
+        /// Set the players rigidbody.velocity to Vector3.zero.
+        /// </summary>
+        private void StopMovement()
+        {
+            rb.velocity = Vector3.zero;
         }
 
         /// <summary>

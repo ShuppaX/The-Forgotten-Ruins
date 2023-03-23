@@ -93,7 +93,6 @@ namespace BananaSoup
         private void Update()
         {
             OnSlopeCheckValueChanged();
-            Debug.Log("rb.velocity: " + rb.velocity);
         }
 
         /// <summary>
