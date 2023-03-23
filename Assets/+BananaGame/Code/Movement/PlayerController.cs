@@ -274,18 +274,23 @@ namespace BananaSoup
         {
             if ( psm.currentPlayerState == PlayerStateManager.PlayerState.Moving )
             {
-                rb.velocity = Vector3.zero;
                 psm.SetPlayerState(notMoving);
                 debug.UpdatePlayerStateText();
             }
+
+            rb.velocity = Vector3.zero;
         }
 
         /// <summary>
-        /// Set the players rigidbody.velocity to Vector3.zero.
+        /// Set the players rigidbody.velocity to Vector3.zero IF the player is not
+        /// dashing.
         /// </summary>
         private void StopMovement()
         {
-            rb.velocity = Vector3.zero;
+            if ( psm.currentPlayerState != PlayerStateManager.PlayerState.Dashing )
+            {
+                rb.velocity = Vector3.zero;
+            }
         }
 
         /// <summary>
