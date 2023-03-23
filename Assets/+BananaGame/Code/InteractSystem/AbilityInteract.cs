@@ -133,6 +133,7 @@ namespace BananaSoup.InteractSystem
             playerBase.AreAbilitiesEnabled = value;
             playerBase.IsTurnable = value;
             playerBase.IsMovable = value;
+            playerBase.CanDash = value;
         }
 
         private void MoveToInteractPoint()

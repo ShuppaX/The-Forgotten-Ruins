@@ -37,7 +37,16 @@ namespace BananaSoup
             duration = sandParticles.main.startLifetime.constant;
 
             psm = PlayerStateManager.Instance;
+            if ( psm == null )
+            {
+                Debug.LogError(gameObject.name + " couldn't find an instance of PlayerStateManager!");
+            }
             debug = DebugManager.Instance;
+
+            if ( debug == null )
+            {
+                Debug.LogError(gameObject.name + " couldn't find an instance of DebugManager!");
+            }
 
             animator = GetComponent<Animator>();
             if ( animator == null )
@@ -67,6 +76,7 @@ namespace BananaSoup
                 PlayerBase.Instance.IsTurnable = false;
                 PlayerBase.Instance.IsInteractingEnabled = false;
                 PlayerBase.Instance.AreAbilitiesEnabled = false;
+                PlayerBase.Instance.CanDash = false;
                 animator.SetTrigger(isSanding);
             }
         }
@@ -112,6 +122,7 @@ namespace BananaSoup
             PlayerBase.Instance.IsTurnable = true;
             PlayerBase.Instance.IsInteractingEnabled = true;
             PlayerBase.Instance.AreAbilitiesEnabled = true;
+            PlayerBase.Instance.CanDash = true;
             psm.SetPlayerState(sandingOver);
             debug.UpdatePlayerStateText();
         }

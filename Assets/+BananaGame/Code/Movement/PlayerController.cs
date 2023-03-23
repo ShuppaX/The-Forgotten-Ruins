@@ -42,6 +42,7 @@ namespace BananaSoup
         [Header("Constant strings used for PlayerState handling")]
         public const string moving = "Moving";
         public const string notMoving = "Idle";
+        public const string inAir = "InAir";
 
         public float MaxSlopeAngle
         {
@@ -266,17 +267,31 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Method which is called when the player has stopped movement input.
+        /// Called when the player input is canceled. If the players state is "Moving",
+        /// then the players state is set to Idle or InAir depending on if the player
+        /// is grounded.
+        /// Also set the rigidbody.velocity to Vector3.zero if the player is grounded.
         /// </summary>
         private void StoppedMoving()
         {
             if ( psm.currentPlayerState == PlayerStateManager.PlayerState.Moving )
             {
-                psm.SetPlayerState(notMoving);
-                debug.UpdatePlayerStateText();
+                if ( groundCheck.IsGrounded )
+                {
+                    psm.SetPlayerState(notMoving);
+                    debug.UpdatePlayerStateText();
+                }
+                else if ( !groundCheck.IsGrounded )
+                {
+                    psm.SetPlayerState(inAir);
+                    debug.UpdatePlayerStateText();
+                }
             }
 
-            rb.velocity = Vector3.zero;
+            if ( groundCheck.IsGrounded )
+            {
+                rb.velocity = Vector3.zero;
+            }
         }
 
         /// <summary>
@@ -285,10 +300,17 @@ namespace BananaSoup
         /// </summary>
         private void StopMovement()
         {
-            if ( psm.currentPlayerState != PlayerStateManager.PlayerState.Dashing )
+            if ( psm.currentPlayerState == PlayerStateManager.PlayerState.Dashing )
             {
-                rb.velocity = Vector3.zero;
+                return;
             }
+
+            if ( psm.currentPlayerState == PlayerStateManager.PlayerState.InAir )
+            {
+                return;
+            }
+
+            rb.velocity = Vector3.zero;
         }
 
         /// <summary>

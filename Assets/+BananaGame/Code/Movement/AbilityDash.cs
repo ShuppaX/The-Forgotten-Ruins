@@ -28,6 +28,7 @@ namespace BananaSoup
         [Header("Constant strings used for PlayerState handling")]
         public const string dashing = "Dashing";
         public const string dashOver = "Idle";
+        public const string dashOverInAir = "InAir";
 
         [Header("UnityActions used to manage PlayerStates")]
         public UnityAction onDashAction;
@@ -38,6 +39,7 @@ namespace BananaSoup
         private Rigidbody rb = null;
         private CalculateMovementDirection directionCalculator = null;
         private SlopeCheck slopeCheck = null;
+        private GroundCheck groundCheck = null;
         private PlayerStateManager psm = null;
         private DebugManager debug = null;
 
@@ -52,6 +54,7 @@ namespace BananaSoup
 
             rb = GetDependency<Rigidbody>();
             directionCalculator = GetDependency<CalculateMovementDirection>();
+            groundCheck = GetDependency<GroundCheck>();
             slopeCheck = GetDependency<SlopeCheck>();
         }
 
@@ -129,7 +132,7 @@ namespace BananaSoup
         /// <param name="context">The players dash InputAction.</param>
         public void OnDash(InputAction.CallbackContext context)
         {
-            if ( PlayerBase.Instance.AreAbilitiesEnabled )
+            if ( PlayerBase.Instance.CanDash )
             {
                 if ( !dashOnCooldown && context.phase == InputActionPhase.Performed )
                 {
@@ -139,6 +142,7 @@ namespace BananaSoup
                     PlayerBase.Instance.IsTurnable = false;
                     PlayerBase.Instance.IsInteractingEnabled = false;
                     PlayerBase.Instance.AreAbilitiesEnabled = false;
+                    PlayerBase.Instance.CanDash = false;
                     Vector3 forceToApply = GetCalculatedDirection(transform.forward) * dashForce;
 
                     rb.velocity = forceToApply;
@@ -181,12 +185,22 @@ namespace BananaSoup
                 rb.velocity = Vector3.zero;
             }
 
-            psm.SetPlayerState(dashOver);
-            debug.UpdatePlayerStateText();
+            if ( groundCheck.IsGrounded )
+            {
+                psm.SetPlayerState(dashOver);
+                debug.UpdatePlayerStateText();
+            }
+            else if ( !groundCheck.IsGrounded )
+            {
+                psm.SetPlayerState(dashOverInAir);
+                debug.UpdatePlayerStateText();
+            }
+
             PlayerBase.Instance.IsMovable = true;
             PlayerBase.Instance.IsTurnable = true;
             PlayerBase.Instance.IsInteractingEnabled = true;
             PlayerBase.Instance.AreAbilitiesEnabled = true;
+            PlayerBase.Instance.CanDash = true;
         }
 
         /// <summary>

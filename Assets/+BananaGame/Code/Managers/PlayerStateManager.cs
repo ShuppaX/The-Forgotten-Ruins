@@ -131,7 +131,7 @@ namespace BananaSoup
 
         private void InvokeStateChangeEvent()
         {
-            stateChanged.Invoke();
+            //stateChanged.Invoke();
         }
 
         public void SetPlayerState(string caseValue)

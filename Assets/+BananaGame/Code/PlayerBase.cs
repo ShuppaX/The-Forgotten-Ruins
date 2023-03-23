@@ -10,6 +10,7 @@ namespace BananaSoup
         private bool isInteractingEnabled = true;
         private bool isMovable = true;
         private bool isTurnable = true;
+        private bool canDash = true;
 
         public bool AreAbilitiesEnabled
         {
@@ -33,6 +34,12 @@ namespace BananaSoup
         {
             get { return isTurnable; }
             set { isTurnable = value; }
+        }
+
+        public bool CanDash
+        {
+            get { return canDash; }
+            set { canDash = value; }
         }
 
         private void Awake()

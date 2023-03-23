@@ -30,6 +30,7 @@ namespace BananaSoup
         private CapsuleCollider playerCollider = null;
         private PlayerStateManager psm = null;
         private DebugManager debug = null;
+        private PlayerBase playerBase = null;
 
         [Header("Constant strings used for PlayerState handling")]
         public const string grounded = "Idle";
@@ -56,6 +57,15 @@ namespace BananaSoup
             rayLength = (playerCollider.height / 2.0f) + GetComponent<PlayerController>().GroundCheckLength;
             rayOriginOffset = playerCollider.radius * colliderRadiusMultiplier;
             originHeightOffset.Set(0.0f, (playerCollider.height / 2.0f), 0.0f);
+
+            if ( !Grounded() )
+            {
+                psm.SetPlayerState(inAir);
+            }
+            else if ( Grounded() )
+            {
+                psm.SetPlayerState(grounded);
+            }
         }
 
         /// <summary>
@@ -74,6 +84,12 @@ namespace BananaSoup
             {
                 Debug.LogError(gameObject.name + " couldn't find an Instance of DebugManager!");
             }
+
+            playerBase = PlayerBase.Instance;
+            if ( playerBase == null )
+            {
+                Debug.LogError(gameObject.name + " couldn't find an Instance of PlayerBase!");
+            }
         }
 
         // Update is called once per frame
@@ -88,10 +104,12 @@ namespace BananaSoup
                 if ( !Grounded() )
                 {
                     psm.SetPlayerState(inAir);
+                    playerBase.AreAbilitiesEnabled = false;                    
                 }
                 else if ( Grounded() )
                 {
                     psm.SetPlayerState(grounded);
+                    playerBase.AreAbilitiesEnabled = true;
                 }
 
                 debug.UpdateGroundCheckText(isGrounded);
@@ -121,8 +139,6 @@ namespace BananaSoup
                 }
             }
 
-            //onPlayerInAir.Invoke();
-            //psm.SetPlayerState(inAir);
             return false;
         }
 
