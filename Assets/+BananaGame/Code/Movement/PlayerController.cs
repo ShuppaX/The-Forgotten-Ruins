@@ -105,7 +105,6 @@ namespace BananaSoup
         private void GetComponents()
         {
             rb = GetDependency<Rigidbody>();
-            playerCollider = GetDependency<CapsuleCollider>();
             directionCalculator = GetDependency<CalculateMovementDirection>();
             allowMovement = GetDependency<AllowMovement>();
             groundCheck = GetDependency<GroundCheck>();
