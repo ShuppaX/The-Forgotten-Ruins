@@ -1,4 +1,3 @@
-using BananaSoup.InteractSystem;
 using TMPro;
 using UnityEngine;
 

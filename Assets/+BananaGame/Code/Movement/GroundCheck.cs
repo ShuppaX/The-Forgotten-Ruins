@@ -1,6 +1,5 @@
 using RotaryHeart.Lib.PhysicsExtension;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace BananaSoup
 {
