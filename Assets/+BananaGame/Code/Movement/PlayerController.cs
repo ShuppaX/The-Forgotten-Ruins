@@ -175,6 +175,7 @@ namespace BananaSoup
                 }
             }
 
+            // If hte character isn't movable call StopMovement method.
             if ( !PlayerBase.Instance.IsMovable )
             {
                 StopMovement();
