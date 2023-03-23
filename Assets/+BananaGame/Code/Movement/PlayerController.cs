@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using Unity.VisualScripting;
 
 namespace BananaSoup
 {
@@ -24,7 +25,6 @@ namespace BananaSoup
 
         // References to other components
         private Rigidbody rb = null;
-        private CapsuleCollider playerCollider = null;
         private CalculateMovementDirection directionCalculator = null;
         private AllowMovement allowMovement = null;
         private GroundCheck groundCheck = null;
@@ -51,22 +51,19 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Public property for raycastLength which is used to define the length of the
-        /// GroundCheck and AllowMovement Raycasts length.
+        /// Public property to define groundCheck Raycast length.
         /// </summary>
         public float GroundCheckLength
         {
             get { return groundCheckLength; }
         }
 
+        /// <summary>
+        /// Public property to define the groundLayer LayerMask for several check scripts.
+        /// </summary>
         public LayerMask GroundLayer
         {
             get { return groundLayer; }
-        }
-
-        public bool IsMoving
-        {
-            get { return hasMoveInput; }
         }
 
         private void Start()
@@ -75,11 +72,30 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Setup method which is called in Start() to get components.
+        /// Setup method which is called in Start() to get components and Instances.
         /// </summary>
         private void Setup()
         {
+            GetInstances();
             GetComponents();
+        }
+
+        /// <summary>
+        /// Method to get references of existing Instances and to throw an error if it is null.
+        /// </summary>
+        private void GetInstances()
+        {
+            psm = PlayerStateManager.Instance;
+            if ( psm == null )
+            {
+                Debug.LogError(gameObject.name + " couldn't find an Instance of PlayerStateManager!");
+            }
+
+            debug = DebugManager.Instance;
+            if ( debug == null )
+            {
+                Debug.LogError(gameObject.name + " couldn't find an Instance of DebugManager!");
+            }
         }
 
         /// <summary>
@@ -88,44 +104,29 @@ namespace BananaSoup
         /// </summary>
         private void GetComponents()
         {
-            psm = PlayerStateManager.Instance;
-            debug = DebugManager.Instance;
+            rb = GetDependency<Rigidbody>();
+            playerCollider = GetDependency<CapsuleCollider>();
+            directionCalculator = GetDependency<CalculateMovementDirection>();
+            allowMovement = GetDependency<AllowMovement>();
+            groundCheck = GetDependency<GroundCheck>();
+            groundAhead = GetDependency<GroundAhead>();
+        }
 
-            rb = GetComponent<Rigidbody>();
-            if ( rb == null )
+        /// <summary>
+        /// Method to simplify getting components and to throw an error if it's null
+        /// this improves readability.
+        /// </summary>
+        /// <typeparam name="T">The name of the component to get.</typeparam>
+        /// <returns>The wanted component if it's found.</returns>
+        private T GetDependency<T>() where T : Component
+        {
+            T component = GetComponent<T>();
+            if ( component == null )
             {
-                Debug.LogError("A Rigidbody component couldn't be found on the " + gameObject.name + "!");
+                Debug.LogError($"The component of type {typeof(T).Name} couldn't be found on the " + gameObject.name + "!");
             }
 
-            playerCollider = GetComponent<CapsuleCollider>();
-            if ( playerCollider == null )
-            {
-                Debug.LogError("A CapsuleCollider component couldn't be found on the " + gameObject.name + "!");
-            }
-
-            directionCalculator = GetComponent<CalculateMovementDirection>();
-            if ( directionCalculator == null )
-            {
-                Debug.LogError("A CalculateMovementDirection component couldn't be found on the " + gameObject.name + "!");
-            }
-
-            allowMovement = GetComponent<AllowMovement>();
-            if ( allowMovement == null )
-            {
-                Debug.LogError("A AllowMovement component couldn't be found on the " + gameObject.name + "!");
-            }
-
-            groundCheck = GetComponent<GroundCheck>();
-            if ( groundCheck == null )
-            {
-                Debug.LogError("A GroundCheck component couldn't be found on the " + gameObject.name + "!");
-            }
-
-            groundAhead = GetComponent<GroundAhead>();
-            if ( groundAhead == null )
-            {
-                Debug.LogError("A GroundAhead component couldn't be found on the " + gameObject.name + "!");
-            }
+            return component;
         }
 
         private void Update()
@@ -135,7 +136,7 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Invoke the event once when the rb.velocity.sqrMagnitude changes.
+        /// Update the movementSpeed display debug once every time the rb.velocity.sqrMagnitude changes.
         /// </summary>
         private void UpdateMovementspeedDebug()
         {
@@ -148,6 +149,7 @@ namespace BananaSoup
 
         /// <summary>
         /// Method used to set wasPushed to false if the player has ground in front of them
+        /// and wasPushed is true.
         /// </summary>
         private void SetWasPushedFalse()
         {
@@ -191,9 +193,11 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Used to get the players input and then store it into the movementInput Vector3
-        /// which is then converted with the IsoVectorConvert method and stored in
-        /// movementDirection.
+        /// Used to get the players input and then store it into the Vector3 movementInput
+        /// then it gets set as the isometricDirection after it is converted with the
+        /// IsoVectorConvert.
+        /// Set hasMoveInput to true while input is held and false when input action is 
+        /// canceled (also reset the movementInput vector).
         /// </summary>
         /// <param name="context">The players movement input.</param>
         public void OnMove(InputAction.CallbackContext context)
@@ -227,8 +231,9 @@ namespace BananaSoup
 
         /// <summary>
         /// Moves the character in the direction of the players input.
-        /// Uses the method GetMovementDirection to get the corrected direction for
-        /// slopes and even ground and then that is multiplied by the movementSpeed.
+        /// The direction is dependent on the ground the player is standing on,
+        /// for example the direction is in a 25 degree angle if the player is standing
+        /// on a 25 degree angled ground.
         /// </summary>
         private void Move()
         {
@@ -251,6 +256,9 @@ namespace BananaSoup
             }
         }
 
+        /// <summary>
+        /// Method which is called when the player has stopped movement input.
+        /// </summary>
         private void StoppedMoving()
         {
             if ( psm.currentPlayerState == PlayerStateManager.PlayerState.Moving )

@@ -45,14 +45,36 @@ namespace BananaSoup
         void Start()
         {
             playerCollider = GetComponent<CapsuleCollider>();
-            psm = PlayerStateManager.Instance;
-            debug = DebugManager.Instance;
+            if ( playerCollider == null )
+            {
+                Debug.LogError($"The component of type {typeof(CapsuleCollider).Name} couldn't be found on the " + gameObject.name + "!");
+            }
+
+            GetInstances();
 
             groundLayer = GetComponent<PlayerController>().GroundLayer;
 
             rayLength = (playerCollider.height / 2.0f) + GetComponent<PlayerController>().GroundCheckLength;
             rayOriginOffset = playerCollider.radius * colliderRadiusMultiplier;
             originHeightOffset.Set(0.0f, (playerCollider.height / 2.0f), 0.0f);
+        }
+
+        /// <summary>
+        /// Method to get references of existing Instances and to throw an error if it is null.
+        /// </summary>
+        private void GetInstances()
+        {
+            psm = PlayerStateManager.Instance;
+            if ( psm == null )
+            {
+                Debug.LogError(gameObject.name + " couldn't find an Instance of PlayerStateManager!");
+            }
+
+            debug = DebugManager.Instance;
+            if ( debug == null )
+            {
+                Debug.LogError(gameObject.name + " couldn't find an Instance of DebugManager!");
+            }
         }
 
         // Update is called once per frame

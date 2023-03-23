@@ -29,6 +29,10 @@ namespace BananaSoup
         private void Start()
         {
             playerCollider = GetComponent<CapsuleCollider>();
+            if ( playerCollider == null )
+            {
+                Debug.LogError($"The component of type {typeof(CapsuleCollider).Name} couldn't be found on the " + gameObject.name + "!");
+            }s
 
             maxAngle = GetComponent<PlayerController>().MaxSlopeAngle;
             groundLayer = GetComponent<PlayerController>().GroundLayer;

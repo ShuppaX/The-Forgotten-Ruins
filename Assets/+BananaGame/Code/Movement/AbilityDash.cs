@@ -48,26 +48,46 @@ namespace BananaSoup
 
         private void Setup()
         {
+            GetInstances();
+
+            rb = GetDependency<Rigidbody>();
+            directionCalculator = GetDependency<CalculateMovementDirection>();
+            slopeCheck = GetDependency<SlopeCheck>();
+        }
+
+        /// <summary>
+        /// Method to get references of existing Instances and to throw an error if it is null.
+        /// </summary>
+        private void GetInstances()
+        {
             psm = PlayerStateManager.Instance;
+            if ( psm == null )
+            {
+                Debug.LogError(gameObject.name + " couldn't find an Instance of PlayerStateManager!");
+            }
+
             debug = DebugManager.Instance;
-
-            rb = GetComponent<Rigidbody>();
-            if ( rb == null )
+            if ( debug == null )
             {
-                Debug.LogError("A Rigidbody component couldn't be found on the " + gameObject.name + "!");
+                Debug.LogError(gameObject.name + " couldn't find an Instance of DebugManager!");
+            }
+        }
+
+        /// <summary>
+        /// Method to simplify getting components and to throw an error if it's null
+        /// this improves readability.
+        /// </summary>
+        /// <typeparam name="T">The name of the component to get.</typeparam>
+        /// <returns>The wanted component if it's found.</returns>
+        private T GetDependency<T>() where T : Component
+        {
+            T component = GetComponent<T>();
+            if ( component == null )
+            {
+                Debug.LogError($"The component of type {typeof(T).Name} couldn't be found on the " + gameObject.name + "!");
             }
 
-            directionCalculator = GetComponent<CalculateMovementDirection>();
-            if ( directionCalculator == null )
-            {
-                Debug.LogError("A CalculateMovementDirection component couldn't be found on the " + gameObject.name + "!");
-            }
-
-            slopeCheck = GetComponent<SlopeCheck>();
-            if ( slopeCheck == null )
-            {
-                Debug.LogError("A SlopeCheck component couldn't be found on the " + gameObject.name + "!");
-            }
+            return component;
         }
 
         private void Update()
