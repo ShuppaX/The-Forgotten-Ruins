@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ecae43ff16ee7c14d8ec4cb0f0900b3b
+guid: 03f8665160384824cbeb7e7027b1e767
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|Armature|mixamo.com|Layer0.001
-      takeName: Armature|Armature|mixamo.com|Layer0.001
-      internalID: 6165553400957861818
+      name: PushLever
+      takeName: mixamo.com
+      internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 210
+      lastFrame: 153
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
