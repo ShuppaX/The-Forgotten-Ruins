@@ -515,7 +515,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 43a9a0161fa1f6845b071944454a5372,
         type: 3}
       propertyPath: m_Name
-      value: fennec_T-Pose_2
+      value: Fennec_T
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 43a9a0161fa1f6845b071944454a5372, type: 3}
