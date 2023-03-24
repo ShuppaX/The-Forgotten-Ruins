@@ -6,6 +6,7 @@ namespace BananaSoup
     public class PlayerStateManager : MonoBehaviour
     {
         public static PlayerStateManager Instance { get; private set; }
+        private PlayerAnimationManager animationManager;
 
         [HideInInspector]
         public PlayerState currentPlayerState = 0;
@@ -35,6 +36,17 @@ namespace BananaSoup
             {
                 Destroy(gameObject);
             }
+
+            Setup();
+        }
+
+        private void Setup()
+        {
+            animationManager = GetComponent<PlayerAnimationManager>();
+            if ( animationManager == null )
+            {
+                Debug.Log(this + " is missing reference to the PlayerAnimationManager and it is required!");
+            }
         }
 
         // Methods which are called with UnityEvents in scripts when the
@@ -47,7 +59,7 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.Idle;
-            InvokeStateChangeEvent();
+            OnStateChanged(currentPlayerState.ToString());
         }
 
         private void PlayerMoving()
@@ -59,7 +71,7 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.Moving;
-            InvokeStateChangeEvent();
+            OnStateChanged(currentPlayerState.ToString());
         }
 
         private void PlayerDashing()
@@ -70,7 +82,7 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.Dashing;
-            InvokeStateChangeEvent();
+            OnStateChanged(currentPlayerState.ToString());
         }
 
         private void PlayerAttacking()
@@ -81,7 +93,7 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.Attacking;
-            InvokeStateChangeEvent();
+            OnStateChanged(currentPlayerState.ToString());
         }
 
         private void PlayerInteracting()
@@ -92,7 +104,7 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.Interacting;
-            InvokeStateChangeEvent();
+            OnStateChanged(currentPlayerState.ToString());
         }
 
         private void PlayerInAir()
@@ -104,7 +116,7 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.InAir;
-            InvokeStateChangeEvent();
+            OnStateChanged(currentPlayerState.ToString());
         }
 
         private void PlayerSanding()
@@ -115,28 +127,28 @@ namespace BananaSoup
             }
 
             currentPlayerState = PlayerState.Sanding;
-            InvokeStateChangeEvent();
+            OnStateChanged(currentPlayerState.ToString());
         }
 
         private void PlayerSparking()
         {
-            if (currentPlayerState == PlayerState.Sparking )
+            if ( currentPlayerState == PlayerState.Sparking )
             {
                 return;
             }
 
             currentPlayerState = PlayerState.Sparking;
-            InvokeStateChangeEvent();
+            OnStateChanged(currentPlayerState.ToString());
         }
 
-        private void InvokeStateChangeEvent()
+        private void OnStateChanged(string animationName)
         {
-            //stateChanged.Invoke();
+            animationManager.SetAnimation(animationName);
         }
 
         public void SetPlayerState(string caseValue)
         {
-            switch (caseValue)
+            switch ( caseValue )
             {
                 case "Idle":
                     PlayerIdle();

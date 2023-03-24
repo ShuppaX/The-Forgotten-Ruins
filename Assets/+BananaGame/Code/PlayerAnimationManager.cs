@@ -5,46 +5,25 @@ namespace BananaSoup
     public class PlayerAnimationManager : MonoBehaviour
     {
         private PlayerStateManager playerStateManager = null;
+        private Animator animator;
 
-        private void OnEnable()
-        {
-            TrySubscribing();
-        }
-
-        private void OnDisable()
-        {
-            if ( playerStateManager != null )
-            {
-                PlayerStateManager.Instance.stateChanged -= SetAnimation;
-            }
-        }
-
-        private void Start()
+        private void Awake()
         {
             Setup();
-            TrySubscribing();
         }
 
         private void Setup()
         {
-            playerStateManager = PlayerStateManager.Instance;
-            if ( playerStateManager == null )
+            animator = GetComponent<Animator>();
+            if ( animator == null )
             {
-                Debug.LogError(this + " is not getting reference to the PlayerStateManager!");
+                Debug.LogError(this + " is missing reference to the Animator component and it's required!");
             }
         }
 
-        private void TrySubscribing()
+        public void SetAnimation(string animationName)
         {
-            if ( playerStateManager != null )
-            {
-                playerStateManager.stateChanged += SetAnimation;
-            }
-        }
-
-        private void SetAnimation()
-        {
-            //Debug.Log("State changed. Set new animation");
+            animator.SetTrigger(animationName);
         }
     }
 }
