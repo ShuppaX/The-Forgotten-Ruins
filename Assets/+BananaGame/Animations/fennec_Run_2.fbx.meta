@@ -52,7 +52,7 @@ ModelImporter:
     keepQuads: 0
     weldVertices: 1
     bakeAxisConversion: 0
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
@@ -76,10 +76,13 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips:
+  - 861a78b4d37097c4ca0221ae6410de83
+  - d90ec366f704a5d44b60eca3d05cbae3
   - 583e5980ee83c4b4090770737d895a8f
   - 6ef34c2d89f1d644c8dd7fb674729c31
   - 4b95822579297f641bcc11eda7f4358a
   - 3dc8b8f8d2c1ca2439b666053780cc37
+  - 97bc9f7e0f2ff2c439c701cfa7e120b9
   - 33c885e1b4c30e44faf8d6ca5970948f
   - b99d07898f7ac9147b6fabf107014f83
   importAnimation: 1
