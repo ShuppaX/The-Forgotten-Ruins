@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.PuzzleSystem
 {
-    public class TorchInteraction : MonoBehaviour, ISandable
+    public class TorchInteraction : PuzzleObjectBase, ISandable
     {
         [SerializeField] private ParticleSystem fireParticles;
-        [SerializeField] private TorchPuzzle torchPuzzleParent;
+        [SerializeField] private PuzzleObject torchPuzzleParent;
 
         private void Start()
         {
@@ -25,7 +25,7 @@ namespace BananaSoup
         public void OnSandAttack()
         {
             fireParticles.Stop(false);
-            torchPuzzleParent.SetTorchExtinguished = 1;
+            torchPuzzleParent.SetRemainingPuzzleObjectCount = -1;
         }
     }
 }

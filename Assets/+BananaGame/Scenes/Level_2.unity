@@ -9487,10 +9487,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8322fd5a6ab003a4da7b9394fb22718a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  torches:
+  puzzleGameObjects:
   - {fileID: 1207400178}
   - {fileID: 682628934}
-  puzzleSolutionGameObject: {fileID: 1608345497}
+  puzzleSolutionGameObject: {fileID: 1608345498}
 --- !u!1001 &653091609
 PrefabInstance:
   m_ObjectHideFlags: 0
