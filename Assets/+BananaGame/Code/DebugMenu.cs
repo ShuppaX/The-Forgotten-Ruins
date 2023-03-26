@@ -76,7 +76,6 @@ namespace BananaSoup
         {
             if ( !teleportPanel.activeInHierarchy )
             {
-                Debug.Log("Spawner 0 :" + PlayerSpawnManager.spawners[0].name);
                 teleportPanel.SetActive(true);
             }
             else
