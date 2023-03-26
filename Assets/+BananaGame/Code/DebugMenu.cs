@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -90,6 +91,16 @@ namespace BananaSoup
             string currentScene = SceneManager.GetActiveScene().name;
             Debug.Log("Current Scene is: " + currentScene + ". Reloading it.");
             SceneManager.LoadScene(currentScene);
+        }
+
+        public void OnExitGame()
+        {
+#if UNITY_STANDALONE
+            Application.Quit();
+#endif
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#endif
         }
     }
 }
