@@ -19,14 +19,14 @@ namespace BananaSoup
 
             // transform.LookAt(_playerTarget);
 
-            if (!_alreadyAttacked)
+            if (!alreadyAttacked)
             {
 
                 Rigidbody rb = Instantiate(projectile, firingPoint.transform.position, aimpoint.rotation)
                     .GetComponent<Rigidbody>();
                 Debug.Log("pew");
 
-                _alreadyAttacked = true;
+                alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), _timeBetweenAttacks);
             }
 

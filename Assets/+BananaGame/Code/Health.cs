@@ -7,31 +7,26 @@ namespace BananaSoup
 {
     public class Health : MonoBehaviour, IHealth
     {
-
         private int _currentHealth = 0;
         [SerializeField] private int maxHealth = 3;
         [SerializeField] private int startingHealth = 3;
-    
+
         public event Action<int> HealthChanged;
-        
+
         public int CurrentHealth
         {
-            get { return _currentHealth; }
+            get => _currentHealth;
             private set
             {
                 _currentHealth = Mathf.Clamp(value, 0, maxHealth);
-                if (HealthChanged != null)
-                {
-                    HealthChanged(_currentHealth);
-                }
+                if (HealthChanged != null) HealthChanged(_currentHealth);
             }
-
         }
 
         int IHealth.MaxHealth => maxHealth;
         public bool IsAlive => _currentHealth > 0;
-        
-        
+
+
         public void Setup()
         {
             Reset();
@@ -39,20 +34,18 @@ namespace BananaSoup
 
         public void IncreaseHealth(int amount)
         {
-            if (amount < 0)
-            {
-                Debug.LogWarning("Negative hp detected in IncreaseHealth");
-            }
+            if (amount < 0) Debug.LogWarning("Negative hp detected in IncreaseHealth");
             _currentHealth += amount;
         }
 
         public void DecreaseHealth(int amount)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Reset()
         {
-            CurrentHealth = startingHealth;        }
+            CurrentHealth = startingHealth;
+        }
     }
 }

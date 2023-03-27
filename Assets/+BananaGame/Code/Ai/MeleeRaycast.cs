@@ -16,16 +16,18 @@ namespace BananaSoup
         protected Vector3 _playerDirection;
 
         //Serialized
-        [Header("Layer masks")] [SerializeField]
-        private LayerMask whatIsGround;
-
+        [Header("Layer masks")] 
+        [SerializeField] private LayerMask whatIsGround;
         [SerializeField] private LayerMask whatIsPlayer;
 
-        [Header("Combat")] [SerializeField] private float health;
+        [Header("Combat")]
+        [SerializeField] private float health;
         [SerializeField] private float damage = 1;
 
-        [Header("Vision")] [SerializeField] private float _sightRange;
+        [Header("Vision")]
+        [SerializeField] private float _sightRange;
         [SerializeField] private float _attackRange;
+        
         protected Transform _lookAtTarget;
         protected float _damp = 6f;
 
@@ -40,9 +42,9 @@ namespace BananaSoup
 
         //Attack
         protected float _timeBetweenAttacks;
-        protected bool _alreadyAttacked;
-        private Vector3 whereIsPlayer;
-        private float angle;
+        protected bool alreadyAttacked;
+        private Vector3 _whereIsPlayer;
+        private float _angle;
 
         //states
         private bool _playerInSightRange;
@@ -66,8 +68,8 @@ namespace BananaSoup
         {
             //Variables
             var position = transform.position;
-            whereIsPlayer = _playerDirection - position;
-            angle = Vector3.Angle(whereIsPlayer, transform.forward);
+            _whereIsPlayer = _playerDirection - position;
+            _angle = Vector3.Angle(_whereIsPlayer, transform.forward);
 
             _playerInSightRange = Physics.CheckSphere(position, _sightRange, whatIsPlayer);
             _playerInAttackRange = Physics.CheckSphere(position, _attackRange, whatIsPlayer);
@@ -75,7 +77,7 @@ namespace BananaSoup
 
             if (_playerInSightRange)
                 //Smoothed turning towards player
-                if (angle > 2.5f)
+                if (_angle > 2.5f)
                 {
                     var rotate = Quaternion.LookRotation(_playerTarget.position - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
@@ -139,12 +141,12 @@ namespace BananaSoup
 
             //transform.LookAt(_playerTarget);
 
-            if (!_alreadyAttacked)
+            if (!alreadyAttacked)
             {
                 //TODO Attack code here
                 Debug.Log("Enemy Swings");
 
-                _alreadyAttacked = true;
+                alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), _timeBetweenAttacks);
             }
 
@@ -153,7 +155,7 @@ namespace BananaSoup
 
         protected void ResetAttack()
         {
-            _alreadyAttacked = false;
+            alreadyAttacked = false;
         }
 
         public void TakeDamage(int damage)
