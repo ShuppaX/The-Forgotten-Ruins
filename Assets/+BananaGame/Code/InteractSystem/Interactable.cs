@@ -20,11 +20,6 @@ namespace BananaSoup.InteractSystem
             IsInteracting = true;
         }
 
-        //public void InteractCompleted()
-        //{
-        //    IsInteracting = false;
-        //}
-
         internal virtual void InteractCompleted()
         {
             IsInteracting = false;

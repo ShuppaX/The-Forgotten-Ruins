@@ -4,7 +4,6 @@ namespace BananaSoup
 {
     public class PlayerAnimationManager : MonoBehaviour
     {
-        private PlayerStateManager playerStateManager = null;
         private Animator animator;
 
         private void Awake()

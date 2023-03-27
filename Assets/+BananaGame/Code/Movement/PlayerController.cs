@@ -259,10 +259,25 @@ namespace BananaSoup
 
             if ( groundCheck.IsGrounded )
             {
-                Vector3 forceToApply = GetMovementDirection(isometricDirection) * movementSpeed;
-                rb.velocity = forceToApply;
-                psm.SetPlayerState(moving);
-                debug.UpdatePlayerStateText();
+                // While not Interacting
+                if ( psm.currentPlayerState != PlayerStateManager.PlayerState.Interacting )
+                {
+                    Vector3 forceToApply = GetMovementDirection(isometricDirection) * movementSpeed;
+                    rb.velocity = forceToApply;
+                    psm.SetPlayerState(moving);
+                    debug.UpdatePlayerStateText();
+                }
+                else
+                // While Interacting
+                {
+                    //Vector3 forceToApply = (GetMovementDirection(isometricDirection) * movementSpeed); 
+                    rb.velocity = transform.forward * movementSpeed;
+
+                    //Debug.Log("Input: " + GetMovementDirection(isometricDirection));
+                    //Debug.Log("Player EulerAngles: " + transform.rotation.eulerAngles);
+                    //Debug.Log("Player movementDirection: " + isometricDirection);
+                    //Debug.Log("Rotation: " + (transform.rotation.eulerAngles - Vector3.forward));
+                }
             }
         }
 

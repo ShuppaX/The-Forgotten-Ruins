@@ -62,6 +62,8 @@ namespace BananaSoup.InteractSystem
 
         public void OnInteract(InputAction.CallbackContext context)
         {
+            // Check is Interacting enabled.
+            // If not, return.
             if ( !PlayerBase.Instance.IsInteractingEnabled )
             {
                 return;
@@ -74,6 +76,7 @@ namespace BananaSoup.InteractSystem
                 return;
             }
 
+            // Cancelling Interaction.
             // If the player has already selected an Interactable and moving towards it,
             // cancel the movement and don't select a new Interactable target.
             if ( hasSelectedInteractable )
@@ -85,6 +88,7 @@ namespace BananaSoup.InteractSystem
                 return;
             }
 
+            // Cancelling Interaction.
             // If the player is already interacting with an Interactable, cancel on going interact and don't start a new one.
             if ( currentInteractable != null )
             {
@@ -110,11 +114,12 @@ namespace BananaSoup.InteractSystem
                 return;
             }
 
-            // An Interactable is in the range. Set variables for the gizmo
+            // An Interactable is in the range. Set variables for the debug gizmo.
             currentHitDistance = hit.distance;
             interactGizmoColor = Color.red;
 
-            // Check does the physical object have an Interactable component 
+            // Check does the physical object have an Interactable component,
+            // if it has continue.
             if ( hit.transform.TryGetComponent(out Interactable interactable) )
             {
                 SetPlayerInputs(false);
@@ -140,12 +145,14 @@ namespace BananaSoup.InteractSystem
         {
             // TODO: Turn player towards to the interact point. By code or navmesh?
 
-            // Move our position a step closer to the target.
-            var step = moveSpeed * Time.deltaTime; // calculate distance to move
-            transform.position = Vector3.MoveTowards(transform.position, interactPoint, step);
-
             // Set target Y to same as players Y so player won't be trying to go up or downwards.
             interactPoint.y = transform.position.y;
+
+            // Calculate a step to move.
+            float step = moveSpeed * Time.deltaTime;
+
+            // Move the player position a step closer to the target.
+            transform.position = Vector3.MoveTowards(transform.position, interactPoint, step);
 
             // Check if the position of the player and Interactable are approximately equal.
             if ( Vector3.Distance(transform.position, interactPoint) < 0.01f )

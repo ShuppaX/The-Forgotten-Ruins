@@ -7,6 +7,7 @@ namespace BananaSoup.InteractSystem
     public class MovableBox : Interactable
     {
         private Rigidbody rb;
+        private Vector3 offset;
 
         private void Start()
         {
@@ -17,8 +18,6 @@ namespace BananaSoup.InteractSystem
             }
         }
 
-        // TODO: Move box by one unit per push?
-
         internal override void Interact()
         {
             base.Interact();
@@ -26,16 +25,21 @@ namespace BananaSoup.InteractSystem
             // Enable movement controls, so the player could move itself and a box
             PlayerBase.Instance.IsMovable = true;
 
-            rb.isKinematic = false;
-            //IsInteracting = true;
+            // Set offset between a Movable Box and the player.
+            offset = transform.position - PlayerBase.Instance.transform.position;
         }
 
         internal override void InteractCompleted()
         {
             base.InteractCompleted();
+        }
 
-            rb.isKinematic = true;
-            //IsInteracting = false;
+        private void FixedUpdate()
+        {
+            if ( IsInteracting )
+            {
+                rb.MovePosition(PlayerBase.Instance.transform.position + offset);
+            }
         }
     }
 }
