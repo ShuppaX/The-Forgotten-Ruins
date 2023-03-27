@@ -13,7 +13,7 @@ namespace BananaSoup
 
         public void Setup();
         void IncreaseHealth(int amount);
-        void DecreaseHEalth(int amount);
+        void DecreaseHealth(int amount);
         void Reset();
     }
 }
