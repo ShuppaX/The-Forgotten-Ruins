@@ -40,8 +40,9 @@ namespace BananaSoup
 
         public void DecreaseHealth(int amount)
         {
-            throw new NotImplementedException();
-        }
+            if (amount < 0) return;
+
+            CurrentHealth += amount;        }
 
         public void Reset()
         {
