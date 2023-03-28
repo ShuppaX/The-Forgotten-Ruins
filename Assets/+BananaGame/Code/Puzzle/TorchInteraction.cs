@@ -7,7 +7,6 @@ namespace BananaSoup.PuzzleSystem
     public class TorchInteraction : PuzzleObjectBase, ISandable
     {
         [SerializeField] private ParticleSystem fireParticles;
-        [SerializeField] private PuzzleObject torchPuzzleParent;
 
         private void Start()
         {
@@ -16,7 +15,7 @@ namespace BananaSoup.PuzzleSystem
                 Debug.LogError(name + " is missing Fire ParticleSystem");
             }
 
-            if ( torchPuzzleParent == null )
+            if ( GetPuzzleManager == null )
             {
                 Debug.LogError(name + " is missing TorchPuzzleParent");
             }
@@ -25,7 +24,7 @@ namespace BananaSoup.PuzzleSystem
         public void OnSandAttack()
         {
             fireParticles.Stop(false);
-            torchPuzzleParent.SetRemainingPuzzleObjectCount = -1;
+            GetPuzzleManager.SetRemainingPuzzleObjectCount = -1;
         }
     }
 }

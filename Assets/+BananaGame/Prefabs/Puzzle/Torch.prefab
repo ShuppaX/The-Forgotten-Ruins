@@ -9706,7 +9706,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireParticles: {fileID: 3394220984990786356}
-  torchPuzzleParent: {fileID: 0}
 --- !u!1 &5672393115507406018
 GameObject:
   m_ObjectHideFlags: 0

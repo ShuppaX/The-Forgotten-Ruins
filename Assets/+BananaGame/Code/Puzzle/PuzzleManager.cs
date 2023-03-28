@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace BananaSoup.PuzzleSystem
 {
-    public class PuzzleObject : MonoBehaviour
+    public class PuzzleManager : MonoBehaviour
     {
         [Tooltip("An array of PuzzleObjects which should be marked as done that the puzzle is set completed.")]
         [SerializeField] private PuzzleObjectBase[] puzzleGameObjects;
@@ -14,7 +14,7 @@ namespace BananaSoup.PuzzleSystem
         [Tooltip("A GameObject that is affected after the puzzle is solved.")]
         [SerializeField] private PuzzleSolutionGameObject puzzleSolutionGameObject;
 
-        public UnityAction onPuzzleObjectSolved;
+        public UnityAction onPuzzleObjectCheck;
         private int remainingPuzzleObjects;
 
         public int SetRemainingPuzzleObjectCount
@@ -22,18 +22,18 @@ namespace BananaSoup.PuzzleSystem
             set
             {
                 remainingPuzzleObjects += value;
-                onPuzzleObjectSolved.Invoke();
+                onPuzzleObjectCheck.Invoke();
             }
         }
 
         private void OnEnable()
         {
-            onPuzzleObjectSolved += OnTorchExtinguished;
+            onPuzzleObjectCheck += CheckIsPuzzleSolved;
         }
 
         private void OnDisable()
         {
-            onPuzzleObjectSolved -= OnTorchExtinguished;
+            onPuzzleObjectCheck -= CheckIsPuzzleSolved;
         }
 
         private void Start()
@@ -53,13 +53,22 @@ namespace BananaSoup.PuzzleSystem
             {
                 Debug.LogError(this + " is missing a reference to the puzzleSolutionGameObject component and it is required!");
             }
+
+            for ( int i = 0; i < puzzleGameObjects.Length; i++ )
+            {
+                puzzleGameObjects[i].SetManager(this);
+            }
         }
 
-        private void OnTorchExtinguished()
+        private void CheckIsPuzzleSolved()
         {
             if ( remainingPuzzleObjects == 0 )
             {
                 puzzleSolutionGameObject.IsSolved = true;
+            }
+            else if ( puzzleSolutionGameObject.IsSolved && remainingPuzzleObjects > 0 )
+            {
+                puzzleSolutionGameObject.IsSolved = false;
             }
         }
     }
