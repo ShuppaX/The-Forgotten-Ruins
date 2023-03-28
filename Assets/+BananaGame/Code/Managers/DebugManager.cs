@@ -47,7 +47,12 @@ namespace BananaSoup
             }
         }
 
-        public void UpdatePlayerStateText()
+        private void Update()
+        {
+            UpdatePlayerStateText();
+        }
+
+        private void UpdatePlayerStateText()
         {
             if ( IsDebugActive )
             {

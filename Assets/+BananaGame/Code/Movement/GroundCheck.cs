@@ -33,8 +33,7 @@ namespace BananaSoup
         private PlayerBase playerBase = null;
 
         [Header("Constant strings used for PlayerState handling")]
-        public const string grounded = "Idle";
-        public const string inAir = "InAir";
+        public const PlayerStateManager.PlayerState inAir = PlayerStateManager.PlayerState.InAir;
 
         public bool IsGrounded
         {
@@ -64,7 +63,7 @@ namespace BananaSoup
             }
             else if ( Grounded() )
             {
-                psm.SetPlayerState(grounded);
+                psm.ResetPlayerState();
             }
         }
 
@@ -108,12 +107,11 @@ namespace BananaSoup
                 }
                 else if ( Grounded() )
                 {
-                    psm.SetPlayerState(grounded);
+                    psm.ResetPlayerState();
                     playerBase.AreAbilitiesEnabled = true;
                 }
 
                 debug.UpdateGroundCheckText(isGrounded);
-                debug.UpdatePlayerStateText();
             }
         }
 

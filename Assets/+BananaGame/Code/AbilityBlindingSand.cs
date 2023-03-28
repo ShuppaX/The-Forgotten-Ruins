@@ -16,11 +16,9 @@ namespace BananaSoup
         private Coroutine activeParticleCoroutine = null;
         private Animator animator = null;
         private PlayerStateManager psm = null;
-        private DebugManager debug = null;
 
         [Header("Constant strings used for PlayerState handling")]
-        public const string sanding = "Sanding";
-        public const string sandingOver = "Idle";
+        public const PlayerStateManager.PlayerState sanding = PlayerStateManager.PlayerState.Sanding;
 
         private void Start()
         {
@@ -39,12 +37,6 @@ namespace BananaSoup
             if ( psm == null )
             {
                 Debug.LogError(gameObject.name + " couldn't find an instance of PlayerStateManager!");
-            }
-            debug = DebugManager.Instance;
-
-            if ( debug == null )
-            {
-                Debug.LogError(gameObject.name + " couldn't find an instance of DebugManager!");
             }
 
             animator = GetComponent<Animator>();
@@ -70,7 +62,6 @@ namespace BananaSoup
             if ( context.performed )
             {
                 psm.SetPlayerState(sanding);
-                debug.UpdatePlayerStateText();
                 PlayerBase.Instance.IsMovable = false;
                 PlayerBase.Instance.IsTurnable = false;
                 PlayerBase.Instance.IsInteractingEnabled = false;
@@ -121,8 +112,7 @@ namespace BananaSoup
             PlayerBase.Instance.IsInteractingEnabled = true;
             PlayerBase.Instance.AreAbilitiesEnabled = true;
             PlayerBase.Instance.CanDash = true;
-            psm.SetPlayerState(sandingOver);
-            debug.UpdatePlayerStateText();
+            psm.ResetPlayerState();
         }
     }
 }

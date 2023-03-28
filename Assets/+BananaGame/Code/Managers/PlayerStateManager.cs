@@ -9,7 +9,8 @@ namespace BananaSoup
         private PlayerAnimationManager animationManager;
 
         [HideInInspector]
-        public PlayerState currentPlayerState = 0;
+        public PlayerState currentPlayerState = PlayerState.Idle;
+        private PlayerState lastPlayerState = PlayerState.Idle;
 
         public UnityAction stateChanged;
 
@@ -49,135 +50,35 @@ namespace BananaSoup
             }
         }
 
-        // Methods which are called with UnityEvents in scripts when the
-        // currentPlayerState should be updated.
-        private void PlayerIdle()
-        {
-            if ( currentPlayerState == PlayerState.Idle )
-            {
-                return;
-            }
-
-            currentPlayerState = PlayerState.Idle;
-            OnStateChanged(currentPlayerState.ToString());
-        }
-
-        private void PlayerMoving()
-        {
-            if ( currentPlayerState == PlayerState.Moving
-                || currentPlayerState == PlayerState.Interacting )
-            {
-                return;
-            }
-
-            currentPlayerState = PlayerState.Moving;
-            OnStateChanged(currentPlayerState.ToString());
-        }
-
-        private void PlayerDashing()
-        {
-            if ( currentPlayerState == PlayerState.Dashing )
-            {
-                return;
-            }
-
-            currentPlayerState = PlayerState.Dashing;
-            OnStateChanged(currentPlayerState.ToString());
-        }
-
-        private void PlayerAttacking()
-        {
-            if ( currentPlayerState == PlayerState.Attacking )
-            {
-                return;
-            }
-
-            currentPlayerState = PlayerState.Attacking;
-            OnStateChanged(currentPlayerState.ToString());
-        }
-
-        private void PlayerInteracting()
-        {
-            if ( currentPlayerState == PlayerState.Interacting )
-            {
-                return;
-            }
-
-            currentPlayerState = PlayerState.Interacting;
-            OnStateChanged(currentPlayerState.ToString());
-        }
-
-        private void PlayerInAir()
-        {
-            if ( currentPlayerState == PlayerState.InAir
-                || currentPlayerState == PlayerState.Dashing )
-            {
-                return;
-            }
-
-            currentPlayerState = PlayerState.InAir;
-            OnStateChanged(currentPlayerState.ToString());
-        }
-
-        private void PlayerSanding()
-        {
-            if ( currentPlayerState == PlayerState.Sanding )
-            {
-                return;
-            }
-
-            currentPlayerState = PlayerState.Sanding;
-            OnStateChanged(currentPlayerState.ToString());
-        }
-
-        private void PlayerSparking()
-        {
-            if ( currentPlayerState == PlayerState.Sparking )
-            {
-                return;
-            }
-
-            currentPlayerState = PlayerState.Sparking;
-            OnStateChanged(currentPlayerState.ToString());
-        }
-
         private void OnStateChanged(string animationName)
         {
             animationManager.SetAnimation(animationName);
         }
 
-        public void SetPlayerState(string caseValue)
+        public void SetPlayerState(PlayerState newPlayerState)
         {
-            switch ( caseValue )
+            if ( currentPlayerState == newPlayerState )
             {
-                case "Idle":
-                    PlayerIdle();
-                    break;
-                case "Moving":
-                    PlayerMoving();
-                    break;
-                case "Dashing":
-                    PlayerDashing();
-                    break;
-                case "Attacking":
-                    PlayerAttacking();
-                    break;
-                case "Interacting":
-                    PlayerInteracting();
-                    break;
-                case "InAir":
-                    PlayerInAir();
-                    break;
-                case "Sanding":
-                    PlayerSanding();
-                    break;
-                case "Sparking":
-                    PlayerSparking();
-                    break;
-                default:
-                    PlayerIdle();
-                    break;
+                return;
             }
+
+            lastPlayerState = currentPlayerState;
+            currentPlayerState = newPlayerState;
+            OnStateChanged(currentPlayerState.ToString());
+        }
+
+        public void ResetPlayerState()
+        {
+            if ( lastPlayerState == PlayerState.Moving )
+            {
+                currentPlayerState = PlayerState.Moving;
+            }
+            else
+            {
+                currentPlayerState = PlayerState.Idle;
+            }
+
+            OnStateChanged(currentPlayerState.ToString());
         }
     }
 }

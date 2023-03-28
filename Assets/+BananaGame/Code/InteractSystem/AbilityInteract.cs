@@ -20,11 +20,9 @@ namespace BananaSoup.InteractSystem
         private PlayerBase playerBase = null;
         private Interactable currentInteractable = null;
         private PlayerStateManager psm = null;
-        private DebugManager debug = null;
 
         [Header("Constant strings used for PlayerState handling")]
-        public const string interacting = "Interacting";
-        public const string interactOver = "Idle";
+        public const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.Interacting;
 
         // Gizmo
         private float currentHitDistance;
@@ -51,7 +49,10 @@ namespace BananaSoup.InteractSystem
         private void Setup()
         {
             psm = PlayerStateManager.Instance;
-            debug = DebugManager.Instance;
+            if ( psm == null )
+            {
+                Debug.LogError("A PlayerStateManager couldn't be found on the " + gameObject.name + "!");
+            }
 
             playerBase = PlayerBase.Instance;
             if ( playerBase == null )
@@ -82,8 +83,7 @@ namespace BananaSoup.InteractSystem
             if ( hasSelectedInteractable )
             {
                 hasSelectedInteractable = false;
-                psm.SetPlayerState(interactOver);
-                debug.UpdatePlayerStateText();
+                psm.ResetPlayerState();
                 SetPlayerInputs(true);
                 return;
             }
@@ -94,8 +94,7 @@ namespace BananaSoup.InteractSystem
             {
                 if ( currentInteractable.IsInteracting == true )
                 {
-                    psm.SetPlayerState(interactOver);
-                    debug.UpdatePlayerStateText();
+                    psm.ResetPlayerState();
                     currentInteractable.InteractCompleted();
                     SetPlayerInputs(true);
                     return;
@@ -124,7 +123,6 @@ namespace BananaSoup.InteractSystem
             {
                 SetPlayerInputs(false);
                 psm.SetPlayerState(interacting);
-                debug.UpdatePlayerStateText();
                 hasSelectedInteractable = true;
 
                 currentInteractable = interactable;

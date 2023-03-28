@@ -8,8 +8,12 @@ namespace BananaSoup
     public class PlayerController : MonoBehaviour
     {
         [Header("Movement")]
-        [SerializeField, Tooltip("The amount of force for moving the character.")]
+        [SerializeField, Tooltip("The movement speed of the character when moving.")]
         private float movementSpeed = 7.0f;
+        [SerializeField, Tooltip("The movementspeed of the character when interacting.")]
+        private float interactMovementSpeed = 3.5f;
+        [SerializeField, Tooltip("The movementspeed of the character when it's getting pushed back.")]
+        private float pushbackMovementSpeed = 3.5f;
         [SerializeField, Tooltip("The multiplier for y-velocity when falling.")]
         private float fallingVelocityMultiplier = 1.5f;
         [SerializeField, Tooltip("The games camera angle. (Used to calculate correct movement directions.)")]
@@ -23,6 +27,7 @@ namespace BananaSoup
 
         // References to other components
         private Rigidbody rb = null;
+        private CapsuleCollider playerCollider = null;
         private CalculateMovementDirection directionCalculator = null;
         private AllowMovement allowMovement = null;
         private GroundCheck groundCheck = null;
@@ -40,9 +45,9 @@ namespace BananaSoup
         private bool wasPushed = false;
 
         [Header("Constant strings used for PlayerState handling")]
-        public const string moving = "Moving";
-        public const string notMoving = "Idle";
-        public const string inAir = "InAir";
+        public const PlayerStateManager.PlayerState moving = PlayerStateManager.PlayerState.Moving;
+        public const PlayerStateManager.PlayerState notMoving = PlayerStateManager.PlayerState.Idle;
+        public const PlayerStateManager.PlayerState inAir = PlayerStateManager.PlayerState.InAir;
 
         public float MaxSlopeAngle
         {
@@ -104,6 +109,7 @@ namespace BananaSoup
         private void GetComponents()
         {
             rb = GetDependency<Rigidbody>();
+            playerCollider = GetDependency<CapsuleCollider>();
             directionCalculator = GetDependency<CalculateMovementDirection>();
             allowMovement = GetDependency<AllowMovement>();
             groundCheck = GetDependency<GroundCheck>();
@@ -113,6 +119,7 @@ namespace BananaSoup
         /// <summary>
         /// Method to simplify getting components and to throw an error if it's null
         /// this improves readability.
+        /// This method is by Sami Kojo-Fry from 2023 Tank Game.
         /// </summary>
         /// <typeparam name="T">The name of the component to get.</typeparam>
         /// <returns>The wanted component if it's found.</returns>
@@ -130,7 +137,6 @@ namespace BananaSoup
         private void Update()
         {
             UpdateMovementspeedDebug();
-            SetWasPushedFalse();
         }
 
         /// <summary>
@@ -190,9 +196,10 @@ namespace BananaSoup
             // pushed back and the bool wasPushed is set to true.
             if ( !groundAhead.IsGroundAhead )
             {
-                rb.velocity = -transform.forward;
-                wasPushed = true;
+                PushPlayerBack();
             }
+
+            SetWasPushedFalse();
 
             // If the character is not grounded and is falling apply a multiplied
             // Physics.gravity.y to make the character fall down faster.
@@ -201,6 +208,8 @@ namespace BananaSoup
                 rb.velocity -= transform.up * fallingVelocityMultiplier;
             }
         }
+
+        
 
         /// <summary>
         /// Used to get the players input and then store it into the Vector3 movementInput
@@ -265,13 +274,12 @@ namespace BananaSoup
                     Vector3 forceToApply = GetMovementDirection(isometricDirection) * movementSpeed;
                     rb.velocity = forceToApply;
                     psm.SetPlayerState(moving);
-                    debug.UpdatePlayerStateText();
                 }
                 else
                 // While Interacting
                 {
                     //Vector3 forceToApply = (GetMovementDirection(isometricDirection) * movementSpeed); 
-                    rb.velocity = transform.forward * movementSpeed;
+                    rb.velocity = transform.forward * interactMovementSpeed;
 
                     //Debug.Log("Input: " + GetMovementDirection(isometricDirection));
                     //Debug.Log("Player EulerAngles: " + transform.rotation.eulerAngles);
@@ -279,6 +287,39 @@ namespace BananaSoup
                     //Debug.Log("Rotation: " + (transform.rotation.eulerAngles - Vector3.forward));
                 }
             }
+        }
+
+        private void PushPlayerBack()
+        {
+            GameObject below = GetGameObjectBelow();
+
+            if ( below != null )
+            {
+                var belowTopCenter = below.GetComponent<Collider>().bounds.center
+                    + Vector3.up * below.GetComponent<Collider>().bounds.extents.y;
+
+                Vector3 direction = (belowTopCenter - transform.position).normalized;
+
+                rb.velocity = direction * pushbackMovementSpeed;
+            }
+
+            wasPushed = true;
+        }
+
+        private GameObject GetGameObjectBelow()
+        {
+            RaycastHit hit;
+
+            if ( Physics.Raycast(((transform.position + Vector3.up) + -transform.forward * playerCollider.radius),
+                Vector3.down, out hit, 4.0f, groundLayer) )
+            {
+                if ( hit.collider.gameObject != gameObject )
+                {
+                    return hit.collider.gameObject;
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -294,12 +335,10 @@ namespace BananaSoup
                 if ( groundCheck.IsGrounded )
                 {
                     psm.SetPlayerState(notMoving);
-                    debug.UpdatePlayerStateText();
                 }
                 else if ( !groundCheck.IsGrounded )
                 {
                     psm.SetPlayerState(inAir);
-                    debug.UpdatePlayerStateText();
                 }
             }
 

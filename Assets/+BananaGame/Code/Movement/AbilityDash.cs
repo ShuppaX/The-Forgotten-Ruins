@@ -26,9 +26,8 @@ namespace BananaSoup
         private Coroutine dashCooldownRoutine = null;
 
         [Header("Constant strings used for PlayerState handling")]
-        public const string dashing = "Dashing";
-        public const string dashOver = "Idle";
-        public const string dashOverInAir = "InAir";
+        public const PlayerStateManager.PlayerState dashing = PlayerStateManager.PlayerState.Dashing;
+        public const PlayerStateManager.PlayerState dashOverInAir = PlayerStateManager.PlayerState.InAir;
 
         [Header("UnityActions used to manage PlayerStates")]
         public UnityAction onDashAction;
@@ -41,7 +40,6 @@ namespace BananaSoup
         private SlopeCheck slopeCheck = null;
         private GroundCheck groundCheck = null;
         private PlayerStateManager psm = null;
-        private DebugManager debug = null;
 
         private void Start()
         {
@@ -67,12 +65,6 @@ namespace BananaSoup
             if ( psm == null )
             {
                 Debug.LogError(gameObject.name + " couldn't find an Instance of PlayerStateManager!");
-            }
-
-            debug = DebugManager.Instance;
-            if ( debug == null )
-            {
-                Debug.LogError(gameObject.name + " couldn't find an Instance of DebugManager!");
             }
         }
 
@@ -137,7 +129,6 @@ namespace BananaSoup
                 if ( !dashOnCooldown && context.phase == InputActionPhase.Performed )
                 {
                     psm.SetPlayerState(dashing);
-                    debug.UpdatePlayerStateText();
                     PlayerBase.Instance.IsMovable = false;
                     PlayerBase.Instance.IsTurnable = false;
                     PlayerBase.Instance.IsInteractingEnabled = false;
@@ -187,13 +178,11 @@ namespace BananaSoup
 
             if ( groundCheck.IsGrounded )
             {
-                psm.SetPlayerState(dashOver);
-                debug.UpdatePlayerStateText();
+                psm.ResetPlayerState();
             }
             else if ( !groundCheck.IsGrounded )
             {
                 psm.SetPlayerState(dashOverInAir);
-                debug.UpdatePlayerStateText();
             }
 
             PlayerBase.Instance.IsMovable = true;

@@ -45,7 +45,6 @@ namespace BananaSoup
 
             groundLayer = GetComponent<PlayerController>().GroundLayer;
 
-
             castOriginOffset = playerCollider.radius * colliderRadiusMultiplier;
             castLength = (transform.localScale.y * castLengthMultiplier);
             originHeightOffset.Set(0.0f, (playerCollider.height / 2.0f), 0.0f);
