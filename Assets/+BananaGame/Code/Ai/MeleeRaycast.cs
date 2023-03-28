@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace BananaSoup
@@ -17,34 +18,32 @@ namespace BananaSoup
         protected Vector3 _playerDirection;
 
         //Serialized
-        [Header("Layer masks")]
-        [SerializeField] private LayerMask whatIsGround;
+        [Header("Layer masks")] [SerializeField]
+        private LayerMask whatIsGround;
+
         [SerializeField] private LayerMask whatIsPlayer;
 
-        [Header("Combat")]
-        [SerializeField] private float health;
-        [SerializeField] private float damage = 1;
+        [Header("Combat")] [SerializeField] private float health;
+        [SerializeField] private float enemyMeleeDamage = 1;
 
         [Header("Vision")]
-        [SerializeField] private float _sightRange;
-        [SerializeField] private float _attackRange;
+        [SerializeField] private float sightRange;
+        [SerializeField] private float attackRange;
 
-        [Header("Stun")]
-        [SerializeField] private float stunTime = 2.0f;
+        [Header("Stun")] [SerializeField] private float stunTime = 2.0f;
         private Coroutine enemyStunnedRoutine;
 
         protected Transform _lookAtTarget;
-        protected float _damp = 6f;
+        protected float _damp = 4f; //Changes the dampening value of enemy's turning
 
         //Updating Variables
         protected float _lastDidSomething; //refreshing timer to prevent non-stop actions
         private readonly float _pauseTime = 1f; //Time to pause after action
 
         //patrol
-        [Space]
         public Vector3 waypoint;
         private bool _waypointSet;
-        private float _waypointRange;
+        [SerializeField] private float patrolRange = 8;
 
         //Attack
         protected float _timeBetweenAttacks;
@@ -56,6 +55,8 @@ namespace BananaSoup
         private bool _playerInSightRange;
         private bool _playerInAttackRange;
         private bool _stunned;
+
+        private int state; //for animator triggers
 
         private void Awake()
         {
@@ -72,46 +73,57 @@ namespace BananaSoup
         private void Update()
         {
             // Check is the enemy stunned. If it is, don't continue Update() method.
-            if ( _stunned )
-            {
-                return;
-            }
+            if (_stunned) return;
 
             //Variables
             var position = transform.position;
             _whereIsPlayer = _playerDirection - position;
             _angle = Vector3.Angle(_whereIsPlayer, transform.forward);
 
-            _playerInSightRange = Physics.CheckSphere(position, _sightRange, whatIsPlayer);
-            _playerInAttackRange = Physics.CheckSphere(position, _attackRange, whatIsPlayer);
+            _playerInSightRange = Physics.CheckSphere(position, sightRange, whatIsPlayer);
+            _playerInAttackRange = Physics.CheckSphere(position, attackRange, whatIsPlayer);
 
 
-            if ( _playerInSightRange )
+            if (_playerInAttackRange)
                 //Smoothed turning towards player
-                if ( _angle > 2.5f )
+                if (_angle > 2.5f)
                 {
                     var rotate = Quaternion.LookRotation(_playerTarget.position - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
                 }
 
-            if ( Time.time < _lastDidSomething + _pauseTime ) return;
+            if (Time.time < _lastDidSomething + _pauseTime) return;
 
             //compressed if statements for clarity
-            if ( !_playerInSightRange && !_playerInAttackRange ) Patrol();
-            if ( _playerInSightRange && !_playerInAttackRange ) Chase();
-            if ( _playerInSightRange && _playerInAttackRange ) Attack();
+            if (!_playerInSightRange && !_playerInAttackRange)
+            {
+                state= 1; 
+                Patrol();
+            }
+
+            if (_playerInSightRange && !_playerInAttackRange)
+            {
+                state = 2;
+                Chase();
+            }
+
+            if (_playerInSightRange && _playerInAttackRange)
+            {
+                state = 3;
+                Attack();
+            }
         }
 
-        private void Patrol()
+        public void Patrol()
         {
-            if ( !_waypointSet ) SearchWaypoint();
+            if (!_waypointSet) SearchWaypoint();
 
-            if ( _waypointSet ) _enemy.SetDestination(waypoint);
+            if (_waypointSet) _enemy.SetDestination(waypoint);
 
             var distanceToWayPoint = transform.position - waypoint;
 
             //Waypoint reached
-            if ( distanceToWayPoint.magnitude < 1f ) _waypointSet = false;
+            if (distanceToWayPoint.magnitude < 1f) _waypointSet = false;
 
             _lastDidSomething = Time.time;
         }
@@ -120,14 +132,14 @@ namespace BananaSoup
         //Looks for a new waypoint through navmesh
         private void SearchWaypoint()
         {
-            var randomZ = Random.Range(-_waypointRange, _waypointRange);
-            var randomX = Random.Range(-_waypointRange, _waypointRange);
+            var randomZ = Random.Range(-patrolRange, patrolRange);
+            var randomX = Random.Range(-patrolRange, patrolRange);
             var position = transform.position;
 
             waypoint = new Vector3(position.x + randomX, position.y,
                 position.z + randomZ);
 
-            if ( Physics.Raycast(waypoint, -transform.up, 2f, whatIsGround) ) _waypointSet = true;
+            if (Physics.Raycast(waypoint, -transform.up, 2f, whatIsGround)) _waypointSet = true;
             _lastDidSomething = Time.time;
         }
 
@@ -143,7 +155,7 @@ namespace BananaSoup
 
             //transform.LookAt(_playerTarget);
 
-            if ( !alreadyAttacked )
+            if (!alreadyAttacked)
             {
                 //TODO Attack code here
                 Debug.Log("Enemy Swings");
@@ -164,7 +176,7 @@ namespace BananaSoup
         {
             health -= damage;
 
-            if ( health <= 0 ) Invoke(nameof(DestroyEnemy), .5f);
+            if (health <= 0) Invoke(nameof(DestroyEnemy), .5f);
         }
 
         private void DestroyEnemy()
@@ -178,9 +190,9 @@ namespace BananaSoup
             var position = transform.position;
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(position, _attackRange);
+            Gizmos.DrawWireSphere(position, attackRange);
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(position, _sightRange);
+            Gizmos.DrawWireSphere(position, sightRange);
         }
 
         public void OnSandAttack()
@@ -208,7 +220,7 @@ namespace BananaSoup
 
         private void TryEndingRunningCoroutine(ref Coroutine routine)
         {
-            if ( routine != null )
+            if (routine != null)
             {
                 StopCoroutine(routine);
                 routine = null;
