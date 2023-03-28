@@ -159,12 +159,14 @@ MonoBehaviour:
     m_Bits: 256
   health: 0
   damage: 1
-  _sightRange: 4.81
-  _attackRange: 4.3
+  _sightRange: 10
+  _attackRange: 5
+  stunTime: 2
   waypoint: {x: 0, y: 0, z: 0}
   projectile: {fileID: 521218641147890886, guid: 855e99d9041337440a615649282a9096,
     type: 3}
-  firingPoint: {fileID: 0}
+  firingPoint: {fileID: 4066194826304550541}
+  aimpoint: {fileID: 1607811416821434316}
 --- !u!1 &4066194826304550541
 GameObject:
   m_ObjectHideFlags: 0
