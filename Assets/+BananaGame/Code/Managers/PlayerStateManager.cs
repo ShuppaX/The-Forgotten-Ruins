@@ -10,7 +10,7 @@ namespace BananaSoup
 
         [HideInInspector]
         public PlayerState currentPlayerState = PlayerState.Idle;
-        private PlayerState lastPlayerState = PlayerState.Idle;
+        private PlayerState previousPlayerState = PlayerState.Idle;
 
         public UnityAction stateChanged;
 
@@ -62,14 +62,14 @@ namespace BananaSoup
                 return;
             }
 
-            lastPlayerState = currentPlayerState;
+            previousPlayerState = currentPlayerState;
             currentPlayerState = newPlayerState;
             OnStateChanged(currentPlayerState.ToString());
         }
 
         public void ResetPlayerState()
         {
-            currentPlayerState = lastPlayerState;
+            currentPlayerState = previousPlayerState;
             OnStateChanged(currentPlayerState.ToString());
         }
     }
