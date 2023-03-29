@@ -69,15 +69,7 @@ namespace BananaSoup
 
         public void ResetPlayerState()
         {
-            if ( lastPlayerState == PlayerState.Moving )
-            {
-                currentPlayerState = PlayerState.Moving;
-            }
-            else
-            {
-                currentPlayerState = PlayerState.Idle;
-            }
-
+            currentPlayerState = lastPlayerState;
             OnStateChanged(currentPlayerState.ToString());
         }
     }
