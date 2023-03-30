@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BananaSoup.InteractSystem
 {
-    public class MovableBox : Interactable
+    public class MovableBoxAction : Interactable
     {
         private Rigidbody rb;
         private Vector3 offset;

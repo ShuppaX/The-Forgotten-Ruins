@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace BananaSoup.PuzzleSystem
 {
-    public class PuzzleManager : MonoBehaviour
+    public class PuzzleHandler : MonoBehaviour
     {
         [Tooltip("An array of PuzzleObjects which should be marked as done that the puzzle is set completed.")]
         [SerializeField] private PuzzleObjectBase[] puzzleGameObjects;
@@ -45,7 +45,7 @@ namespace BananaSoup.PuzzleSystem
         {
             if ( puzzleGameObjects.Length <= 0 )
             {
-                Debug.LogError(this + " puzzleGameObjects.Lenght is zero (" + puzzleGameObjects.Length + ") and it can't be!");
+                Debug.LogError(this + "'s puzzleGameObjects.Lenght is zero (" + puzzleGameObjects.Length + ") and it can't be!");
             }
             remainingPuzzleObjects = puzzleGameObjects.Length;
 

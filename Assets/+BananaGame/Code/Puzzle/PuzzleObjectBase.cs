@@ -6,14 +6,14 @@ namespace BananaSoup.PuzzleSystem
 {
     public class PuzzleObjectBase : MonoBehaviour
     {
-        private PuzzleManager thisPuzzleManager;
+        private PuzzleHandler thisPuzzleManager;
 
-        public PuzzleManager GetPuzzleManager
+        public PuzzleHandler GetPuzzleManager
         {
             get { return thisPuzzleManager; }
         }
 
-        public void SetManager(PuzzleManager manager)
+        public void SetManager(PuzzleHandler manager)
         {
             thisPuzzleManager = manager;
         }

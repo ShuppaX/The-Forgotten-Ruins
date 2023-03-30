@@ -39,7 +39,7 @@ namespace BananaSoup
             if ( other.TryGetComponent(out ISandable sandable) )
             {
                 isCollisionDetected = true;
-                sandable.OnSandAttack();
+                sandable.OnSandAbility();
             }
         }
     }

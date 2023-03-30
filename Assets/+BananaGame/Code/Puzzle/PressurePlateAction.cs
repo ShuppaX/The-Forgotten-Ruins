@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BananaSoup.PuzzleSystem
 {
-    public class PressurePlateInteraction : PuzzleObjectBase
+    public class PressurePlateAction : PuzzleObjectBase
     {
         private bool isActivated;
         private float distanceCompare = 0.3f;

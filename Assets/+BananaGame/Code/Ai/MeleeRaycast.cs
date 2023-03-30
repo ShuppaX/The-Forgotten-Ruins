@@ -195,7 +195,7 @@ namespace BananaSoup
             Gizmos.DrawWireSphere(position, sightRange);
         }
 
-        public void OnSandAttack()
+        public void OnSandAbility()
         {
             // Check an try end an old stun Coroutine if there one already running.
             // The enemy will get strange behaviours if there are multiple stun Coroutines running.
