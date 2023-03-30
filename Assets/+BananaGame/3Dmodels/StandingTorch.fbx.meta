@@ -3,7 +3,22 @@ guid: 85ffbf5843b0117498eb10186e2ac046
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 2bb73589891102a4297a6625f4b5c80b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hiili
+    second: {fileID: 2100000, guid: f02d197dd84508b4ca4f17b3f4d5e5d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: puu
+    second: {fileID: 2100000, guid: fae04f4053d2f6c459318d61b5cb872c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -66,7 +81,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

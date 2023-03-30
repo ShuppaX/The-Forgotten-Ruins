@@ -3,7 +3,17 @@ guid: a72c8afa7ede0b843ba2ae5bb96e5a01
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tree hole
+    second: {fileID: 2100000, guid: 4207ff56ec7498141bf8488643e897d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wood
+    second: {fileID: 2100000, guid: 1e0930a891a19a942abbfd77adee54d9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -52,7 +62,7 @@ ModelImporter:
     keepQuads: 0
     weldVertices: 1
     bakeAxisConversion: 0
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001

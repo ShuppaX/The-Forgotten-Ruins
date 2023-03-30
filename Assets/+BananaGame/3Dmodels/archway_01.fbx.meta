@@ -3,7 +3,17 @@ guid: 928677bbf68ff4c4192a90465fa0c088
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: archway top
+    second: {fileID: 2100000, guid: 8ade297f1975a264b81d58e5eea6be03, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pillar
+    second: {fileID: 2100000, guid: dbae0ab7ab30b59459dfc48869f69ec4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -52,7 +62,7 @@ ModelImporter:
     keepQuads: 0
     weldVertices: 1
     bakeAxisConversion: 0
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
