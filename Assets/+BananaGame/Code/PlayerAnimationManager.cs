@@ -24,5 +24,10 @@ namespace BananaSoup
         {
             animator.SetTrigger(animationName);
         }
+
+        public void ResetTrigger(string animationName)
+        {
+            animator.ResetTrigger(animationName);
+        }
     }
 }

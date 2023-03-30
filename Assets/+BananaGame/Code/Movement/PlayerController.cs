@@ -70,6 +70,14 @@ namespace BananaSoup
             get { return groundLayer; }
         }
 
+        /// <summary>
+        /// Public property to tell PlayerStateManager if there is a moveInput active.
+        /// </summary>
+        public bool HasMoveInput
+        {
+            get { return hasMoveInput; }
+        }
+
         private void Start()
         {
             Setup();
@@ -334,7 +342,8 @@ namespace BananaSoup
             {
                 if ( groundCheck.IsGrounded )
                 {
-                    psm.SetPlayerState(notMoving);
+                    //psm.SetPlayerState(notMoving);
+                    psm.ResetPlayerState();
                 }
                 else if ( !groundCheck.IsGrounded )
                 {
