@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BananaSoup
@@ -10,6 +8,8 @@ namespace BananaSoup
         private int _currentHealth = 0;
         [SerializeField] private int maxHealth = 3;
         [SerializeField] private int startingHealth = 3;
+
+        private bool wasHit = false;
 
         public event Action<int> HealthChanged;
 
@@ -26,6 +26,7 @@ namespace BananaSoup
         int IHealth.MaxHealth => maxHealth;
         public bool IsAlive => _currentHealth > 0;
 
+        public bool WasHit => wasHit;
 
         public void Setup()
         {
@@ -47,6 +48,12 @@ namespace BananaSoup
         public void Reset()
         {
             CurrentHealth = startingHealth;
+        }
+
+        public virtual void OnDeath()
+        {
+            // TODO: Start animation
+            // TODO: Play sound
         }
     }
 }

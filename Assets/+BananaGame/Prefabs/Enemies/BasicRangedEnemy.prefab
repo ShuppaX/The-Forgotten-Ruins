@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1858161159845347470}
   - component: {fileID: 1858161159845347457}
   - component: {fileID: 8235452770126603850}
+  - component: {fileID: 7727434755651657058}
   m_Layer: 0
   m_Name: BasicRangedEnemy
   m_TagString: Untagged
@@ -157,16 +158,30 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  health: 0
-  damage: 1
-  _sightRange: 10
-  _attackRange: 5
+  enemyMeleeDamage: 1
+  sightRange: 0
+  attackRange: 0
   stunTime: 2
   waypoint: {x: 0, y: 0, z: 0}
+  patrolRange: 8
   projectile: {fileID: 521218641147890886, guid: 855e99d9041337440a615649282a9096,
     type: 3}
   firingPoint: {fileID: 4066194826304550541}
   aimpoint: {fileID: 1607811416821434316}
+--- !u!114 &7727434755651657058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858161159845347464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dd374835ee597e43a1aa55722101f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  startingHealth: 3
 --- !u!1 &4066194826304550541
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ namespace BananaSoup
         private DebugManager debug = null;
         private PlayerBase playerBase = null;
 
-        [Header("Constant strings used for PlayerState handling")]
+        [Header("Constant PlayerState used for PlayerState handling")]
         public const PlayerStateManager.PlayerState inAir = PlayerStateManager.PlayerState.InAir;
 
         public bool IsGrounded

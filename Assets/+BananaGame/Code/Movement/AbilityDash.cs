@@ -25,14 +25,9 @@ namespace BananaSoup
 
         private Coroutine dashCooldownRoutine = null;
 
-        [Header("Constant strings used for PlayerState handling")]
+        [Header("Constant PlayerStates used for PlayerState handling")]
         public const PlayerStateManager.PlayerState dashing = PlayerStateManager.PlayerState.Dashing;
         public const PlayerStateManager.PlayerState dashOverInAir = PlayerStateManager.PlayerState.InAir;
-
-        [Header("UnityActions used to manage PlayerStates")]
-        public UnityAction onDashAction;
-        public UnityAction onDashResetToMoving;
-        public UnityAction onDashResetToIdle;
 
         // Reference to players Rigidbody
         private Rigidbody rb = null;

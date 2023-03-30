@@ -44,7 +44,7 @@ namespace BananaSoup
         private bool hasMoveInput = false;
         private bool wasPushed = false;
 
-        [Header("Constant strings used for PlayerState handling")]
+        [Header("Constant PlayerStates used for PlayerState handling")]
         public const PlayerStateManager.PlayerState moving = PlayerStateManager.PlayerState.Moving;
         public const PlayerStateManager.PlayerState notMoving = PlayerStateManager.PlayerState.Idle;
         public const PlayerStateManager.PlayerState inAir = PlayerStateManager.PlayerState.InAir;

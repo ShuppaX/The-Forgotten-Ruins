@@ -7,17 +7,18 @@ namespace BananaSoup
     public class AbilityBlindingSand : MonoBehaviour
     {
         [SerializeField] ParticleSystem sandParticles;
+
         [Tooltip("Transform where the sand particle effect spawns.")]
         [SerializeField] private Transform handTransform;
-        [Tooltip("A delay to start Sand Particle Effect later to match it with the animation.")]
 
+        //A delay to start Sand Particle Effect later to match it with the animation.
         private float duration;
 
         private Coroutine activeParticleCoroutine = null;
         private Animator animator = null;
         private PlayerStateManager psm = null;
 
-        [Header("Constant strings used for PlayerState handling")]
+        [Header("Constant PlayerState used for PlayerState handling")]
         public const PlayerStateManager.PlayerState sanding = PlayerStateManager.PlayerState.Sanding;
 
         private void Start()
@@ -73,12 +74,6 @@ namespace BananaSoup
         // ThrowSand() is called from Fennec@SandThrow animation by an event.
         private void ThrowSand()
         {
-            // TODO: Allow throw only once
-            // TODO: Disable movement when sanding from StateManager
-
-            // Set Particle Effect parent to null, so the player's movements won't affect it.
-            sandParticles.gameObject.transform.parent = null;
-
             // Set Particle Effect position.
             sandParticles.gameObject.transform.position = handTransform.position;
 

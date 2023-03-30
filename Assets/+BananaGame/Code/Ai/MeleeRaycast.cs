@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace BananaSoup
@@ -23,7 +21,7 @@ namespace BananaSoup
 
         [SerializeField] private LayerMask whatIsPlayer;
 
-        [Header("Combat")] [SerializeField] private float health;
+        [Header("Combat")]
         [SerializeField] private float enemyMeleeDamage = 1;
 
         [Header("Vision")]
@@ -170,18 +168,6 @@ namespace BananaSoup
         protected void ResetAttack()
         {
             alreadyAttacked = false;
-        }
-
-        public void TakeDamage(int damage)
-        {
-            health -= damage;
-
-            if (health <= 0) Invoke(nameof(DestroyEnemy), .5f);
-        }
-
-        private void DestroyEnemy()
-        {
-            Destroy(gameObject);
         }
 
         //Display sight and attack ranges
