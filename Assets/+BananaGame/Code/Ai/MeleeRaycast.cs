@@ -8,7 +8,7 @@ namespace BananaSoup
     //Requirements
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Rigidbody))]
-    public class MeleeRaycast : MonoBehaviour, ISandable
+    public class MeleeRaycast : MonoBehaviour, IThrowReactable
     {
         //Definitions
         protected NavMeshAgent _enemy; // assign navmesh agent
@@ -16,7 +16,8 @@ namespace BananaSoup
         protected Vector3 _playerDirection;
 
         //Serialized
-        [Header("Layer masks")] [SerializeField]
+        [Header("Layer masks")]
+        [SerializeField]
         private LayerMask whatIsGround;
 
         [SerializeField] private LayerMask whatIsPlayer;
@@ -28,7 +29,7 @@ namespace BananaSoup
         [SerializeField] private float sightRange;
         [SerializeField] private float attackRange;
 
-        [Header("Stun")] [SerializeField] private float stunTime = 2.0f;
+        [Header("Stun")][SerializeField] private float stunTime = 2.0f;
         private Coroutine enemyStunnedRoutine;
 
         protected Transform _lookAtTarget;
@@ -71,7 +72,7 @@ namespace BananaSoup
         private void Update()
         {
             // Check is the enemy stunned. If it is, don't continue Update() method.
-            if (_stunned) return;
+            if ( _stunned ) return;
 
             //Variables
             var position = transform.position;
@@ -82,30 +83,30 @@ namespace BananaSoup
             _playerInAttackRange = Physics.CheckSphere(position, attackRange, whatIsPlayer);
 
 
-            if (_playerInAttackRange)
+            if ( _playerInAttackRange )
                 //Smoothed turning towards player
-                if (_angle > 2.5f)
+                if ( _angle > 2.5f )
                 {
                     var rotate = Quaternion.LookRotation(_playerTarget.position - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
                 }
 
-            if (Time.time < _lastDidSomething + _pauseTime) return;
+            if ( Time.time < _lastDidSomething + _pauseTime ) return;
 
             //compressed if statements for clarity
-            if (!_playerInSightRange && !_playerInAttackRange)
+            if ( !_playerInSightRange && !_playerInAttackRange )
             {
-                state= 1; 
+                state = 1;
                 Patrol();
             }
 
-            if (_playerInSightRange && !_playerInAttackRange)
+            if ( _playerInSightRange && !_playerInAttackRange )
             {
                 state = 2;
                 Chase();
             }
 
-            if (_playerInSightRange && _playerInAttackRange)
+            if ( _playerInSightRange && _playerInAttackRange )
             {
                 state = 3;
                 Attack();
@@ -114,14 +115,14 @@ namespace BananaSoup
 
         public void Patrol()
         {
-            if (!_waypointSet) SearchWaypoint();
+            if ( !_waypointSet ) SearchWaypoint();
 
-            if (_waypointSet) _enemy.SetDestination(waypoint);
+            if ( _waypointSet ) _enemy.SetDestination(waypoint);
 
             var distanceToWayPoint = transform.position - waypoint;
 
             //Waypoint reached
-            if (distanceToWayPoint.magnitude < 1f) _waypointSet = false;
+            if ( distanceToWayPoint.magnitude < 1f ) _waypointSet = false;
 
             _lastDidSomething = Time.time;
         }
@@ -137,7 +138,7 @@ namespace BananaSoup
             waypoint = new Vector3(position.x + randomX, position.y,
                 position.z + randomZ);
 
-            if (Physics.Raycast(waypoint, -transform.up, 2f, whatIsGround)) _waypointSet = true;
+            if ( Physics.Raycast(waypoint, -transform.up, 2f, whatIsGround) ) _waypointSet = true;
             _lastDidSomething = Time.time;
         }
 
@@ -153,7 +154,7 @@ namespace BananaSoup
 
             //transform.LookAt(_playerTarget);
 
-            if (!alreadyAttacked)
+            if ( !alreadyAttacked )
             {
                 //TODO Attack code here
                 Debug.Log("Enemy Swings");
@@ -181,13 +182,16 @@ namespace BananaSoup
             Gizmos.DrawWireSphere(position, sightRange);
         }
 
-        public void OnSandAbility()
+        public void OnThrowAbility(ParticleProjectile.Type projectileType)
         {
-            // Check an try end an old stun Coroutine if there one already running.
-            // The enemy will get strange behaviours if there are multiple stun Coroutines running.
-            TryEndingRunningCoroutine(ref enemyStunnedRoutine);
+            if ( projectileType == ParticleProjectile.Type.Sand )
+            {
+                // Check an try end an old stun Coroutine if there one already running.
+                // The enemy will get strange behaviours if there are multiple stun Coroutines running.
+                TryEndingRunningCoroutine(ref enemyStunnedRoutine);
 
-            enemyStunnedRoutine = StartCoroutine(StunEnemy());
+                enemyStunnedRoutine = StartCoroutine(StunEnemy());
+            }
         }
 
         private IEnumerator StunEnemy()
@@ -206,7 +210,7 @@ namespace BananaSoup
 
         private void TryEndingRunningCoroutine(ref Coroutine routine)
         {
-            if (routine != null)
+            if ( routine != null )
             {
                 StopCoroutine(routine);
                 routine = null;

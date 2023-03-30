@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BananaSoup
 {
-    public class SimpleObjectFollower : MonoBehaviour
+    public class SimplePlayerFollower : MonoBehaviour
     {
         [SerializeField] private Vector3 offsets;
         private Transform target;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BananaSoup.PuzzleSystem
 {
-    public class TorchAction : PuzzleObjectBase, ISandable
+    public class TorchAction : PuzzleObjectBase, IThrowReactable
     {
         [SerializeField] private ParticleSystem fireParticles;
 
@@ -16,25 +16,21 @@ namespace BananaSoup.PuzzleSystem
             }
         }
 
-        public void OnSandAbility()
+        public void OnThrowAbility(ParticleProjectile.Type projectileType)
         {
-            fireParticles.Stop(false);
-
-            if ( GetPuzzleManager != null )
+            switch ( projectileType )
             {
-                GetPuzzleManager.SetRemainingPuzzleObjectCount = -1;
-            }
-        }
+                case ParticleProjectile.Type.Sand:
+                    fireParticles.Stop(false);
 
-        public void OnSparkAbility()
-        {
-            Debug.Log("The player rekindled fire: " + name);
-
-            fireParticles.Stop(true);
-
-            if ( GetPuzzleManager != null )
-            {
-                GetPuzzleManager.SetRemainingPuzzleObjectCount = +1;
+                    if ( GetPuzzleManager != null )
+                    {
+                        GetPuzzleManager.SetRemainingPuzzleObjectCount = -1;
+                    }
+                    break;
+                case ParticleProjectile.Type.Spark:
+                    // TODO: Add code
+                    break;
             }
         }
     }
