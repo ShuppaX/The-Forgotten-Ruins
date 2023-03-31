@@ -1563,26 +1563,6 @@ MonoBehaviour:
   fontStyle: 0
   alignment: 1
   textDropShadow: 0
---- !u!1 &1123880446 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7332500029889613990, guid: 282df8200b8684c4683d177cd8e6ceea,
-    type: 3}
-  m_PrefabInstance: {fileID: 499147028}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &1123880450
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1123880446}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.055
-  m_Height: 0.39
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.09}
 --- !u!1001 &1334591437
 PrefabInstance:
   m_ObjectHideFlags: 0
