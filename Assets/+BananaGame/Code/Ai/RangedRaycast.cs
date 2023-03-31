@@ -15,7 +15,7 @@ namespace BananaSoup
         public override void Attack()
         {
             //Stop enemy movement
-            _enemy.SetDestination(transform.position);
+            enemy.SetDestination(transform.position);
 
             // transform.LookAt(_playerTarget);
 

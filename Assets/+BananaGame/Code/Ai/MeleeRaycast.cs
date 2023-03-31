@@ -11,9 +11,10 @@ namespace BananaSoup
     public class MeleeRaycast : MonoBehaviour, IThrowReactable
     {
         //Definitions
-        protected NavMeshAgent _enemy; // assign navmesh agent
-        protected Transform _playerTarget; // reference to player's position
-        protected Vector3 _playerDirection;
+        protected NavMeshAgent enemy; // assign navmesh agent
+        protected Transform playerTarget; // reference to player's position
+        protected Vector3 playerDirection;
+        public EnemyMeleeDamage MeleeScript; // reference to enemy's melee damage script
 
         //Serialized
         [Header("Layer masks")]
@@ -55,18 +56,24 @@ namespace BananaSoup
         public bool _playerInAttackRange;
         internal bool _stunned;
 
-        private int state; //for animator triggers
-
+        /// <summary>
+        /// for animator triggers
+        /// 1 for patrol
+        /// 2 for chase
+        /// 3 for attack
+        /// </summary>
+        private int state;
+        
         private void Awake()
         {
-            _enemy = GetComponent<NavMeshAgent>();
+            enemy = GetComponent<NavMeshAgent>();
         }
 
         private void Start()
         {
             var transform1 = PlayerBase.Instance.transform;
-            _playerTarget = transform1;
-            _playerDirection = transform1.position;
+            playerTarget = transform1;
+            playerDirection = transform1.position;
         }
 
         private void Update()
@@ -76,7 +83,7 @@ namespace BananaSoup
 
             //Variables
             var position = transform.position;
-            _whereIsPlayer = _playerDirection - position;
+            _whereIsPlayer = playerDirection - position;
             _angle = Vector3.Angle(_whereIsPlayer, transform.forward);
 
             _playerInSightRange = Physics.CheckSphere(position, sightRange, whatIsPlayer);
@@ -87,7 +94,7 @@ namespace BananaSoup
                 //Smoothed turning towards player
                 if ( _angle > 2.5f )
                 {
-                    var rotate = Quaternion.LookRotation(_playerTarget.position - transform.position);
+                    var rotate = Quaternion.LookRotation(playerTarget.position - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
                 }
 
@@ -117,7 +124,7 @@ namespace BananaSoup
         {
             if ( !_waypointSet ) SearchWaypoint();
 
-            if ( _waypointSet ) _enemy.SetDestination(waypoint);
+            if ( _waypointSet ) enemy.SetDestination(waypoint);
 
             var distanceToWayPoint = transform.position - waypoint;
 
@@ -144,13 +151,13 @@ namespace BananaSoup
 
         private void Chase()
         {
-            _enemy.SetDestination(_playerTarget.position);
+            enemy.SetDestination(playerTarget.position);
         }
 
         public virtual void Attack()
         {
             //Stop enemy movement
-            _enemy.SetDestination(transform.position);
+            enemy.SetDestination(transform.position);
 
             //transform.LookAt(_playerTarget);
 
@@ -158,6 +165,7 @@ namespace BananaSoup
             {
                 //TODO Attack code here
                 Debug.Log("Enemy Swings");
+                MeleeScript.MeleeAttack();
 
                 alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), _timeBetweenAttacks);
