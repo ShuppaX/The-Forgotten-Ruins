@@ -73,6 +73,15 @@ namespace BananaSoup
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeAbility"",
+                    ""type"": ""Button"",
+                    ""id"": ""349c3d99-bfc5-4386-b645-1bc380a86f70"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -350,6 +359,39 @@ namespace BananaSoup
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f4d6fec1-1aba-4dc5-ad1e-eb674fbef30f"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ChangeAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69acbc1b-0f00-4d9a-add6-901875b1ae37"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ChangeAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0bd8e412-e758-40ca-b4a8-1c05c748499a"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse and keyboard"",
+                    ""action"": ""ChangeAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -402,6 +444,7 @@ namespace BananaSoup
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             m_Player_Ability = m_Player.FindAction("Ability", throwIfNotFound: true);
             m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+            m_Player_ChangeAbility = m_Player.FindAction("ChangeAbility", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -466,6 +509,7 @@ namespace BananaSoup
         private readonly InputAction m_Player_Interact;
         private readonly InputAction m_Player_Ability;
         private readonly InputAction m_Player_Attack;
+        private readonly InputAction m_Player_ChangeAbility;
         public struct PlayerActions
         {
             private @PlayerInput m_Wrapper;
@@ -475,6 +519,7 @@ namespace BananaSoup
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
             public InputAction @Ability => m_Wrapper.m_Player_Ability;
             public InputAction @Attack => m_Wrapper.m_Player_Attack;
+            public InputAction @ChangeAbility => m_Wrapper.m_Player_ChangeAbility;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -499,6 +544,9 @@ namespace BananaSoup
                     @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                     @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                     @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                    @ChangeAbility.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeAbility;
+                    @ChangeAbility.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeAbility;
+                    @ChangeAbility.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeAbility;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -518,6 +566,9 @@ namespace BananaSoup
                     @Attack.started += instance.OnAttack;
                     @Attack.performed += instance.OnAttack;
                     @Attack.canceled += instance.OnAttack;
+                    @ChangeAbility.started += instance.OnChangeAbility;
+                    @ChangeAbility.performed += instance.OnChangeAbility;
+                    @ChangeAbility.canceled += instance.OnChangeAbility;
                 }
             }
         }
@@ -556,6 +607,7 @@ namespace BananaSoup
             void OnInteract(InputAction.CallbackContext context);
             void OnAbility(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
+            void OnChangeAbility(InputAction.CallbackContext context);
         }
     }
 }

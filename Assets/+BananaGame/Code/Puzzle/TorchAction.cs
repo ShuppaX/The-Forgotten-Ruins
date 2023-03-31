@@ -7,6 +7,7 @@ namespace BananaSoup.PuzzleSystem
     public class TorchAction : PuzzleObjectBase, IThrowReactable
     {
         [SerializeField] private ParticleSystem fireParticles;
+        private bool isBurning = true;
 
         private void Start()
         {
@@ -21,15 +22,35 @@ namespace BananaSoup.PuzzleSystem
             switch ( projectileType )
             {
                 case ParticleProjectile.Type.Sand:
-                    fireParticles.Stop(false);
+                    if ( !isBurning )
+                    {
+                        return;
+                    }
+
+                    fireParticles.Stop();
+                    isBurning = false;
 
                     if ( GetPuzzleManager != null )
                     {
                         GetPuzzleManager.SetRemainingPuzzleObjectCount = -1;
                     }
+
                     break;
+
                 case ParticleProjectile.Type.Spark:
-                    // TODO: Add code
+                    if ( isBurning )
+                    {
+                        return;
+                    }
+
+                    fireParticles.Play();
+                    isBurning = true;
+
+                    if ( GetPuzzleManager != null )
+                    {
+                        GetPuzzleManager.SetRemainingPuzzleObjectCount = +1;
+                    }
+
                     break;
             }
         }
