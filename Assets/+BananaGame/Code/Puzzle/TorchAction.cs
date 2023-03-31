@@ -22,6 +22,7 @@ namespace BananaSoup.PuzzleSystem
             switch ( projectileType )
             {
                 case ParticleProjectile.Type.Sand:
+                {
                     if ( !isBurning )
                     {
                         return;
@@ -30,14 +31,12 @@ namespace BananaSoup.PuzzleSystem
                     fireParticles.Stop();
                     isBurning = false;
 
-                    if ( GetPuzzleManager != null )
-                    {
-                        GetPuzzleManager.SetRemainingPuzzleObjectCount = -1;
-                    }
+                    UpdateRemainingPuzzle(-1);
 
                     break;
-
+                }
                 case ParticleProjectile.Type.Spark:
+                {
                     if ( isBurning )
                     {
                         return;
@@ -46,12 +45,18 @@ namespace BananaSoup.PuzzleSystem
                     fireParticles.Play();
                     isBurning = true;
 
-                    if ( GetPuzzleManager != null )
-                    {
-                        GetPuzzleManager.SetRemainingPuzzleObjectCount = +1;
-                    }
+                    UpdateRemainingPuzzle(1);
 
                     break;
+                }
+            }
+        }
+
+        private void UpdateRemainingPuzzle(int value)
+        {
+            if ( GetPuzzleManager != null )
+            {
+                GetPuzzleManager.SetRemainingPuzzleObjectCount = value;
             }
         }
     }

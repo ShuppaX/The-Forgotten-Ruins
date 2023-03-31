@@ -11,11 +11,12 @@ namespace BananaSoup.PuzzleSystem
         [Tooltip("An array of PuzzleObjects which should be marked as done that the puzzle is set completed.")]
         [SerializeField] private PuzzleObjectBase[] puzzleGameObjects;
 
-        [Tooltip("A GameObject that is affected after the puzzle is solved.")]
-        [SerializeField] private PuzzleSolutionGameObject puzzleSolutionGameObject;
+        [Tooltip("An array of GameObjects that is affected after the puzzle is solved.")]
+        [SerializeField] private PuzzleSolutionGameObject[] puzzleSolutionGameObjects;
 
         public UnityAction onPuzzleObjectCheck;
         private int remainingPuzzleObjects;
+        private bool isPuzzleSolved;
 
         public int SetRemainingPuzzleObjectCount
         {
@@ -49,9 +50,28 @@ namespace BananaSoup.PuzzleSystem
             }
             remainingPuzzleObjects = puzzleGameObjects.Length;
 
-            if ( puzzleSolutionGameObject == null )
+            if ( puzzleSolutionGameObjects == null )
             {
                 Debug.LogError(this + " is missing a reference to the puzzleSolutionGameObject component and it is required!");
+            }
+
+            if ( puzzleSolutionGameObjects.Length == 0 )
+            {
+                Debug.LogError(this + "'s puzzleSolutionGameObjects is empty!");
+            }
+            else
+            {
+                try
+                {
+                    for ( int i = 0; i < puzzleSolutionGameObjects.Length; i++ )
+                    {
+                        puzzleSolutionGameObjects[i].GetComponent<PuzzleSolutionGameObject>();
+                    }
+                }
+                catch ( Exception )
+                {
+                    Debug.LogError(this + "'s puzzleSolutionGameObjects has null index in the array!");
+                }
             }
 
             for ( int i = 0; i < puzzleGameObjects.Length; i++ )
@@ -64,11 +84,19 @@ namespace BananaSoup.PuzzleSystem
         {
             if ( remainingPuzzleObjects == 0 )
             {
-                puzzleSolutionGameObject.IsSolved = true;
+                isPuzzleSolved = true;
+                for ( int i = 0; i < puzzleSolutionGameObjects.Length; i++ )
+                {
+                    puzzleSolutionGameObjects[i].IsSolved = true;
+                }
             }
-            else if ( puzzleSolutionGameObject.IsSolved && remainingPuzzleObjects > 0 )
+            else if ( isPuzzleSolved && remainingPuzzleObjects > 0 )
             {
-                puzzleSolutionGameObject.IsSolved = false;
+                isPuzzleSolved = false;
+                for ( int i = 0; i < puzzleSolutionGameObjects.Length; i++ )
+                {
+                    puzzleSolutionGameObjects[i].IsSolved = false;
+                }
             }
         }
     }
