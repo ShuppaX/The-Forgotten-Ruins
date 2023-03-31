@@ -3588,9 +3588,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ec731a2bc03b74a9dc6b596cd6101f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  removeExtraColliderAtEndPoint: 1
   endPoint: {x: -23.6382, y: -0.933964, z: 56.09399}
+  removeExtraColliderAtStartPoint: 1
   lerpModifier: 3
+  movementBlockerExtraHeight: 5
 --- !u!1001 &305393311
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7255,9 +7256,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ec731a2bc03b74a9dc6b596cd6101f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  removeExtraColliderAtEndPoint: 0
   endPoint: {x: -29.3618, y: 5.066037, z: 55.90601}
+  removeExtraColliderAtStartPoint: 0
   lerpModifier: 3
+  movementBlockerExtraHeight: 2
 --- !u!1001 &633009089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19366,9 +19368,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ec731a2bc03b74a9dc6b596cd6101f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  removeExtraColliderAtEndPoint: 0
   endPoint: {x: 0.5, y: 0, z: 22}
+  removeExtraColliderAtStartPoint: 0
   lerpModifier: 2
+  movementBlockerExtraHeight: 2
 --- !u!1001 &1612322749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24893,9 +24896,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ec731a2bc03b74a9dc6b596cd6101f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  removeExtraColliderAtEndPoint: 0
   endPoint: {x: -1.593987, y: 1.066036, z: 41.8618}
+  removeExtraColliderAtStartPoint: 0
   lerpModifier: 3
+  movementBlockerExtraHeight: 2
 --- !u!1001 &2022492424
 PrefabInstance:
   m_ObjectHideFlags: 0

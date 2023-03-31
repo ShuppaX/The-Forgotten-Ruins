@@ -6,9 +6,14 @@ namespace BananaSoup.PuzzleSystem
 {
     public class MoveObjectOnPuzzleSolved : PuzzleSolutionGameObject
     {
-        [SerializeField] private bool removeExtraColliderAtEndPoint;
         [SerializeField] private Vector3 endPoint;
+
+        [SerializeField, Tooltip("Normally it removes extra collider at End Point. This is for the cases " +
+            "for example, bridge is starting from normally, walkable location but end location is out of reach")]
+        private bool removeExtraColliderAtStartPoint;
+
         [SerializeField] private float lerpModifier = 3.0f;
+        [SerializeField] private float movementBlockerExtraHeight = 2.0f;
         private float distanceCompare = 0.001f;
         private bool hasMoved;
         private Vector3 startingPosition;
@@ -24,7 +29,7 @@ namespace BananaSoup.PuzzleSystem
             startingPosition = transform.position;
 
             movementBlocker = gameObject.AddComponent<BoxCollider>();
-            movementBlocker.size = new Vector3(movementBlocker.size.x, movementBlocker.size.y + 2, movementBlocker.size.z);
+            movementBlocker.size = new Vector3(movementBlocker.size.x, movementBlocker.size.y + movementBlockerExtraHeight, movementBlocker.size.z);
         }
 
         // TODO: If have time change this to for example, Coroutine to happen only once
@@ -33,17 +38,18 @@ namespace BananaSoup.PuzzleSystem
             // Puzzle solved, move object.
             if ( IsSolved && !hasMoved )
             {
+                if ( removeExtraColliderAtStartPoint )
+                {
+                    movementBlocker.enabled = true;
+                }
+
                 transform.position = Vector3.Lerp(transform.position, endPoint, Time.deltaTime * lerpModifier);
                 float distance = (transform.position - endPoint).sqrMagnitude;
                 if ( distance < distanceCompare )
                 {
                     transform.position = endPoint;
                     hasMoved = true;
-                    if ( !removeExtraColliderAtEndPoint )
-                    {
-                        movementBlocker.enabled = false; 
-                    }
-                    else
+                    if ( !removeExtraColliderAtStartPoint )
                     {
                         movementBlocker.enabled = false;
                     }
@@ -53,13 +59,9 @@ namespace BananaSoup.PuzzleSystem
             // NOTE: Not the best way to make this, but it's working
             else if ( !IsSolved )
             {
-                if ( !removeExtraColliderAtEndPoint )
+                if ( !removeExtraColliderAtStartPoint )
                 {
-                    movementBlocker.enabled = true; 
-                }
-                else
-                {
-                    movementBlocker.enabled = false;
+                    movementBlocker.enabled = true;
                 }
                 hasMoved = false;
                 transform.position = Vector3.Lerp(transform.position, startingPosition, Time.deltaTime * lerpModifier);
@@ -67,6 +69,10 @@ namespace BananaSoup.PuzzleSystem
                 if ( distance < distanceCompare )
                 {
                     transform.position = startingPosition;
+                    if ( removeExtraColliderAtStartPoint )
+                    {
+                        movementBlocker.enabled = false;
+                    }
                 }
             }
         }
