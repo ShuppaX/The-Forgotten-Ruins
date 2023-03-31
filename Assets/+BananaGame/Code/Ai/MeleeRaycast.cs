@@ -24,8 +24,8 @@ namespace BananaSoup
         [SerializeField] private LayerMask whatIsPlayer;
 
         [Header("Vision")]
-        [SerializeField] private float sightRange;
-        [SerializeField] private float attackRange;
+        [SerializeField] private float sightRange =6;
+        [SerializeField] private float attackRange = 1.5f;
 
         [Header("Stun")][SerializeField] private float stunTime = 2.0f;
         internal Coroutine enemyStunnedRoutine;
