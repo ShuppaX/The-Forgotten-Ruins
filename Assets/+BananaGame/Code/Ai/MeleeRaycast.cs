@@ -30,7 +30,7 @@ namespace BananaSoup
         [SerializeField] private float attackRange;
 
         [Header("Stun")][SerializeField] private float stunTime = 2.0f;
-        private Coroutine enemyStunnedRoutine;
+        internal Coroutine enemyStunnedRoutine;
 
         protected Transform _lookAtTarget;
         protected float _damp = 4f; //Changes the dampening value of enemy's turning
@@ -51,9 +51,9 @@ namespace BananaSoup
         private float _angle;
 
         //states
-        private bool _playerInSightRange;
-        private bool _playerInAttackRange;
-        private bool _stunned;
+        public bool _playerInSightRange;
+        public bool _playerInAttackRange;
+        internal bool _stunned;
 
         private int state; //for animator triggers
 
@@ -194,7 +194,7 @@ namespace BananaSoup
             }
         }
 
-        private IEnumerator StunEnemy()
+        internal IEnumerator StunEnemy()
         {
             _stunned = true;
             yield return new WaitForSeconds(stunTime);
