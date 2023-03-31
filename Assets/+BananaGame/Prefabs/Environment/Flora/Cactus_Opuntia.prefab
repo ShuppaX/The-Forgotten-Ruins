@@ -11,11 +11,8 @@ GameObject:
   - component: {fileID: 2670200521822271067}
   - component: {fileID: 3523502595419313270}
   - component: {fileID: 8511118621484846567}
-  - component: {fileID: 8959511293614270313}
-  - component: {fileID: 1797473550501496305}
-  - component: {fileID: 9147754060885489793}
-  - component: {fileID: 7787959521701941586}
-  - component: {fileID: 6121512431584862832}
+  - component: {fileID: 1772387522}
+  - component: {fileID: 1772387513}
   m_Layer: 0
   m_Name: Cactus_Opuntia
   m_TagString: Untagged
@@ -34,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 1.5232327, y: 0.5, z: 11.192884}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4444535188238073609}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -88,26 +86,92 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8959511293614270313
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7310331848755277798}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: -0.08, y: 0.39, z: 0.8005101}
-  m_Center: {x: 0, y: -0.08, z: 0.4062012}
---- !u!136 &1797473550501496305
+--- !u!136 &1772387522
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7310331848755277798}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 0.8
+  m_Direction: 2
+  m_Center: {x: -0.035711817, y: -0.054129165, z: 0.4062012}
+--- !u!114 &1772387513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310331848755277798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66c53df0cb24bd24ba652a88f6470221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  canDamageWhat:
+    serializedVersion: 2
+    m_Bits: 768
+--- !u!1 &8435734155751499551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4444535188238073609}
+  - component: {fileID: 2196926765359704904}
+  - component: {fileID: 2257368347124145286}
+  - component: {fileID: 691851504931441988}
+  - component: {fileID: 3556591047947847633}
+  - component: {fileID: 2732100300012737243}
+  m_Layer: 0
+  m_Name: Collisions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4444535188238073609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8435734155751499551}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2670200521822271067}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2196926765359704904
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8435734155751499551}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: -0.08, y: 0.39, z: 0.8005101}
+  m_Center: {x: 0, y: -0.08, z: 0.4062012}
+--- !u!136 &2257368347124145286
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8435734155751499551}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -115,13 +179,13 @@ CapsuleCollider:
   m_Height: 0.35
   m_Direction: 2
   m_Center: {x: -0.1, y: 0.12, z: 0.47}
---- !u!136 &9147754060885489793
+--- !u!136 &691851504931441988
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7310331848755277798}
+  m_GameObject: {fileID: 8435734155751499551}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -129,13 +193,13 @@ CapsuleCollider:
   m_Height: 0.1
   m_Direction: 2
   m_Center: {x: 0.08, y: 0.05, z: 0.35}
---- !u!136 &7787959521701941586
+--- !u!136 &3556591047947847633
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7310331848755277798}
+  m_GameObject: {fileID: 8435734155751499551}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -143,13 +207,13 @@ CapsuleCollider:
   m_Height: 0.1
   m_Direction: 2
   m_Center: {x: 0.07, y: -0.12, z: 0.5}
---- !u!136 &6121512431584862832
+--- !u!136 &2732100300012737243
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7310331848755277798}
+  m_GameObject: {fileID: 8435734155751499551}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
