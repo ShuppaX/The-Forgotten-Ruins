@@ -57,7 +57,7 @@ namespace BananaSoup
         private void ResetWasHit()
         {
             wasHit = false;
-            Debug.Log("Reset wasHit on +" + gameObject.name);
+            //Debug.Log("Reset wasHit on +" + gameObject.name);
         }
 
         public void Reset()

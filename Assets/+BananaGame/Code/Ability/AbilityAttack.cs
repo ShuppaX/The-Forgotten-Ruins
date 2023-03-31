@@ -5,6 +5,13 @@ namespace BananaSoup
 {
     public class AbilityAttack : MonoBehaviour
     {
+        private bool canDealDamage = false;
+
+        public bool CanDealDamage
+        {
+            get { return canDealDamage; }
+        }
+
         private PlayerBase playerBase = null;
         private PlayerStateManager psm = null;
 
@@ -46,6 +53,7 @@ namespace BananaSoup
 
             if ( context.performed )
             {
+                canDealDamage = true;
                 psm.SetPlayerState(attacking);
                 playerBase.IsMovable = false;
                 playerBase.IsTurnable = false;
@@ -64,6 +72,14 @@ namespace BananaSoup
             playerBase.IsTurnable = true;
             playerBase.CanDash = true;
             playerBase.AreAbilitiesEnabled = true;
+        }
+
+        /// <summary>
+        /// Method used to disable the damage from the players attack.
+        /// </summary>
+        private void DisableDamage()
+        {
+            canDealDamage = false;
         }
     }
 }

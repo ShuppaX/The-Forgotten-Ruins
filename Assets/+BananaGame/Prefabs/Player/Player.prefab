@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 946672923225475616}
   - component: {fileID: 1999600809}
   - component: {fileID: 8696953563904003536}
+  - component: {fileID: 3871903828611686729}
   - component: {fileID: 9108917675126122351}
   - component: {fileID: 3221713547035849736}
   - component: {fileID: 8849570542683201398}
@@ -28,7 +29,6 @@ GameObject:
   - component: {fileID: 65683560828549127}
   - component: {fileID: 869360056293319460}
   - component: {fileID: 1529940321108571192}
-  - component: {fileID: 3871903828611686729}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -291,6 +291,21 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &3871903828611686729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696953563904003545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a505fe0821cbbc41b7e6c240812db60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  startingHealth: 3
+  wasHitResetTimer: 1.5
 --- !u!114 &9108917675126122351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,20 +460,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDrawingSphereCasts: 0
---- !u!114 &3871903828611686729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8696953563904003545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a505fe0821cbbc41b7e6c240812db60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 3
-  startingHealth: 3
 --- !u!1001 &1687286708310833824
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -834,6 +835,20 @@ MonoBehaviour:
   canDamageWhat:
     serializedVersion: 2
     m_Bits: 512
+--- !u!136 &1123880450
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7332500029889613990}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.055
+  m_Height: 0.39
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.09}
 --- !u!4 &7965061522784045596 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1198f5fc0798ae44db0ebaed55b4b42c,

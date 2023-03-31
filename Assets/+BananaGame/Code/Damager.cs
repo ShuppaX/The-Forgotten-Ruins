@@ -17,7 +17,7 @@ namespace BananaSoup
             if ( collision.gameObject.GetComponent<IHealth>() != null )
             {
                 collision.gameObject.GetComponent<IHealth>().DecreaseHealth(damage);
-                Debug.Log(gameObject.name + " damaged " + collision.gameObject.name + "!");
+                //Debug.Log(gameObject.name + " damaged " + collision.gameObject.name + "!");
             }
             else
             {
