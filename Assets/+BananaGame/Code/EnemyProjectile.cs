@@ -1,66 +1,69 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BananaSoup
 {
-    public class EnemyProjectile : MonoBehaviour
+    public class EnemyProjectile : Damager
     {
-        [SerializeField] private int damage = 1;
-        [SerializeField] private float duration = 5;
-
-        private float _durationTimer;
-
-        private Rigidbody _rb;
-        private bool _isFired = true;
         [SerializeField] private float forwardForce = 10.0f;
         [SerializeField] private float upForce = 8.0f;
-        private Vector3 _playerDirection;
+        [SerializeField] private float aliveTime = 5.0f;
+
+        private bool _isFired = true;
+
+        private Rigidbody _rb;
+        private Coroutine _aliveTimer = null;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
-            
-            
-            if (_rb == null)
+
+            if ( _rb == null )
             {
                 Debug.LogError("No Rigidbody on projectile");
-                
+            }
+        }
+
+        private void Start()
+        {
+            if ( _aliveTimer == null )
+            {
+                _aliveTimer = StartCoroutine(AliveTimer());
+            }
+        }
+
+        private void OnDisable()
+        {
+            if ( _aliveTimer != null )
+            {
+                StopCoroutine(_aliveTimer);
+                _aliveTimer = null;
             }
         }
 
         private void FixedUpdate()
         {
-            //_playerDirection = PlayerBase.transform.position;
-            var whereisPlayer = _playerDirection;
-            if (_isFired)
+            if ( _isFired )
             {
                 _rb.AddForce(transform.forward * forwardForce, ForceMode.Impulse);
                 _rb.AddForce(transform.up * upForce, ForceMode.Impulse);
             }
         }
 
-        
-        
-
-        private void OnTriggerEnter(Collider other)
+        public override void OnTriggerEnter(Collider collision)
         {
-            Debug.Log($"Collided with {other.gameObject}");
+            base.OnTriggerEnter(collision);
+
+            Debug.Log($"Collided with {collision.gameObject}");
             Destroy(gameObject);
         }
-        
-        private IEnumerator AliveTimer(float duration)
+
+        private IEnumerator AliveTimer()
         {
-            _durationTimer = duration;
-            while(_durationTimer > 0)
-            {
-                _durationTimer -= Time.deltaTime;
-                yield return null;
-            }
-            
+            yield return new WaitForSeconds(aliveTime);
+
             Destroy(gameObject);
-            
+            _aliveTimer = null;
         }
     }
 }

@@ -23,9 +23,6 @@ namespace BananaSoup
 
         [SerializeField] private LayerMask whatIsPlayer;
 
-        [Header("Combat")]
-        [SerializeField] private float enemyMeleeDamage = 1;
-
         [Header("Vision")]
         [SerializeField] private float sightRange;
         [SerializeField] private float attackRange;

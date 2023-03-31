@@ -8,7 +8,6 @@ namespace BananaSoup
         public int CurrentHealth { get; }
         public int MaxHealth { get; }
         public bool IsAlive { get; }
-        public bool WasHit { get; }
 
         public void Setup();
         void IncreaseHealth(int amount);

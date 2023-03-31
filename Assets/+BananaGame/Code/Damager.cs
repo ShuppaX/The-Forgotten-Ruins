@@ -1,21 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BananaSoup
 {
     public class Damager : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        [SerializeField] private int damage = 0;
+        [SerializeField] private LayerMask canDamageWhat;
 
-        // Update is called once per frame
-        void Update()
+        public virtual void OnTriggerEnter(Collider collision)
         {
-        
+            if ( ((1 << collision.gameObject.layer) & canDamageWhat) == 0 )
+            {
+                return;
+            }
+
+            if ( collision.gameObject.GetComponent<IHealth>() != null )
+            {
+                collision.gameObject.GetComponent<IHealth>().DecreaseHealth(damage);
+                Debug.Log(gameObject.name + " damaged " + collision.gameObject.name + "!");
+            }
+            else
+            {
+                Debug.LogError(collision.gameObject.name + " doesn't implement the " +
+                    "interface IHealth and is not damageable by " + gameObject.name + "!");
+            }
         }
     }
 }
