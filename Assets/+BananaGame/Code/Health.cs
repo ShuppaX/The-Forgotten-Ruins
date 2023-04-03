@@ -47,6 +47,10 @@ namespace BananaSoup
             Reset();
         }
 
+        /// <summary>
+        /// Method used to check if the objects currentHealth is above 0 when it is changed
+        /// if it is return, when it isn't start the objects DeathRoutine.
+        /// </summary>
         private void OnHealthChanged()
         {
             if ( _latestHealth != _currentHealth )
@@ -65,6 +69,10 @@ namespace BananaSoup
             }
         }
 
+        /// <summary>
+        /// Method used to increase the objects currentHealth if it's less than maxHealth.
+        /// </summary>
+        /// <param name="amount">The (positive) amount with how much the currentHealth should be increased.</param>
         public void IncreaseHealth(int amount)
         {
             if ( amount < 0 ) Debug.LogWarning("Negative hp detected in IncreaseHealth");
@@ -75,6 +83,10 @@ namespace BananaSoup
             }
         }
 
+        /// <summary>
+        /// Method used to decrease the objects currentHealth if it's more than 0.
+        /// </summary>
+        /// <param name="amount">The amount how much the currentHealth should be decreased.</param>
         public void DecreaseHealth(int amount)
         {
             if ( amount < 0 ) return;
@@ -90,23 +102,38 @@ namespace BananaSoup
             }
         }
 
+        /// <summary>
+        /// Method used to reset wasHit. (Called from DecreaseHealth after reset timer.)
+        /// </summary>
         private void ResetWasHit()
         {
             _wasHit = false;
             //Debug.Log("Reset wasHit on +" + gameObject.name);
         }
 
+        /// <summary>
+        /// Method used to reset the objects health.
+        /// </summary>
         public void Reset()
         {
             _currentHealth = _startingHealth;
         }
 
+        /// <summary>
+        /// Method which is called from DeathRoutine(), used to start death animation
+        /// and death sound.
+        /// </summary>
         public virtual void OnDeath()
         {
             // TODO: Start animation
             // TODO: Play sound
         }
-
+        
+        /// <summary>
+        /// DeathRoutine which calls OnDeath and then waits for a set transition time,
+        /// then destroys the gameObject if destroyOnDeath is set to true.
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator DeathRoutine()
         {
             OnDeath();
