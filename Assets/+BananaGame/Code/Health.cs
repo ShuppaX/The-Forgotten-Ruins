@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace BananaSoup
@@ -9,6 +10,8 @@ namespace BananaSoup
         [SerializeField] private int maxHealth = 3;
         [SerializeField] private int startingHealth = 3;
         [SerializeField] private float wasHitResetTimer = 1.5f;
+
+        private Coroutine deathRoutine = null;
 
         private bool wasHit = false;
 
@@ -70,5 +73,10 @@ namespace BananaSoup
             // TODO: Start animation
             // TODO: Play sound
         }
+
+        //private IEnumerator DeathRoutine()
+        //{
+
+        //}
     }
 }

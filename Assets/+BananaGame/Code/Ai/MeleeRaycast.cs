@@ -61,7 +61,7 @@ namespace BananaSoup
         /// </summary>
         private int state;
         
-        private void Awake()
+        public virtual void Awake()
         {
             enemy = GetComponent<NavMeshAgent>();
         }

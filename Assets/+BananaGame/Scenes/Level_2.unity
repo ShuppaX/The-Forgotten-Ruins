@@ -14007,11 +14007,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicRangedEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 8235452770126603850, guid: 39d19e9d404da7b498ea9db0cadd44f0,
-        type: 3}
-      propertyPath: patrolRange
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39d19e9d404da7b498ea9db0cadd44f0, type: 3}
 --- !u!1001 &1118056514
@@ -19742,11 +19737,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 827882117806595301, guid: 94a0c7916d51ec24dbd6e224c8a32d38,
-        type: 3}
-      propertyPath: patrolRange
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7747237079570801877, guid: 94a0c7916d51ec24dbd6e224c8a32d38,
         type: 3}
       propertyPath: m_RootOrder

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,12 +8,14 @@ namespace BananaSoup
     {
         [SerializeField] private float forwardForce = 10.0f;
         [SerializeField] private float upForce = 8.0f;
-        [SerializeField] private float aliveTime = 5.0f;
+        [SerializeField] private float aliveTime = 2.5f;
 
-        private bool _isFired = true;
+        private bool _isFired = false;
 
         private Rigidbody _rb;
         private Coroutine _aliveTimer = null;
+
+        public event Action<EnemyProjectile> Expired;
 
         private void Awake()
         {
@@ -24,8 +27,15 @@ namespace BananaSoup
             }
         }
 
-        private void Start()
+        public void Setup(float speed = -1)
         {
+            if ( speed > 0 )
+            {
+                forwardForce = speed;
+            }
+
+            _isFired = true;
+
             if ( _aliveTimer == null )
             {
                 _aliveTimer = StartCoroutine(AliveTimer());
@@ -45,7 +55,7 @@ namespace BananaSoup
         {
             if ( _isFired )
             {
-                _rb.AddForce(transform.forward * forwardForce, ForceMode.Impulse);
+                _rb.velocity = transform.forward * forwardForce;
                 _rb.AddForce(transform.up * upForce, ForceMode.Impulse);
             }
         }
@@ -55,15 +65,29 @@ namespace BananaSoup
             base.OnTriggerEnter(collision);
 
             Debug.Log($"Collided with {collision.gameObject}");
-            Destroy(gameObject);
+            Recycle();
+        }
+
+        private void Recycle()
+        {
+            if ( _aliveTimer != null )
+            {
+                StopCoroutine(_aliveTimer);
+                _aliveTimer = null;
+            }
+
+            if ( Expired != null )
+            {
+                Expired(this);
+            }
         }
 
         private IEnumerator AliveTimer()
         {
             yield return new WaitForSeconds(aliveTime);
+            Debug.Log("A projectile should call Recycle now!");
 
-            Destroy(gameObject);
-            _aliveTimer = null;
+            Recycle();
         }
     }
 }
