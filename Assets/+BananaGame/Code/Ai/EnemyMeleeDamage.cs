@@ -15,13 +15,15 @@ namespace BananaSoup
         private Coroutine resetAttackCooldown = null;
 
 
-     
+        private void Awake()
+        {
+            // Animator anim = weapon.GetComponent<Animator>();
+            //AudioSource ac = Getcomponent<AudioSource>();
+        }
 
         public void MeleeAttack()
         {
-            // Animator anim = weapon.GetComponent<Animator>();
-            // anim.SetTrigger("Attack");
-            //AudioSource ac = Getcomponent<AudioSource>();
+            //anim.SetTrigger("Attack");
             //ac.Play(MeleeSound);
             if (resetAttackCooldown != null)
             {
