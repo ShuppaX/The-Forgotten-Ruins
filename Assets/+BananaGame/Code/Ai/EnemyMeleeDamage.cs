@@ -2,64 +2,50 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BananaSoup
 {
     public class EnemyMeleeDamage : Damager
     {
         public GameObject weapon;
-        public bool CanAttack = true;
-        public float attackCooldown = 1f;
+        public bool canAttack = true;
+        public float attackTimeFrame = 1.5f;
         public MeleeRaycast meleeRaycast;
+        private Coroutine resetAttackCooldown = null;
 
-        /*private void FixedUpdate() runs in MeleeRaycast
-        {
-            if (meleeRaycast._playerInAttackRange && CanAttack)
-            {
-                MeleeAttack();
-            }
-           
-        }*/
+
+     
 
         public void MeleeAttack()
         {
-            CanAttack = false;
-            Animator anim = weapon.GetComponent<Animator>();
-            anim.SetTrigger("Attack");
-
-
-            Collider weaponCollider = weapon.GetComponent<Collider>();
-            if (weaponCollider != null && weaponCollider.enabled)
+            // Animator anim = weapon.GetComponent<Animator>();
+            // anim.SetTrigger("Attack");
+            //AudioSource ac = Getcomponent<AudioSource>();
+            //ac.Play(MeleeSound);
+            if (resetAttackCooldown != null)
             {
-                var bounds = weaponCollider.bounds;
-                Collider[] hitColliders = Physics.OverlapBox(
-                    bounds.center,
-                    bounds.extents,
-                    weaponCollider.transform.rotation
-                );
+                StartCoroutine(AttackReset());
+            }
+        }
 
-                foreach (var hitCollider in hitColliders)
-                {
-                    if (hitCollider.gameObject.CompareTag("Player"))
-                    {
-                        hitCollider.gameObject.GetComponent<PlayerHealth>().DecreaseHealth(1);
-                    }
-                }
-
-                //AudioSource ac = Getcomponent<AudioSource>();
-                //ac.Play(MeleeSound);
-                //StartCoroutine(ResetAttackCooldown());
-
+        public override void OnTriggerEnter(Collider collision)
+        {
+            if (!canAttack)
+            {
+                return;
             }
 
-            /*
-            IEnumerator ResetAttackCooldown()
+            base.OnTriggerEnter(collision);
+        }
+
+        //Script for Melee Attack cooldown
+            private IEnumerator AttackReset()
             {
-                yield return new WaitForSeconds(attackCooldown);
-                CanAttack = true;
-            }*/
-
-
+                canAttack = true;
+                yield return new WaitForSeconds(attackTimeFrame);
+                canAttack = false;
+                resetAttackCooldown = null;
+            }
         }
     }
-}
