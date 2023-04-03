@@ -306,6 +306,8 @@ MonoBehaviour:
   maxHealth: 3
   startingHealth: 3
   wasHitResetTimer: 1.5
+  destroyOnDeath: 0
+  _deathTransitionTime: 2
 --- !u!114 &9108917675126122351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -805,20 +807,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7566940436884991479}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &1123880450
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7332500029889613990}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.055
-  m_Height: 0.39
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.09}
 --- !u!136 &2383730016954505536
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -859,24 +847,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed5d8ad058122546b52d709dc4d4cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 1
   canDamageWhat:
     serializedVersion: 2
     m_Bits: 512
---- !u!136 &1261651469201761590
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7332500029889613990}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.055
-  m_Height: 0.39
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.09}
 --- !u!4 &7965061522784045596 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1198f5fc0798ae44db0ebaed55b4b42c,

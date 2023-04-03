@@ -6,33 +6,40 @@ namespace BananaSoup
 {
     public class Health : MonoBehaviour, IHealth
     {
+        [SerializeField]
+        private int _maxHealth = 3;
+        [SerializeField]
+        private int _startingHealth = 3;
+        [SerializeField, Tooltip("The object can only take hits after this time has passed after a hit.")]
+        private float _wasHitResetTimer = 1.5f;
+        [SerializeField, Tooltip("Set true if the object should be destroyed on death.")]
+        private bool _destroyOnDeath = false;
+        // TODO: Decide if this is necessary.
+        [SerializeField, Tooltip("The transition time to death.")]
+        private float _deathTransitionTime = 2.0f;
+
         private int _currentHealth = 0;
-        [SerializeField] private int maxHealth = 3;
-        [SerializeField] private int startingHealth = 3;
-        [SerializeField] private float wasHitResetTimer = 1.5f;
+        private int _latestHealth = 0;
 
-        private Coroutine deathRoutine = null;
+        private bool _wasHit = false;
 
-        private bool wasHit = false;
+        private Coroutine _deathRoutine = null;
 
-        public event Action<int> HealthChanged;
-
-        public int CurrentHealth
-        {
-            get => _currentHealth;
-            private set
-            {
-                _currentHealth = Mathf.Clamp(value, 0, maxHealth);
-                if ( HealthChanged != null ) HealthChanged(_currentHealth);
-            }
-        }
-
-        int IHealth.MaxHealth => maxHealth;
         public bool IsAlive => _currentHealth > 0;
         public bool WasHit
         {
-            get => wasHit;
-            set => wasHit = value;
+            get => _wasHit;
+            set => _wasHit = value;
+        }
+
+        private void Start()
+        {
+            Setup();
+        }
+
+        private void Update()
+        {
+            OnHealthChanged();
         }
 
         public void Setup()
@@ -40,32 +47,58 @@ namespace BananaSoup
             Reset();
         }
 
+        private void OnHealthChanged()
+        {
+            if ( _latestHealth != _currentHealth )
+            {
+                _latestHealth = _currentHealth;
+
+                if ( _currentHealth > 0 )
+                {
+                    return;
+                }
+
+                if ( _deathRoutine == null )
+                {
+                    _deathRoutine = StartCoroutine(DeathRoutine());
+                }
+            }
+        }
+
         public void IncreaseHealth(int amount)
         {
             if ( amount < 0 ) Debug.LogWarning("Negative hp detected in IncreaseHealth");
-            _currentHealth += amount;
+
+            if ( _currentHealth < _maxHealth )
+            {
+                _currentHealth += amount;
+            }
         }
 
         public void DecreaseHealth(int amount)
         {
             if ( amount < 0 ) return;
-            if ( wasHit ) return;
+            if ( _wasHit ) return;
 
-            CurrentHealth -= amount;
-            wasHit = true;
+            if ( _currentHealth > 0 )
+            {
+                _currentHealth -= amount;
 
-            Invoke(nameof(ResetWasHit), wasHitResetTimer);
+                _wasHit = true;
+
+                Invoke(nameof(ResetWasHit), _wasHitResetTimer);
+            }
         }
 
         private void ResetWasHit()
         {
-            wasHit = false;
+            _wasHit = false;
             //Debug.Log("Reset wasHit on +" + gameObject.name);
         }
 
         public void Reset()
         {
-            CurrentHealth = startingHealth;
+            _currentHealth = _startingHealth;
         }
 
         public virtual void OnDeath()
@@ -74,9 +107,15 @@ namespace BananaSoup
             // TODO: Play sound
         }
 
-        //private IEnumerator DeathRoutine()
-        //{
+        private IEnumerator DeathRoutine()
+        {
+            OnDeath();
+            yield return new WaitForSeconds(_deathTransitionTime);
 
-        //}
+            if ( _destroyOnDeath )
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

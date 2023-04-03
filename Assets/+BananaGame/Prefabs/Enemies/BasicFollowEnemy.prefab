@@ -364,6 +364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd374835ee597e43a1aa55722101f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  startingHealth: 3
-  wasHitResetTimer: 0.5
+  _maxHealth: 3
+  _startingHealth: 3
+  _wasHitResetTimer: 1.5
+  _destroyOnDeath: 1
+  _deathTransitionTime: 2

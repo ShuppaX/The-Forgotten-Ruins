@@ -4,9 +4,6 @@ namespace BananaSoup
 {
     public interface IHealth
     {
-        public event Action<int> HealthChanged;
-        public int CurrentHealth { get; }
-        public int MaxHealth { get; }
         public bool IsAlive { get; }
 
         public void Setup();

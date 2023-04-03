@@ -18,6 +18,7 @@ namespace BananaSoup
                 return;
             }
 
+            //Debug.Log("The player hit " + collision.gameObject.name + "!");
             base.OnTriggerEnter(collision);
         }
     }
