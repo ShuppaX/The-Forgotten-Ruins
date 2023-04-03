@@ -6,9 +6,9 @@ namespace BananaSoup
 {
     public class EnemyProjectile : Damager
     {
-        [SerializeField] private float forwardForce = 10.0f;
-        [SerializeField] private float upForce = 8.0f;
-        [SerializeField] private float aliveTime = 2.5f;
+        [SerializeField] private float forwardForce = 10.0f; //projectiles forward force
+        [SerializeField] private float upForce = 8.0f; //projectiles up force
+        [SerializeField] private float aliveTime = 5.0f; //how long the projectile will live for
 
         private bool _isFired = false;
 
@@ -53,6 +53,8 @@ namespace BananaSoup
 
         private void FixedUpdate()
         {
+            
+            //when fired the projectile gets a force impulse in the forward and up directions
             if ( _isFired )
             {
                 _rb.velocity = transform.forward * forwardForce;

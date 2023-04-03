@@ -18,9 +18,7 @@ namespace BananaSoup
 
         //Serialized
         [Header("Layer masks")]
-        [SerializeField]
-        private LayerMask whatIsGround;
-
+        [SerializeField] private LayerMask whatIsGround;
         [SerializeField] private LayerMask whatIsPlayer;
 
         [Header("Vision")]
@@ -30,6 +28,7 @@ namespace BananaSoup
         [Header("Stun")][SerializeField] private float stunTime = 2.0f;
         internal Coroutine enemyStunnedRoutine;
 
+        //Turning
         protected Transform _lookAtTarget;
         protected float _damp = 4f; //Changes the dampening value of enemy's turning
 
@@ -46,7 +45,7 @@ namespace BananaSoup
         protected float _timeBetweenAttacks;
         protected bool alreadyAttacked;
         private Vector3 _whereIsPlayer;
-        private float _angle;
+        private float _angle; //view angle between enemy and player
 
         //states
         public bool _playerInSightRange;
@@ -88,7 +87,7 @@ namespace BananaSoup
 
 
             if ( _playerInAttackRange )
-                //Smoothed turning towards player
+                //Smoothed turning towards player. _damp changes the speed of turning
                 if ( _angle > 2.5f )
                 {
                     var rotate = Quaternion.LookRotation(playerTarget.position - transform.position);
@@ -97,7 +96,7 @@ namespace BananaSoup
 
             if ( Time.time < _lastDidSomething + _pauseTime ) return;
 
-            //compressed if statements for clarity
+            //Enemy AI states
             if ( !_playerInSightRange && !_playerInAttackRange )
             {
                 state = 1;
@@ -117,6 +116,7 @@ namespace BananaSoup
             }
         }
 
+        //Patrol method searches random waypoints and moves to them
         public void Patrol()
         {
             if ( !_waypointSet ) SearchWaypoint();
@@ -146,6 +146,7 @@ namespace BananaSoup
             _lastDidSomething = Time.time;
         }
 
+        //follows the player through navmesh, until the player is within attack range
         private void Chase()
         {
             enemy.SetDestination(playerTarget.position);
@@ -171,6 +172,7 @@ namespace BananaSoup
             _lastDidSomething = Time.time;
         }
 
+        
         protected void ResetAttack()
         {
             alreadyAttacked = false;
@@ -207,8 +209,8 @@ namespace BananaSoup
             enemyStunnedRoutine = null;
         }
 
-        // Ensure that the Coroutine will be stopped and nulled when GameObject get's disabled.
-        private void OnDisable()
+        // Ensure that the Coroutine will be stopped and nulled when GameObject gets disabled.
+        private void OnDisable()    
         {
             TryEndingRunningCoroutine(ref enemyStunnedRoutine);
         }
