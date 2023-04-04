@@ -80,6 +80,7 @@ namespace BananaSoup.PuzzleSystem
 
                 try
                 {
+                    // Torches
                     if ( puzzleGameObjects[i].GetComponent<TorchAction>().IsTorchAlreadyBurning )
                     {
                         remainingPuzzleObjects += puzzleGameObjects[i].GetComponent<TorchAction>().GetCompletitionValueAtStart();
@@ -91,7 +92,8 @@ namespace BananaSoup.PuzzleSystem
                 }
                 catch ( Exception )
                 {
-                    // No error. Just exit if the Puzzle Object is not using IsTorchAlreadyBurning
+                    // Other cases
+                    remainingPuzzleObjects = puzzleGameObjects.Length;
                 }
             }
 

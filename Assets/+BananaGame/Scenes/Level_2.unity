@@ -3591,7 +3591,7 @@ MonoBehaviour:
   endPoint: {x: -23.6382, y: -0.933964, z: 56.09399}
   removeExtraColliderAtStartPoint: 1
   lerpModifier: 3
-  movementBlockerExtraHeight: 5
+  movementBlockerExtraHeight: 13
 --- !u!1001 &305393311
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15714,7 +15714,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31238
+  m_Name: pb_Mesh374268
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
