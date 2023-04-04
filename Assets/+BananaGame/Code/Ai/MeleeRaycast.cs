@@ -29,7 +29,7 @@ namespace BananaSoup
         internal Coroutine enemyStunnedRoutine;
 
         //Turning
-        protected float _damp = 4f; //Changes the dampening value of enemy's turning
+        protected float _damp = 3f; //Changes the dampening value of enemy's turning
 
         //Updating Variables
         protected float _lastDidSomething; //refreshing timer to prevent non-stop actions
@@ -41,7 +41,7 @@ namespace BananaSoup
         [SerializeField] private float patrolRange = 8;
 
         //Attack
-        protected float _timeBetweenAttacks;
+        private float _timeBetweenAttacks;
         protected bool alreadyAttacked;
         private Vector3 _whereIsPlayer;
         private float _angle; //view angle between enemy and player
@@ -49,7 +49,7 @@ namespace BananaSoup
         //states
         private bool _playerInSightRange;
         private bool _playerInAttackRange;
-        internal bool _stunned;
+        private bool _stunned;
 
         /// <summary>
         /// for animator triggers
@@ -200,7 +200,7 @@ namespace BananaSoup
             }
         }
 
-        internal IEnumerator StunEnemy()
+        private IEnumerator StunEnemy()
         {
             _stunned = true;
             yield return new WaitForSeconds(stunTime);

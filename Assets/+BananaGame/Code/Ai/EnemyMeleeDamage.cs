@@ -21,16 +21,12 @@ namespace BananaSoup
         {
             // Animator anim = weapon.GetComponent<Animator>();
             meleeSwingAudio = GetComponent<AudioSource>();
-            
         }
 
         public void MeleeAttack()
         {
             //anim.SetTrigger("Attack");
-            if (meleeSwingAudio)
-            {
-                AudioManager.PlayClip(meleeSwingAudio, SoundEffect.EnemySwing);
-            }
+            AudioManager.PlayClip(meleeSwingAudio, SoundEffect.EnemySwing);
 
             if (resetAttackCooldown != null)
             {
@@ -41,21 +37,18 @@ namespace BananaSoup
 
         public override void OnTriggerEnter(Collider collision)
         {
-            if (!canAttack)
-            {
-                return;
-            }
+            if (!canAttack) return;
 
             base.OnTriggerEnter(collision);
         }
 
         //Script for Melee Attack cooldown
-            private IEnumerator AttackReset()
-            {
-                canAttack = true;
-                yield return new WaitForSeconds(attackTimeFrame);
-                canAttack = false;
-                resetAttackCooldown = null;
-            }
+        private IEnumerator AttackReset()
+        {
+            canAttack = true;
+            yield return new WaitForSeconds(attackTimeFrame);
+            canAttack = false;
+            resetAttackCooldown = null;
         }
     }
+}
