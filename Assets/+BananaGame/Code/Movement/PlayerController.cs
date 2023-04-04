@@ -286,13 +286,7 @@ namespace BananaSoup
                 else
                 // While Interacting
                 {
-                    //Vector3 forceToApply = (GetMovementDirection(isometricDirection) * movementSpeed); 
                     rb.velocity = transform.forward * interactMovementSpeed;
-
-                    //Debug.Log("Input: " + GetMovementDirection(isometricDirection));
-                    //Debug.Log("Player EulerAngles: " + transform.rotation.eulerAngles);
-                    //Debug.Log("Player movementDirection: " + isometricDirection);
-                    //Debug.Log("Rotation: " + (transform.rotation.eulerAngles - Vector3.forward));
                 }
             }
         }
@@ -342,7 +336,6 @@ namespace BananaSoup
             {
                 if ( groundCheck.IsGrounded )
                 {
-                    //psm.SetPlayerState(notMoving);
                     psm.ResetPlayerState();
                 }
                 else if ( !groundCheck.IsGrounded )
