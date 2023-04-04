@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mono.Cecil.Cil;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,25 +9,32 @@ namespace BananaSoup
 {
     public class EnemyMeleeDamage : Damager
     {
-        public GameObject weapon;
         public bool canAttack = true;
         public float attackTimeFrame = 1.5f;
         public MeleeRaycast meleeRaycast;
+        public GameObject weapon;
         private Coroutine resetAttackCooldown = null;
+        private AudioSource meleeSwingAudio;
 
 
         private void Awake()
         {
             // Animator anim = weapon.GetComponent<Animator>();
-            //AudioSource ac = Getcomponent<AudioSource>();
+            meleeSwingAudio = GetComponent<AudioSource>();
+            
         }
 
         public void MeleeAttack()
         {
             //anim.SetTrigger("Attack");
-            //ac.Play(MeleeSound);
+            if (meleeSwingAudio)
+            {
+                AudioManager.PlayClip(meleeSwingAudio, SoundEffect.EnemySwing);
+            }
+
             if (resetAttackCooldown != null)
             {
+                Debug.Log("Attack on cooldown");
                 StartCoroutine(AttackReset());
             }
         }

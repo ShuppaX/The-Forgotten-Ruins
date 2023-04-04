@@ -29,7 +29,6 @@ namespace BananaSoup
         internal Coroutine enemyStunnedRoutine;
 
         //Turning
-        protected Transform _lookAtTarget;
         protected float _damp = 4f; //Changes the dampening value of enemy's turning
 
         //Updating Variables
@@ -48,8 +47,8 @@ namespace BananaSoup
         private float _angle; //view angle between enemy and player
 
         //states
-        public bool _playerInSightRange;
-        public bool _playerInAttackRange;
+        private bool _playerInSightRange;
+        private bool _playerInAttackRange;
         internal bool _stunned;
 
         /// <summary>
