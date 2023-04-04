@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.03812, g: 324.65375, b: 429.6908, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2679,6 +2679,7 @@ MonoBehaviour:
   - {fileID: 1719239790}
   puzzleSolutionGameObjects:
   - {fileID: 2021196115}
+  remainingPuzzleObjects: 0
 --- !u!1001 &227993673
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7448,6 +7449,7 @@ MonoBehaviour:
   - {fileID: 682628934}
   puzzleSolutionGameObjects:
   - {fileID: 1608345498}
+  remainingPuzzleObjects: 0
 --- !u!1 &649807661
 GameObject:
   m_ObjectHideFlags: 0
@@ -7498,6 +7500,7 @@ MonoBehaviour:
   puzzleSolutionGameObjects:
   - {fileID: 626507260}
   - {fileID: 291697965}
+  remainingPuzzleObjects: 0
 --- !u!1001 &653091609
 PrefabInstance:
   m_ObjectHideFlags: 0

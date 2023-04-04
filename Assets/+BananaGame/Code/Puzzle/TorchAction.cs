@@ -7,7 +7,10 @@ namespace BananaSoup.PuzzleSystem
     public class TorchAction : PuzzleObjectBase, IThrowReactable
     {
         [SerializeField] private ParticleSystem fireParticles;
+        [SerializeField] private bool isTorchAlreadyBurning = true;
         private bool isBurning = true;
+
+        public bool IsTorchAlreadyBurning => isTorchAlreadyBurning;
 
         private void Start()
         {
@@ -15,6 +18,53 @@ namespace BananaSoup.PuzzleSystem
             {
                 Debug.LogError(name + " is missing Fire ParticleSystem");
             }
+
+            if ( isTorchAlreadyBurning )
+            {
+                LitTorch();
+            }
+            else
+            {
+                Extinguish();
+            }
+        }
+
+        public int GetCompletitionValueAtStart()
+        {
+            if ( IsTorchAlreadyBurning )
+            {
+                if ( !IsSolutionReversed )
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                if ( !IsSolutionReversed )
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+        }
+
+        public void Extinguish()
+        {
+            fireParticles.Stop();
+            isBurning = false;
+        }
+
+        public void LitTorch()
+        {
+            fireParticles.Play();
+            isBurning = true;
         }
 
         public void OnThrowAbility(ParticleProjectile.Type projectileType)
@@ -28,10 +78,16 @@ namespace BananaSoup.PuzzleSystem
                         return;
                     }
 
-                    fireParticles.Stop();
-                    isBurning = false;
+                    Extinguish();
 
-                    UpdateRemainingPuzzle(-1);
+                    if ( !IsSolutionReversed )
+                    {
+                        UpdateRemainingPuzzle(-1);
+                    }
+                    else
+                    {
+                        UpdateRemainingPuzzle(1);
+                    }
 
                     break;
                 }
@@ -42,10 +98,16 @@ namespace BananaSoup.PuzzleSystem
                         return;
                     }
 
-                    fireParticles.Play();
-                    isBurning = true;
+                    LitTorch();
 
-                    UpdateRemainingPuzzle(1);
+                    if ( !IsSolutionReversed )
+                    {
+                        UpdateRemainingPuzzle(1);
+                    }
+                    else
+                    {
+                        UpdateRemainingPuzzle(-1);
+                    }
 
                     break;
                 }

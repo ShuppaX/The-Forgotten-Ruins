@@ -48,14 +48,13 @@ namespace BananaSoup.PuzzleSystem
             {
                 Debug.LogError(this + "'s puzzleGameObjects.Lenght is zero (" + puzzleGameObjects.Length + ") and it can't be!");
             }
-            remainingPuzzleObjects = puzzleGameObjects.Length;
 
             if ( puzzleSolutionGameObjects == null )
             {
                 Debug.LogError(this + " is missing a reference to the puzzleSolutionGameObject component and it is required!");
             }
 
-            if ( puzzleSolutionGameObjects.Length == 0 )
+            if ( puzzleSolutionGameObjects.Length <= 0 )
             {
                 Debug.LogError(this + "'s puzzleSolutionGameObjects is empty!");
             }
@@ -76,8 +75,27 @@ namespace BananaSoup.PuzzleSystem
 
             for ( int i = 0; i < puzzleGameObjects.Length; i++ )
             {
-                puzzleGameObjects[i].SetManager(this);
+                // Set this Handler for the puzzleGameObjects array.
+                puzzleGameObjects[i].SetHandler(this);
+
+                try
+                {
+                    if ( puzzleGameObjects[i].GetComponent<TorchAction>().IsTorchAlreadyBurning )
+                    {
+                        remainingPuzzleObjects += puzzleGameObjects[i].GetComponent<TorchAction>().GetCompletitionValueAtStart();
+                    }
+                    else
+                    {
+                        remainingPuzzleObjects += puzzleGameObjects[i].GetComponent<TorchAction>().GetCompletitionValueAtStart();
+                    }
+                }
+                catch ( Exception )
+                {
+                    // No error. Just exit if the Puzzle Object is not using IsTorchAlreadyBurning
+                }
             }
+
+            CheckIsPuzzleSolved();
         }
 
         private void CheckIsPuzzleSolved()

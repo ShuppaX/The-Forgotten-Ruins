@@ -78,7 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e63306e5a63e1c448b11235c424d960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSolutionReversed: 0
   fireParticles: {fileID: 3394220984990786356}
+  isTorchAlreadyBurning: 1
 --- !u!1 &4820751176219813761
 GameObject:
   m_ObjectHideFlags: 0
