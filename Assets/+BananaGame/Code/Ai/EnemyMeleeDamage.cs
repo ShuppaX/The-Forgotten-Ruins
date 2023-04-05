@@ -1,25 +1,24 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Mono.Cecil.Cil;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace BananaSoup
 {
     public class EnemyMeleeDamage : Damager
     {
-        public bool canAttack = true;
+        private bool canDealDamage = true;
         public float attackTimeFrame = 1.5f;
         public MeleeRaycast meleeRaycast;
-        public GameObject weapon;
         private Coroutine resetAttackCooldown = null;
         private AudioSource meleeSwingAudio;
+
+        public bool CanDealDamage
+        {
+            get { return canDealDamage; }
+        }
 
 
         private void Awake()
         {
-            // Animator anim = weapon.GetComponent<Animator>();
             meleeSwingAudio = GetComponent<AudioSource>();
         }
 
@@ -27,27 +26,27 @@ namespace BananaSoup
         {
             //anim.SetTrigger("Attack");
             AudioManager.PlayClip(meleeSwingAudio, SoundEffect.EnemySwing);
-
-            if (resetAttackCooldown != null)
-            {
-                Debug.Log("Attack on cooldown");
-                StartCoroutine(AttackReset());
-            }
         }
 
         public override void OnTriggerEnter(Collider collision)
         {
-            if (!canAttack) return;
+            if (!canDealDamage) return;
 
             base.OnTriggerEnter(collision);
+
+            if ( resetAttackCooldown != null )
+            {
+                Debug.Log("Attack on cooldown");
+                resetAttackCooldown = StartCoroutine(AttackReset());
+            }
         }
 
         //Script for Melee Attack cooldown
         private IEnumerator AttackReset()
         {
-            canAttack = true;
+            canDealDamage = true;
             yield return new WaitForSeconds(attackTimeFrame);
-            canAttack = false;
+            canDealDamage = false;
             resetAttackCooldown = null;
         }
     }

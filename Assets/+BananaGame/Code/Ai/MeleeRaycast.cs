@@ -14,7 +14,8 @@ namespace BananaSoup
         protected NavMeshAgent enemy; // assign navmesh agent
         protected Transform playerTarget; // reference to player's position
         protected Vector3 playerDirection;
-        public EnemyMeleeDamage MeleeScript; // reference to enemy's melee damage script
+        public EnemyMeleeDamage meleeScript; // reference to enemy's melee damage script
+        private Animator anim;
 
         //Serialized
         [Header("Layer masks")]
@@ -33,7 +34,7 @@ namespace BananaSoup
 
         //Updating Variables
         protected float _lastDidSomething; //refreshing timer to prevent non-stop actions
-        private readonly float _pauseTime = 1f; //Time to pause after action
+        private readonly float _pauseTime = 1.5f; //Time to pause after action
 
         //patrol
         public Vector3 waypoint;
@@ -51,6 +52,9 @@ namespace BananaSoup
         private bool _playerInAttackRange;
         private bool _stunned;
 
+        private const string attack = "Attack";
+        private const string patrol = "Patrol";
+
         /// <summary>
         /// for animator triggers
         /// 1 for patrol
@@ -62,6 +66,7 @@ namespace BananaSoup
         public virtual void Awake()
         {
             enemy = GetComponent<NavMeshAgent>();
+            anim = GetComponent<Animator>();
         }
 
         private void Start()
@@ -93,12 +98,14 @@ namespace BananaSoup
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
                 }
 
+            // TODO: Get rid of this.
             if ( Time.time < _lastDidSomething + _pauseTime ) return;
 
             //Enemy AI states
             if ( !_playerInSightRange && !_playerInAttackRange )
             {
                 state = 1;
+                anim.SetTrigger(patrol);
                 Patrol();
             }
 
@@ -158,11 +165,13 @@ namespace BananaSoup
 
             //transform.LookAt(_playerTarget);
 
-            if ( !alreadyAttacked )
+            if ( meleeScript.CanDealDamage )
             {
+                anim.SetTrigger(attack);
+
                 //TODO Attack code here
                 Debug.Log("Enemy Swings");
-                MeleeScript.MeleeAttack();
+                meleeScript.MeleeAttack();
 
                 alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), _timeBetweenAttacks);

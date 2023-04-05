@@ -76,5 +76,14 @@ namespace BananaSoup
         {
             playerInput = new PlayerInput();
         }
+
+        public void ToggleAllActions(bool value)
+        {
+            AreAbilitiesEnabled = value;
+            CanDash = value;
+            IsInteractingEnabled = value;
+            IsMovable = value;
+            IsTurnable = value;
+        }
     }
 }

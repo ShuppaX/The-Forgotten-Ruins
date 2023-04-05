@@ -82,7 +82,7 @@ namespace BananaSoup
             }
         }
 
-        private void Start()
+        public virtual void Start()
         {
             Setup();
         }
@@ -135,8 +135,14 @@ namespace BananaSoup
                 Debug.LogWarning("Negative amount given to DecreaseHealth on " + gameObject.name + "!");
             }
 
-            if ( _wasHit ) return;
+            //if ( _wasHit ) return;
+            if ( _wasHit )
+            {
+                Debug.Log(gameObject.name + "was hit recently and can't take more damage!");
+                return;
+            }
 
+            Debug.Log(gameObject.name + " took " + amount + " damage!");
             CurrentHealth -= amount;
             _wasHit = true;
             Invoke(nameof(ResetWasHit), _wasHitResetTime);
@@ -147,14 +153,15 @@ namespace BananaSoup
         /// </summary>
         private void ResetWasHit()
         {
+            Debug.Log(gameObject.name + " called ResetWasHit");
             _wasHit = false;
             //Debug.Log("Reset wasHit on +" + gameObject.name);
         }
 
         /// <summary>
-        /// Method used to reset the objects health.
+        /// Method used to reset the objects after death / on Start.
         /// </summary>
-        public void Reset()
+        public virtual void Reset()
         {
             _currentHealth = _startingHealth;
         }

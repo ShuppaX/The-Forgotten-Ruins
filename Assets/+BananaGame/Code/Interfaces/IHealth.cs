@@ -9,8 +9,9 @@ namespace BananaSoup
         public bool WasHit { get; set; }
 
         public void Setup();
-        void IncreaseHealth(int amount);
-        void DecreaseHealth(int amount);
-        void Reset();
+        public void IncreaseHealth(int amount);
+        public void DecreaseHealth(int amount);
+        public void Reset();
+        public void OnDeath();
     }
 }
