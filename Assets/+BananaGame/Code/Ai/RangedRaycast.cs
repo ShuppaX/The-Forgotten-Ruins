@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BananaSoup
 {
-    public class RangedRaycast : EnemyBase
+    public class RangedRaycast : MeleeRaycast
     {
         [SerializeField]
         private EnemyProjectile projectilePrefab;
@@ -41,7 +41,7 @@ namespace BananaSoup
         public override void Attack()
         {
             //Stop enemy movement
-            navMeshAgent.SetDestination(transform.position);
+            enemy.SetDestination(transform.position);
 
             if ( alreadyAttacked )
             {
@@ -71,7 +71,7 @@ namespace BananaSoup
                 }
             }
 
-            //_lastDidSomething = Time.time;
+            _lastDidSomething = Time.time;
         }
 
         private void OnExpired(EnemyProjectile projectile)
