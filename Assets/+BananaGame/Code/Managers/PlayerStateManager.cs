@@ -86,6 +86,11 @@ namespace BananaSoup.Managers
                 return;
             }
 
+            if ( currentPlayerState == PlayerState.Dead )
+            {
+                return;
+            }
+
             previousPlayerState = currentPlayerState;
             currentPlayerState = newPlayerState;
             OnStateChanged();

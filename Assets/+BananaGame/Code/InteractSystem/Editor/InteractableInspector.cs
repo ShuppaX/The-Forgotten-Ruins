@@ -25,7 +25,10 @@ namespace BananaSoup.InteractSystem.CustomInspector
                 string name = $"InteractPoint ({interactPointCount + 1})";
 
                 GameObject interactPoint = new GameObject(name);
+
                 interactPoint.transform.parent = interactable.transform;
+
+                interactPoint.transform.localPosition = Vector3.zero;
 
                 interactPoint.AddComponent<InteractPoint>();
 

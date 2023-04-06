@@ -161,8 +161,6 @@ namespace BananaSoup.InteractSystem
 
                 // Set bool that the player is not looking at the target Interactable. FixedUpdate will rotate player towards it.
                 isLookingAtTarget = false;
-
-                // TODO: Add 2 IK points for the InteractPoint and move player's hands towards them (IK).
             }
         }
 

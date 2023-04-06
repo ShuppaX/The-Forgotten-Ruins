@@ -278,18 +278,9 @@ namespace BananaSoup
 
             if ( groundCheck.IsGrounded )
             {
-                // While not Interacting
-                if ( psm.currentPlayerState != PlayerStateManager.PlayerState.Interacting )
-                {
-                    Vector3 forceToApply = GetMovementDirection(isometricDirection) * movementSpeed;
-                    rb.velocity = forceToApply;
-                    psm.SetPlayerState(moving);
-                }
-                else
-                // While Interacting
-                {
-                    rb.velocity = transform.forward * interactMovementSpeed;
-                }
+                Vector3 forceToApply = GetMovementDirection(isometricDirection) * movementSpeed;
+                rb.velocity = forceToApply;
+                psm.SetPlayerState(moving);
             }
         }
 
