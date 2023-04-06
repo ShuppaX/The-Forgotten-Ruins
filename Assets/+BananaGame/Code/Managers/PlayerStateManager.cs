@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace BananaSoup
+namespace BananaSoup.Managers
 {
     public class PlayerStateManager : MonoBehaviour
     {
@@ -27,7 +27,8 @@ namespace BananaSoup
             Interacting = 4,
             InAir = 5,
             Sanding = 6,
-            Sparking = 7
+            Sparking = 7,
+            Dead = 8
         }
 
         private void Awake()
@@ -66,6 +67,9 @@ namespace BananaSoup
         private void OnStateChanged()
         {
             animationManager.ResetTrigger(previousPlayerState.ToString());
+
+            if ( currentPlayerState == PlayerState.Dead ) return;
+
             animationManager.SetAnimation(currentPlayerState.ToString());
         }
 

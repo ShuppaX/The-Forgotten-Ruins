@@ -2,8 +2,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using BananaSoup.Managers;
+using BananaSoup.Utilities;
 
-namespace BananaSoup
+namespace BananaSoup.Ability
 {
     [RequireComponent(typeof(PlayerBase), typeof(PlayerStateManager), typeof(CalculateMovementDirection))]
     [RequireComponent(typeof(SlopeCheck))]

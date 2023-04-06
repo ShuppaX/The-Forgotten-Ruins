@@ -1,23 +1,36 @@
 using System.Collections;
 using UnityEngine;
+using BananaSoup.Managers;
 
-namespace BananaSoup
+namespace BananaSoup.HealthSystem
 {
     public class PlayerHealth : Health
     {
+        private bool godMode = false;
+        public bool GodMode
+        {
+            get => godMode;
+            set => godMode = value;
+        }
+
         private PlayerBase playerBase = null;
-        //private Rigidbody rb = null;
+        private PlayerStateManager psm = null;
+
+        private const PlayerStateManager.PlayerState dead = PlayerStateManager.PlayerState.Dead;
 
         public override void Start()
         {
             playerBase = PlayerBase.Instance;
-
             if ( playerBase == null )
             {
                 Debug.LogError("PlayerHealth couldn't find an Instance of PlayerBase!");
             }
 
-            //rb = GetDependency<Rigidbody>();
+            psm = PlayerStateManager.Instance;
+            if ( psm == null )
+            {
+                Debug.LogError("PlayerHealth couldn't find an Instance of PlayerStateManager!");
+            }
 
             base.Start();
         }
@@ -46,6 +59,13 @@ namespace BananaSoup
         /// </summary>
         public override IEnumerator DeathCoroutine()
         {
+            if ( godMode )
+            {
+                NullCoroutine(DeathRoutine);
+                yield break;
+            }
+
+            psm.SetPlayerState(dead);
             yield return BaseDeathRoutine = StartCoroutine(base.DeathCoroutine());
 
             NullCoroutine(BaseDeathRoutine);

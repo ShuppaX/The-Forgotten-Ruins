@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.Managers
 {
     public class DebugManager : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.Utilities
 {
     public class ComponentPool<TComponent> : Pool<TComponent>
         where TComponent : Component

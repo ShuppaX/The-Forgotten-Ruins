@@ -1,7 +1,7 @@
 using UnityEngine;
 using NaughtyAttributes;
 
-namespace BananaSoup
+namespace BananaSoup.Utilities
 {
     public class SetObjectsParent : MonoBehaviour
     {

@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using BananaSoup.Managers;
 
-namespace BananaSoup
+namespace BananaSoup.Ability
 {
     public class AbilityAttack : MonoBehaviour
     {

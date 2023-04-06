@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using BananaSoup.Managers;
+using BananaSoup.Utilities;
 
 namespace BananaSoup
 {

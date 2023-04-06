@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.Utilities
 {
     public class SimpleObjectPool : MonoBehaviour
     {

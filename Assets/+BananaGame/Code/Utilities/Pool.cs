@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.Utilities
 {
     public abstract class Pool<T>
         where T : Object

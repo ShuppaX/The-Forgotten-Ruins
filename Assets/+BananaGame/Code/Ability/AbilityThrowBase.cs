@@ -1,8 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using BananaSoup.Managers;
 
-namespace BananaSoup
+namespace BananaSoup.Ability
 {
     public class AbilityThrowBase : MonoBehaviour
     {

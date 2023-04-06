@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using NaughtyAttributes;
 
-namespace BananaSoup
+namespace BananaSoup.Utilities
 {
     public class BaseSceneLoader : MonoBehaviour
     {

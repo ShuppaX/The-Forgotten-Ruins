@@ -1,6 +1,7 @@
 using UnityEngine;
+using BananaSoup.Ability;
 
-namespace BananaSoup
+namespace BananaSoup.DamageSystem
 {
     public class PlayerSword : Damager
     {

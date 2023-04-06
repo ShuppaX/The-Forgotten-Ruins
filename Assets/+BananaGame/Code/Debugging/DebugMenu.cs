@@ -5,8 +5,9 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using BananaSoup.HealthSystem;
 
-namespace BananaSoup
+namespace BananaSoup.Debugging
 {
     public class DebugMenu : MonoBehaviour
     {
@@ -17,10 +18,19 @@ namespace BananaSoup
         [Header("Teleport buttons")]
         [SerializeField] private GameObject buttonPrefab;
         [SerializeField] private GameObject teleportButtonsParent;
+        [Space]
+        [SerializeField] private GameObject godmodeText;
+
+        private PlayerHealth playerHealth = null;
 
         private void Awake()
         {
             Setup();
+        }
+
+        private void Start()
+        {
+            playerHealth = PlayerBase.Instance.GetComponent<PlayerHealth>();
         }
 
         private void Setup()
@@ -101,6 +111,12 @@ namespace BananaSoup
 #if UNITY_EDITOR
             EditorApplication.isPlaying = false;
 #endif
+        }
+
+        public void OnGodmode()
+        {
+            playerHealth.GodMode = !playerHealth.GodMode;
+            godmodeText.SetActive(playerHealth.GodMode);
         }
     }
 }
