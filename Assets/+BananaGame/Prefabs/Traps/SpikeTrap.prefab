@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3403033755976342000}
   - component: {fileID: 3403033755976342003}
   - component: {fileID: 3403033755976342002}
+  - component: {fileID: 8035658996530633269}
   m_Layer: 0
   m_Name: Spikes
   m_TagString: Untagged
@@ -95,8 +96,24 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 0.6, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8035658996530633269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3403033755976342004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66c53df0cb24bd24ba652a88f6470221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  canDamageWhat:
+    serializedVersion: 2
+    m_Bits: 768
 --- !u!1 &3403033756600342497
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,9 +230,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   isRepeatable: 1
-  cooldown: 3
+  cooldown: 1.5
   trapDamagerObject: {fileID: 3403033755976342005}
-  activatedPosition: {x: -0.5, y: 0.51, z: 9.5}
   activationCurve:
     serializedVersion: 2
     m_Curve:
@@ -229,8 +245,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.039416928
     - serializedVersion: 3
-      time: 6.4466467
-      value: 0.112056315
+      time: 0.28376025
+      value: 0.110565126
       inSlope: 0.029921334
       outSlope: 0.15948708
       tangentMode: 1
@@ -238,8 +254,8 @@ MonoBehaviour:
       inWeight: 0.04669658
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 7.243352
-      value: 0.6473399
+      time: 0.4531203
+      value: 0.6512988
       inSlope: 0.6844545
       outSlope: 0.6844545
       tangentMode: 0
@@ -247,8 +263,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 8.479995
-      value: 0.47641864
+      time: 0.5809499
+      value: 0.473121
       inSlope: 0.6443261
       outSlope: 0.6443261
       tangentMode: 0
@@ -256,8 +272,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 9.449419
-      value: 0.58149654
+      time: 0.6607476
+      value: 0.57549316
       inSlope: -0.22148184
       outSlope: -0.22148184
       tangentMode: 0
@@ -265,10 +281,10 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 10.615531
+      time: 0.7484348
       value: 0.5
-      inSlope: -0.06988741
-      outSlope: -0.06988741
+      inSlope: -0.86093706
+      outSlope: -0.86093706
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -276,4 +292,18 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  lerpModifier: 1
+  deactivationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.48602676
+      value: 0.298851
+      inSlope: -0.33333334
+      outSlope: -0.33333334
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

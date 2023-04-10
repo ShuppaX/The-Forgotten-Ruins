@@ -7,13 +7,14 @@ namespace BananaSoup.Traps
 {
     public class Trap : MonoBehaviour
     {
-        [SerializeField] private float activationDelay = 1.0f;
         [SerializeField] private LayerMask triggersWith;
         [SerializeField] private bool isRepeatable = true;
         [SerializeField, ShowIf("isRepeatable"), Tooltip("A time when trap can re-activate again.")]
-        private float cooldown = 3.0f;
+        private float cooldown = 1.5f;
         private bool isTrapActivated;
 
+        public bool IsRepeatable => isRepeatable;
+        public float GetCooldown => cooldown;
         public bool IsTrapActivated
         {
             get => isTrapActivated;
