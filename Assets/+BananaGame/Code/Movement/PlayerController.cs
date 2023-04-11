@@ -49,6 +49,7 @@ namespace BananaSoup
         [Header("Constant PlayerStates used for PlayerState handling")]
         public const PlayerStateManager.PlayerState moving = PlayerStateManager.PlayerState.Moving;
         public const PlayerStateManager.PlayerState notMoving = PlayerStateManager.PlayerState.Idle;
+        public const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.Interacting;
         public const PlayerStateManager.PlayerState inAir = PlayerStateManager.PlayerState.InAir;
 
         public float MaxSlopeAngle
@@ -278,12 +279,40 @@ namespace BananaSoup
 
             if ( groundCheck.IsGrounded )
             {
-                Vector3 forceToApply = GetMovementDirection(isometricDirection) * movementSpeed;
+                Vector3 forceToApply = GetMovementDirection(isometricDirection) * GetMovementSpeed();
                 rb.velocity = forceToApply;
+                
+                if ( psm.currentPlayerState == interacting )
+                {
+                    return;
+                }
+
                 psm.SetPlayerState(moving);
             }
         }
 
+        /// <summary>
+        /// Used in Move() to get the correct movementSpeed while interacting and moving
+        /// and while just moving.
+        /// </summary>
+        /// <returns>interactMovementSpeed if currentPlayerState equals interacting,
+        /// otherwise normal movementSpeed.</returns>
+        private float GetMovementSpeed()
+        {
+            if ( psm.currentPlayerState == interacting )
+            {
+                return interactMovementSpeed;
+            }
+            else
+            {
+                return movementSpeed;
+            }
+        }
+
+        /// <summary>
+        /// Method used to push the player back towards the center of the object they're on
+        /// if they are trying to go off a ledge they're not allowed to go down from.
+        /// </summary>
         private void PushPlayerBack()
         {
             GameObject below = GetGameObjectBelow();
@@ -301,6 +330,12 @@ namespace BananaSoup
             wasPushed = true;
         }
 
+        /// <summary>
+        /// Method used to get the gameObject below the player character. Used in
+        /// PushPlayerBack().
+        /// </summary>
+        /// <returns>The object the player is standing on, if the player is standing
+        /// on nothing, then return null.</returns>
         private GameObject GetGameObjectBelow()
         {
             RaycastHit hit;

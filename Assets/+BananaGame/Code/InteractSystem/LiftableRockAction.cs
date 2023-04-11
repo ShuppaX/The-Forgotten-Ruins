@@ -1,17 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BananaSoup.InteractSystem
 {
     public class LiftableRockAction : Interactable
     {
-
         private PlayerBase playerBase = null;
         private Rigidbody rb = null;
         private Collider col = null;
         private LiftableRockLiftPoint liftPoint = null;
-        private Vector3 liftPointPosition = Vector3.zero;
 
         // Start is called before the first frame update
         void Start()
@@ -53,21 +49,21 @@ namespace BananaSoup.InteractSystem
             // Enable movement controls
             playerBase.IsMovable = true;
 
-            // Disable rocks collider
-            ToggleCollider();
+            // Enable character turning
+            playerBase.IsTurnable = true;
 
-            // Set rock either as a child object of the player, or force the rocks
-            // position to be liftPoint while interacting.
+            // Disable rocks collider
+            ToggleRockCollider();
         }
 
         internal override void InteractCompleted()
         {
             base.InteractCompleted();
 
-            ToggleCollider();
+            ToggleRockCollider();
         }
 
-        private void ToggleCollider()
+        private void ToggleRockCollider()
         {
             col.enabled = !col.enabled;
         }

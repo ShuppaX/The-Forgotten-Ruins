@@ -247,7 +247,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 4323818322324482862}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.055
   m_Height: 0.39
   m_Direction: 2
@@ -282,8 +282,6 @@ MonoBehaviour:
   canDamageWhat:
     serializedVersion: 2
     m_Bits: 256
-  attackTimeFrame: 1.5
-  meleeRaycast: {fileID: 827882117806595301}
 --- !u!1001 &4775003234898284375
 PrefabInstance:
   m_ObjectHideFlags: 0
