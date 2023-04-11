@@ -129,7 +129,7 @@ namespace BananaSoup
                 //Trigger for attack is in method
                 Attack();
             }
-            else if (Speed > 0.1)
+            else if (Speed > 0.1) //TODO adjust this value to fit the variations in patrol speed
             {
                 anim.SetTrigger(Idle);
             }
