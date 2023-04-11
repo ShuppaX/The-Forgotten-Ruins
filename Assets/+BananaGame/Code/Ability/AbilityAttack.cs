@@ -6,6 +6,9 @@ namespace BananaSoup.Ability
 {
     public class AbilityAttack : MonoBehaviour
     {
+        private float timeToDisableDamage = 0.3f;
+        private float timeToAttackOver = 1.0f;
+
         private bool canDealDamage = false;
 
         public bool CanDealDamage
@@ -56,31 +59,43 @@ namespace BananaSoup.Ability
             {
                 canDealDamage = true;
                 psm.SetPlayerState(attacking);
-                playerBase.IsMovable = false;
-                playerBase.IsTurnable = false;
-                playerBase.CanDash = false;
-                playerBase.AreAbilitiesEnabled = false;
+                ToggleActions(false);
+
+                Invoke(nameof(DisableDamage), timeToDisableDamage);
+                Invoke(nameof(AttackOver), timeToAttackOver);
             }
         }
 
         /// <summary>
-        /// OnAttackOver() is called from Fennec@Attack animation with an animation event.
+        /// AttackOver is called with an Invoke in OnAttack after timeToAttackOvere
+        /// float value.
         /// </summary>
-        private void OnAttackOver()
+        private void AttackOver()
         {
             psm.ResetPlayerState();
-            playerBase.IsMovable = true;
-            playerBase.IsTurnable = true;
-            playerBase.CanDash = true;
-            playerBase.AreAbilitiesEnabled = true;
+            ToggleActions(true);
         }
 
         /// <summary>
         /// Method used to disable the damage from the players attack.
+        /// Called from OnAttack with an invoke after timeToDisableDamage.
         /// </summary>
         private void DisableDamage()
         {
             canDealDamage = false;
+        }
+
+        /// <summary>
+        /// Method used to toggle the playerBase bools which are used to disable/enable
+        /// actions during other actions.
+        /// </summary>
+        /// <param name="value">True to set true, false to set false.</param>
+        private void ToggleActions(bool value)
+        {
+            playerBase.IsMovable = value;
+            playerBase.IsTurnable = value;
+            playerBase.CanDash = value;
+            playerBase.AreAbilitiesEnabled = value;
         }
     }
 }

@@ -738,15 +738,15 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 43a9a0161fa1f6845b071944454a5372, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 43a9a0161fa1f6845b071944454a5372, type: 3}
---- !u!4 &4980900163939968595 stripped
+--- !u!4 &3834757834380479644 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8833805373484061153, guid: 43a9a0161fa1f6845b071944454a5372,
+  m_CorrespondingSourceObject: {fileID: -774485609497688880, guid: 43a9a0161fa1f6845b071944454a5372,
     type: 3}
   m_PrefabInstance: {fileID: 4645377940380977228}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5093084621175060342 stripped
+--- !u!4 &4980900163939968595 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 493698198569549626, guid: 43a9a0161fa1f6845b071944454a5372,
+  m_CorrespondingSourceObject: {fileID: -8833805373484061153, guid: 43a9a0161fa1f6845b071944454a5372,
     type: 3}
   m_PrefabInstance: {fileID: 4645377940380977228}
   m_PrefabAsset: {fileID: 0}
@@ -878,7 +878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isParentRoot: 0
-  parent: {fileID: 5093084621175060342}
+  parent: {fileID: 3834757834380479644}
 --- !u!114 &5038680897387402874
 MonoBehaviour:
   m_ObjectHideFlags: 0

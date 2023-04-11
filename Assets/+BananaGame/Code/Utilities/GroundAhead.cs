@@ -1,3 +1,4 @@
+using BananaSoup.Managers;
 using RotaryHeart.Lib.PhysicsExtension;
 using UnityEngine;
 
@@ -8,9 +9,12 @@ namespace BananaSoup.Utilities
         [SerializeField]
         private bool isDrawingSphereCasts = false;
 
-        private float colliderRadiusMultiplier = 1.5f;
+        private float colRadMultiplier = 1.5f;
+        private float colRadMultiplierOnInteract = 2.5f;
         private float castLengthMultiplier = 2.0f;
-        private float castOriginOffset = 0.0f;
+        private float castOriginOffsetDefault = 0.0f;
+        private float castOriginOffsetInteract = 0.0f;
+        private float currentCastOriginOffset = 0.0f;
         private float castLength = 0.0f;
 
         private bool[] spheres = new bool[3];
@@ -28,6 +32,9 @@ namespace BananaSoup.Utilities
         private LayerMask groundLayer;
 
         private CapsuleCollider playerCollider = null;
+        private PlayerStateManager psm = null;
+
+        private const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.Interacting;
 
         public bool IsGroundAhead
         {
@@ -43,9 +50,16 @@ namespace BananaSoup.Utilities
                 Debug.LogError($"The component of type {typeof(CapsuleCollider).Name} couldn't be found on the " + gameObject.name + "!");
             }
 
+            psm = PlayerStateManager.Instance;
+            if ( psm == null )
+            {
+                Debug.LogError($"An instance of a component of type {typeof(PlayerStateManager).Name} couldn't be found for the " + gameObject.name + "!");
+            }
+
             groundLayer = GetComponent<PlayerController>().GroundLayer;
 
-            castOriginOffset = playerCollider.radius * colliderRadiusMultiplier;
+            castOriginOffsetDefault = playerCollider.radius * colRadMultiplier;
+            castOriginOffsetInteract = playerCollider.radius * colRadMultiplierOnInteract;
             castLength = (transform.localScale.y * castLengthMultiplier);
             originHeightOffset.Set(0.0f, (playerCollider.height / 2.0f), 0.0f);
         }
@@ -89,14 +103,23 @@ namespace BananaSoup.Utilities
         /// </summary>
         private void CalculateGroundAheadSphereOriginPoints()
         {
+            if ( psm.currentPlayerState == interacting )
+            {
+                currentCastOriginOffset = castOriginOffsetInteract;
+            }
+            else
+            {
+                currentCastOriginOffset = castOriginOffsetDefault;
+            }
+
             leftOrigin = (transform.position + originHeightOffset)
-                + (transform.forward * castOriginOffset) * 0.71f
-                - (transform.right * castOriginOffset) * 0.71f;
+                + (transform.forward * currentCastOriginOffset) * 0.71f
+                - (transform.right * currentCastOriginOffset) * 0.71f;
             centerOrigin = (transform.position + originHeightOffset)
-                + transform.forward * castOriginOffset;
+                + transform.forward * currentCastOriginOffset;
             rightOrigin = (transform.position + originHeightOffset)
-                + (transform.forward * castOriginOffset) * 0.71f
-                + (transform.right * castOriginOffset) * 0.71f;
+                + (transform.forward * currentCastOriginOffset) * 0.71f
+                + (transform.right * currentCastOriginOffset) * 0.71f;
         }
 
         /// <summary>

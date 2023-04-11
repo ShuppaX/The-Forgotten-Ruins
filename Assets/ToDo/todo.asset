@@ -12,7 +12,116 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33714207ad0202c419142573e6e74a38, type: 3}
   m_Name: todo
   m_EditorClassIdentifier: 
-  Entries: []
+  Entries:
+  - Text: ": Get rid of this.\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\AI\MeleeRaycast.cs
+    Line: 110
+    PathToShow: Assets/+BananaGame/Code/AI/MeleeRaycast.cs(110)
+  - Text: " adjust this value to fit the variations in patrol speed\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\AI\MeleeRaycast.cs
+    Line: 132
+    PathToShow: Assets/+BananaGame/Code/AI/MeleeRaycast.cs(132)
+  - Text: ": Start animation\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\HealthSystem\EnemyHealth.cs
+    Line: 34
+    PathToShow: Assets/+BananaGame/Code/HealthSystem/EnemyHealth.cs(34)
+  - Text: ": Play sound\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\HealthSystem\EnemyHealth.cs
+    Line: 35
+    PathToShow: Assets/+BananaGame/Code/HealthSystem/EnemyHealth.cs(35)
+  - Text: "(\"Reset wasHit on +\" + gameObject.name);\r"
+    Note: 
+    Tag: Debug.Log
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\HealthSystem\Health.cs
+    Line: 158
+    PathToShow: Assets/+BananaGame/Code/HealthSystem/Health.cs(158)
+  - Text: ": Start animation\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\HealthSystem\PlayerHealth.cs
+    Line: 86
+    PathToShow: Assets/+BananaGame/Code/HealthSystem/PlayerHealth.cs(86)
+  - Text: ": Play sound\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\HealthSystem\PlayerHealth.cs
+    Line: 87
+    PathToShow: Assets/+BananaGame/Code/HealthSystem/PlayerHealth.cs(87)
+  - Text: ": Does this need both raycast AND TryGetComponent?\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
+    Line: 105
+    PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(105)
+  - Text: ": Turn player towards to the interact point. By code or navmesh?\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
+    Line: 145
+    PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(145)
+  - Text: ": Turn the player slowly towards the target, not instantly.\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
+    Line: 169
+    PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(169)
+  - Text: ": Remove currentInteractable when interaction completed?\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
+    Line: 176
+    PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(176)
+  - Text: ": If you add or remove a PlayerState, DON'T CHANGE ID NUMBERS\r"
+    Note: 
+    Tag: NOTE
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\Managers\PlayerStateManager.cs
+    Line: 20
+    PathToShow: Assets/+BananaGame/Code/Managers/PlayerStateManager.cs(20)
+  - Text: ": If have time change this to for example, Coroutine to happen only once\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\Puzzle\MoveObjectOnPuzzleSolved.cs
+    Line: 35
+    PathToShow: Assets/+BananaGame/Code/Puzzle/MoveObjectOnPuzzleSolved.cs(35)
+  - Text: ": Not the best way to make this, but it's working\r"
+    Note: 
+    Tag: NOTE
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\Puzzle\MoveObjectOnPuzzleSolved.cs
+    Line: 59
+    PathToShow: Assets/+BananaGame/Code/Puzzle/MoveObjectOnPuzzleSolved.cs(59)
+  - Text: ": Serializing and then hiding AnimationCurve from Inpector. Otherwise
+      it will be null.\r"
+    Note: 
+    Tag: HACK
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\Trap\SpikeTrap.cs
+    Line: 11
+    PathToShow: Assets/+BananaGame/Code/Trap/SpikeTrap.cs(11)
+  - Text: ": Return spikes to starting position (lerp)\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\Trap\Trap.cs
+    Line: 49
+    PathToShow: Assets/+BananaGame/Code/Trap/Trap.cs(49)
+  - Text: ": Coroutine for cooldown\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\+BananaGame\Code\Trap\Trap.cs
+    Line: 50
+    PathToShow: Assets/+BananaGame/Code/Trap/Trap.cs(50)
+  - Text: ": Problem with structs, because they are value type.\r"
+    Note: 
+    Tag: TODO
+    File: D:\Repositoriot\BananaGame\Assets\NaughtyAttributes\Scripts\Editor\Utility\NaughtyEditorGUI.cs
+    Line: 129
+    PathToShow: Assets/NaughtyAttributes/Scripts/Editor/Utility/NaughtyEditorGUI.cs(129)
   TagsList:
   - TODO
   - BUG
