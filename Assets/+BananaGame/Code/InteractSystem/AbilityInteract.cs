@@ -23,7 +23,7 @@ namespace BananaSoup.InteractSystem
         private PlayerStateManager psm = null;
 
         [Header("Constant strings used for PlayerState handling")]
-        public const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.Interacting;
+        private const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.Interacting;
 
         // Gizmo
         private float currentHitDistance;
