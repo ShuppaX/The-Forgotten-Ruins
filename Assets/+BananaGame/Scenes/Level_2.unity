@@ -20499,6 +20499,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicFollowEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8737400816786945007, guid: 94a0c7916d51ec24dbd6e224c8a32d38,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9221268338325463040, guid: 94a0c7916d51ec24dbd6e224c8a32d38,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94a0c7916d51ec24dbd6e224c8a32d38, type: 3}
 --- !u!4 &1659410714 stripped

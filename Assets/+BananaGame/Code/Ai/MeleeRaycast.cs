@@ -53,17 +53,16 @@ namespace BananaSoup
         private bool _playerInSightRange;
         private bool _playerInAttackRange;
         private bool _stunned;
+        private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int Stun = Animator.StringToHash("stun");
 
+        //Animator triggers
         private const string attack = "Attack";
         private const string patrol = "Patrol";
+        private const string Idle = "Idle";
+        private const string AnimStun = "Stun";
+        private const string animChase = "Chase"; //might not be used. Added in case it's needed
 
-        /// <summary>
-        /// for animator triggers
-        /// 1 for patrol
-        /// 2 for chase
-        /// 3 for attack
-        /// </summary>
-        private int state;
 
         public virtual void Awake()
         {
@@ -81,8 +80,15 @@ namespace BananaSoup
 
         private void Update()
         {
+            //Refresh updating variables like velocity for the animator
+            RefreshAnimatorValues();
             // Check is the enemy stunned. If it is, don't continue Update() method.
-            if (_stunned) return;
+            if (_stunned)
+            {
+                anim.SetTrigger(AnimStun);
+                return;
+            }
+            
 
             //Variables
             var position = transform.position;
@@ -107,22 +113,25 @@ namespace BananaSoup
             //Enemy AI states
             if (!_playerInSightRange && !_playerInAttackRange)
             {
-                state = 1;
                 anim.SetTrigger(patrol);
                 Patrol();
             }
 
             if (_playerInSightRange && !_playerInAttackRange)
             {
-                state = 2;
                 anim.SetTrigger(patrol);
+                //anim.SetTrigger(AnimChase); //Commented in case we want to use patrol animation for chase
                 Chase();
             }
 
             if (_playerInSightRange && _playerInAttackRange)
             {
-                state = 3;
+                //Trigger for attack is in method
                 Attack();
+            }
+            else if (Speed > 0.1)
+            {
+                anim.SetTrigger(Idle);
             }
         }
 
@@ -237,6 +246,12 @@ namespace BananaSoup
             StartCoroutine(meleeScript.ResetCanDealDamage(1.5f));
             _weaponCollider.enabled = false;
             _weaponColliderCD = null;
+        }
+
+        private void RefreshAnimatorValues()
+        {
+            //Sends the velocity of the enemy to the animator
+            anim.SetFloat(Speed, enemy.velocity.magnitude);
         }
     }
 }
