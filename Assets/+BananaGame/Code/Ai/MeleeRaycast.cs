@@ -26,7 +26,8 @@ namespace BananaSoup
         [SerializeField] private float sightRange =6;
         [SerializeField] private float attackRange = 1.5f;
 
-        [Header("Stun")][SerializeField] private float stunTime = 2.0f;
+        [Header("Stun")]
+        [SerializeField] private float stunTime = 2.0f;
         internal Coroutine enemyStunnedRoutine;
 
         //Turning
@@ -134,7 +135,7 @@ namespace BananaSoup
             //Waypoint reached
             if ( distanceToWayPoint.magnitude < 1f ) _waypointSet = false;
 
-            _lastDidSomething = Time.time;
+           // _lastDidSomething = Time.time;
         }
 
 
