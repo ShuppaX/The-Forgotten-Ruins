@@ -45,8 +45,5 @@ namespace BananaSoup.Traps
         public virtual void ActivateTrap()
         {
         }
-
-        // TODO: Return spikes to starting position (lerp)
-        // TODO: Coroutine for cooldown
     }
 }

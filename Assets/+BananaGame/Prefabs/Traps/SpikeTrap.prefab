@@ -225,7 +225,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fea610cc500c57e4194de5689149e087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activationDelay: 1
+  damage: 1
+  canDamageWhat:
+    serializedVersion: 2
+    m_Bits: 768
   triggersWith:
     serializedVersion: 2
     m_Bits: 768
