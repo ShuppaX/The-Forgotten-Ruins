@@ -16,3 +16,5 @@ MonoBehaviour:
   TagsList:
   - TODO
   - BUG
+  - NOTE
+  - HACK
