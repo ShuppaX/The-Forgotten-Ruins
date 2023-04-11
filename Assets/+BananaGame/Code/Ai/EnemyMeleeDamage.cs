@@ -6,14 +6,12 @@ namespace BananaSoup
     public class EnemyMeleeDamage : Damager
     {
         private bool canDealDamage = true;
-        public float attackTimeFrame = 1.5f;
-        public MeleeRaycast meleeRaycast;
-        private Coroutine resetAttackCooldown = null;
         private AudioSource meleeSwingAudio;
 
         public bool CanDealDamage
         {
-            get { return canDealDamage; }
+            get => canDealDamage;
+            set => canDealDamage = value;
         }
 
 
@@ -24,7 +22,6 @@ namespace BananaSoup
 
         public void MeleeAttack()
         {
-            //anim.SetTrigger("Attack");
             AudioManager.PlayClip(meleeSwingAudio, SoundEffect.EnemySwing);
         }
 
@@ -34,20 +31,12 @@ namespace BananaSoup
 
             base.OnTriggerEnter(collision);
 
-            if ( resetAttackCooldown != null )
-            {
-                Debug.Log("Attack on cooldown");
-                resetAttackCooldown = StartCoroutine(AttackReset());
-            }
         }
 
-        //Script for Melee Attack cooldown
-        private IEnumerator AttackReset()
-        {
-            canDealDamage = true;
-            yield return new WaitForSeconds(attackTimeFrame);
-            canDealDamage = false;
-            resetAttackCooldown = null;
+        public IEnumerator ResetCanDealDamage(float waitTime)
+            {
+                yield return new WaitForSeconds(waitTime);
+                canDealDamage = true;
+            }
         }
     }
-}

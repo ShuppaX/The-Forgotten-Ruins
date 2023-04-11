@@ -18,16 +18,15 @@ namespace BananaSoup
         private Animator anim;
 
         //Serialized
-        [Header("Layer masks")]
-        [SerializeField] private LayerMask whatIsGround;
+        [Header("Layer masks")] [SerializeField]
+        private LayerMask whatIsGround;
+
         [SerializeField] private LayerMask whatIsPlayer;
 
-        [Header("Vision")]
-        [SerializeField] private float sightRange =6;
+        [Header("Vision")] [SerializeField] private float sightRange = 6;
         [SerializeField] private float attackRange = 1.5f;
 
-        [Header("Stun")]
-        [SerializeField] private float stunTime = 2.0f;
+        [Header("Stun")] [SerializeField] private float stunTime = 2.0f;
         internal Coroutine enemyStunnedRoutine;
 
         //Turning
@@ -47,6 +46,8 @@ namespace BananaSoup
         protected bool alreadyAttacked;
         private Vector3 _whereIsPlayer;
         private float _angle; //view angle between enemy and player
+        private Collider _weaponCollider;
+        private Coroutine _weaponColliderCD;
 
         //states
         private bool _playerInSightRange;
@@ -63,11 +64,12 @@ namespace BananaSoup
         /// 3 for attack
         /// </summary>
         private int state;
-        
+
         public virtual void Awake()
         {
             enemy = GetComponent<NavMeshAgent>();
             anim = GetComponent<Animator>();
+            _weaponCollider = meleeScript.GetComponent<Collider>();
         }
 
         private void Start()
@@ -80,7 +82,7 @@ namespace BananaSoup
         private void Update()
         {
             // Check is the enemy stunned. If it is, don't continue Update() method.
-            if ( _stunned ) return;
+            if (_stunned) return;
 
             //Variables
             var position = transform.position;
@@ -91,32 +93,33 @@ namespace BananaSoup
             _playerInAttackRange = Physics.CheckSphere(position, attackRange, whatIsPlayer);
 
 
-            if ( _playerInAttackRange )
+            if (_playerInAttackRange)
                 //Smoothed turning towards player. _damp changes the speed of turning
-                if ( _angle > 2.5f )
+                if (_angle > 2.5f)
                 {
                     var rotate = Quaternion.LookRotation(playerTarget.position - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
                 }
 
             // TODO: Get rid of this.
-            if ( Time.time < _lastDidSomething + _pauseTime ) return;
+            if (Time.time < _lastDidSomething + _pauseTime) return;
 
             //Enemy AI states
-            if ( !_playerInSightRange && !_playerInAttackRange )
+            if (!_playerInSightRange && !_playerInAttackRange)
             {
                 state = 1;
                 anim.SetTrigger(patrol);
                 Patrol();
             }
 
-            if ( _playerInSightRange && !_playerInAttackRange )
+            if (_playerInSightRange && !_playerInAttackRange)
             {
                 state = 2;
+                anim.SetTrigger(patrol);
                 Chase();
             }
 
-            if ( _playerInSightRange && _playerInAttackRange )
+            if (_playerInSightRange && _playerInAttackRange)
             {
                 state = 3;
                 Attack();
@@ -126,16 +129,16 @@ namespace BananaSoup
         //Patrol method searches random waypoints and moves to them
         public void Patrol()
         {
-            if ( !_waypointSet ) SearchWaypoint();
+            if (!_waypointSet) SearchWaypoint();
 
-            if ( _waypointSet ) enemy.SetDestination(waypoint);
+            if (_waypointSet) enemy.SetDestination(waypoint);
 
             var distanceToWayPoint = transform.position - waypoint;
 
             //Waypoint reached
-            if ( distanceToWayPoint.magnitude < 1f ) _waypointSet = false;
+            if (distanceToWayPoint.magnitude < 1f) _waypointSet = false;
 
-           // _lastDidSomething = Time.time;
+            // _lastDidSomething = Time.time;
         }
 
 
@@ -149,7 +152,7 @@ namespace BananaSoup
             waypoint = new Vector3(position.x + randomX, position.y,
                 position.z + randomZ);
 
-            if ( Physics.Raycast(waypoint, -transform.up, 2f, whatIsGround) ) _waypointSet = true;
+            if (Physics.Raycast(waypoint, -transform.up, 2f, whatIsGround)) _waypointSet = true;
             _lastDidSomething = Time.time;
         }
 
@@ -164,28 +167,20 @@ namespace BananaSoup
             //Stop enemy movement
             enemy.SetDestination(transform.position);
 
-            //transform.LookAt(_playerTarget);
+            //prevent weapon doing damage while not in animation
 
-            if ( meleeScript.CanDealDamage )
+
+            if (meleeScript.CanDealDamage)
             {
+                meleeScript.CanDealDamage = false;
                 anim.SetTrigger(attack);
-
-                //TODO Attack code here
-                Debug.Log("Enemy Swings");
+                _weaponColliderCD = StartCoroutine(WeaponColliderCycle());
                 meleeScript.MeleeAttack();
-
-                alreadyAttacked = true;
-                Invoke(nameof(ResetAttack), _timeBetweenAttacks);
             }
 
             _lastDidSomething = Time.time;
         }
 
-        
-        protected void ResetAttack()
-        {
-            alreadyAttacked = false;
-        }
 
         //Display sight and attack ranges
         private void OnDrawGizmos()
@@ -200,7 +195,7 @@ namespace BananaSoup
 
         public void OnThrowAbility(ParticleProjectile.Type projectileType)
         {
-            if ( projectileType == ParticleProjectile.Type.Sand )
+            if (projectileType == ParticleProjectile.Type.Sand)
             {
                 // Check an try end an old stun Coroutine if there one already running.
                 // The enemy will get strange behaviours if there are multiple stun Coroutines running.
@@ -219,18 +214,29 @@ namespace BananaSoup
         }
 
         // Ensure that the Coroutine will be stopped and nulled when GameObject gets disabled.
-        private void OnDisable()    
+        private void OnDisable()
         {
             TryEndingRunningCoroutine(ref enemyStunnedRoutine);
+            TryEndingRunningCoroutine(ref _weaponColliderCD);
         }
 
         private void TryEndingRunningCoroutine(ref Coroutine routine)
         {
-            if ( routine != null )
+            if (routine != null)
             {
                 StopCoroutine(routine);
                 routine = null;
             }
+        }
+
+        private IEnumerator WeaponColliderCycle()
+        {
+            yield return new WaitForSeconds(0.1f);
+            _weaponCollider.enabled = true;
+            yield return new WaitForSeconds(0.3f);
+            StartCoroutine(meleeScript.ResetCanDealDamage(1.5f));
+            _weaponCollider.enabled = false;
+            _weaponColliderCD = null;
         }
     }
 }
