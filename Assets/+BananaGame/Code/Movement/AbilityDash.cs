@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Events;
 using BananaSoup.Managers;
 using BananaSoup.Utilities;
 

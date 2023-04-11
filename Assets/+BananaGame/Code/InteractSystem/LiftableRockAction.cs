@@ -5,20 +5,14 @@ namespace BananaSoup.InteractSystem
     public class LiftableRockAction : Interactable
     {
         private PlayerBase playerBase = null;
-        private Rigidbody rb = null;
-        private Collider col = null;
+        private BoxCollider col = null;
         private LiftableRockLiftPoint liftPoint = null;
+        private Vector3 originalScales;
+        private Vector3 shrinkedColliderScales = new Vector3(0.05f, 0.05f, 0.05f);
 
-        // Start is called before the first frame update
         void Start()
         {
-            rb = GetComponent<Rigidbody>();
-            if ( rb == null )
-            {
-                Debug.LogError(gameObject.name + " is missing a Rigidbody component!");
-            }
-
-            col = GetComponent<Collider>();
+            col = GetComponent<BoxCollider>();
             if ( col == null )
             {
                 Debug.LogError(gameObject.name + " is missing a Collider component!");
@@ -36,10 +30,7 @@ namespace BananaSoup.InteractSystem
                 Debug.LogError(gameObject.name + " couldn't find a LiftableRockLiftPoint from PlayerBase's children!");
             }
 
-            if ( !col.enabled )
-            {
-                col.enabled = true;
-            }
+            originalScales = col.size;
         }
 
         internal override void Interact()
@@ -52,20 +43,27 @@ namespace BananaSoup.InteractSystem
             // Enable character turning
             playerBase.IsTurnable = true;
 
-            // Disable rocks collider
-            ToggleRockCollider();
+            // Scale rock's collider
+            ScaleRockCollider();
         }
 
         internal override void InteractCompleted()
         {
             base.InteractCompleted();
 
-            ToggleRockCollider();
+            ScaleRockCollider();
         }
 
-        private void ToggleRockCollider()
+        private void ScaleRockCollider()
         {
-            col.enabled = !col.enabled;
+            if ( col.size == originalScales )
+            {
+                col.size = shrinkedColliderScales;
+            }
+            else
+            {
+                col.size = originalScales;
+            }
         }
 
         private void FixedUpdate()
