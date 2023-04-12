@@ -21,6 +21,8 @@ namespace BananaSoup
 
         private ComponentPool<EnemyProjectile> projectiles;
         private Coroutine cooldownRoutine = null;
+        private bool alreadyAttacked;
+
 
 
         public override void Awake()

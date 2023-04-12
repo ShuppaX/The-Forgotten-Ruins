@@ -30,7 +30,8 @@ namespace BananaSoup
         internal Coroutine enemyStunnedRoutine;
 
         //Turning
-        protected float _damp = 3f; //Changes the dampening value of enemy's turning
+        [SerializeField] [Tooltip("Changes the dampening value of enemy's turnrate")]
+        private float _damp = 3f;
 
         //Updating Variables
         protected float _lastDidSomething; //refreshing timer to prevent non-stop actions
@@ -43,7 +44,6 @@ namespace BananaSoup
 
         //Attack
         private float _timeBetweenAttacks;
-        protected bool alreadyAttacked;
         private Vector3 _whereIsPlayer;
         private float _angle; //view angle between enemy and player
         private Collider _weaponCollider;
@@ -54,7 +54,6 @@ namespace BananaSoup
         private bool _playerInAttackRange;
         private bool _stunned;
         private static readonly int Speed = Animator.StringToHash("Speed");
-        private static readonly int Stun = Animator.StringToHash("stun");
 
         //Animator triggers
         private const string attack = "Attack";
@@ -85,15 +84,16 @@ namespace BananaSoup
             // Check is the enemy stunned. If it is, don't continue Update() method.
             if (_stunned)
             {
-                anim.SetTrigger(AnimStun);
+                anim.SetTrigger(AnimStun); //Doesn't work
                 return;
             }
-            
+
 
             //Variables
-            var position = transform.position;
+            var unitTransform = transform;
+            var position = unitTransform.position;
             _whereIsPlayer = playerDirection - position;
-            _angle = Vector3.Angle(_whereIsPlayer, transform.forward);
+            _angle = Vector3.Angle(_whereIsPlayer, unitTransform.forward);
 
             _playerInSightRange = Physics.CheckSphere(position, sightRange, whatIsPlayer);
             _playerInAttackRange = Physics.CheckSphere(position, attackRange, whatIsPlayer);
@@ -129,8 +129,10 @@ namespace BananaSoup
                 //Trigger for attack is in method
                 Attack();
             }
-            else if (Speed > 0.1) //TODO adjust this value to fit the variations in patrol speed
+                
+            else if (Speed > 0.1)
             {
+                //TODO adjust this value to fit the variations in patrol speed
                 anim.SetTrigger(Idle);
             }
         }
