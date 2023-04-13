@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 827882117806595301}
   - component: {fileID: 873183137164074035}
   - component: {fileID: 5741839064190083441}
+  - component: {fileID: 1414747096484094001}
   m_Layer: 9
   m_Name: BasicFollowEnemy
   m_TagString: Untagged
@@ -113,6 +114,7 @@ MonoBehaviour:
   sightRange: 10
   attackRange: 0.75
   stunTime: 2
+  _damp: 3
   waypoint: {x: 0, y: 0, z: 0}
   patrolRange: 8
 --- !u!114 &873183137164074035
@@ -152,6 +154,31 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1414747096484094001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7747237079570801887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcdf6c616326c4aaeb610b335fbb67fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDefaultBackgroundColor: 1
+  backgroundColor:
+    serializedVersion: 2
+    rgba: 16777215
+  useDefaultTextColor: 0
+  textColor:
+    serializedVersion: 2
+    rgba: 4287663615
+  font: {fileID: 0}
+  fontSize: 12
+  fontStyle: 3
+  alignment: 0
+  textDropShadow: 1
 --- !u!1001 &3512842940486833791
 PrefabInstance:
   m_ObjectHideFlags: 0
