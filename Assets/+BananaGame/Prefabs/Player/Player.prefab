@@ -400,6 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdbb1d8dae9d4e94ca98dee148821e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  throwCooldown: 1.5
   handTransform: {fileID: 4980900163939968595}
   throwAbilities:
   - {fileID: 3416829459394208007}
@@ -416,7 +417,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e8b183d94e076448632d024fa110d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityParticles: {fileID: 8996381807052385334}
+  particles: {fileID: 8996381807052385334}
+  abilityParticles: {fileID: 4141751010898668531}
+  poolSize: 3
 --- !u!114 &555330798156038717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,7 +432,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbddf4783e862240a295db2d367c3d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityParticles: {fileID: 3295909882799465860}
+  particles: {fileID: 3295909882799465860}
+  abilityParticles: {fileID: 1314863615302977782}
+  poolSize: 3
 --- !u!114 &499147030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,6 +544,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8696953563904003549}
     m_Modifications:
+    - target: {fileID: 3319160398273319251, guid: 599d3ea222797bb418c78235722465f6,
+        type: 3}
+      propertyPath: aliveTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7760797017638311592, guid: 599d3ea222797bb418c78235722465f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -601,6 +611,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 599d3ea222797bb418c78235722465f6, type: 3}
+--- !u!114 &4141751010898668531 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3319160398273319251, guid: 599d3ea222797bb418c78235722465f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1687286708310833824}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16034e5f349edfc46a3e2f976f79c25e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8996381807052385288 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7760797017638311592, guid: 599d3ea222797bb418c78235722465f6,
@@ -680,8 +702,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: SparkAbility
       objectReference: {fileID: 0}
+    - target: {fileID: 2868280228283088168, guid: b4a3d8f6d8dd548428d29267ea663e9a,
+        type: 3}
+      propertyPath: aliveTime
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4a3d8f6d8dd548428d29267ea663e9a, type: 3}
+--- !u!114 &1314863615302977782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2868280228283088168, guid: b4a3d8f6d8dd548428d29267ea663e9a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3887020815613343198}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24bb57dca72d914b884a180081ca8e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &3295909882799465860 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1750796641907544154, guid: b4a3d8f6d8dd548428d29267ea663e9a,

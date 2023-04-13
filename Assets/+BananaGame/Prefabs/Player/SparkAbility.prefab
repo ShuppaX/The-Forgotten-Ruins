@@ -4755,6 +4755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c24bb57dca72d914b884a180081ca8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aliveTime: 3
   projectileType: 0
 --- !u!199 &1750796641907544165
 ParticleSystemRenderer:

@@ -1,7 +1,3 @@
-using BananaSoup.Ability;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using BananaSoup.Managers;
 
 namespace BananaSoup.Ability
@@ -18,6 +14,7 @@ namespace BananaSoup.Ability
             SetAbilityStateName = sparking;
         }
 
+        // TODO: Change these not to use animation event
         // OnThrow() is called from a throw animation of the player by an event.
         private void OnThrowSpark()
         {

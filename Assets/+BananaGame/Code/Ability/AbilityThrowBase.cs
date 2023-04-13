@@ -1,20 +1,17 @@
-using System.Collections;
 using UnityEngine;
 using BananaSoup.Managers;
+using BananaSoup.Utilities;
 
 namespace BananaSoup.Ability
 {
     public class AbilityThrowBase : MonoBehaviour
     {
-        [SerializeField] ParticleSystem abilityParticles;
+        [SerializeField] ParticleProjectile abilityParticles;
+        [SerializeField] private int poolSize = 3;
 
-        // The transform where the ability's particle effect spawns.
-        private Transform handTransform;
-
-        // A delay to start Ability's Particle Effect later to match it with the animation.
-        private float duration;
+        private Transform spawnPoint;
+        private ComponentPool<ParticleProjectile> projectiles;
         private Coroutine activeParticleCoroutine = null;
-        private Animator animator = null;
         private PlayerStateManager psm = null;
         private PlayerStateManager.PlayerState abilityState;
 
@@ -22,6 +19,11 @@ namespace BananaSoup.Ability
         {
             get { return abilityState; }
             set { abilityState = value; }
+        }
+
+        private void Awake()
+        {
+            projectiles = new ComponentPool<ParticleProjectile>(abilityParticles, poolSize);
         }
 
         public virtual void Start()
@@ -34,31 +36,22 @@ namespace BananaSoup.Ability
             // set the particle system to inactive at start
             abilityParticles.gameObject.SetActive(false);
 
-            // Set Coroutine duration to Particle Effect contant lenght
-            duration = abilityParticles.main.startLifetime.constant;
-
             psm = PlayerStateManager.Instance;
             if ( psm == null )
             {
                 Debug.LogError(gameObject.name + " couldn't find an instance of PlayerStateManager!");
             }
-
-            animator = GetComponent<Animator>();
-            if ( animator == null )
-            {
-                Debug.LogError(name + "'s Animator is null and it shouldn't be!");
-            }
         }
 
         public void OnStartingToThrow(Transform parent)
         {
-            // Don't cast a sand if old currently playing.
+            // Don't throw ability if old currently playing.
             if ( activeParticleCoroutine != null )
             {
                 return;
             }
 
-            handTransform = parent;
+            spawnPoint = parent;
 
             psm.SetPlayerState(abilityState);
             PlayerBase.Instance.IsMovable = false;
@@ -68,31 +61,24 @@ namespace BananaSoup.Ability
             PlayerBase.Instance.CanDash = false;
         }
 
-        private IEnumerator DeactivateParticles()
-        {
-            abilityParticles.Play();
-            // wait for duration of the particle effect
-            yield return new WaitForSeconds(duration);
-
-            // deactivate the particle system
-            abilityParticles.Stop();
-            abilityParticles.gameObject.SetActive(false);
-            activeParticleCoroutine = null;
-        }
-
         public void OnThrow()
         {
-            // Set Particle Effect position.
-            abilityParticles.gameObject.transform.position = handTransform.position;
+            ParticleProjectile projectile = projectiles.Get();
+            if ( projectile != null )
+            {
+                projectile.Expired += OnExpired;
 
-            // Set Particle Effect rotation.
-            var playerRotation = transform.eulerAngles;
-            var particleRotationX = abilityParticles.gameObject.transform.eulerAngles.x;
-            abilityParticles.gameObject.transform.rotation = Quaternion.Euler(particleRotationX, playerRotation.y, playerRotation.z);
+                // Set Particle Effect position.
+                projectile.transform.position = spawnPoint.position;
 
-            abilityParticles.gameObject.SetActive(true);
+                // Set Particle Effect rotation.
+                var playerRotation = transform.eulerAngles;
+                var particleRotationX = abilityParticles.gameObject.transform.eulerAngles.x;
+                projectile.transform.rotation = Quaternion.Euler(particleRotationX, playerRotation.y, playerRotation.z);
 
-            activeParticleCoroutine = StartCoroutine(DeactivateParticles());
+                projectile.gameObject.SetActive(true);
+                projectile.Setup();
+            }
         }
 
         public void OnThrowDone()
@@ -103,6 +89,16 @@ namespace BananaSoup.Ability
             PlayerBase.Instance.AreAbilitiesEnabled = true;
             PlayerBase.Instance.CanDash = true;
             psm.ResetPlayerState();
+        }
+
+        private void OnExpired(ParticleProjectile projectile)
+        {
+            projectile.Expired -= OnExpired;
+
+            if ( !projectiles.Recycle(projectile) )
+            {
+                Debug.LogError("Couldn't recycle the projectile back to the pool!");
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BananaSoup
@@ -12,10 +12,12 @@ namespace BananaSoup
             Spark = 1
         }
 
+        [SerializeField] private float aliveTime = 3.0f;
         [HideInInspector] public Type projectileType;
-
+        private Coroutine aliveTimer = null;
         private bool isCollisionDetected;
         private ParticleSystem particleEffect;
+        public event Action<ParticleProjectile> Expired;
 
         public bool IsCollisionDetected
         {
@@ -28,17 +30,38 @@ namespace BananaSoup
             isCollisionDetected = false;
         }
 
-        private void Start()
+        private void Awake()
         {
-            Setup();
+            GetReference();
         }
 
-        private void Setup()
+        // NOTE: This seems to be obsolete because script execution order
+        private void GetReference()
         {
             particleEffect = GetComponent<ParticleSystem>();
             if ( particleEffect == null )
             {
                 Debug.LogError(name + " is missing a reference to a ParticleSystem!");
+            }
+        }
+
+        public void Setup()
+        {
+            // HACK: Getting reference to the particle effect, because Awake doesn't fire up fast enough
+            if ( particleEffect == null )
+            {
+                particleEffect = GetComponent<ParticleSystem>();
+
+                if ( particleEffect == null )
+                {
+                    Debug.LogError(name + " is missing a reference to a ParticleSystem!");
+                }
+            }
+
+            if ( aliveTimer == null )
+            {
+                particleEffect.Play();
+                aliveTimer = StartCoroutine(AliveTimer());
             }
         }
 
@@ -53,6 +76,31 @@ namespace BananaSoup
             {
                 IsCollisionDetected = true;
                 target.OnThrowAbility(projectileType);
+
+                Recycle();
+            }
+        }
+
+        private IEnumerator AliveTimer()
+        {
+            yield return new WaitForSeconds(aliveTime);
+            Debug.Log("A projectile should call Recycle now!");
+
+            Recycle();
+        }
+
+        private void Recycle()
+        {
+            if ( aliveTimer != null )
+            {
+                StopCoroutine(aliveTimer);
+                particleEffect.Stop();
+                aliveTimer = null;
+            }
+
+            if ( Expired != null )
+            {
+                Expired(this);
             }
         }
     }
