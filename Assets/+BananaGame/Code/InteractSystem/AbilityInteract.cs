@@ -13,17 +13,15 @@ namespace BananaSoup.InteractSystem
         [Tooltip("The speed that player character will travel to the InteractPoint when interacted with an Interactable.")]
         [SerializeField] float moveSpeed = 2.0f;
 
+        [Header("Constant strings used for PlayerState handling")]
+        private const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.Interacting;
+
         private bool hasSelectedInteractable;
         private bool isLookingAtTarget = true;
-
         private Vector3 interactPoint;
-
         private PlayerBase playerBase = null;
         private Interactable currentInteractable = null;
         private PlayerStateManager psm = null;
-
-        [Header("Constant strings used for PlayerState handling")]
-        private const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.Interacting;
 
         // Gizmo
         private float currentHitDistance;
@@ -60,6 +58,9 @@ namespace BananaSoup.InteractSystem
             {
                 Debug.LogError("A PlayerBase couldn't be found on the " + gameObject.name + "!");
             }
+
+            // Adding Spheres radius to the interact distance so the distance is calculated from the player's middle point.
+            maxInteractDistance += sphereRadius;
         }
 
         public void OnInteract(InputAction.CallbackContext context)
@@ -102,33 +103,32 @@ namespace BananaSoup.InteractSystem
                 }
             }
 
-            // NOTE: Does this need both raycast AND TryGetComponent?
-
             // Check are there any Interactables in the range of the player.
-            // If not, return.
+            Vector3 spheresCastingLocation = (transform.position + (transform.forward * -sphereRadius));
             RaycastHit hit;
-            if ( !Physics.SphereCast(transform.position, sphereRadius, transform.forward, out hit, maxInteractDistance, interactableLayers) )
+            if ( Physics.SphereCast(spheresCastingLocation, sphereRadius, transform.forward, out hit, maxInteractDistance, interactableLayers) )
+            {
+                // An Interactable is in the range. Set variables for the debug gizmo.
+                currentHitDistance = hit.distance;
+                interactGizmoColor = Color.red;
+
+                // Check does the physical object have an Interactable component,
+                // if it has continue.
+                if ( hit.transform.TryGetComponent(out Interactable interactable) )
+                {
+                    SetPlayerInputs(false);
+                    psm.SetPlayerState(interacting);
+                    hasSelectedInteractable = true;
+
+                    currentInteractable = interactable;
+                    InteractPoint closestPoint = interactable.GetClosestInteractPointToPlayer(transform.position);
+                    interactPoint = closestPoint.Position;
+                }
+            }
+            else
             {
                 currentHitDistance = maxInteractDistance;
                 interactGizmoColor = Color.green;
-                return;
-            }
-
-            // An Interactable is in the range. Set variables for the debug gizmo.
-            currentHitDistance = hit.distance;
-            interactGizmoColor = Color.red;
-
-            // Check does the physical object have an Interactable component,
-            // if it has continue.
-            if ( hit.transform.TryGetComponent(out Interactable interactable) )
-            {
-                SetPlayerInputs(false);
-                psm.SetPlayerState(interacting);
-                hasSelectedInteractable = true;
-
-                currentInteractable = interactable;
-                InteractPoint closestPoint = interactable.GetClosestInteractPointToPlayer(transform.position);
-                interactPoint = closestPoint.Position;
             }
         }
 
@@ -176,7 +176,9 @@ namespace BananaSoup.InteractSystem
         private void OnDrawGizmos()
         {
             Gizmos.color = interactGizmoColor;
-            Gizmos.DrawWireSphere(transform.position + transform.forward * currentHitDistance, sphereRadius);
+
+            Vector3 spheresCastingLocation = (transform.position + (transform.forward * -sphereRadius));
+            Gizmos.DrawWireSphere(spheresCastingLocation + transform.forward * currentHitDistance, sphereRadius);
         }
     }
 }
