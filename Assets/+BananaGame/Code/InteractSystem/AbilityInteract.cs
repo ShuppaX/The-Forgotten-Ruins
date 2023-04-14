@@ -102,7 +102,7 @@ namespace BananaSoup.InteractSystem
                 }
             }
 
-            // TODO: Does this need both raycast AND TryGetComponent?
+            // NOTE: Does this need both raycast AND TryGetComponent?
 
             // Check are there any Interactables in the range of the player.
             // If not, return.
@@ -172,8 +172,6 @@ namespace BananaSoup.InteractSystem
             transform.LookAt(interactable);
             isLookingAtTarget = true;
         }
-
-        // TODO: Remove currentInteractable when interaction completed?
 
         private void OnDrawGizmos()
         {
