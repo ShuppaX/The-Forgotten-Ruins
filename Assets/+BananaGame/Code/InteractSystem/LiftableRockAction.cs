@@ -7,10 +7,17 @@ namespace BananaSoup.InteractSystem
         private PlayerBase playerBase = null;
         private BoxCollider col = null;
         private LiftableRockLiftPoint liftPoint = null;
-        private Vector3 originalScales;
-        private Vector3 shrinkedColliderScales = new Vector3(0.05f, 0.05f, 0.05f);
+        private Vector3 colliderOriginalScales;
+        private Vector3 colliderShrinkedScales = new Vector3(0.05f, 0.05f, 0.05f);
 
         void Start()
+        {
+            GetReferences();
+
+            colliderOriginalScales = col.size;
+        }
+
+        private void GetReferences()
         {
             col = GetComponent<BoxCollider>();
             if ( col == null )
@@ -29,8 +36,6 @@ namespace BananaSoup.InteractSystem
             {
                 Debug.LogError(gameObject.name + " couldn't find a LiftableRockLiftPoint from PlayerBase's children!");
             }
-
-            originalScales = col.size;
         }
 
         internal override void Interact()
@@ -56,13 +61,13 @@ namespace BananaSoup.InteractSystem
 
         private void ScaleRockCollider()
         {
-            if ( col.size == originalScales )
+            if ( col.size == colliderOriginalScales )
             {
-                col.size = shrinkedColliderScales;
+                col.size = colliderShrinkedScales;
             }
             else
             {
-                col.size = originalScales;
+                col.size = colliderOriginalScales;
             }
         }
 

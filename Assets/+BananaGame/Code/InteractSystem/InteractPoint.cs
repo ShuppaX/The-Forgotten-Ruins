@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.InteractSystem
 {
     /// <summary>
     /// Point where the player character will interact an Interactable.

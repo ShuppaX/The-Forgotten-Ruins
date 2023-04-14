@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.InteractSystem
 {
     public class LiftableRockLiftPoint : MonoBehaviour
     {
