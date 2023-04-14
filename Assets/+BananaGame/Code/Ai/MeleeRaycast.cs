@@ -30,7 +30,7 @@ namespace BananaSoup
         internal Coroutine enemyStunnedRoutine;
 
         //Turning
-        [SerializeField] [Tooltip("Changes the dampening value of enemy's turnrate")]
+        [SerializeField] [Tooltip("Changes the dampening value of enemy's turn rate")]
         private float _damp = 3f;
 
         //Updating Variables
@@ -59,8 +59,8 @@ namespace BananaSoup
         private const string attack = "Attack";
         private const string patrol = "Patrol";
         private const string Idle = "Idle";
-        private const string AnimStun = "Stun";
         private const string animChase = "Chase"; //might not be used. Added in case it's needed
+        private const string animStunned = "Stunned";
 
 
         public virtual void Awake()
@@ -84,7 +84,7 @@ namespace BananaSoup
             // Check is the enemy stunned. If it is, don't continue Update() method.
             if (_stunned)
             {
-                anim.SetTrigger(AnimStun); //Doesn't work
+                anim.SetTrigger(animStunned);
                 return;
             }
 
