@@ -1,4 +1,3 @@
-using BananaSoup.Ability;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,7 +8,7 @@ namespace BananaSoup.Ability
     {
         [Tooltip("The transform where the ability's particle effect spawns.")]
         [SerializeField] private Transform handTransform;
-        [SerializeField] private List<AbilityThrowBase> throwAbilities;
+        [SerializeField] private List<ThrowBase> throwAbilities;
 
         public void OnChangeAbility(InputAction.CallbackContext context)
         {

@@ -58,6 +58,30 @@ namespace BananaSoup.Utilities
         }
 
         /// <summary>
+        /// Checks is there a inactive item in a pool.
+        /// </summary>
+        /// <returns>True = there is an inactive item. False = there are no inactive item in a pool, every item is currently in use.</returns>
+        public bool DoesPoolHaveInactiveItem()
+        {
+            for ( int i = 0; i < items.Count; i++ )
+            {
+                T currentItem = items[i];
+
+                if ( currentItem != null && !IsActive(currentItem) )
+                {
+                    return true;
+                }
+                else if ( currentItem == null )
+                {
+                    Debug.LogError("A pooled item is null! An item has been destroyed " +
+                        "from the pool!");
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Call this method to return all currently active objects.
         /// </summary>
         /// <returns>List of active objects.</returns>

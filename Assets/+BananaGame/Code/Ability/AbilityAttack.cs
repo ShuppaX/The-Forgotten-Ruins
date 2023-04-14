@@ -6,23 +6,19 @@ namespace BananaSoup.Ability
 {
     public class AbilityAttack : MonoBehaviour
     {
+        [Header("Constant PlayerState for PlayerState handling")]
+        private const PlayerStateManager.PlayerState attacking = PlayerStateManager.PlayerState.Attacking;
         private float timeToDisableDamage = 0.3f;
         private float timeToAttackOver = 1.0f;
-
         private bool canDealDamage = false;
+        private PlayerBase playerBase = null;
+        private PlayerStateManager psm = null;
 
         public bool CanDealDamage
         {
             get { return canDealDamage; }
         }
 
-        private PlayerBase playerBase = null;
-        private PlayerStateManager psm = null;
-
-        [Header("Constant PlayerState for PlayerState handling")]
-        private const PlayerStateManager.PlayerState attacking = PlayerStateManager.PlayerState.Attacking;
-
-        // Start is called before the first frame update
         private void Start()
         {
             GetInstances();

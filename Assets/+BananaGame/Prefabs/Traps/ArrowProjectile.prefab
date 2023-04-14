@@ -131,6 +131,6 @@ MonoBehaviour:
   canDamageWhat:
     serializedVersion: 2
     m_Bits: 768
-  forwardForce: 15
+  forwardForce: 20
   upForce: 0
   aliveTime: 2
