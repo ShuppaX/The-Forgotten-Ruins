@@ -1,76 +1,77 @@
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 using BananaSoup.Utilities;
+using UnityEngine.AI;
 
 namespace BananaSoup
 {
     public class RangedRaycast : MeleeRaycast
     {
-        [SerializeField]
-        private EnemyProjectile projectilePrefab;
-        [SerializeField]
-        private float timeBetweenShots = 1.5f;
-        [SerializeField]
-        private float projectileSpeed = 15.0f;
-        [SerializeField]
-        private Transform firingPoint;
-        [SerializeField]
+        [Header("Projectile variables")]
+        [SerializeField] private EnemyProjectile projectilePrefab;
+        [SerializeField] private Transform firingPoint;
+
+        [SerializeField] private float timeBetweenShots = 1.5f;
+        [SerializeField] private float projectileSpeed = 15.0f;
+        [SerializeField] [Tooltip("Size of the projectile pool")]
         private int poolSize = 5;
-
-        private bool onCooldown = false;
-
-        private ComponentPool<EnemyProjectile> projectiles;
-        private Coroutine cooldownRoutine = null;
-        private bool alreadyAttacked;
+        
+        private ComponentPool<EnemyProjectile> _projectiles;
+        private Coroutine _cooldownRoutine = null;
+        private bool _onCooldown = false;
+        private bool _alreadyAttacked;
 
 
 
         public override void Awake()
         {
-            base.Awake();
-
-            projectiles = new ComponentPool<EnemyProjectile>(projectilePrefab, poolSize);
+            enemy = GetComponent<NavMeshAgent>();
+            anim = GetComponent<Animator>();
+            _projectiles = new ComponentPool<EnemyProjectile>(projectilePrefab, poolSize);
         }
 
         private void OnDisable()
         {
-            if ( cooldownRoutine != null )
+            if ( _cooldownRoutine != null )
             {
-                StopCoroutine(cooldownRoutine);
-                cooldownRoutine = null;
+                StopCoroutine(_cooldownRoutine);
+                _cooldownRoutine = null;
             }
         }
 
-        public override void Attack()
+        protected override void Attack()
         {
             //Stop enemy movement
             enemy.SetDestination(transform.position);
 
-            if ( alreadyAttacked )
+            if ( _alreadyAttacked )
             {
                 return;
             }
 
-            if ( onCooldown )
+            if ( _onCooldown )
             {
                 return;
             }
 
-            EnemyProjectile projectile = projectiles.Get();
+            EnemyProjectile projectile = _projectiles.Get();
 
             if ( projectile != null )
             {
+                var projTra = projectile.transform;
+
                 projectile.Expired += OnExpired;
-                projectile.transform.position = firingPoint.position;
-                projectile.transform.rotation = firingPoint.rotation;
+                projTra.position = firingPoint.position;
+                projTra.rotation = firingPoint.rotation;
 
                 projectile.Setup(projectileSpeed);
 
                 Debug.Log("pew");
 
-                if ( cooldownRoutine != null )
+                if ( _cooldownRoutine != null )
                 {
-                    cooldownRoutine = StartCoroutine(OnCooldown());
+                    _cooldownRoutine = StartCoroutine(OnCooldown());
                 }
             }
 
@@ -81,7 +82,7 @@ namespace BananaSoup
         {
             projectile.Expired -= OnExpired;
 
-            if ( !projectiles.Recycle(projectile) )
+            if ( !_projectiles.Recycle(projectile) )
             {
                 Debug.LogError("Couldn't recycle the projectile back to the pool!");
             }
@@ -89,11 +90,11 @@ namespace BananaSoup
 
         private IEnumerator OnCooldown()
         {
-            onCooldown = true;
+            _onCooldown = true;
             yield return new WaitForSeconds(timeBetweenShots);
-            onCooldown = false;
+            _onCooldown = false;
 
-            cooldownRoutine = null;
+            _cooldownRoutine = null;
         }
     }
 }

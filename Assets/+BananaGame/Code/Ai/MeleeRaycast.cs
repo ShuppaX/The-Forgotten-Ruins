@@ -12,22 +12,24 @@ namespace BananaSoup
     {
         //Definitions
         protected NavMeshAgent enemy; // assign navmesh agent
-        protected Transform playerTarget; // reference to player's position
-        protected Vector3 playerDirection;
+        private Transform playerTarget; // reference to player's position
         public EnemyMeleeDamage meleeScript; // reference to enemy's melee damage script
-        private Animator anim;
+        protected Animator anim; // reference to animator
+        private Vector3 playerDirection; // direction to player
 
         //Serialized
-        [Header("Layer masks")] [SerializeField]
-        private LayerMask whatIsGround;
-
+        [Header("Layer masks")] 
+        [SerializeField] private LayerMask whatIsGround;
         [SerializeField] private LayerMask whatIsPlayer;
 
-        [Header("Vision")] [SerializeField] private float sightRange = 6;
+        [Header("Vision")] 
+        [SerializeField] private float sightRange = 6;
         [SerializeField] private float attackRange = 1.5f;
 
-        [Header("Stun")] [SerializeField] private float stunTime = 2.0f;
-        internal Coroutine enemyStunnedRoutine;
+        [Header("Stun")] 
+        [SerializeField] private float stunTime = 2.0f;
+
+        private Coroutine _enemyStunnedRoutine;
 
         //Turning
         [SerializeField] [Tooltip("Changes the dampening value of enemy's turn rate")]
@@ -40,7 +42,8 @@ namespace BananaSoup
         //patrol
         public Vector3 waypoint;
         private bool _waypointSet;
-        [SerializeField] private float patrolRange = 8;
+        [SerializeField] [Tooltip("Range where AI searches a random waypoint to patrol from")] 
+        private float patrolRange = 8;
 
         //Attack
         private float _timeBetweenAttacks;
@@ -61,6 +64,7 @@ namespace BananaSoup
         private const string Idle = "Idle";
         private const string animChase = "Chase"; //might not be used. Added in case it's needed
         private const string animStunned = "Stunned";
+        private string _previousAnimation;
 
 
         public virtual void Awake()
@@ -75,6 +79,8 @@ namespace BananaSoup
             var transform1 = PlayerBase.Instance.transform;
             playerTarget = transform1;
             playerDirection = transform1.position;
+
+            SetTrigger(patrol); //Default animation
         }
 
         private void Update()
@@ -84,7 +90,9 @@ namespace BananaSoup
             // Check is the enemy stunned. If it is, don't continue Update() method.
             if (_stunned)
             {
-                anim.SetTrigger(animStunned);
+                //Reset current trigger
+                ClearTrigger();
+                SetTrigger(animStunned);
                 return;
             }
 
@@ -113,28 +121,41 @@ namespace BananaSoup
             //Enemy AI states
             if (!_playerInSightRange && !_playerInAttackRange)
             {
-                anim.SetTrigger(patrol);
+                ClearTrigger();
+                SetTrigger(patrol);
                 Patrol();
             }
 
             if (_playerInSightRange && !_playerInAttackRange)
             {
-                anim.SetTrigger(patrol);
+                ClearTrigger();
+                SetTrigger(patrol);
                 //anim.SetTrigger(AnimChase); //Commented in case we want to use patrol animation for chase
                 Chase();
             }
 
             if (_playerInSightRange && _playerInAttackRange)
             {
-                //Trigger for attack is in method
+                //Trigger for attack is in Attack() method
                 Attack();
             }
-                
-            else if (Speed > 0.1)
+
+            else if (Speed > 0.1) //TODO adjust the value to make idle start when enemy is not moving
             {
-                //TODO adjust this value to fit the variations in patrol speed
-                anim.SetTrigger(Idle);
+                ClearTrigger();
+                SetTrigger(Idle);
             }
+        }
+
+        private void SetTrigger(string currentAnimation)
+        {
+            _previousAnimation = currentAnimation;
+            anim.SetTrigger(currentAnimation);
+        }
+
+        private void ClearTrigger()
+        {
+            anim.ResetTrigger(_previousAnimation);
         }
 
         //Patrol method searches random waypoints and moves to them
@@ -173,18 +194,17 @@ namespace BananaSoup
             enemy.SetDestination(playerTarget.position);
         }
 
-        public virtual void Attack()
+        protected virtual void Attack()
         {
             //Stop enemy movement
             enemy.SetDestination(transform.position);
 
             //prevent weapon doing damage while not in animation
-
-
             if (meleeScript.CanDealDamage)
             {
                 meleeScript.CanDealDamage = false;
-                anim.SetTrigger(attack);
+                ClearTrigger();
+                SetTrigger(attack);
                 _weaponColliderCD = StartCoroutine(WeaponColliderCycle());
                 meleeScript.MeleeAttack();
             }
@@ -199,9 +219,11 @@ namespace BananaSoup
             var position = transform.position;
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(position, attackRange);
+            Gizmos.DrawWireSphere(position, attackRange); //Radius of attack range
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(position, sightRange);
+            Gizmos.DrawWireSphere(position, sightRange); //Radius of sight range
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(position, patrolRange); //Radius of patrol range
         }
 
         public void OnThrowAbility(ParticleProjectile.Type projectileType)
@@ -210,9 +232,9 @@ namespace BananaSoup
             {
                 // Check an try end an old stun Coroutine if there one already running.
                 // The enemy will get strange behaviours if there are multiple stun Coroutines running.
-                TryEndingRunningCoroutine(ref enemyStunnedRoutine);
+                TryEndingRunningCoroutine(ref _enemyStunnedRoutine);
 
-                enemyStunnedRoutine = StartCoroutine(StunEnemy());
+                _enemyStunnedRoutine = StartCoroutine(StunEnemy());
             }
         }
 
@@ -221,13 +243,13 @@ namespace BananaSoup
             _stunned = true;
             yield return new WaitForSeconds(stunTime);
             _stunned = false;
-            enemyStunnedRoutine = null;
+            _enemyStunnedRoutine = null;
         }
 
         // Ensure that the Coroutine will be stopped and nulled when GameObject gets disabled.
         private void OnDisable()
         {
-            TryEndingRunningCoroutine(ref enemyStunnedRoutine);
+            TryEndingRunningCoroutine(ref _enemyStunnedRoutine);
             TryEndingRunningCoroutine(ref _weaponColliderCD);
         }
 
