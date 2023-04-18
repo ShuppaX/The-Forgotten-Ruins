@@ -13,18 +13,12 @@ MonoBehaviour:
   m_Name: todo
   m_EditorClassIdentifier: 
   Entries:
-  - Text: ": Change these not to use animation event\r"
+  - Text: ": Restrict that only looterCollider can loot\r"
     Note: 
     Tag: TODO
-    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Ability\AbilityThrowSand.cs
-    Line: 17
-    PathToShow: Assets/+BananaGame/Code/Ability/AbilityThrowSand.cs(17)
-  - Text: ": Change these not to use animation event\r"
-    Note: 
-    Tag: TODO
-    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Ability\AbilityThrowSpark.cs
-    Line: 17
-    PathToShow: Assets/+BananaGame/Code/Ability/AbilityThrowSpark.cs(17)
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Ability\AbilityLoot.cs
+    Line: 25
+    PathToShow: Assets/+BananaGame/Code/Ability/AbilityLoot.cs(25)
   - Text: ": This seems to be obsolete because script execution order\r"
     Note: 
     Tag: NOTE
@@ -38,18 +32,6 @@ MonoBehaviour:
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Ability\ParticleProjectile.cs
     Line: 50
     PathToShow: Assets/+BananaGame/Code/Ability/ParticleProjectile.cs(50)
-  - Text: ": Get rid of this.\r"
-    Note: 
-    Tag: TODO
-    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Ai\MeleeRaycast.cs
-    Line: 110
-    PathToShow: Assets/+BananaGame/Code/Ai/MeleeRaycast.cs(110)
-  - Text: " adjust this value to fit the variations in patrol speed\r"
-    Note: 
-    Tag: TODO
-    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Ai\MeleeRaycast.cs
-    Line: 135
-    PathToShow: Assets/+BananaGame/Code/Ai/MeleeRaycast.cs(135)
   - Text: ": Start animation\r"
     Note: 
     Tag: TODO
@@ -74,12 +56,6 @@ MonoBehaviour:
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\HealthSystem\PlayerHealth.cs
     Line: 87
     PathToShow: Assets/+BananaGame/Code/HealthSystem/PlayerHealth.cs(87)
-  - Text: ": Does this need both raycast AND TryGetComponent?\r"
-    Note: 
-    Tag: TODO
-    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
-    Line: 105
-    PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(105)
   - Text: ": Turn player towards to the interact point. By code or navmesh?\r"
     Note: 
     Tag: TODO
@@ -92,18 +68,18 @@ MonoBehaviour:
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
     Line: 169
     PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(169)
-  - Text: ": Remove currentInteractable when interaction completed?\r"
-    Note: 
-    Tag: TODO
-    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
-    Line: 176
-    PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(176)
   - Text: ": If you add or remove a PlayerState, DON'T CHANGE ID NUMBERS\r"
     Note: 
     Tag: NOTE
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Managers\PlayerStateManager.cs
     Line: 20
     PathToShow: Assets/+BananaGame/Code/Managers/PlayerStateManager.cs(20)
+  - Text: ": Enable event and listen it somewhere else to enable UI element\r"
+    Note: 
+    Tag: TODO
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Pickups\PickupDash.cs
+    Line: 15
+    PathToShow: Assets/+BananaGame/Code/Pickups/PickupDash.cs(15)
   - Text: ": If have time change this to for example, Coroutine to happen only once\r"
     Note: 
     Tag: TODO
@@ -116,13 +92,6 @@ MonoBehaviour:
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Puzzle\MoveObjectOnPuzzleSolved.cs
     Line: 59
     PathToShow: Assets/+BananaGame/Code/Puzzle/MoveObjectOnPuzzleSolved.cs(59)
-  - Text: ": Serializing and then hiding AnimationCurve from Inpector. Otherwise
-      it will be null.\r"
-    Note: 
-    Tag: HACK
-    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Trap\SpikeTrap.cs
-    Line: 11
-    PathToShow: Assets/+BananaGame/Code/Trap/SpikeTrap.cs(11)
   - Text: ": Problem with structs, because they are value type.\r"
     Note: 
     Tag: TODO
