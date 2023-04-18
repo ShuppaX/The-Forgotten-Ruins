@@ -8,8 +8,7 @@ namespace BananaSoup.Traps
     {
         [SerializeField] private Transform trapDamagerObject;
         [SerializeField] private AnimationCurve activationCurve;
-        // HACK: Serializing and then hiding AnimationCurve from Inpector. Otherwise it will be null.
-        [SerializeField, HideInInspector] private AnimationCurve deactivationCurve;
+        private AnimationCurve deactivationCurve = new AnimationCurve();
         private float trapTimer = 0.0f;
         private int activationCurveLastIndex = 0;
         private int deactivationCurveLastIndex = 0;

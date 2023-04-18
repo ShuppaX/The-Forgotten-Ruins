@@ -9,8 +9,8 @@ namespace BananaSoup.Ability
     {
         [Tooltip("The transform where the ability's particle effect spawns.")]
         [SerializeField] private Transform handTransform;
-        [SerializeField] private List<ThrowBase> enabledAbilities;
-        [SerializeField] private List<ThrowBase> disabledAbilities;
+        private List<ThrowBase> enabledAbilities = new List<ThrowBase>();
+        private List<ThrowBase> disabledAbilities = new List<ThrowBase>();
 
         public void ToggleAbilityUsability(ThrowBase ability)
         {

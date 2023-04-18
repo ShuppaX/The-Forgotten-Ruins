@@ -2341,9 +2341,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handTransform: {fileID: 4980900163939968595}
-  throwAbilities:
-  - {fileID: 3416829459394208007}
-  - {fileID: 555330798156038717}
+  enabledAbilities: []
+  disabledAbilities: []
 --- !u!114 &3416829459394208007
 MonoBehaviour:
   m_ObjectHideFlags: 0
