@@ -26,7 +26,7 @@ namespace BananaSoup
         [SerializeField] private float sightRange = 6;
         [SerializeField] private float attackRange = 1.5f;
 
-        [Header("Stun")] 
+        [Header("Stun")]
         [SerializeField] private float stunTime = 2.0f;
         private Coroutine _enemyStunnedRoutine;
 
@@ -35,13 +35,14 @@ namespace BananaSoup
         private float _damp = 3f;
 
         //Updating Variables
-        protected float _lastDidSomething; //refreshing timer to prevent non-stop actions
+        protected float lastDidSomething; //refreshing timer to prevent non-stop actions
         private readonly float _pauseTime = 1.5f; //Time to pause after action
 
         //patrol
         public Vector3 waypoint;
         private bool _waypointSet;
-        [SerializeField] [Tooltip("Range where AI searches a random waypoint to patrol from")] 
+
+        [SerializeField] [Tooltip("Range where AI searches a random waypoint to patrol from")]
         private float patrolRange = 8;
 
         //Attack
@@ -114,10 +115,11 @@ namespace BananaSoup
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
                 }
 
-            // TODO: Get rid of this.
-            if (Time.time < _lastDidSomething + _pauseTime) return;
+            if (Time.time < lastDidSomething + _pauseTime) return;
 
             //Enemy AI states
+            
+            //Patrol
             if (!_playerInSightRange && !_playerInAttackRange)
             {
                 ClearTrigger();
@@ -125,20 +127,23 @@ namespace BananaSoup
                 Patrol();
             }
 
+            //Chase
             if (_playerInSightRange && !_playerInAttackRange)
             {
                 ClearTrigger();
                 SetTrigger(patrol);
-                //anim.SetTrigger(AnimChase); //Commented in case we want to use patrol animation for chase
+                //SetTrigger(AnimChase); //Commented in case we want to use patrol animation for chase
                 Chase();
             }
 
+            //Attack
             if (_playerInSightRange && _playerInAttackRange)
             {
                 //Trigger for attack is in Attack() method
                 Attack();
             }
 
+            //Idle patrol
             else if (Speed > 0.1) //Determines the threshold for idle animation
             {
                 ClearTrigger();
@@ -184,7 +189,7 @@ namespace BananaSoup
                 position.z + randomZ);
 
             if (Physics.Raycast(waypoint, -transform.up, 2f, whatIsGround)) _waypointSet = true;
-            _lastDidSomething = Time.time;
+            lastDidSomething = Time.time;
         }
 
         //follows the player through navmesh, until the player is within attack range
@@ -208,7 +213,7 @@ namespace BananaSoup
                 meleeScript.MeleeAttack();
             }
 
-            _lastDidSomething = Time.time;
+            lastDidSomething = Time.time;
         }
 
 
