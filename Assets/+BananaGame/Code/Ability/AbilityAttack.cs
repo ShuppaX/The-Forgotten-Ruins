@@ -46,6 +46,11 @@ namespace BananaSoup.Ability
         /// <param name="context"></param>
         public void OnAttack(InputAction.CallbackContext context)
         {
+            if ( !playerBase.IsSwordLooted )
+            {
+                return;
+            }
+
             if ( !playerBase.AreAbilitiesEnabled )
             {
                 return;
