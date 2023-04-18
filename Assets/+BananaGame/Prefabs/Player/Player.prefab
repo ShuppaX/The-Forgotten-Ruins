@@ -328,7 +328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4078110700278019012}
   - component: {fileID: 4997874014287464183}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: LootCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
