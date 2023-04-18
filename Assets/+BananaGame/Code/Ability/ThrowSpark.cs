@@ -1,8 +1,9 @@
 using BananaSoup.Managers;
+using BananaSoup.PickupSystem;
 
 namespace BananaSoup.Ability
 {
-    public class ThrowSpark: ThrowBase
+    public class ThrowSpark : ThrowBase
     {
         // Constant PlayerState used for PlayerState handling
         public const PlayerStateManager.PlayerState sparking = PlayerStateManager.PlayerState.Sparking;
@@ -12,6 +13,13 @@ namespace BananaSoup.Ability
             base.Start();
 
             SetAbilityStateName = sparking;
+
+            PickupSpark.OnEventLooted += SetAbility;
+        }
+
+        private void SetAbility()
+        {
+            abilityThrow.ToggleAbilityUsability(this);
         }
     }
 }

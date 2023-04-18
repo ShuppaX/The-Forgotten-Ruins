@@ -1,4 +1,5 @@
 using BananaSoup.Managers;
+using BananaSoup.PickupSystem;
 
 namespace BananaSoup.Ability
 {
@@ -12,6 +13,13 @@ namespace BananaSoup.Ability
             base.Start();
 
             SetAbilityStateName = sanding;
+
+            PickupSand.OnEventLooted += SetAbility;
+        }
+
+        private void SetAbility()
+        {
+            abilityThrow.ToggleAbilityUsability(this);
         }
     }
 }

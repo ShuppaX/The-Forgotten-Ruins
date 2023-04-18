@@ -16,6 +16,7 @@ namespace BananaSoup.Ability
         private PlayerStateManager.PlayerState abilityState;
         private Coroutine throwRoutine;
         private bool isStartingToThrow;
+        protected AbilityThrow abilityThrow;
 
         [Tooltip("Time in seconds when to enable the throwable projectile. " +
             "If 0, projectile will spawn immediatelly when throw animation starts.")]
@@ -56,6 +57,12 @@ namespace BananaSoup.Ability
             if ( psm == null )
             {
                 Debug.LogError(gameObject.name + " couldn't find an instance of PlayerStateManager!");
+            }
+
+            abilityThrow = GetComponent<AbilityThrow>();
+            if ( abilityThrow == null )
+            {
+                Debug.LogError(name + " is missing a reference to a AbilityThrow!");
             }
         }
 

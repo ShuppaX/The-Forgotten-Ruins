@@ -12,6 +12,8 @@ namespace BananaSoup
         private bool isTurnable = true;
         private bool canDash = true;
         private bool isSwordLooted = false;
+        private bool isThrowableLooted = false;
+        private bool isDashLooted = false;
 
         public bool AreAbilitiesEnabled
         {
@@ -47,6 +49,18 @@ namespace BananaSoup
         {
             get { return isSwordLooted; }
             set { isSwordLooted = value; }
+        }
+
+        public bool IsThrowableLooted
+        {
+            get { return isThrowableLooted; }
+            set { isThrowableLooted = value; }
+        }
+
+        public bool IsDashLooted
+        {
+            get { return isDashLooted; }
+            set { isDashLooted = value; }
         }
 
         private void Awake()
