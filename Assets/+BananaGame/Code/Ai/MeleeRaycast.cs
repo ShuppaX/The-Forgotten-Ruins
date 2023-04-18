@@ -28,7 +28,6 @@ namespace BananaSoup
 
         [Header("Stun")] 
         [SerializeField] private float stunTime = 2.0f;
-
         private Coroutine _enemyStunnedRoutine;
 
         //Turning
@@ -59,7 +58,7 @@ namespace BananaSoup
         private static readonly int Speed = Animator.StringToHash("Speed");
 
         //Animator triggers
-        private const string attack = "Attack";
+        protected const string attack = "Attack"; //RangedRaycast.cs uses this
         private const string patrol = "Patrol";
         private const string Idle = "Idle";
         private const string animChase = "Chase"; //might not be used. Added in case it's needed
@@ -140,20 +139,20 @@ namespace BananaSoup
                 Attack();
             }
 
-            else if (Speed > 0.1) //TODO adjust the value to make idle start when enemy is not moving
+            else if (Speed > 0.1) //Determines the threshold for idle animation
             {
                 ClearTrigger();
                 SetTrigger(Idle);
             }
         }
 
-        private void SetTrigger(string currentAnimation)
+        protected void SetTrigger(string currentAnimation)
         {
             _previousAnimation = currentAnimation;
             anim.SetTrigger(currentAnimation);
         }
 
-        private void ClearTrigger()
+        protected void ClearTrigger()
         {
             anim.ResetTrigger(_previousAnimation);
         }

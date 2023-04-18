@@ -55,7 +55,7 @@ namespace BananaSoup
                 return;
             }
 
-            EnemyProjectile projectile = _projectiles.Get();
+            var projectile = _projectiles.Get();
 
             if ( projectile != null )
             {
@@ -64,6 +64,9 @@ namespace BananaSoup
                 projectile.Expired += OnExpired;
                 projTra.position = firingPoint.position;
                 projTra.rotation = firingPoint.rotation;
+                
+                ClearTrigger();
+                SetTrigger(attack);
 
                 projectile.Setup(projectileSpeed);
 
