@@ -120,6 +120,11 @@ namespace BananaSoup.Ability
         /// <param name="context">The players dash InputAction.</param>
         public void OnDash(InputAction.CallbackContext context)
         {
+            if ( !PlayerBase.Instance.IsDashLooted )
+            {
+                return;
+            }
+
             if ( PlayerBase.Instance.CanDash )
             {
                 if ( !dashOnCooldown && context.phase == InputActionPhase.Performed )
