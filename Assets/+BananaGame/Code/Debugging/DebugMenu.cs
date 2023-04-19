@@ -23,14 +23,9 @@ namespace BananaSoup.Debugging
 
         private PlayerHealth playerHealth = null;
 
-        private void Awake()
-        {
-            Setup();
-        }
-
         private void Start()
         {
-            playerHealth = PlayerBase.Instance.GetComponent<PlayerHealth>();
+            Setup();
         }
 
         private void Setup()
@@ -39,6 +34,7 @@ namespace BananaSoup.Debugging
             SetUIObjectInactive(menuPanel, false);
             SetUIObjectInactive(teleportPanel, false);
             InstantiateTeleportingLocations();
+            playerHealth = PlayerBase.Instance.GetComponent<PlayerHealth>();
         }
 
         private void SetUIObjectInactive(GameObject gameObjectUI, bool value)
