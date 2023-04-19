@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1747669860813634243}
   - component: {fileID: 694656645440844015}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Block 4x4x4 OuterWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 1464705883038603505}
   - component: {fileID: 4194045854735654863}
   - component: {fileID: 3555865780760135065}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: outerWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

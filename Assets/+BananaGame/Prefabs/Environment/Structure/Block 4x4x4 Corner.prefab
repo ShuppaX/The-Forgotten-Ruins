@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8133679727819690275}
   - component: {fileID: 2959889008714263139}
   - component: {fileID: 8881847967154790393}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: cornerBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2807184761066794007}
   - component: {fileID: 7426487829162791829}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Block 4x4x4 Corner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
