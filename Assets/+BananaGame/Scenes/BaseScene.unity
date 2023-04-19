@@ -1330,12 +1330,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 764303376}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &764303378 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1380256132550914473, guid: e7d62adb219ed4e44aed24e91f8b7a0c,
+--- !u!114 &764303379 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1380256132550914479, guid: e7d62adb219ed4e44aed24e91f8b7a0c,
     type: 3}
   m_PrefabInstance: {fileID: 764303376}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &794035540 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7706104874953649803, guid: 449e2ad06adf4ac41932e3893271bac0,
@@ -3552,9 +3558,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3259c8a317b058d43a6c746277145034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwIndicator: {fileID: 764303378}
-  noThrowable: {fileID: 0}
-  noThrowableColor: {r: 0, g: 0, b: 0, a: 0}
+  throwIndicator: {fileID: 764303379}
+  noThrowable: {fileID: 21300000, guid: 74411ea4f55e21b4eb472218fdddefbf, type: 3}
 --- !u!1 &1979383733
 GameObject:
   m_ObjectHideFlags: 0
