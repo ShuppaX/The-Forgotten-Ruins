@@ -2341,8 +2341,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handTransform: {fileID: 4980900163939968595}
-  enabledAbilities: []
-  disabledAbilities: []
 --- !u!114 &3416829459394208007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2357,6 +2355,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityParticles: {fileID: 4141751010898668531}
   poolSize: 3
+  uIDisplay: {fileID: 3998972619925205824, guid: b779402020d5ef943855f8e4ebd7f85e,
+    type: 3}
   timingWhenEnablingProjectile: 0.36
   timeAfterSetThrowDone: 0.39
 --- !u!114 &555330798156038717
@@ -2373,6 +2373,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityParticles: {fileID: 1314863615302977782}
   poolSize: 3
+  uIDisplay: {fileID: 540120862327038259, guid: bff5916691039f34783ed87163edc5eb,
+    type: 3}
   timingWhenEnablingProjectile: 0.31
   timeAfterSetThrowDone: 0.66
 --- !u!114 &499147030

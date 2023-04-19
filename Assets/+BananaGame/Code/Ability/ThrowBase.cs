@@ -2,6 +2,8 @@ using UnityEngine;
 using BananaSoup.Managers;
 using BananaSoup.Utilities;
 using System.Collections;
+using UnityEditor;
+using UnityEngine.UI;
 
 namespace BananaSoup.Ability
 {
@@ -9,6 +11,7 @@ namespace BananaSoup.Ability
     {
         [SerializeField] ParticleProjectile abilityParticles;
         [SerializeField] private int poolSize = 3;
+        [SerializeField] private Image uIDisplay;
         private Transform spawnPoint;
         private ComponentPool<ParticleProjectile> projectiles;
         private Coroutine activeParticleCoroutine = null;
@@ -31,6 +34,11 @@ namespace BananaSoup.Ability
         {
             get { return abilityState; }
             set { abilityState = value; }
+        }
+
+        public Image UIDisplay
+        {
+            get => uIDisplay;
         }
 
         private void Awake()

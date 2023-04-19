@@ -135,7 +135,6 @@ namespace BananaSoup
                 Debug.LogWarning("Negative amount given to DecreaseHealth on " + gameObject.name + "!");
             }
 
-            //if ( _wasHit ) return;
             if ( _wasHit )
             {
                 Debug.Log(gameObject.name + "was hit recently and can't take more damage!");

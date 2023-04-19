@@ -1,7 +1,7 @@
-using BananaSoup.PickupSystem;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using BananaSoup.UI;
 
 namespace BananaSoup.Ability
 {
@@ -11,6 +11,13 @@ namespace BananaSoup.Ability
         [SerializeField] private Transform handTransform;
         private List<ThrowBase> enabledAbilities = new List<ThrowBase>();
         private List<ThrowBase> disabledAbilities = new List<ThrowBase>();
+
+        private ThrowBase currentAbility;
+
+        public ThrowBase CurrentAbility
+        {
+            get => currentAbility;
+        }
 
         public void ToggleAbilityUsability(ThrowBase ability)
         {
@@ -46,6 +53,8 @@ namespace BananaSoup.Ability
                 enabledAbilities[0] = nextAbility;
                 enabledAbilities[1] = currentAbility;
             }
+
+            currentAbility = enabledAbilities[0];
         }
 
         public void OnAbility(InputAction.CallbackContext context)
