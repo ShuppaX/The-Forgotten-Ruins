@@ -3,7 +3,22 @@ guid: 33908c09943d14a458158440ca08b940
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mattress
+    second: {fileID: 2100000, guid: 7aa7fd1378c3eea4f95ed069465f2d6a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tent
+    second: {fileID: 2100000, guid: 39b667b4bbecb1545a23fbd663cad3e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: well wood
+    second: {fileID: 2100000, guid: becfd65fc2350214dbf31c98b6c3e826, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -52,7 +67,7 @@ ModelImporter:
     keepQuads: 0
     weldVertices: 1
     bakeAxisConversion: 0
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
