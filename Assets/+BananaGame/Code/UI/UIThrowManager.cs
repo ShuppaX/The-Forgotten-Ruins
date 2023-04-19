@@ -1,5 +1,4 @@
 using BananaSoup.Ability;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,12 +6,10 @@ namespace BananaSoup.UI
 {
     public class UIThrowManager : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("The UI element, which displays the current throwable sprite.")]
         private Image throwIndicator;
-        [SerializeField]
+        [SerializeField, Tooltip("The sprite when there is no throwable available/picked up.")]
         private Sprite noThrowable;
-        [SerializeField]
-        private Color noThrowableColor;
 
         private PlayerBase playerBase = null;
         private AbilityThrow abilityThrow = null;
@@ -44,17 +41,23 @@ namespace BananaSoup.UI
             if ( currentThrowable == null )
             {
                 throwIndicator.sprite = noThrowable;
-                throwIndicator.color = noThrowableColor;
             }
         }
 
-        private T GetDependency<T>(PlayerBase instance = null) where T : Component
+        /// <summary>
+        /// Method used to get component dependency/dependencies.
+        /// </summary>
+        /// <typeparam name="T">The component to get.</typeparam>
+        /// <param name="playerBase">Use the playerBase as a parameter here, if the
+        /// component to get is from PlayerBase's instance.</param>
+        /// <returns>The desired component.</returns>
+        private T GetDependency<T>(PlayerBase playerBase = null) where T : Component
         {
             T component;
 
-            if ( instance != null )
+            if ( playerBase != null )
             {
-                component = instance.GetComponent<T>();
+                component = playerBase.GetComponent<T>();
             }
             else
             {
@@ -69,6 +72,9 @@ namespace BananaSoup.UI
             return component;
         }
 
+        /// <summary>
+        /// Method used to subscribe to abilityThrows AbilityChanged.
+        /// </summary>
         private void TrySubscribing()
         {
             if ( abilityThrow == null )
@@ -79,21 +85,35 @@ namespace BananaSoup.UI
             abilityThrow.AbilityChanged += UpdateCurrentThrowable;
         }
 
+        /// <summary>
+        /// Method used to unsubscribe abilityThrows AbilityChanged.
+        /// </summary>
         private void Unsubscribe()
         {
             abilityThrow.AbilityChanged -= UpdateCurrentThrowable;
         }
 
+        /// <summary>
+        /// Method used to update the sprite of the throwIndicator.
+        /// </summary>
+        /// <param name="newSprite">The new sprite to be used.</param>
         private void UpdateImage(Sprite newSprite)
         {
-            Debug.Log("Trying to update throwable display image!");
-
             throwIndicator.sprite = newSprite;
-            throwIndicator.color = Color.white;
         }
 
+        /// <summary>
+        /// Method used to update currentThrowable and then call UpdateImage with
+        /// currentThrowables public UIDisplay sprite.
+        /// </summary>
         public void UpdateCurrentThrowable()
         {
+            if ( currentThrowable == null )
+            {
+                Debug.LogError($"currentThrowable is null and can't be used to update current" +
+                    $"throwable for" + gameObject.name + "!");
+            }
+
             currentThrowable = abilityThrow.CurrentAbility;
 
             UpdateImage(currentThrowable.UIDisplay);
