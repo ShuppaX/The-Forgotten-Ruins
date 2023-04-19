@@ -64,15 +64,15 @@ namespace BananaSoup.PuzzleSystem
                     movementBlocker.enabled = true;
                 }
                 hasMoved = false;
+                if ( removeExtraColliderAtStartPoint )
+                {
+                    movementBlocker.enabled = false;
+                }
                 transform.position = Vector3.Lerp(transform.position, startingPosition, Time.deltaTime * lerpModifier);
                 float distance = (transform.position - startingPosition).sqrMagnitude;
                 if ( distance < distanceCompare )
                 {
                     transform.position = startingPosition;
-                    if ( removeExtraColliderAtStartPoint )
-                    {
-                        movementBlocker.enabled = false;
-                    }
                 }
             }
         }

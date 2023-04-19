@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|Armature.001|mixamo.com|Layer0
+      name: Run
       takeName: Armature|Armature.001|mixamo.com|Layer0
       internalID: -6842666708266138392
       firstFrame: 0

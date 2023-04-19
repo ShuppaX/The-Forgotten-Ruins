@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|Armature|mixamo.com|Layer0.003
+      name: Falling
       takeName: Armature|Armature|mixamo.com|Layer0.003
       internalID: 85483252243113165
       firstFrame: 0

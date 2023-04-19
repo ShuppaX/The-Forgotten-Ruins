@@ -7,7 +7,8 @@ namespace BananaSoup.Cutscenes
 {
     public class TriggerTimeline : MonoBehaviour
     {
-        [SerializeField] private PlayableDirector director;
+        [SerializeField] private bool teleportPlayerAfterCutscene;
+        private PlayableDirector director;
 
         private void Awake()
         {
@@ -22,7 +23,8 @@ namespace BananaSoup.Cutscenes
         {
             if ( other.TryGetComponent(out PlayerBase player) )
             {
-                Debug.Log(player.name + " triggered Timeline.");
+                Debug.Log("Enabling cutscene");
+                Debug.Log(player.name + " triggered: " + director.name);
                 director.Play();
             }
         }
