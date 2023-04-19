@@ -11,7 +11,7 @@ namespace BananaSoup.Ability
     {
         [SerializeField] ParticleProjectile abilityParticles;
         [SerializeField] private int poolSize = 3;
-        [SerializeField] private Image uIDisplay;
+        [SerializeField] private Sprite uIDisplay;
         private Transform spawnPoint;
         private ComponentPool<ParticleProjectile> projectiles;
         private Coroutine activeParticleCoroutine = null;
@@ -36,7 +36,7 @@ namespace BananaSoup.Ability
             set { abilityState = value; }
         }
 
-        public Image UIDisplay
+        public Sprite UIDisplay
         {
             get => uIDisplay;
         }

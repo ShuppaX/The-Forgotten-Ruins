@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using BananaSoup.UI;
+using UnityEngine.Events;
 
 namespace BananaSoup.Ability
 {
@@ -14,6 +15,8 @@ namespace BananaSoup.Ability
 
         private ThrowBase currentAbility;
 
+        public event UnityAction AbilityChanged;
+
         public ThrowBase CurrentAbility
         {
             get => currentAbility;
@@ -22,6 +25,8 @@ namespace BananaSoup.Ability
         public void ToggleAbilityUsability(ThrowBase ability)
         {
             enabledAbilities.Add(ability);
+            AbilityChanged();
+            currentAbility = enabledAbilities[0];
             disabledAbilities.Remove(ability);
         }
 
@@ -55,6 +60,11 @@ namespace BananaSoup.Ability
             }
 
             currentAbility = enabledAbilities[0];
+
+            if ( AbilityChanged != null )
+            {
+                AbilityChanged();
+            }
         }
 
         public void OnAbility(InputAction.CallbackContext context)
