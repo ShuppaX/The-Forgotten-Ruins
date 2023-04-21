@@ -50,6 +50,11 @@ namespace BananaSoup.Ability
                 return;
             }
 
+            if ( !PlayerBase.Instance.IsThrowableLooted )
+            {
+                return;
+            }
+
             if ( enabledAbilities.Count > 1 )
             {
                 var currentAbility = enabledAbilities[0];

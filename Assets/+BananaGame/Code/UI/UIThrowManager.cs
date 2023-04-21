@@ -108,13 +108,13 @@ namespace BananaSoup.UI
         /// </summary>
         public void UpdateCurrentThrowable()
         {
+            currentThrowable = abilityThrow.CurrentAbility;
+
             if ( currentThrowable == null )
             {
                 Debug.LogError($"currentThrowable is null and can't be used to update current" +
                     $"throwable for" + gameObject.name + "!");
             }
-
-            currentThrowable = abilityThrow.CurrentAbility;
 
             UpdateImage(currentThrowable.UIDisplay);
         }
