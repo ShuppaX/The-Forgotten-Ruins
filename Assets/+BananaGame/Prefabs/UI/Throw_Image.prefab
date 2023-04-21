@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1380256132550914478}
   - component: {fileID: 1380256132550914479}
   m_Layer: 0
-  m_Name: Throw_Indicator
+  m_Name: Throw_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

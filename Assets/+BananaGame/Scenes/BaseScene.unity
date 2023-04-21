@@ -1227,6 +1227,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 877313652}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &834048380 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 21232084078480746, guid: 96a431743c8b2db4a8d6efc318286b64,
+    type: 3}
+  m_PrefabInstance: {fileID: 5721276122059861362}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &834048381 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7681945360022900302, guid: 96a431743c8b2db4a8d6efc318286b64,
@@ -2688,6 +2694,12 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!1 &1591932885 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7911632804898801788, guid: 7fba92de378c5024fa50c82207d59507,
+    type: 3}
+  m_PrefabInstance: {fileID: 7911632803879028592}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1722704516
 GameObject:
   m_ObjectHideFlags: 0
@@ -3268,7 +3280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3259c8a317b058d43a6c746277145034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwableDisplay: {fileID: 764303378}
+  throwableDisplay: {fileID: 834048380}
+  throwableImage: {fileID: 764303378}
 --- !u!114 &1939388221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3281,6 +3294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a67657d3b3d5243a23911b161df696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashDisplay: {fileID: 1591932885}
 --- !u!1 &1979383733
 GameObject:
   m_ObjectHideFlags: 0
@@ -3945,7 +3959,7 @@ PrefabInstance:
     - target: {fileID: 7911632804898801788, guid: 7fba92de378c5024fa50c82207d59507,
         type: 3}
       propertyPath: m_Name
-      value: Dash_Indicator
+      value: Dash_Display
       objectReference: {fileID: 0}
     - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
         type: 3}
@@ -4024,7 +4038,7 @@ PrefabInstance:
     - target: {fileID: 8619521319745777294, guid: 363358e4e36931a47a05637ea5b82713,
         type: 3}
       propertyPath: m_Name
-      value: Health_Indicator
+      value: Health_Display
       objectReference: {fileID: 0}
     - target: {fileID: 8619521319745777295, guid: 363358e4e36931a47a05637ea5b82713,
         type: 3}

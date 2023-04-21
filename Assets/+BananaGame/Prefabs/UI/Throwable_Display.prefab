@@ -154,7 +154,7 @@ PrefabInstance:
     - target: {fileID: 1380256132550914473, guid: e7d62adb219ed4e44aed24e91f8b7a0c,
         type: 3}
       propertyPath: m_Name
-      value: Throw_Indicator
+      value: Throw_Image
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d62adb219ed4e44aed24e91f8b7a0c, type: 3}

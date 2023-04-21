@@ -9,8 +9,8 @@ namespace BananaSoup.UI
         [SerializeField, Tooltip("The parent gameObject (Throwable_Display)" +
             "which has the throwable indicator and arrows.")]
         private GameObject throwableDisplay;
-        [SerializeField, Tooltip("The UI gameObject (Throw_Indicator) which" +
-            "has the throwable display image/sprite.")]
+        [SerializeField, Tooltip("The gameObject (Throwable_Indicator)" +
+            "which has the image for current throwable.")]
         private Image throwableImage;
 
         private PlayerBase playerBase = null;
@@ -50,16 +50,16 @@ namespace BananaSoup.UI
         /// Method used to get component dependency/dependencies.
         /// </summary>
         /// <typeparam name="T">The component to get.</typeparam>
-        /// <param name="playerBase">Use the playerBase as a parameter here, if the
-        /// component to get is from PlayerBase's instance.</param>
+        /// <param name="comp">Use a component as parameter if you want to get
+        /// a dependency from a component. For example an instance.</param>
         /// <returns>The desired component.</returns>
-        private T GetDependency<T>(PlayerBase playerBase = null) where T : Component
+        private T GetDependency<T>(Component comp = null) where T : Component
         {
             T component;
 
-            if ( playerBase != null )
+            if ( comp != null )
             {
-                component = playerBase.GetComponent<T>();
+                component = comp.GetComponent<T>();
             }
             else
             {
@@ -68,7 +68,8 @@ namespace BananaSoup.UI
 
             if ( component == null )
             {
-                Debug.LogError($"The component of type {typeof(T).Name} couldn't be found for the " + gameObject.name + "!");
+                Debug.LogError($"The component of type {typeof(T).Name} couldn't" +
+                    $"be found for the " + gameObject.name + "!");
             }
 
             return component;
