@@ -82,9 +82,7 @@ namespace BananaSoup
             var transform1 = PlayerBase.Instance.transform;
             playerTarget = transform1;
             playerDirection = transform1.position;
-            _vision = new Ray(transform.position, playerDirection - transform.position);
-
-
+            
             SetTrigger(patrol); //Default animation
         }
 
@@ -111,6 +109,9 @@ namespace BananaSoup
             _playerInSightRange = Physics.CheckSphere(position, sightRange, whatIsPlayer);
             _playerInAttackRange = Physics.CheckSphere(position, attackRange, whatIsPlayer);
             
+            _vision = new Ray(position, playerDirection - position);
+
+            
             //Vision related statements
             
             
@@ -127,10 +128,7 @@ namespace BananaSoup
             //TODO FIX IT
             if (Physics.Raycast(_vision, out var sighted, Mathf.Infinity, LayerMask.GetMask("Ground")))
             {
-                if (sighted.collider.CompareTag("Player"))
-                    _canSeePlayer = true;
-                else
-                    _canSeePlayer = false;
+                _canSeePlayer = sighted.collider.CompareTag("Player");
             }
             else
             {
