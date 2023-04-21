@@ -65,6 +65,8 @@ namespace BananaSoup
         private const string animChase = "Chase"; //might not be used. Added in case it's needed
         private const string animStunned = "Stunned";
         private string _previousAnimation;
+        private Ray _vision;
+        private bool _canSeePlayer;
 
 
         public virtual void Awake()
@@ -72,6 +74,7 @@ namespace BananaSoup
             enemy = GetComponent<NavMeshAgent>();
             anim = GetComponent<Animator>();
             _weaponCollider = meleeScript.GetComponent<Collider>();
+
         }
 
         private void Start()
@@ -79,6 +82,8 @@ namespace BananaSoup
             var transform1 = PlayerBase.Instance.transform;
             playerTarget = transform1;
             playerDirection = transform1.position;
+            _vision = new Ray(transform.position, playerDirection - transform.position);
+
 
             SetTrigger(patrol); //Default animation
         }
@@ -105,15 +110,35 @@ namespace BananaSoup
 
             _playerInSightRange = Physics.CheckSphere(position, sightRange, whatIsPlayer);
             _playerInAttackRange = Physics.CheckSphere(position, attackRange, whatIsPlayer);
-
-
+            
+            //Vision related statements
+            
+            
+            //Smoothed turning towards player. _damp changes the speed of turning
             if (_playerInAttackRange)
-                //Smoothed turning towards player. _damp changes the speed of turning
                 if (_angle > 2.5f)
                 {
                     var rotate = Quaternion.LookRotation(playerTarget.position - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
                 }
+
+            Debug.DrawRay(transform.position, _whereIsPlayer, Color.blue);
+            //Raycast to check if player is not obscured by obstacles
+            //TODO FIX IT
+            if (Physics.Raycast(_vision, out var sighted, Mathf.Infinity, LayerMask.GetMask("Ground")))
+            {
+                if (sighted.collider.CompareTag("Player"))
+                    _canSeePlayer = true;
+                else
+                    _canSeePlayer = false;
+            }
+            else
+            {
+                _canSeePlayer = false;
+            }
+
+
+          
 
             if (Time.time < lastDidSomething + _pauseTime) return;
 
@@ -128,7 +153,7 @@ namespace BananaSoup
             }
 
             //Chase
-            if (_playerInSightRange && !_playerInAttackRange)
+            if (_playerInSightRange && !_playerInAttackRange && _canSeePlayer)
             {
                 ClearTrigger();
                 SetTrigger(patrol);
@@ -139,6 +164,7 @@ namespace BananaSoup
             //Attack
             if (_playerInSightRange && _playerInAttackRange)
             {
+                if (!_canSeePlayer) return;
                 //Trigger for attack is in Attack() method
                 Attack();
             }

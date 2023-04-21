@@ -28,6 +28,7 @@ namespace BananaSoup
             enemy = GetComponent<NavMeshAgent>();
             anim = GetComponent<Animator>();
             _projectiles = new ComponentPool<EnemyProjectile>(projectilePrefab, poolSize);
+
         }
 
         private void OnDisable()
