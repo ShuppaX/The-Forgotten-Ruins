@@ -200,9 +200,11 @@ namespace BananaSoup.Ability
         }
 
         /// <summary>
-        /// IEnumerator to enable a cooldown for the player characters dash.
-        /// Sets the stored routine to be null and the cooldown bool to false after the cooldown time
-        /// has passed.
+        /// IEnumerator which calculates the remaining cooldown based on the start time
+        /// of the Coroutine and current Time.time.
+        /// Rounds the remainingCooldown value to two decimals and then after the
+        /// cooldown is over nulls the dashCooldownRoutine, turns dashOnCooldown false
+        /// and sets remainingCooldown to 0.0f.
         /// </summary>
         private IEnumerator DashCooldown()
         {
@@ -213,6 +215,8 @@ namespace BananaSoup.Ability
             {
                 yield return null; // Wait for next frame
                 remainingCooldown = dashCooldown - (Time.time - startTime);
+
+                // Round the remainingCooldown to two decimals.
                 roundedRemainingCooldown = Mathf.Round(remainingCooldown * 100f) / 100f;
 
                 // TODO: Remove this debug log (after UIDashManager is working correctly)
