@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using BananaSoup.Managers;
 using BananaSoup.Utilities;
+using Unity.VisualScripting;
 
 namespace BananaSoup.Ability
 {
@@ -19,7 +20,10 @@ namespace BananaSoup.Ability
         private float dashDuration = 0.25f;
         [SerializeField, Tooltip("Does dash stop like a collision to a wall or slowly decrease speed.")]
         private bool isLerpingDash = true;
-        [SerializeField] float lerpSpeed = 25.0f;
+        [SerializeField]
+        private float lerpSpeed = 25.0f;
+
+        private float dashCooldownCounter = 0.0f;
 
         private bool dashOnCooldown = false;
         private bool slopeCheckChanged = false;
@@ -84,6 +88,8 @@ namespace BananaSoup.Ability
         private void Update()
         {
             OnSlopeCheckValueChanged();
+
+            Debug.Log("dashCooldownLeft: " + dashCooldownCounter);
         }
 
         /// <summary>
@@ -200,9 +206,27 @@ namespace BananaSoup.Ability
         /// </summary>
         private IEnumerator DashCooldown()
         {
-            yield return new WaitForSeconds(dashCooldown);
-            dashCooldownRoutine = null;
-            dashOnCooldown = false;
+            //yield return new WaitForSeconds(dashCooldown);
+            //dashCooldownRoutine = null;
+            //dashOnCooldown = false;
+            dashCooldownCounter = 0.0f;
+            float dashCooldownStartTime = Time.time;
+
+            while ( dashCooldownStartTime < dashCooldownStartTime + dashCooldown )
+            {
+                if ( dashCooldownCounter < dashCooldown )
+                {
+                    dashCooldownCounter += Time.deltaTime;
+                }
+                dashCooldownStartTime = Time.time;
+            }
+
+            if ( dashCooldownCounter >= dashCooldown )
+            {
+                dashCooldownRoutine = null;
+                dashOnCooldown = false;
+                yield break;
+            }
         }
     }
 }
