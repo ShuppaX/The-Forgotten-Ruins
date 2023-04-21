@@ -6,10 +6,12 @@ namespace BananaSoup.UI
 {
     public class UIThrowManager : MonoBehaviour
     {
-        [SerializeField, Tooltip("The UI element, which displays the current throwable sprite.")]
-        private Image throwIndicator;
-        [SerializeField, Tooltip("The sprite when there is no throwable available/picked up.")]
-        private Sprite noThrowable;
+        [SerializeField, Tooltip("The parent gameObject (Throwable_Display)" +
+            "which has the throwable indicator and arrows.")]
+        private GameObject throwableDisplay;
+        [SerializeField, Tooltip("The UI gameObject (Throw_Indicator) which" +
+            "has the throwable display image/sprite.")]
+        private Image throwableImage;
 
         private PlayerBase playerBase = null;
         private AbilityThrow abilityThrow = null;
@@ -40,7 +42,7 @@ namespace BananaSoup.UI
 
             if ( currentThrowable == null )
             {
-                throwIndicator.sprite = noThrowable;
+                throwableDisplay.SetActive(false);
             }
         }
 
@@ -99,7 +101,7 @@ namespace BananaSoup.UI
         /// <param name="newSprite">The new sprite to be used.</param>
         private void UpdateImage(Sprite newSprite)
         {
-            throwIndicator.sprite = newSprite;
+            throwableImage.sprite = newSprite;
         }
 
         /// <summary>
@@ -108,6 +110,11 @@ namespace BananaSoup.UI
         /// </summary>
         public void UpdateCurrentThrowable()
         {
+            if ( !throwableDisplay.activeSelf )
+            {
+                throwableDisplay.SetActive(true);
+            }
+
             currentThrowable = abilityThrow.CurrentAbility;
 
             if ( currentThrowable == null )
