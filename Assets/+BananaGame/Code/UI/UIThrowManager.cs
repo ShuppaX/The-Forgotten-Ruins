@@ -13,9 +13,9 @@ namespace BananaSoup.UI
             "which has the image for current throwable.")]
         private Image throwableImage;
 
+        // References
         private PlayerBase playerBase = null;
         private AbilityThrow abilityThrow = null;
-
         private ThrowBase currentThrowable = null;
 
         private void OnEnable()
@@ -40,9 +40,9 @@ namespace BananaSoup.UI
 
             TrySubscribing();
 
-            if ( currentThrowable == null )
+            if ( !playerBase.IsThrowableLooted )
             {
-                throwableDisplay.SetActive(false);
+                ShowDisplay(false);
             }
         }
 
@@ -85,7 +85,7 @@ namespace BananaSoup.UI
                 return;
             }
 
-            abilityThrow.AbilityChanged += UpdateCurrentThrowable;
+            abilityThrow.ThrowableChanged += UpdateCurrentThrowable;
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace BananaSoup.UI
         /// </summary>
         private void Unsubscribe()
         {
-            abilityThrow.AbilityChanged -= UpdateCurrentThrowable;
+            abilityThrow.ThrowableChanged -= UpdateCurrentThrowable;
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace BananaSoup.UI
         {
             if ( !throwableDisplay.activeSelf )
             {
-                throwableDisplay.SetActive(true);
+                ShowDisplay(true);
             }
 
             currentThrowable = abilityThrow.CurrentAbility;
@@ -125,6 +125,15 @@ namespace BananaSoup.UI
             }
 
             UpdateImage(currentThrowable.UIDisplay);
+        }
+
+        /// <summary>
+        /// Method used to set the throwableDisplay active or inactive.
+        /// </summary>
+        /// <param name="value">True to set active, false to set inactive.</param>
+        private void ShowDisplay(bool value)
+        {
+            throwableDisplay.SetActive(value);
         }
     }
 }

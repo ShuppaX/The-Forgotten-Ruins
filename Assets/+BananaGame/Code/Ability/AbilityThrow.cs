@@ -14,7 +14,7 @@ namespace BananaSoup.Ability
 
         private ThrowBase currentAbility;
 
-        public event UnityAction AbilityChanged;
+        public event UnityAction ThrowableChanged;
 
         public ThrowBase CurrentAbility
         {
@@ -25,7 +25,12 @@ namespace BananaSoup.Ability
         {
             enabledAbilities.Add(ability);
             currentAbility = enabledAbilities[0];
-            AbilityChanged();
+
+            if ( ThrowableChanged != null )
+            {
+                ThrowableChanged();
+            }
+
             disabledAbilities.Remove(ability);
         }
 
@@ -65,9 +70,9 @@ namespace BananaSoup.Ability
 
             currentAbility = enabledAbilities[0];
 
-            if ( AbilityChanged != null )
+            if ( ThrowableChanged != null )
             {
-                AbilityChanged();
+                ThrowableChanged();
             }
         }
 

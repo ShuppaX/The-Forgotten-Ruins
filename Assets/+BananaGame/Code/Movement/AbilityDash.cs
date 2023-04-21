@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using BananaSoup.Managers;
 using BananaSoup.Utilities;
+using System;
 
 namespace BananaSoup.Ability
 {
@@ -41,9 +42,17 @@ namespace BananaSoup.Ability
         private GroundCheck groundCheck = null;
         private PlayerStateManager psm = null;
 
-        public string RoundedRemainingCooldown
+        // Unity Action used to update UI
+        public static event Action DashEventAction;
+
+        public float DashCooldown
         {
-            get => roundedRemainingCooldown.ToString("0.00");
+            get => dashCooldown;
+        }
+
+        public float RoundedRemainingCooldown
+        {
+            get => roundedRemainingCooldown;
         }
 
         private void Start()
@@ -139,6 +148,11 @@ namespace BananaSoup.Ability
                 if ( !dashOnCooldown && context.phase == InputActionPhase.Performed )
                 {
                     psm.SetPlayerState(dashing);
+                    
+                    if ( DashEventAction != null )
+                    {
+                        DashEventAction();
+                    }
 
                     PlayerBase.Instance.IsMovable = false;
                     PlayerBase.Instance.IsTurnable = false;
@@ -153,7 +167,7 @@ namespace BananaSoup.Ability
 
                     if ( dashCooldownRoutine == null )
                     {
-                        dashCooldownRoutine = StartCoroutine(nameof(DashCooldown));
+                        dashCooldownRoutine = StartCoroutine(nameof(DashCooldownRoutine));
                     }
 
                     Invoke(nameof(DashReset), dashDuration);
@@ -211,7 +225,7 @@ namespace BananaSoup.Ability
         /// cooldown is over nulls the dashCooldownRoutine, turns dashOnCooldown false
         /// and sets remainingCooldown to 0.0f.
         /// </summary>
-        private IEnumerator DashCooldown()
+        private IEnumerator DashCooldownRoutine()
         {
             remainingCooldown = dashCooldown;
             float startTime = Time.time;
@@ -233,6 +247,11 @@ namespace BananaSoup.Ability
                 dashCooldownRoutine = null;
                 dashOnCooldown = false;
                 remainingCooldown = 0.0f;
+
+                if ( DashEventAction != null )
+                {
+                    DashEventAction();
+                }
             }
         }
     }

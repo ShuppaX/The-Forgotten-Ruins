@@ -3295,6 +3295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashDisplay: {fileID: 1591932885}
+  offCooldown: {r: 1, g: 1, b: 1, a: 1}
+  onCooldown: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 0.078431375}
 --- !u!1 &1979383733
 GameObject:
   m_ObjectHideFlags: 0
@@ -3963,6 +3965,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
         type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
+        type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
@@ -3988,6 +4000,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
         type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3999,6 +4021,26 @@ PrefabInstance:
     - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
         type: 3}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
+        type: 3}
+      propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7911632804898801789, guid: 7fba92de378c5024fa50c82207d59507,
