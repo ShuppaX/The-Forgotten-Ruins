@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.HealthSystem
 {
     public class Health : MonoBehaviour, IHealth
     {
@@ -24,7 +24,7 @@ namespace BananaSoup
         private Coroutine _deathRoutine = null;
         private Coroutine _baseDeathRoutine = null;
 
-        public static event Action HealthChanged;
+        public event Action<int> HealthChanged;
 
         public int CurrentHealth
         {
@@ -34,7 +34,7 @@ namespace BananaSoup
                 _currentHealth = Mathf.Clamp(value, 0, _maxHealth);
                 if ( HealthChanged != null )
                 {
-                    HealthChanged();
+                    HealthChanged(_currentHealth);
                 }
             }
         }
@@ -100,10 +100,10 @@ namespace BananaSoup
         /// Method used to check if the objects currentHealth is above 0 when it is changed
         /// if it is return, when it isn't start the objects DeathRoutine.
         /// </summary>
-        private void OnHealthChanged()
+        private void OnHealthChanged(int health)
         {
             Debug.Log(gameObject.name + "'s CurrentHealth changed!");
-            if ( _currentHealth > 0 )
+            if ( health > 0 )
             {
                 return;
             }
@@ -118,7 +118,7 @@ namespace BananaSoup
         /// Method used to increase the objects currentHealth if it's less than maxHealth.
         /// </summary>
         /// <param name="amount">The (positive) amount with how much the CurrentHealth should be increased.</param>
-        public void IncreaseHealth(int amount)
+        public virtual void IncreaseHealth(int amount)
         {
             if ( amount < 0 )
             {
@@ -132,7 +132,7 @@ namespace BananaSoup
         /// Method used to decrease the objects currentHealth if it's more than 0.
         /// </summary>
         /// <param name="amount">The amount how much the CurrentHealth should be decreased.</param>
-        public void DecreaseHealth(int amount)
+        public virtual void DecreaseHealth(int amount)
         {
             if ( amount < 0 )
             {

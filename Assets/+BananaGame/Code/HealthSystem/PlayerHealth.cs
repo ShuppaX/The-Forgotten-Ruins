@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using BananaSoup.Managers;
+using System;
 
 namespace BananaSoup.HealthSystem
 {
@@ -17,6 +18,8 @@ namespace BananaSoup.HealthSystem
         private PlayerStateManager psm = null;
 
         private const PlayerStateManager.PlayerState dead = PlayerStateManager.PlayerState.Dead;
+
+        public static event Action PlayerHealthChanged;
 
         public override void Start()
         {
@@ -55,6 +58,26 @@ namespace BananaSoup.HealthSystem
             Debug.Log("Player died!");
 
             NullCoroutine(DeathRoutine);
+        }
+
+        public override void DecreaseHealth(int amount)
+        {
+            base.DecreaseHealth(amount);
+
+            if ( PlayerHealthChanged != null )
+            {
+                PlayerHealthChanged();
+            }
+        }
+
+        public override void IncreaseHealth(int amount)
+        {
+            base.IncreaseHealth(amount);
+
+            if ( PlayerHealthChanged != null )
+            {
+                PlayerHealthChanged();
+            }
         }
 
         /// <summary>

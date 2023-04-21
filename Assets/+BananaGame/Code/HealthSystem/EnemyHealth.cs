@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.HealthSystem
 {
     public class EnemyHealth : Health
     {

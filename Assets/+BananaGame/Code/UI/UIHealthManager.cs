@@ -36,12 +36,12 @@ namespace BananaSoup.UI
 
         private void OnEnable()
         {
-            PlayerHealth.HealthChanged += UpdateHealthDisplay;
+            PlayerHealth.PlayerHealthChanged += UpdateHealthDisplay;
         }
 
         private void OnDisable()
         {
-            PlayerHealth.HealthChanged -= UpdateHealthDisplay;
+            PlayerHealth.PlayerHealthChanged -= UpdateHealthDisplay;
         }
 
         private void Start()
