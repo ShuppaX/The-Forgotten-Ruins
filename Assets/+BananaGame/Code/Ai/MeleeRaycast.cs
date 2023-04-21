@@ -126,7 +126,8 @@ namespace BananaSoup
             Debug.DrawRay(transform.position, _whereIsPlayer, Color.blue);
             //Raycast to check if player is not obscured by obstacles
             //TODO FIX IT
-            if (Physics.Raycast(_vision, out var sighted, Mathf.Infinity, LayerMask.GetMask("Ground")))
+            //Raycast in the direction of player within sightrange and check if it hits the player
+            if (Physics.Raycast(_vision, out var sighted, 12f, LayerMask.GetMask("Player")))
             {
                 _canSeePlayer = sighted.collider.CompareTag("Player");
             }
