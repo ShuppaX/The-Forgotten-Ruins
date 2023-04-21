@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7760797017638311593}
   - component: {fileID: 3319160398273319251}
   - component: {fileID: 1788901202550861583}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SandProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

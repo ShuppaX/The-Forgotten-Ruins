@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2868280228283088168}
   - component: {fileID: 1750796641907544165}
   - component: {fileID: 7722692233722767811}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SparkProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

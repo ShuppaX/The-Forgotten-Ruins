@@ -66,7 +66,7 @@ namespace BananaSoup
         {
             base.OnTriggerEnter(collision);
 
-            Debug.Log($"Collided with {collision.gameObject}");
+            Debug.Log($"{gameObject} Collided with {collision.gameObject}");
             Recycle();
         }
 

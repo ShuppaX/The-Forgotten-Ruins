@@ -42,7 +42,8 @@ namespace BananaSoup.Traps
             foreach ( var shooter in arrowShooter )
             {
                 EnemyProjectile projectile = projectiles.Get();
-                projectile.transform.position = shooter.position;
+                Vector3 arrowSpawnOffset = shooter.transform.forward * 0.2f;
+                projectile.transform.position = shooter.position - arrowSpawnOffset;
                 projectile.transform.rotation = shooter.transform.rotation;
                 projectile.Expired += OnExpired;
                 projectile.Setup();
