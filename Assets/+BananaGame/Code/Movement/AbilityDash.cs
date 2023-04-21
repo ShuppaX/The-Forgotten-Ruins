@@ -34,12 +34,17 @@ namespace BananaSoup.Ability
         public const PlayerStateManager.PlayerState dashing = PlayerStateManager.PlayerState.Dashing;
         public const PlayerStateManager.PlayerState dashOverInAir = PlayerStateManager.PlayerState.InAir;
 
-        // Reference to players Rigidbody
+        // References
         private Rigidbody rb = null;
         private CalculateMovementDirection directionCalculator = null;
         private SlopeCheck slopeCheck = null;
         private GroundCheck groundCheck = null;
         private PlayerStateManager psm = null;
+
+        public string RoundedRemainingCooldown
+        {
+            get => roundedRemainingCooldown.ToString("0.00");
+        }
 
         private void Start()
         {
