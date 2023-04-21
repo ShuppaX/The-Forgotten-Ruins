@@ -20,12 +20,12 @@ namespace BananaSoup.UI
 
         private void OnEnable()
         {
-            TrySubscribing();
+            AbilityThrow.ThrowableChanged += UpdateCurrentThrowable;
         }
 
         private void OnDisable()
         {
-            Unsubscribe();
+            AbilityThrow.ThrowableChanged -= UpdateCurrentThrowable;
         }
 
         private void Start()
@@ -37,8 +37,6 @@ namespace BananaSoup.UI
             }
 
             abilityThrow = GetDependency<AbilityThrow>(playerBase);
-
-            TrySubscribing();
 
             if ( !playerBase.IsThrowableLooted )
             {
@@ -73,27 +71,6 @@ namespace BananaSoup.UI
             }
 
             return component;
-        }
-
-        /// <summary>
-        /// Method used to subscribe to abilityThrows AbilityChanged.
-        /// </summary>
-        private void TrySubscribing()
-        {
-            if ( abilityThrow == null )
-            {
-                return;
-            }
-
-            abilityThrow.ThrowableChanged += UpdateCurrentThrowable;
-        }
-
-        /// <summary>
-        /// Method used to unsubscribe abilityThrows AbilityChanged.
-        /// </summary>
-        private void Unsubscribe()
-        {
-            abilityThrow.ThrowableChanged -= UpdateCurrentThrowable;
         }
 
         /// <summary>

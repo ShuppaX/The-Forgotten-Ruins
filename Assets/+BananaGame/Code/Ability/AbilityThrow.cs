@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Events;
+using System;
 
 namespace BananaSoup.Ability
 {
@@ -14,7 +14,7 @@ namespace BananaSoup.Ability
 
         private ThrowBase currentAbility;
 
-        public event UnityAction ThrowableChanged;
+        public static event Action ThrowableChanged;
 
         public ThrowBase CurrentAbility
         {
