@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using BananaSoup.Managers;
 using BananaSoup.Utilities;
-using Unity.VisualScripting;
 
 namespace BananaSoup.Ability
 {
@@ -23,7 +22,8 @@ namespace BananaSoup.Ability
         [SerializeField]
         private float lerpSpeed = 25.0f;
 
-        private float dashCooldownCounter = 0.0f;
+        private float remainingCooldown = 0.0f;
+        private float roundedRemainingCooldown = 0.0f;
 
         private bool dashOnCooldown = false;
         private bool slopeCheckChanged = false;
@@ -88,8 +88,6 @@ namespace BananaSoup.Ability
         private void Update()
         {
             OnSlopeCheckValueChanged();
-
-            Debug.Log("dashCooldownLeft: " + dashCooldownCounter);
         }
 
         /// <summary>
@@ -136,11 +134,13 @@ namespace BananaSoup.Ability
                 if ( !dashOnCooldown && context.phase == InputActionPhase.Performed )
                 {
                     psm.SetPlayerState(dashing);
+
                     PlayerBase.Instance.IsMovable = false;
                     PlayerBase.Instance.IsTurnable = false;
                     PlayerBase.Instance.IsInteractingEnabled = false;
                     PlayerBase.Instance.AreAbilitiesEnabled = false;
                     PlayerBase.Instance.CanDash = false;
+
                     Vector3 forceToApply = GetCalculatedDirection(transform.forward) * dashForce;
 
                     rb.velocity = forceToApply;
@@ -206,26 +206,24 @@ namespace BananaSoup.Ability
         /// </summary>
         private IEnumerator DashCooldown()
         {
-            //yield return new WaitForSeconds(dashCooldown);
-            //dashCooldownRoutine = null;
-            //dashOnCooldown = false;
-            dashCooldownCounter = 0.0f;
-            float dashCooldownStartTime = Time.time;
+            remainingCooldown = dashCooldown;
+            float startTime = Time.time;
 
-            while ( dashCooldownStartTime < dashCooldownStartTime + dashCooldown )
+            while ( remainingCooldown > 0.0f )
             {
-                if ( dashCooldownCounter < dashCooldown )
-                {
-                    dashCooldownCounter += Time.deltaTime;
-                }
-                dashCooldownStartTime = Time.time;
+                yield return null; // Wait for next frame
+                remainingCooldown = dashCooldown - (Time.time - startTime);
+                roundedRemainingCooldown = Mathf.Round(remainingCooldown * 100f) / 100f;
+
+                // TODO: Remove this debug log (after UIDashManager is working correctly)
+                //Debug.LogFormat("Dash cooldown remaining: {0}", roundedRemainingCooldown.ToString("0.00"));
             }
 
-            if ( dashCooldownCounter >= dashCooldown )
+            if ( remainingCooldown <= 0.0f )
             {
                 dashCooldownRoutine = null;
                 dashOnCooldown = false;
-                yield break;
+                remainingCooldown = 0.0f;
             }
         }
     }
