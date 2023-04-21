@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9192481650866498589}
-  - component: {fileID: 9192481650866498590}
   - component: {fileID: 9192481650866498577}
+  - component: {fileID: 2399259322042222085}
   m_Layer: 0
   m_Name: Pickup_Dash
   m_TagString: Untagged
@@ -34,19 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &9192481650866498590
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9192481650866498576}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.15
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &9192481650866498577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +46,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0082148ed6b0edf4d8c05cbafbec1c8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &2399259322042222085
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9192481650866498576}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9192481652179221546
 GameObject:
   m_ObjectHideFlags: 0
