@@ -2,6 +2,7 @@ using BananaSoup.Ability;
 using BananaSoup.PickupSystem;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace BananaSoup.UI
 {
@@ -10,10 +11,17 @@ namespace BananaSoup.UI
         [SerializeField, Tooltip("The parent gameObject (Dash_Display) with the" +
             "Image component.")]
         private GameObject dashDisplay;
+        [SerializeField, Tooltip("The TMP text (Dash_CooldownTimer) to display" +
+            "the remaining cooldown´time.")]
+        private TMP_Text cooldownTimerText;
+
+        [Space]
+
         [SerializeField, Tooltip("The colour of the image while dash is off cooldown.")]
         private Color offCooldown;
         [SerializeField, Tooltip("The colour of the image while dash is on cooldown.")]
         private Color onCooldown;
+
 
         private bool isDashCooldownActive = false;
 
@@ -25,13 +33,13 @@ namespace BananaSoup.UI
         private void OnEnable()
         {
             PickupDash.OnEventLooted += ShowDisplay;
-            AbilityDash.DashEventAction += ToggleCooldownBool;
+            AbilityDash.DashEventAction += ToggleCooldownDisplayAction;
         }
 
         private void OnDisable()
         {
             PickupDash.OnEventLooted -= ShowDisplay;
-            AbilityDash.DashEventAction -= ToggleCooldownBool;
+            AbilityDash.DashEventAction -= ToggleCooldownDisplayAction;
         }
 
         private void Start()
@@ -58,23 +66,25 @@ namespace BananaSoup.UI
             }
         }
 
-        // TODO: Add a numeral text display for cooldown as well.
         private void Update()
         {
             if ( isDashCooldownActive )
             {
-                if ( abilityDash.RoundedRemainingCooldown > 0 )
+                // Local variable to store RoundedRemainingCooldown.
+                float remainingCooldown = abilityDash.RoundedRemainingCooldown;
+
+                if ( remainingCooldown > 0 )
                 {
-                    float fillAmount = Mathf.Clamp01(1 - abilityDash.RoundedRemainingCooldown / abilityDash.DashCooldown);
+                    // Calculation where the fillAmount is clamped between 0 and 1
+                    // It is 1 - the values to have the value go from 0 to 1.
+                    float fillAmount = Mathf.Clamp01(1 - remainingCooldown / abilityDash.DashCooldown);
                     dashImage.fillAmount = fillAmount;
 
+                    // Lerp the color of the image.
                     dashImage.color = Color.Lerp(onCooldown, offCooldown, fillAmount);
-                }
 
-                if ( abilityDash.RoundedRemainingCooldown <= 0 )
-                {
-                    dashImage.fillAmount = 1f;
-                    dashImage.color = offCooldown;
+                    // Set the cooldownTimerText.
+                    cooldownTimerText.text = remainingCooldown.ToString("0.00s");
                 }
             }
         }
@@ -108,14 +118,37 @@ namespace BananaSoup.UI
             return component;
         }
 
-        public void ToggleCooldownBool()
+        /// <summary>
+        /// Method used to toggle the isDashCooldownActive bool to allow the corresponding
+        /// actions for the Dash display happen in Update(). Also toggle cooldownTimerText's
+        /// visibility according to the previously mentioned bool value.
+        /// </summary>
+        public void ToggleCooldownDisplayAction()
         {
             isDashCooldownActive = !isDashCooldownActive;
+            cooldownTimerText.gameObject.SetActive(isDashCooldownActive);
+
+            // Make sure the fillAmount is 1, color is offCooldown color
+            // and that the cooldownTimerText is empty.
+            // Only allow this to happen when the cooldown is inactive.
+            if ( !isDashCooldownActive )
+            {
+                Debug.Log("Resetting Image and TMP_Text values!");
+                dashImage.fillAmount = 1f;
+                dashImage.color = offCooldown;
+                cooldownTimerText.text = string.Empty;
+            }
         }
 
+        /// <summary>
+        /// Method used to set dashDisplay active and at the same time make sure that the
+        /// cooldownTimerText is empty and not shown because it shouldn't be shown.
+        /// </summary>
         public void ShowDisplay()
         {
             dashDisplay.SetActive(true);
+            cooldownTimerText.gameObject.SetActive(false);
+            cooldownTimerText.text = string.Empty;
         }
     }
 }
