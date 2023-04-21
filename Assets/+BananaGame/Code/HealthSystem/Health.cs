@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace BananaSoup
 {
@@ -25,7 +24,7 @@ namespace BananaSoup
         private Coroutine _deathRoutine = null;
         private Coroutine _baseDeathRoutine = null;
 
-        public event Action<int> HealthChanged;
+        public static event Action HealthChanged;
 
         public int CurrentHealth
         {
@@ -35,7 +34,7 @@ namespace BananaSoup
                 _currentHealth = Mathf.Clamp(value, 0, _maxHealth);
                 if ( HealthChanged != null )
                 {
-                    HealthChanged(_currentHealth);
+                    HealthChanged();
                 }
             }
         }
@@ -58,6 +57,11 @@ namespace BananaSoup
         {
             get => _baseDeathRoutine;
             set => _baseDeathRoutine = value;
+        }
+
+        public int MaxHealth
+        {
+            get => _maxHealth;
         }
 
         private void OnEnable()
@@ -96,10 +100,10 @@ namespace BananaSoup
         /// Method used to check if the objects currentHealth is above 0 when it is changed
         /// if it is return, when it isn't start the objects DeathRoutine.
         /// </summary>
-        private void OnHealthChanged(int health)
+        private void OnHealthChanged()
         {
             Debug.Log(gameObject.name + "'s CurrentHealth changed!");
-            if ( health > 0 )
+            if ( _currentHealth > 0 )
             {
                 return;
             }
