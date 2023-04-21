@@ -58,6 +58,7 @@ namespace BananaSoup.UI
             }
         }
 
+        // TODO: Add a numeral text display for cooldown as well.
         private void Update()
         {
             if ( isDashCooldownActive )
