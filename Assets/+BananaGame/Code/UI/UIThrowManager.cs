@@ -115,7 +115,7 @@ namespace BananaSoup.UI
         }
 
         /// <summary>
-        /// Method used to set the throwableDisplay active or inactive.
+        /// Method used to set the throwableDisplayImage active or inactive.
         /// </summary>
         /// <param name="value">True to set active, false to set inactive.</param>
         private void ShowImage(bool value)
@@ -123,6 +123,10 @@ namespace BananaSoup.UI
             throwableImageDisplay.SetActive(value);
         }
 
+        /// <summary>
+        /// Method used to set the throwableSelectionArrows active or inactive.
+        /// </summary>
+        /// <param name="value">True to set active, false to set inactive.</param>
         private void ShowSelectionArrows(bool value)
         {
             throwableSelectionArrows.SetActive(value);

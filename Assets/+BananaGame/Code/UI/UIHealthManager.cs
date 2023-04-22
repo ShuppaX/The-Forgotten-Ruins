@@ -89,6 +89,13 @@ namespace BananaSoup.UI
             return component;
         }
 
+        /// <summary>
+        /// Method used to initialize the healthIcon array.
+        /// First get the currentHealth of the player, then make healthIcons be the length
+        /// of MaxHealth of the player.
+        /// Instantiate healthIcons with a for-loop and then with another for-loop
+        /// make desired amount (equal to currentHealth) of them display fullHP.
+        /// </summary>
         private void InitializeArray()
         {
             currentHealth = playerHealth.CurrentHealth;
@@ -111,6 +118,10 @@ namespace BananaSoup.UI
             }
         }
 
+        /// <summary>
+        /// IEnumerator used to delay the Start of this component to make sure required
+        /// references and components are already loaded before this component.
+        /// </summary>
         private IEnumerator LateStart()
         {
             yield return new WaitForSeconds(lateStartDelay);
@@ -118,6 +129,12 @@ namespace BananaSoup.UI
             lateStartRoutine = null;
         }
 
+        /// <summary>
+        /// Method used to update the Health_Icon corresponding to the currentHealth's
+        /// index number (currentHealth - 1 or previousHealth - 1).
+        /// Check if currentHealth is less than or higher than previousHealth and then
+        /// update the corresponding healthIcon.
+        /// </summary>
         public void UpdateHealthDisplay()
         {
             var previousHealth = currentHealth;
