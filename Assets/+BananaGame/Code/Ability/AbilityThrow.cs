@@ -14,6 +14,8 @@ namespace BananaSoup.Ability
 
         private ThrowBase currentAbility;
 
+        private int activeAbilities = 0;
+
         public static event Action ThrowableChanged;
 
         public ThrowBase CurrentAbility
@@ -21,9 +23,15 @@ namespace BananaSoup.Ability
             get => currentAbility;
         }
 
+        public int ActiveAbilities
+        {
+            get => activeAbilities;
+        }
+
         public void ToggleAbilityUsability(ThrowBase ability)
         {
             enabledAbilities.Add(ability);
+            OnEnableAbility();
             currentAbility = enabledAbilities[0];
 
             if ( ThrowableChanged != null )
@@ -92,6 +100,11 @@ namespace BananaSoup.Ability
             {
                 enabledAbilities[0].OnStartingToThrow(handTransform);
             }
+        }
+
+        private void OnEnableAbility()
+        {
+            activeAbilities++;
         }
     }
 }

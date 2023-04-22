@@ -6,9 +6,12 @@ namespace BananaSoup.UI
 {
     public class UIThrowManager : MonoBehaviour
     {
-        [SerializeField, Tooltip("The parent gameObject (Throwable_Display)" +
-            "which has the throwable indicator and arrows.")]
-        private GameObject throwableDisplay;
+        [SerializeField, Tooltip("The gameObject which has the Image component" +
+            " (Throwable_Image) to display currentThrowable.")]
+        private GameObject throwableImageDisplay;
+        [SerializeField, Tooltip("The parent gameObject (Throwable_SelectionArrows)" +
+            "under which are the selection arrows for changing the current throwable.")]
+        private GameObject throwableSelectionArrows;
         [SerializeField, Tooltip("The gameObject (Throwable_Indicator)" +
             "which has the image for current throwable.")]
         private Image throwableImage;
@@ -40,7 +43,8 @@ namespace BananaSoup.UI
 
             if ( !playerBase.IsThrowableLooted )
             {
-                ShowDisplay(false);
+                ShowImage(false);
+                ShowSelectionArrows(false);
             }
         }
 
@@ -88,9 +92,15 @@ namespace BananaSoup.UI
         /// </summary>
         public void UpdateCurrentThrowable()
         {
-            if ( !throwableDisplay.activeSelf )
+            if ( !throwableImageDisplay.activeSelf )
             {
-                ShowDisplay(true);
+                ShowImage(true);
+            }
+
+            if ( abilityThrow.ActiveAbilities > 1
+                && !throwableSelectionArrows.activeSelf )
+            {
+                ShowSelectionArrows(true);
             }
 
             currentThrowable = abilityThrow.CurrentAbility;
@@ -108,9 +118,14 @@ namespace BananaSoup.UI
         /// Method used to set the throwableDisplay active or inactive.
         /// </summary>
         /// <param name="value">True to set active, false to set inactive.</param>
-        private void ShowDisplay(bool value)
+        private void ShowImage(bool value)
         {
-            throwableDisplay.SetActive(value);
+            throwableImageDisplay.SetActive(value);
+        }
+
+        private void ShowSelectionArrows(bool value)
+        {
+            throwableSelectionArrows.SetActive(value);
         }
     }
 }
