@@ -13,101 +13,95 @@ MonoBehaviour:
   m_Name: todo
   m_EditorClassIdentifier: 
   Entries:
-  - Text: ': This seems to be obsolete because script execution order'
+  - Text: ": This seems to be obsolete because script execution order\r"
     Note: 
     Tag: NOTE
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\Ability\ParticleProjectile.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Ability\ParticleProjectile.cs
     Line: 38
     PathToShow: Assets/+BananaGame/Code/Ability/ParticleProjectile.cs(38)
-  - Text: ': Getting reference to the particle effect, because Awake doesn''t fire
-      up fast enough'
+  - Text: ": Getting reference to the particle effect, because Awake doesn't fire
+      up fast enough\r"
     Note: 
     Tag: HACK
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\Ability\ParticleProjectile.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Ability\ParticleProjectile.cs
     Line: 50
     PathToShow: Assets/+BananaGame/Code/Ability/ParticleProjectile.cs(50)
-  - Text: ': Start animation'
+  - Text: ": Start animation\r"
     Note: 
     Tag: TODO
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\HealthSystem\EnemyHealth.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\HealthSystem\EnemyHealth.cs
     Line: 34
     PathToShow: Assets/+BananaGame/Code/HealthSystem/EnemyHealth.cs(34)
-  - Text: ': Play sound'
+  - Text: ": Play sound\r"
     Note: 
     Tag: TODO
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\HealthSystem\EnemyHealth.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\HealthSystem\EnemyHealth.cs
     Line: 35
     PathToShow: Assets/+BananaGame/Code/HealthSystem/EnemyHealth.cs(35)
-  - Text: ': Start animation'
+  - Text: ": Start animation\r"
     Note: 
     Tag: TODO
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\HealthSystem\PlayerHealth.cs
-    Line: 86
-    PathToShow: Assets/+BananaGame/Code/HealthSystem/PlayerHealth.cs(86)
-  - Text: ': Play sound'
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\HealthSystem\PlayerHealth.cs
+    Line: 91
+    PathToShow: Assets/+BananaGame/Code/HealthSystem/PlayerHealth.cs(91)
+  - Text: ": Play sound\r"
     Note: 
     Tag: TODO
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\HealthSystem\PlayerHealth.cs
-    Line: 87
-    PathToShow: Assets/+BananaGame/Code/HealthSystem/PlayerHealth.cs(87)
-  - Text: ': Turn player towards to the interact point. By code or navmesh?'
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\HealthSystem\PlayerHealth.cs
+    Line: 92
+    PathToShow: Assets/+BananaGame/Code/HealthSystem/PlayerHealth.cs(92)
+  - Text: ": Turn player towards to the interact point. By code or navmesh?\r"
     Note: 
     Tag: TODO
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
     Line: 145
     PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(145)
-  - Text: ': Turn the player slowly towards the target, not instantly.'
+  - Text: ": Turn the player slowly towards the target, not instantly.\r"
     Note: 
     Tag: TODO
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
     Line: 169
     PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(169)
   - Text: ": If you add or remove a PlayerState, DON'T CHANGE ID NUMBERS\r"
     Note: 
     Tag: NOTE
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\Managers\PlayerStateManager.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Managers\PlayerStateManager.cs
     Line: 20
     PathToShow: Assets/+BananaGame/Code/Managers/PlayerStateManager.cs(20)
   - Text: ": Remove this debug log (after UIDashManager is working correctly)\r"
     Note: 
     Tag: TODO
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\Movement\AbilityDash.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Movement\AbilityDash.cs
     Line: 241
     PathToShow: Assets/+BananaGame/Code/Movement/AbilityDash.cs(241)
-  - Text: ': Pool for health pickups?'
+  - Text: ": Pool for health pickups?\r"
     Note: 
     Tag: NOTE
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\Pickups\Pickup.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Pickups\Pickup.cs
     Line: 17
     PathToShow: Assets/+BananaGame/Code/Pickups/Pickup.cs(17)
-  - Text: ': Enable event and listen it somewhere else to enable UI element'
+  - Text: ": Enable event and listen it somewhere else to enable UI element\r"
     Note: 
     Tag: TODO
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\Pickups\PickupDash.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Pickups\PickupDash.cs
     Line: 14
     PathToShow: Assets/+BananaGame/Code/Pickups/PickupDash.cs(14)
-  - Text: ': If have time change this to for example, Coroutine to happen only once'
+  - Text: ": If have time change this to for example, Coroutine to happen only once\r"
     Note: 
     Tag: TODO
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\Puzzle\MoveObjectOnPuzzleSolved.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Puzzle\MoveObjectOnPuzzleSolved.cs
     Line: 35
     PathToShow: Assets/+BananaGame/Code/Puzzle/MoveObjectOnPuzzleSolved.cs(35)
-  - Text: ': Not the best way to make this, but it''s working'
+  - Text: ": Not the best way to make this, but it's working\r"
     Note: 
     Tag: NOTE
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\Puzzle\MoveObjectOnPuzzleSolved.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Puzzle\MoveObjectOnPuzzleSolved.cs
     Line: 59
     PathToShow: Assets/+BananaGame/Code/Puzzle/MoveObjectOnPuzzleSolved.cs(59)
-  - Text: ": Add a numeral text display for cooldown as well.\r"
+  - Text: ": Problem with structs, because they are value type.\r"
     Note: 
     Tag: TODO
-    File: F:\Unity Projektit\BananaGame\Assets\+BananaGame\Code\UI\UIDashManager.cs
-    Line: 61
-    PathToShow: Assets/+BananaGame/Code/UI/UIDashManager.cs(61)
-  - Text: ': Problem with structs, because they are value type.'
-    Note: 
-    Tag: TODO
-    File: F:\Unity Projektit\BananaGame\Assets\NaughtyAttributes\Scripts\Editor\Utility\NaughtyEditorGUI.cs
+    File: C:\Unity\TAMK\BananaGame\Assets\NaughtyAttributes\Scripts\Editor\Utility\NaughtyEditorGUI.cs
     Line: 129
     PathToShow: Assets/NaughtyAttributes/Scripts/Editor/Utility/NaughtyEditorGUI.cs(129)
   TagsList:
