@@ -5,9 +5,8 @@ using UnityEngine.Playables;
 
 namespace BananaSoup.Cutscenes
 {
-    public class TriggerTimeline : MonoBehaviour
+    public class TriggerCutscene : MonoBehaviour
     {
-        [SerializeField] private bool teleportPlayerAfterCutscene;
         private PlayableDirector director;
 
         private void Awake()
@@ -21,10 +20,8 @@ namespace BananaSoup.Cutscenes
 
         private void OnTriggerEnter(Collider other)
         {
-            if ( other.TryGetComponent(out PlayerBase player) )
+            if ( other.GetComponent<PlayerBase>() != null )
             {
-                Debug.Log("Enabling cutscene");
-                Debug.Log(player.name + " triggered: " + director.name);
                 director.Play();
             }
         }
