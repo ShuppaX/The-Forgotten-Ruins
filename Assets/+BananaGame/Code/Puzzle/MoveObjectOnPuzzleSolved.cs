@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BananaSoup.PuzzleSystem
@@ -30,6 +28,11 @@ namespace BananaSoup.PuzzleSystem
 
             movementBlocker = gameObject.AddComponent<BoxCollider>();
             movementBlocker.size = new Vector3(movementBlocker.size.x, movementBlocker.size.y + movementBlockerExtraHeight, movementBlocker.size.z);
+        }
+
+        public void SetCurrentLocation()
+        {
+            endPoint = transform.position;
         }
 
         // TODO: If have time change this to for example, Coroutine to happen only once
