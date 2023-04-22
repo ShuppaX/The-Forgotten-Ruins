@@ -13,6 +13,7 @@ namespace BananaSoup.Traps
         private int activationCurveLastIndex = 0;
         private int deactivationCurveLastIndex = 0;
         private Coroutine trapRoutine;
+        private Vector3 startingPosition;
 
         private void Start()
         {
@@ -25,6 +26,7 @@ namespace BananaSoup.Traps
             activationCurveLastIndex = (activationCurve.length - 1);
 
             SettingUpDeactivationCurve();
+            startingPosition = trapDamagerObject.transform.position;
         }
 
         private void SettingUpDeactivationCurve()
@@ -39,7 +41,8 @@ namespace BananaSoup.Traps
             }
 
             // Adding keys from the code.
-            deactivationCurve.AddKey(0.0f, activationCurve[activationCurveLastIndex].value);
+            float lastValueInActivatedLocation = activationCurve[activationCurveLastIndex].value;
+            deactivationCurve.AddKey(0.0f, lastValueInActivatedLocation);
             deactivationCurve.AddKey(GetCooldown, 0.0f);
 
             // Get last point of the deactivationCurve.
@@ -68,9 +71,9 @@ namespace BananaSoup.Traps
                 trapTimer += Time.deltaTime;
 
                 Vector3 newPosition = Vector3.zero;
-                newPosition.Set(trapDamagerObject.transform.position.x,
-                                activationCurve.Evaluate(trapTimer),
-                                trapDamagerObject.transform.position.z);
+                newPosition.Set(startingPosition.x,
+                                startingPosition.y + activationCurve.Evaluate(trapTimer),
+                                startingPosition.z);
 
                 trapDamagerObject.transform.position = newPosition;
                 yield return null;
@@ -92,9 +95,9 @@ namespace BananaSoup.Traps
                 trapTimer += Time.deltaTime;
 
                 Vector3 newPosition = Vector3.zero;
-                newPosition.Set(trapDamagerObject.transform.position.x,
-                                deactivationCurve.Evaluate(trapTimer),
-                                trapDamagerObject.transform.position.z);
+                newPosition.Set(startingPosition.x,
+                                startingPosition.y + deactivationCurve.Evaluate(trapTimer),
+                                startingPosition.z);
                 trapDamagerObject.transform.position = newPosition;
 
                 yield return null;
