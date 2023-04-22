@@ -15,7 +15,7 @@ namespace BananaSoup.PuzzleSystem.CustomInspector
 
         public override void OnInspectorGUI()
         {
-            if ( GUILayout.Button("Set current location") )
+            if ( GUILayout.Button("Set current location to the End Point") )
             {
                 moveObjectOnPuzzleSolved.SetCurrentLocation();
             }
