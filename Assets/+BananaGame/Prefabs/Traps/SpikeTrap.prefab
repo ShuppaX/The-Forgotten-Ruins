@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3403033755976342004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.6, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 9.99, y: 1, z: 9.9}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3403033756600342494}
@@ -225,10 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fea610cc500c57e4194de5689149e087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  canDamageWhat:
-    serializedVersion: 2
-    m_Bits: 768
   triggersWith:
     serializedVersion: 2
     m_Bits: 768
@@ -292,21 +288,6 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  deactivationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.48602676
-      value: 0.298851
-      inSlope: -0.33333334
-      outSlope: -0.33333334
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
