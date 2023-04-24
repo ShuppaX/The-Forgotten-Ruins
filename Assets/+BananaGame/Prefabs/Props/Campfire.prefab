@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 123613585501777558}
   - component: {fileID: 8452926368119037899}
   - component: {fileID: 8452926368119037898}
+  - component: {fileID: 7815536021926543875}
   m_Layer: 0
   m_Name: Campfire
   m_TagString: Untagged
@@ -117,6 +118,21 @@ CapsuleCollider:
   m_Height: 0.3956687
   m_Direction: 1
   m_Center: {x: -0.0058974028, y: 0.025466226, z: -0.027881756}
+--- !u!114 &7815536021926543875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034535277939153985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e63306e5a63e1c448b11235c424d960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSolutionReversed: 0
+  fireParticles: {fileID: 3449866838442561200}
+  isTorchAlreadyBurning: 0
 --- !u!1001 &781158081908110990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -186,6 +202,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e121a32444f180439fbe3f2da52be3c, type: 3}
+--- !u!198 &3449866838442561200 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2681709682670319678, guid: 7e121a32444f180439fbe3f2da52be3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 781158081908110990}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6874525572419909619 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6174439172949115261, guid: 7e121a32444f180439fbe3f2da52be3c,
