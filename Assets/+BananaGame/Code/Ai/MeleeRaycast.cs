@@ -109,7 +109,10 @@ namespace BananaSoup
             _playerInSightRange = Physics.CheckSphere(position, sightRange, whatIsPlayer);
             _playerInAttackRange = Physics.CheckSphere(position, attackRange, whatIsPlayer);
             
-            _vision = new Ray(position, playerDirection - position);
+            
+            //TODO doesn't update when player is moving
+            _vision = new Ray(position + new Vector3(0,0.5f,0), _whereIsPlayer);
+            
 
             
             //Vision related statements
@@ -123,7 +126,6 @@ namespace BananaSoup
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
                 }
 
-            Debug.DrawRay(transform.position, _whereIsPlayer, Color.blue);
             //Raycast to check if player is not obscured by obstacles
             //TODO FIX IT
             //Raycast in the direction of player within sightrange and check if it hits the player
@@ -258,6 +260,9 @@ namespace BananaSoup
             Gizmos.DrawWireSphere(position, sightRange); //Radius of sight range
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(position, patrolRange); //Radius of patrol range
+            
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(position + new Vector3(0,0.5f,0), _whereIsPlayer); //Line to player
         }
 
         public void OnThrowAbility(ParticleProjectile.Type projectileType)
