@@ -127,17 +127,22 @@ namespace BananaSoup
             //Raycast to check if player is not obscured by obstacles
             //TODO FIX IT
             //Raycast in the direction of player within sightrange and check if it hits the player
-            if (Physics.Raycast(_vision, out var sighted, 12f, LayerMask.GetMask("Player")))
+
+            if (Physics.Raycast(_vision, out var sighted, 12f, LayerMask.GetMask("Ground")))
             {
-                _canSeePlayer = sighted.collider.CompareTag("Player");
+                // If the ray hits something on the "Ground" layer, check if it's a wall
+                if (sighted.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                {
+                    Debug.Log("There is a wall between the player and enemy.");
+                    _canSeePlayer = false;
+                }
+
             }
             else
             {
-                _canSeePlayer = false;
+                _canSeePlayer = true;
             }
 
-
-          
 
             if (Time.time < lastDidSomething + _pauseTime) return;
 
@@ -161,7 +166,7 @@ namespace BananaSoup
             }
 
             //Attack
-            if (_playerInSightRange && _playerInAttackRange)
+            if (_playerInSightRange && _playerInAttackRange && _canSeePlayer)
             {
                 if (!_canSeePlayer) return;
                 //Trigger for attack is in Attack() method
