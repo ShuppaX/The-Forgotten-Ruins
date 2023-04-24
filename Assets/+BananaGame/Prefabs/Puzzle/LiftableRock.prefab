@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 8578433592742580833}
   - component: {fileID: 5398926661282169525}
   - component: {fileID: 1366720612757513235}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: rune_rock_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

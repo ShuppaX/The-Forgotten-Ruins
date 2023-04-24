@@ -11,7 +11,7 @@ namespace BananaSoup.DamageSystem
 
         private void Start()
         {
-            swordMesh = GetComponent<MeshRenderer>();
+            swordMesh = GetComponentInChildren<MeshRenderer>();
             if ( swordMesh == null )
             {
                 Debug.LogError(name + " is missing a referece to a Sword Mesh!");
