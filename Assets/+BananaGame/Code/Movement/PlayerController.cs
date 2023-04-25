@@ -431,8 +431,6 @@ namespace BananaSoup
             {
                 var rot = Quaternion.LookRotation(IsoVectorConvert(movementInput), Vector3.up);
 
-                //transform.rotation = rot;
-
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);
             }
         }
