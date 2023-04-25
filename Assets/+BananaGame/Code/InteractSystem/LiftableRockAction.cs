@@ -4,11 +4,13 @@ namespace BananaSoup.InteractSystem
 {
     public class LiftableRockAction : Interactable
     {
+        private Vector3 colliderOriginalScales;
+        private Vector3 colliderShrinkedScales = new Vector3(0.05f, 0.05f, 0.05f);
+
         private PlayerBase playerBase = null;
         private BoxCollider col = null;
         private LiftableRockLiftPoint liftPoint = null;
-        private Vector3 colliderOriginalScales;
-        private Vector3 colliderShrinkedScales = new Vector3(0.05f, 0.05f, 0.05f);
+        private Rigidbody rb = null;
 
         void Start()
         {
@@ -36,6 +38,12 @@ namespace BananaSoup.InteractSystem
             {
                 Debug.LogError(gameObject.name + " couldn't find a LiftableRockLiftPoint from PlayerBase's children!");
             }
+
+            rb = GetComponent<Rigidbody>();
+            if ( rb == null )
+            {
+                Debug.LogError(gameObject.name + " is missing a Rigidbody component!");
+            }
         }
 
         internal override void Interact()
@@ -48,6 +56,8 @@ namespace BananaSoup.InteractSystem
             // Enable character turning
             playerBase.IsTurnable = true;
 
+            rb.useGravity = false;
+
             // Scale rock's collider
             ScaleRockCollider();
         }
@@ -55,6 +65,8 @@ namespace BananaSoup.InteractSystem
         internal override void InteractCompleted()
         {
             base.InteractCompleted();
+
+            rb.useGravity = true;
 
             ScaleRockCollider();
         }
@@ -76,6 +88,7 @@ namespace BananaSoup.InteractSystem
             if ( IsInteracting )
             {
                 transform.position = liftPoint.transform.position;
+                transform.rotation = playerBase.transform.rotation;
             }
         }
     }

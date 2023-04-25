@@ -7165,11 +7165,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LiftableRock
       objectReference: {fileID: 0}
-    - target: {fileID: 512458541303687389, guid: e559eb751102f3245a6b1595c07c9920,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e559eb751102f3245a6b1595c07c9920, type: 3}
 --- !u!1001 &305101228
@@ -20954,7 +20949,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-57776
+  m_Name: pb_Mesh-5604
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22123,7 +22118,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-55366
+  m_Name: pb_Mesh-3080
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -24041,11 +24036,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LiftableRock (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 512458541303687389, guid: e559eb751102f3245a6b1595c07c9920,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e559eb751102f3245a6b1595c07c9920, type: 3}
@@ -26254,7 +26244,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-64958
+  m_Name: pb_Mesh-13252
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -44945,7 +44935,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-59500
+  m_Name: pb_Mesh-7466
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -50583,10 +50573,10 @@ Transform:
   - {fileID: 2140953573}
   - {fileID: 2053259314}
   - {fileID: 537429406}
-  - {fileID: 439492685}
   - {fileID: 893946774}
   - {fileID: 716552338}
   - {fileID: 6053925057098459081}
+  - {fileID: 439492685}
   - {fileID: 659040793}
   - {fileID: 308346895}
   m_Father: {fileID: 1692143437}
