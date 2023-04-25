@@ -296,6 +296,10 @@ namespace BananaSoup
             }
         }
 
+        /// <summary>
+        /// Method used to check if the PlayerState can be moving.
+        /// </summary>
+        /// <returns>False if it's not allowed to be moving, otherwise true.</returns>
         private bool CanStateBeMoving()
         {
             if ( psm.CurrentPlayerState == interactingIdle )
@@ -387,6 +391,7 @@ namespace BananaSoup
         /// then the players state is set to Idle or InAir depending on if the player
         /// is grounded.
         /// Also set the rigidbody.velocity to Vector3.zero if the player is grounded.
+        /// If the player is interacting and stopped moving set the state to interactingIdle.
         /// </summary>
         private void StoppedMoving()
         {
@@ -457,6 +462,7 @@ namespace BananaSoup
         /// Rotates the character towards the direction of movement.
         /// The correct direction is calculated using IsoVectorConvert method.
         /// Moving up rotates the character up instead of up and left.
+        /// Uses Quaternion.RotateTowards for smooth turning.
         /// </summary>
         private void Look()
         {

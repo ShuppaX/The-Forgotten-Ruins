@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using BananaSoup.Managers;
 using System.Collections;
-using System;
 
 namespace BananaSoup.InteractSystem
 {
@@ -223,6 +222,12 @@ namespace BananaSoup.InteractSystem
             Gizmos.DrawWireSphere(spheresCastingLocation + transform.forward * currentHitDistance, sphereRadius);
         }
 
+        /// <summary>
+        /// Coroutine used to handle picking up an interactable pickupable object.
+        /// Has a delay to allow some time for the picking up animation to play, and
+        /// then the player is allowed to move and turn again and the PlayerState
+        /// is set to interactingIdle.
+        /// </summary>
         private IEnumerator PickUpInteractable()
         {
             psm.SetPlayerState(startInteracting);
@@ -233,6 +238,12 @@ namespace BananaSoup.InteractSystem
             pickUpInteractable = null;
         }
 
+        /// <summary>
+        /// Coroutine used to handle stopping interacting and putting down the
+        /// interactable object.
+        /// Has a delay to allow some time for the putting down animation to play, and
+        /// then the PlayerState is reset and player inputs are set to true.
+        /// </summary>
         private IEnumerator PutInteractableDown()
         {
             psm.SetPlayerState(stopInteracting);
