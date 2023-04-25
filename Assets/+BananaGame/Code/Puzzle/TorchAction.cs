@@ -9,6 +9,7 @@ namespace BananaSoup.PuzzleSystem
         [SerializeField] private ParticleSystem fireParticles;
         [SerializeField] private bool isTorchAlreadyBurning = true;
         private bool isBurning = true;
+        private bool isStartSetup = true;
 
         public bool IsTorchAlreadyBurning => isTorchAlreadyBurning;
 
@@ -59,12 +60,38 @@ namespace BananaSoup.PuzzleSystem
         {
             fireParticles.Stop();
             isBurning = false;
+
+            if ( !isStartSetup )
+            {
+                if ( !IsSolutionReversed )
+                {
+                    UpdateRemainingPuzzle(-1);
+                }
+                else
+                {
+                    UpdateRemainingPuzzle(1);
+                }
+            }
+            isStartSetup = false;
         }
 
         public void LitTorch()
         {
             fireParticles.Play();
             isBurning = true;
+
+            if ( !isStartSetup )
+            {
+                if ( !IsSolutionReversed )
+                {
+                    UpdateRemainingPuzzle(1);
+                }
+                else
+                {
+                    UpdateRemainingPuzzle(-1);
+                }
+            }
+            isStartSetup = false;
         }
 
         public void OnThrowAbility(ParticleProjectile.Type projectileType)
@@ -80,15 +107,6 @@ namespace BananaSoup.PuzzleSystem
 
                     Extinguish();
 
-                    if ( !IsSolutionReversed )
-                    {
-                        UpdateRemainingPuzzle(-1);
-                    }
-                    else
-                    {
-                        UpdateRemainingPuzzle(1);
-                    }
-
                     break;
                 }
                 case ParticleProjectile.Type.Spark:
@@ -99,15 +117,6 @@ namespace BananaSoup.PuzzleSystem
                     }
 
                     LitTorch();
-
-                    if ( !IsSolutionReversed )
-                    {
-                        UpdateRemainingPuzzle(1);
-                    }
-                    else
-                    {
-                        UpdateRemainingPuzzle(-1);
-                    }
 
                     break;
                 }
