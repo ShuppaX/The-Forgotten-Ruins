@@ -12,6 +12,8 @@ namespace BananaSoup
         [Header("Movement")]
         [SerializeField, Tooltip("The movement speed of the character when moving.")]
         private float movementSpeed = 7.0f;
+        [SerializeField, Tooltip("The turning speed of the character when rotating.")]
+        private float turnSpeed = 760.0f;
         [SerializeField, Tooltip("The movementspeed of the character when interacting.")]
         private float interactMovementSpeed = 3.5f;
         [SerializeField, Tooltip("The movementspeed of the character when it's getting pushed back.")]
@@ -429,7 +431,9 @@ namespace BananaSoup
             {
                 var rot = Quaternion.LookRotation(IsoVectorConvert(movementInput), Vector3.up);
 
-                transform.rotation = rot;
+                //transform.rotation = rot;
+
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);
             }
         }
     }
