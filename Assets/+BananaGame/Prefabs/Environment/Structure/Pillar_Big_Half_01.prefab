@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2265911666337059001}
   - component: {fileID: 4154000258066271204}
   - component: {fileID: 7783165485323046897}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Pillar_Big_Half_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
