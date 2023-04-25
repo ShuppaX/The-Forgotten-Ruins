@@ -25,25 +25,48 @@ Use the link to download and extract the .zip to play the current version of the
    L (Keyboard only)
    Button North (Gamepad)
 
+# Change Ability:
+   R (Mouse & Keyboard / Keyboard only)
+   D-Pad Left (Gamepad)
+
 # Ability:
    Mouse Right (Mouse & Keyboard)
    K (Keyboard only)
    Button East (Gamepad)
 
 # Attack
-   (Not implemented yet)
+   Mouse Left (Mouse & Keyboard)
+   J (Keyboard only)
+   Button West (Gamepad)
 
 ```
 
 ## Current known issues:
 ```python
-# Movement animation:
-Double tapping movement input in quick succession leaves the player
-character in the idle animation for some reason.
+# Sand/Spark throwable
+   These get disabled immediately when any of the particles collide with anything.
 
-# Interacting with movable boxes
-The movement and interacting with movable boxes is completely broken
-at the moment.
+# Collider on moving puzzle parts.
+   The colliders are sometimes too big and block the players movement in an annoying manner.
+
+# Ranged enemy
+   The enemy can get stuck shooting in a wrong direction.
+
+# Melee enemy
+   Does not always damage the player.
+
+# Throwable
+   Can throw an error if the game was reset through Debug Menu.
+
+# Fennec animations
+   The fennect is missing an animation when it is walking towards an interactable object.
+
+# Interacting
+   Spamming interact can cause the player to enter wrong animations.
+   Picking up and dropping interactable objects pushes the player back.
+
+# Puzzles
+   The puzzles can be softlocked sometimes.
 ```
 
 ## License
