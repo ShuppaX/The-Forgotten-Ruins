@@ -35,7 +35,7 @@ namespace BananaSoup.Utilities
 
         [Header("Constant PlayerState used for PlayerState handling")]
         private const PlayerStateManager.PlayerState inAir = PlayerStateManager.PlayerState.InAir;
-        private const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.Interacting;
+        private const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.InteractingIdle;
 
         public bool IsGrounded
         {
@@ -102,7 +102,7 @@ namespace BananaSoup.Utilities
             {
                 groundCheckChanged = !groundCheckChanged;
 
-                if ( psm.currentPlayerState == interacting )
+                if ( psm.CurrentPlayerState == interacting )
                 {
                     return;
                 }

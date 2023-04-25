@@ -133,7 +133,6 @@ namespace BananaSoup.UI
             // Only allow this to happen when the cooldown is inactive.
             if ( !isDashCooldownActive )
             {
-                Debug.Log("Resetting Image and TMP_Text values!");
                 dashImage.fillAmount = 1f;
                 dashImage.color = offCooldown;
                 cooldownTimerText.text = string.Empty;

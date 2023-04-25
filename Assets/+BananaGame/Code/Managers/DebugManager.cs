@@ -56,7 +56,7 @@ namespace BananaSoup.Managers
         {
             if ( IsDebugActive )
             {
-                playerStateText.SetText(PlayerStateManager.Instance.currentPlayerState.ToString());
+                playerStateText.SetText(PlayerStateManager.Instance.CurrentPlayerState.ToString());
             }
         }
 

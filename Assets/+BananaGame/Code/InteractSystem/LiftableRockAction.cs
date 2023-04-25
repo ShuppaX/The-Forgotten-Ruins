@@ -51,10 +51,10 @@ namespace BananaSoup.InteractSystem
             base.Interact();
 
             // Enable movement controls
-            playerBase.IsMovable = true;
+            //playerBase.IsMovable = true;
 
             // Enable character turning
-            playerBase.IsTurnable = true;
+            //playerBase.IsTurnable = true;
 
             rb.useGravity = false;
 

@@ -2273,7 +2273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57fab8125834a454e802711344b58527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPlayerState: 0
 --- !u!114 &1999600809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2300,7 +2299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 5
   turnSpeed: 900
-  interactMovementSpeed: 3.5
+  interactMovementSpeed: 3
   pushbackMovementSpeed: 3.5
   fallingVelocityMultiplier: 1.1
   cameraAngle: 45

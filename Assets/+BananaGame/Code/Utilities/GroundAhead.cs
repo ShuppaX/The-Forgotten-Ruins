@@ -34,7 +34,7 @@ namespace BananaSoup.Utilities
         private CapsuleCollider playerCollider = null;
         private PlayerStateManager psm = null;
 
-        private const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.Interacting;
+        private const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.InteractingIdle;
 
         public bool IsGroundAhead
         {
@@ -103,7 +103,7 @@ namespace BananaSoup.Utilities
         /// </summary>
         private void CalculateGroundAheadSphereOriginPoints()
         {
-            if ( psm.currentPlayerState == interacting )
+            if ( psm.CurrentPlayerState == interacting )
             {
                 currentCastOriginOffset = castOriginOffsetInteract;
             }

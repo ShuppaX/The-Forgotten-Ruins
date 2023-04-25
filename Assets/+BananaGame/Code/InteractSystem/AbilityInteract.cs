@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using BananaSoup.Managers;
+using System.Collections;
+using System;
 
 namespace BananaSoup.InteractSystem
 {
@@ -14,11 +16,21 @@ namespace BananaSoup.InteractSystem
         [SerializeField] float moveSpeed = 2.0f;
 
         [Header("Constant strings used for PlayerState handling")]
-        private const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.Interacting;
+        private const PlayerStateManager.PlayerState startInteracting = PlayerStateManager.PlayerState.PickingUp;
+        private const PlayerStateManager.PlayerState interactingIdle = PlayerStateManager.PlayerState.InteractingIdle;
+        private const PlayerStateManager.PlayerState stopInteracting = PlayerStateManager.PlayerState.PuttingDown;
 
         private bool hasSelectedInteractable;
         private bool isLookingAtTarget = true;
         private Vector3 interactPoint;
+
+        private float waitForPickUp = 0.4f;
+        private float waitForPutDown = 0.4f;
+
+        private Coroutine pickUpInteractable = null;
+        private Coroutine putInteractableDown = null;
+
+        // References
         private PlayerBase playerBase = null;
         private Interactable currentInteractable = null;
         private PlayerStateManager psm = null;
@@ -26,6 +38,12 @@ namespace BananaSoup.InteractSystem
         // Gizmo
         private float currentHitDistance;
         private Color interactGizmoColor = Color.green;
+
+        private void OnDisable()
+        {
+            pickUpInteractable = null;
+            putInteractableDown = null;
+        }
 
         private void Start()
         {
@@ -85,8 +103,18 @@ namespace BananaSoup.InteractSystem
             if ( hasSelectedInteractable )
             {
                 hasSelectedInteractable = false;
-                psm.ResetPlayerState();
-                SetPlayerInputs(true);
+
+                if ( pickUpInteractable != null )
+                {
+                    StopCoroutine(pickUpInteractable);
+                    pickUpInteractable = null;
+                }
+
+                if ( putInteractableDown == null )
+                {
+                    StartCoroutine(nameof(PutInteractableDown));
+                }
+
                 return;
             }
 
@@ -96,9 +124,18 @@ namespace BananaSoup.InteractSystem
             {
                 if ( currentInteractable.IsInteracting == true )
                 {
-                    psm.ResetPlayerState();
+                    if ( pickUpInteractable != null )
+                    {
+                        StopCoroutine(pickUpInteractable);
+                        pickUpInteractable = null;
+                    }
+
+                    if ( putInteractableDown == null )
+                    {
+                        StartCoroutine(nameof(PutInteractableDown));
+                    }
+
                     currentInteractable.InteractCompleted();
-                    SetPlayerInputs(true);
                     return;
                 }
             }
@@ -117,7 +154,12 @@ namespace BananaSoup.InteractSystem
                 if ( hit.transform.TryGetComponent(out Interactable interactable) )
                 {
                     SetPlayerInputs(false);
-                    psm.SetPlayerState(interacting);
+
+                    if ( pickUpInteractable == null )
+                    {
+                        pickUpInteractable = StartCoroutine(nameof(PickUpInteractable));
+                    }
+
                     hasSelectedInteractable = true;
 
                     currentInteractable = interactable;
@@ -179,6 +221,27 @@ namespace BananaSoup.InteractSystem
 
             Vector3 spheresCastingLocation = (transform.position + (transform.forward * -sphereRadius));
             Gizmos.DrawWireSphere(spheresCastingLocation + transform.forward * currentHitDistance, sphereRadius);
+        }
+
+        private IEnumerator PickUpInteractable()
+        {
+            psm.SetPlayerState(startInteracting);
+            yield return new WaitForSeconds(waitForPickUp);
+            playerBase.IsMovable = true;
+            playerBase.IsTurnable = true;
+            psm.SetPlayerState(interactingIdle);
+            pickUpInteractable = null;
+        }
+
+        private IEnumerator PutInteractableDown()
+        {
+            psm.SetPlayerState(stopInteracting);
+            playerBase.IsMovable = false;
+            playerBase.IsTurnable = false;
+            yield return new WaitForSeconds(waitForPutDown);
+            putInteractableDown = null;
+            psm.ResetPlayerState();
+            SetPlayerInputs(true);
         }
     }
 }

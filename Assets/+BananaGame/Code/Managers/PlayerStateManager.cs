@@ -10,8 +10,12 @@ namespace BananaSoup.Managers
         private PlayerAnimationManager animationManager = null;
         private PlayerController playerController = null;
 
-        [HideInInspector]
-        public PlayerState currentPlayerState = PlayerState.Idle;
+        private PlayerState currentPlayerState = PlayerState.Idle;
+        
+        public PlayerState CurrentPlayerState
+        {
+            get => currentPlayerState;
+        }
 
         private PlayerState previousPlayerState = PlayerState.Idle;
 
@@ -24,11 +28,14 @@ namespace BananaSoup.Managers
             Moving = 1,
             Dashing = 2,
             Attacking = 3,
-            Interacting = 4,
+            InteractingIdle = 4,
             InAir = 5,
             Sanding = 6,
             Sparking = 7,
-            Dead = 8
+            Dead = 8,
+            InteractingMove = 9,
+            PickingUp = 10,
+            PuttingDown = 11
         }
 
         private void Awake()
@@ -102,6 +109,11 @@ namespace BananaSoup.Managers
         /// </summary>
         public void ResetPlayerState()
         {
+            if ( currentPlayerState == PlayerState.Dead )
+            {
+                return;
+            }
+
             previousPlayerState = currentPlayerState;
 
             if ( playerController.HasMoveInput )

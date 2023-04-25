@@ -49,10 +49,12 @@ namespace BananaSoup
         private bool wasPushed = false;
 
         [Header("Constant PlayerStates used for PlayerState handling")]
-        public const PlayerStateManager.PlayerState moving = PlayerStateManager.PlayerState.Moving;
-        public const PlayerStateManager.PlayerState notMoving = PlayerStateManager.PlayerState.Idle;
-        public const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.Interacting;
-        public const PlayerStateManager.PlayerState inAir = PlayerStateManager.PlayerState.InAir;
+        private const PlayerStateManager.PlayerState moving = PlayerStateManager.PlayerState.Moving;
+        private const PlayerStateManager.PlayerState interactingIdle = PlayerStateManager.PlayerState.InteractingIdle;
+        private const PlayerStateManager.PlayerState interactingMove = PlayerStateManager.PlayerState.InteractingMove;
+        private const PlayerStateManager.PlayerState pickingUp = PlayerStateManager.PlayerState.PickingUp;
+        private const PlayerStateManager.PlayerState puttingDown = PlayerStateManager.PlayerState.PuttingDown;
+        private const PlayerStateManager.PlayerState inAir = PlayerStateManager.PlayerState.InAir;
 
         public float MaxSlopeAngle
         {
@@ -283,14 +285,40 @@ namespace BananaSoup
             {
                 Vector3 forceToApply = GetMovementDirection(isometricDirection) * GetMovementSpeed();
                 rb.velocity = forceToApply;
-                
-                if ( psm.currentPlayerState == interacting )
+
+                if ( !CanStateBeMoving() )
                 {
+                    psm.SetPlayerState(interactingMove);
                     return;
                 }
 
                 psm.SetPlayerState(moving);
             }
+        }
+
+        private bool CanStateBeMoving()
+        {
+            if ( psm.CurrentPlayerState == interactingIdle )
+            {
+                return false;
+            }
+
+            if ( psm.CurrentPlayerState == interactingMove )
+            {
+                return false;
+            }
+
+            if ( psm.CurrentPlayerState == pickingUp )
+            {
+                return false;
+            }
+
+            if ( psm.CurrentPlayerState == puttingDown )
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -301,7 +329,7 @@ namespace BananaSoup
         /// otherwise normal movementSpeed.</returns>
         private float GetMovementSpeed()
         {
-            if ( psm.currentPlayerState == interacting )
+            if ( psm.CurrentPlayerState == interactingMove )
             {
                 return interactMovementSpeed;
             }
@@ -362,7 +390,7 @@ namespace BananaSoup
         /// </summary>
         private void StoppedMoving()
         {
-            if ( psm.currentPlayerState == PlayerStateManager.PlayerState.Moving )
+            if ( psm.CurrentPlayerState == moving )
             {
                 if ( groundCheck.IsGrounded )
                 {
@@ -374,6 +402,11 @@ namespace BananaSoup
                 }
             }
 
+            if ( psm.CurrentPlayerState == interactingMove )
+            {
+                psm.SetPlayerState(interactingIdle);
+            }
+
             if ( groundCheck.IsGrounded )
             {
                 rb.velocity = Vector3.zero;
@@ -382,16 +415,16 @@ namespace BananaSoup
 
         /// <summary>
         /// Set the players rigidbody.velocity to Vector3.zero IF the player is not
-        /// dashing.
+        /// dashing or in the air.
         /// </summary>
         private void StopMovement()
         {
-            if ( psm.currentPlayerState == PlayerStateManager.PlayerState.Dashing )
+            if ( psm.CurrentPlayerState == PlayerStateManager.PlayerState.Dashing )
             {
                 return;
             }
 
-            if ( psm.currentPlayerState == PlayerStateManager.PlayerState.InAir )
+            if ( psm.CurrentPlayerState == PlayerStateManager.PlayerState.InAir )
             {
                 return;
             }
