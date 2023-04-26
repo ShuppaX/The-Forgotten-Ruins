@@ -37,17 +37,13 @@ namespace BananaSoup
         private GroundCheck groundCheck = null;
         private GroundAhead groundAhead = null;
         private PlayerStateManager psm = null;
-        private DebugManager debug = null;
 
         // Variables used to store in script values
         private Vector3 movementInput = Vector3.zero;
         private Vector3 isometricDirection = Vector3.zero;
 
-        private float latestMovementspeed = 0.0f;
-
         private bool hasMoveInput = false;
         private bool wasPushed = false;
-        private bool noActiveDebugManager = false;
 
         [Header("Constant PlayerStates used for PlayerState handling")]
         private const PlayerStateManager.PlayerState moving = PlayerStateManager.PlayerState.Moving;
@@ -86,6 +82,11 @@ namespace BananaSoup
             get { return hasMoveInput; }
         }
 
+        public Rigidbody Rb
+        {
+            get => rb;
+        }
+
         private void Start()
         {
             Setup();
@@ -109,12 +110,6 @@ namespace BananaSoup
             if ( psm == null )
             {
                 Debug.LogError(gameObject.name + " couldn't find an Instance of PlayerStateManager!");
-            }
-
-            debug = DebugManager.Instance;
-            if ( debug == null )
-            {
-                noActiveDebugManager = true;
             }
         }
 
@@ -148,28 +143,6 @@ namespace BananaSoup
             }
 
             return component;
-        }
-
-        private void Update()
-        {
-            UpdateMovementspeedDebug();
-        }
-
-        /// <summary>
-        /// Update the movementSpeed display debug once every time the rb.velocity.sqrMagnitude changes.
-        /// </summary>
-        private void UpdateMovementspeedDebug()
-        {
-            if ( noActiveDebugManager )
-            {
-                return;
-            }
-
-            if ( latestMovementspeed != rb.velocity.sqrMagnitude )
-            {
-                latestMovementspeed = rb.velocity.sqrMagnitude;
-                debug.UpdateMovementSpeedText(Mathf.Round(rb.velocity.magnitude));
-            }
         }
 
         /// <summary>

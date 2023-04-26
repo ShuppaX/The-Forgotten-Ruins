@@ -25,13 +25,11 @@ namespace BananaSoup.Utilities
 
         private bool isGrounded = false;
         private bool groundCheckChanged = false;
-        private bool noActiveDebugManager = false;
 
         private LayerMask groundLayer;
 
         private CapsuleCollider playerCollider = null;
         private PlayerStateManager psm = null;
-        private DebugManager debug = null;
         private PlayerBase playerBase = null;
 
         [Header("Constant PlayerState used for PlayerState handling")]
@@ -81,12 +79,6 @@ namespace BananaSoup.Utilities
                 Debug.LogError(gameObject.name + " couldn't find an Instance of PlayerStateManager!");
             }
 
-            debug = DebugManager.Instance;
-            if ( debug == null )
-            {
-                noActiveDebugManager = true;
-            }
-
             playerBase = PlayerBase.Instance;
             if ( playerBase == null )
             {
@@ -118,13 +110,6 @@ namespace BananaSoup.Utilities
                     psm.ResetPlayerState();
                     playerBase.AreAbilitiesEnabled = true;
                 }
-
-                if ( noActiveDebugManager )
-                {
-                    return;
-                }
-
-                debug.UpdateGroundCheckText(isGrounded);
             }
         }
 
