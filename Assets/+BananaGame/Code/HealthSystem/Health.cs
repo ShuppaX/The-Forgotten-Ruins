@@ -32,7 +32,7 @@ namespace BananaSoup.HealthSystem
         public int CurrentHealth
         {
             get => _currentHealth;
-            private set
+            set
             {
                 _currentHealth = Mathf.Clamp(value, 0, _maxHealth);
                 if ( HealthChanged != null )
@@ -96,7 +96,7 @@ namespace BananaSoup.HealthSystem
             damageFlash = GetComponent<DamageFlash>();
             if ( damageFlash == null )
             {
-                Debug.LogError(gameObject.name + $" is missing the component of type {typeof(Component).Name}!");
+                Debug.LogError($"{gameObject.name} is missing the component of type {typeof(DamageFlash).Name}!");
             }
         }
 
