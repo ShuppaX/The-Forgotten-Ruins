@@ -47,6 +47,7 @@ namespace BananaSoup
 
         private bool hasMoveInput = false;
         private bool wasPushed = false;
+        private bool noActiveDebugManager = false;
 
         [Header("Constant PlayerStates used for PlayerState handling")]
         private const PlayerStateManager.PlayerState moving = PlayerStateManager.PlayerState.Moving;
@@ -113,7 +114,7 @@ namespace BananaSoup
             debug = DebugManager.Instance;
             if ( debug == null )
             {
-                Debug.LogError(gameObject.name + " couldn't find an Instance of DebugManager!");
+                noActiveDebugManager = true;
             }
         }
 
@@ -159,6 +160,11 @@ namespace BananaSoup
         /// </summary>
         private void UpdateMovementspeedDebug()
         {
+            if ( noActiveDebugManager )
+            {
+                return;
+            }
+
             if ( latestMovementspeed != rb.velocity.sqrMagnitude )
             {
                 latestMovementspeed = rb.velocity.sqrMagnitude;

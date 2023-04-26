@@ -25,6 +25,7 @@ namespace BananaSoup.Utilities
 
         private bool isGrounded = false;
         private bool groundCheckChanged = false;
+        private bool noActiveDebugManager = false;
 
         private LayerMask groundLayer;
 
@@ -83,7 +84,7 @@ namespace BananaSoup.Utilities
             debug = DebugManager.Instance;
             if ( debug == null )
             {
-                Debug.LogError(gameObject.name + " couldn't find an Instance of DebugManager!");
+                noActiveDebugManager = true;
             }
 
             playerBase = PlayerBase.Instance;
@@ -116,6 +117,11 @@ namespace BananaSoup.Utilities
                 {
                     psm.ResetPlayerState();
                     playerBase.AreAbilitiesEnabled = true;
+                }
+
+                if ( noActiveDebugManager )
+                {
+                    return;
                 }
 
                 debug.UpdateGroundCheckText(isGrounded);
