@@ -17,7 +17,7 @@ namespace BananaSoup.HealthSystem
 
         private PlayerBase playerBase = null;
         private PlayerStateManager psm = null;
-        private DamageFlash damageFlash = null;
+        
 
         private const PlayerStateManager.PlayerState dead = PlayerStateManager.PlayerState.Dead;
 
@@ -35,12 +35,6 @@ namespace BananaSoup.HealthSystem
             if ( psm == null )
             {
                 Debug.LogError("PlayerHealth couldn't find an Instance of PlayerStateManager!");
-            }
-
-            damageFlash = GetComponent<DamageFlash>();
-            if ( damageFlash == null )
-            {
-                Debug.LogError(gameObject.name + $" is missing the component of type {typeof(Component).Name}!");
             }
 
             base.Start();
@@ -76,8 +70,6 @@ namespace BananaSoup.HealthSystem
             {
                 PlayerHealthChanged();
             }
-
-            damageFlash.CallDamageFlash();
         }
 
         public override void IncreaseHealth(int amount)
@@ -98,7 +90,7 @@ namespace BananaSoup.HealthSystem
         {
             playerBase.ToggleAllActions(false);
 
-            // TODO: Start animation
+            // TODO: Ragdoll or something?
             // TODO: Play sound
         }
 

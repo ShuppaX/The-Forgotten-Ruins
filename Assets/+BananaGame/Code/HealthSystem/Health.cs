@@ -1,3 +1,4 @@
+using BananaSoup.DamageSystem;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace BananaSoup.HealthSystem
         private int _currentHealth = 0;
 
         private bool _wasHit = false;
+
+        private DamageFlash damageFlash = null;
 
         private Coroutine _deathRoutine = null;
         private Coroutine _baseDeathRoutine = null;
@@ -89,6 +92,12 @@ namespace BananaSoup.HealthSystem
         public virtual void Start()
         {
             Setup();
+
+            damageFlash = GetComponent<DamageFlash>();
+            if ( damageFlash == null )
+            {
+                Debug.LogError(gameObject.name + $" is missing the component of type {typeof(Component).Name}!");
+            }
         }
 
         public void Setup()
@@ -147,6 +156,7 @@ namespace BananaSoup.HealthSystem
 
             Debug.Log(gameObject.name + " took " + amount + " damage!");
             CurrentHealth -= amount;
+            damageFlash.CallDamageFlash();
             _wasHit = true;
             Invoke(nameof(ResetWasHit), _wasHitResetTime);
         }
