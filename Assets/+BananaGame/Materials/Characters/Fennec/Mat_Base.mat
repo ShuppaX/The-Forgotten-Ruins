@@ -283,7 +283,7 @@ Material:
     - _FlashColor: {r: 1, g: 0, b: 0, a: 0}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
-    - _MainColor: {r: 1, g: 0.9058824, b: 0.8117647, a: 1}
+    - _MainColor: {r: 0.9811321, g: 0.711817, b: 0.44891423, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}
