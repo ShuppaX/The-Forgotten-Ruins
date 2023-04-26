@@ -40,8 +40,7 @@ namespace BananaSoup.InteractSystem
 
         private void OnDisable()
         {
-            pickUpInteractable = null;
-            putInteractableDown = null;
+            StopCoroutines();
         }
 
         private void Start()
@@ -253,6 +252,25 @@ namespace BananaSoup.InteractSystem
             putInteractableDown = null;
             psm.ResetPlayerState();
             SetPlayerInputs(true);
+        }
+
+        /// <summary>
+        /// Method used in OnDisable() to stop coroutines if they are still running and
+        /// the object is disabled for some reason.
+        /// </summary>
+        private void StopCoroutines()
+        {
+            if ( pickUpInteractable != null )
+            {
+                StopCoroutine(pickUpInteractable);
+                pickUpInteractable = null;
+            }
+
+            if ( putInteractableDown != null )
+            {
+                StopCoroutine(putInteractableDown);
+                putInteractableDown = null;
+            }
         }
     }
 }

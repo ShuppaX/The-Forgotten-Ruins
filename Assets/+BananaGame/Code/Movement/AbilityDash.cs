@@ -55,6 +55,15 @@ namespace BananaSoup.Ability
             get => roundedRemainingCooldown;
         }
 
+        private void OnDisable()
+        {
+            if ( dashCooldownRoutine != null )
+            {
+                StopCoroutine(dashCooldownRoutine);
+                dashCooldownRoutine = null;
+            }
+        }
+
         private void Start()
         {
             Setup();

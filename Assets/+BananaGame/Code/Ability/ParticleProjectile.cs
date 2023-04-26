@@ -30,6 +30,15 @@ namespace BananaSoup
             isCollisionDetected = false;
         }
 
+        private void OnDisable()
+        {
+            if ( aliveTimer != null )
+            {
+                StopCoroutine(aliveTimer);
+                aliveTimer = null;
+            }
+        }
+
         private void Awake()
         {
             GetReference();
