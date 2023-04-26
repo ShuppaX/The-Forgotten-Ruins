@@ -4,7 +4,10 @@ namespace BananaSoup.PuzzleSystem
 {
     public class ToggleTorchesOnDisable : MonoBehaviour
     {
-        [SerializeField] private bool enableTorches = true;
+        [SerializeField, Tooltip("If true, this GameObject will lit the torches OnDisable that are in the array. " +
+                              "I false, this GameObject will extinguish the torches OnDisable that are in the array.")]
+        private bool enableTorches = true;
+
         [SerializeField] private TorchAction[] torches;
 
         private void Start()
