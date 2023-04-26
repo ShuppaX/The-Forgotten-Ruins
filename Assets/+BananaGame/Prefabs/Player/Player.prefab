@@ -2292,7 +2292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 7973058596037658666}
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashColor: {r: 2, g: 0, b: 0, a: 1}
   flashTime: 0.25
 --- !u!114 &9108917675126122351
 MonoBehaviour:
