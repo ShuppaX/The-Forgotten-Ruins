@@ -10,6 +10,7 @@ namespace BananaSoup.InteractSystem
         private PlayerBase playerBase = null;
         private BoxCollider col = null;
         private LiftableRockLiftPoint liftPoint = null;
+        private LiftableRockDropPoint dropPoint = null;
         private Rigidbody rb = null;
 
         void Start()
@@ -24,25 +25,31 @@ namespace BananaSoup.InteractSystem
             col = GetComponent<BoxCollider>();
             if ( col == null )
             {
-                Debug.LogError(gameObject.name + " is missing a Collider component!");
+                Debug.LogError($"{gameObject.name} is missing a Collider component!");
             }
 
             playerBase = PlayerBase.Instance;
             if ( playerBase == null )
             {
-                Debug.LogError(gameObject.name + " couldn't find an instance of PlayerBase!");
+                Debug.LogError($"{gameObject.name} couldn't find an instance of PlayerBase!");
             }
 
             liftPoint = playerBase.GetComponentInChildren<LiftableRockLiftPoint>();
             if ( liftPoint == null )
             {
-                Debug.LogError(gameObject.name + " couldn't find a LiftableRockLiftPoint from PlayerBase's children!");
+                Debug.LogError($"{gameObject.name} couldn't find a LiftableRockLiftPoint from PlayerBase's children!");
+            }
+
+            dropPoint = playerBase.GetComponentInChildren<LiftableRockDropPoint>();
+            if ( dropPoint == null )
+            {
+                Debug.LogError($"{gameObject.name} couldn't find a LiftableRockDropPoint from PlayerBase's children!");
             }
 
             rb = GetComponent<Rigidbody>();
             if ( rb == null )
             {
-                Debug.LogError(gameObject.name + " is missing a Rigidbody component!");
+                Debug.LogError($"{gameObject.name} is missing a Rigidbody component!");
             }
         }
 
@@ -62,10 +69,11 @@ namespace BananaSoup.InteractSystem
 
             rb.useGravity = true;
 
+            SetRockToDropPoint();
             ScaleRockCollider();
         }
 
-        private void ScaleRockCollider()
+        public void ScaleRockCollider()
         {
             if ( col.size == colliderOriginalScales )
             {
@@ -75,6 +83,11 @@ namespace BananaSoup.InteractSystem
             {
                 col.size = colliderOriginalScales;
             }
+        }
+
+        public void SetRockToDropPoint()
+        {
+            transform.position = dropPoint.DropPointPosition;
         }
 
         private void FixedUpdate()

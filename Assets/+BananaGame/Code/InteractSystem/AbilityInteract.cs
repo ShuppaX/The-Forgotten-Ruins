@@ -15,6 +15,7 @@ namespace BananaSoup.InteractSystem
         [SerializeField] float moveSpeed = 2.0f;
 
         [Header("Constant strings used for PlayerState handling")]
+        private const PlayerStateManager.PlayerState moving = PlayerStateManager.PlayerState.Moving;
         private const PlayerStateManager.PlayerState startInteracting = PlayerStateManager.PlayerState.PickingUp;
         private const PlayerStateManager.PlayerState interactingIdle = PlayerStateManager.PlayerState.InteractingIdle;
         private const PlayerStateManager.PlayerState stopInteracting = PlayerStateManager.PlayerState.PuttingDown;
@@ -153,10 +154,7 @@ namespace BananaSoup.InteractSystem
                 {
                     SetPlayerInputs(false);
 
-                    if ( pickUpInteractable == null )
-                    {
-                        pickUpInteractable = StartCoroutine(nameof(PickUpInteractable));
-                    }
+                    psm.SetPlayerState(moving);
 
                     hasSelectedInteractable = true;
 
@@ -197,6 +195,14 @@ namespace BananaSoup.InteractSystem
             if ( Vector3.Distance(transform.position, interactPoint) < 0.01f )
             {
                 hasSelectedInteractable = false;
+
+                SetPlayerInputs(false);
+
+                if ( pickUpInteractable == null )
+                {
+                    pickUpInteractable = StartCoroutine(nameof(PickUpInteractable));
+                }
+
                 currentInteractable.Interact();
 
                 // Set bool that the player is not looking at the target Interactable. FixedUpdate will rotate player towards it.
