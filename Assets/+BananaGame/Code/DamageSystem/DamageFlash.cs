@@ -10,6 +10,7 @@ namespace BananaSoup.DamageSystem
 
         [Space]
 
+        [ColorUsage(true, true)]
         [SerializeField, Tooltip("The color the object is to change to when taking damage.")]
         private Color flashColor = Color.red;
         [SerializeField, Tooltip("The time it takes to complete the damage flash effetc.")]

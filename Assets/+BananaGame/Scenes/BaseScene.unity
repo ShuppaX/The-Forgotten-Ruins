@@ -547,6 +547,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2690011458616672178, guid: 282df8200b8684c4683d177cd8e6ceea,
+        type: 3}
+      propertyPath: flashTime
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690011458616672178, guid: 282df8200b8684c4683d177cd8e6ceea,
+        type: 3}
+      propertyPath: flashColor.r
+      value: 2.9960785
+      objectReference: {fileID: 0}
     - target: {fileID: 8696953563904003545, guid: 282df8200b8684c4683d177cd8e6ceea,
         type: 3}
       propertyPath: m_Name
