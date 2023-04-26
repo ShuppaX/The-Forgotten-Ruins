@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using BananaSoup.Managers;
-using BananaSoup.DamageSystem;
 using System;
 
 namespace BananaSoup.HealthSystem
