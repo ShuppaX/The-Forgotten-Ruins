@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 9109.795, g: 3121.9229, b: 432.99072, a: 1}
+  m_IndirectSpecularColor: {r: 9114.959, g: 3122.9219, b: 432.49756, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15456,7 +15456,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puzzleGameObjects:
   - {fileID: 591868931}
-  puzzleSolutionGameObjects: []
+  puzzleSolutionGameObjects:
+  - {fileID: 1931758739}
+  - {fileID: 2044000735}
 --- !u!1 &651255850 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7747237079570801887, guid: 94a0c7916d51ec24dbd6e224c8a32d38,
