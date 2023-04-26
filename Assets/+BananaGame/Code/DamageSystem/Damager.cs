@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.DamageSystem
 {
     public class Damager : MonoBehaviour
     {

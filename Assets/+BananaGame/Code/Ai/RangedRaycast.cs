@@ -1,7 +1,7 @@
 using System.Collections;
-using System.ComponentModel;
 using UnityEngine;
 using BananaSoup.Utilities;
+using BananaSoup.DamageSystem;
 using UnityEngine.AI;
 
 namespace BananaSoup
