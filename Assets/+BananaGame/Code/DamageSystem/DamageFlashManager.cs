@@ -52,7 +52,7 @@ namespace BananaSoup
         {
             materials = new Material[meshRenderer.materials.Length];
 
-            for ( int i = 0; i < materialCount; i++ )
+            for ( int i = 0; i < materials.Length; i++ )
             {
                 materials[i] = meshRenderer.materials[i];
             }
