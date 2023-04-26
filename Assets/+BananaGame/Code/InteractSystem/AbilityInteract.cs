@@ -24,8 +24,7 @@ namespace BananaSoup.InteractSystem
         private bool isLookingAtTarget = true;
         private Vector3 interactPoint;
 
-        private float waitForPickUp = 0.4f;
-        private float waitForPutDown = 0.4f;
+        private float animationDelay = 0.25f;
 
         private Coroutine pickUpInteractable = null;
         private Coroutine putInteractableDown = null;
@@ -236,7 +235,7 @@ namespace BananaSoup.InteractSystem
         private IEnumerator PickUpInteractable()
         {
             psm.SetPlayerState(startInteracting);
-            yield return new WaitForSeconds(waitForPickUp);
+            yield return new WaitForSeconds(animationDelay);
             playerBase.IsMovable = true;
             playerBase.IsTurnable = true;
             psm.SetPlayerState(interactingIdle);
@@ -254,7 +253,7 @@ namespace BananaSoup.InteractSystem
             psm.SetPlayerState(stopInteracting);
             playerBase.IsMovable = false;
             playerBase.IsTurnable = false;
-            yield return new WaitForSeconds(waitForPutDown);
+            yield return new WaitForSeconds(animationDelay);
             putInteractableDown = null;
             psm.ResetPlayerState();
             SetPlayerInputs(true);

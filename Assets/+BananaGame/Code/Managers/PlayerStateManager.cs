@@ -114,6 +114,11 @@ namespace BananaSoup.Managers
                 return;
             }
 
+            if ( currentPlayerState == PlayerState.PickingUp )
+            {
+                return;
+            }
+
             previousPlayerState = currentPlayerState;
 
             if ( playerController.HasMoveInput )
