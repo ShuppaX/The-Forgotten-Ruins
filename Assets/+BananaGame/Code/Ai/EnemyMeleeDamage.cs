@@ -24,7 +24,7 @@ namespace BananaSoup
         public void MeleeAttack()
         {
             AudioManager.PlayClip(meleeSwingAudio, SoundEffect.EnemySwing);
-           // canDealDamage = true;
+            canDealDamage = true;
 
         }
 
