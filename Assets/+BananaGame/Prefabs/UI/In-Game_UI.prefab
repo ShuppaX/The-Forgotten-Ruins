@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8127596914493872053}
   - component: {fileID: 8127596914493872054}
   m_Layer: 0
-  m_Name: UI
+  m_Name: In-Game_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -216,6 +216,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7102967715047510525, guid: b7fc924aecf066740b77d33b6a35bb6d,
+        type: 3}
+      propertyPath: m_Constraint
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102967715047510525, guid: b7fc924aecf066740b77d33b6a35bb6d,
+        type: 3}
+      propertyPath: m_ConstraintCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7102967715047510526, guid: b7fc924aecf066740b77d33b6a35bb6d,
         type: 3}
       propertyPath: m_Name
@@ -280,7 +290,7 @@ PrefabInstance:
     - target: {fileID: 7662652573486642318, guid: 1f5a602e3898a704f8c53c47dfca393f,
         type: 3}
       propertyPath: m_Name
-      value: UIManager
+      value: In-Game_UI_Manager
       objectReference: {fileID: 0}
     - target: {fileID: 7662652573486642319, guid: 1f5a602e3898a704f8c53c47dfca393f,
         type: 3}
