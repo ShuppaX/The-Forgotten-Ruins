@@ -9,16 +9,22 @@ namespace BananaSoup.Utilities
         [SerializeField]
         private bool isDrawingSphereCasts = false;
 
-        private float colRadMultiplier = 1.5f;
-        private float colRadMultiplierOnInteract = 2.5f;
         private float castLengthMultiplier = 2.0f;
+
+        // Default collision radius multiplier and cast origin offset.
+        private float colRadMultiplier = 1.5f;
         private float castOriginOffsetDefault = 0.0f;
+
+        // Collision radius multiplier and cast origin offset while interacting
+        private float colRadMultiplierOnInteract = 2.25f;
         private float castOriginOffsetInteract = 0.0f;
+
         private float currentCastOriginOffset = 0.0f;
         private float castLength = 0.0f;
 
         private bool[] spheres = new bool[3];
 
+        // Vector3 variables to store origin points of sphere casts.
         private Vector3 leftOrigin = Vector3.zero;
         private Vector3 centerOrigin = Vector3.zero;
         private Vector3 rightOrigin = Vector3.zero;
@@ -31,10 +37,13 @@ namespace BananaSoup.Utilities
 
         private LayerMask groundLayer;
 
+        // References
         private CapsuleCollider playerCollider = null;
         private PlayerStateManager psm = null;
 
-        private const PlayerStateManager.PlayerState interacting = PlayerStateManager.PlayerState.InteractingIdle;
+        // Constant PlayerState used while checking PlayerState
+        private const PlayerStateManager.PlayerState interactingIdle = PlayerStateManager.PlayerState.InteractingIdle;
+        private const PlayerStateManager.PlayerState interactingMove = PlayerStateManager.PlayerState.InteractingMove;
 
         public bool IsGroundAhead
         {
@@ -103,7 +112,8 @@ namespace BananaSoup.Utilities
         /// </summary>
         private void CalculateGroundAheadSphereOriginPoints()
         {
-            if ( psm.CurrentPlayerState == interacting )
+            if ( psm.CurrentPlayerState == interactingIdle
+                || psm.CurrentPlayerState == interactingMove )
             {
                 currentCastOriginOffset = castOriginOffsetInteract;
             }
@@ -111,6 +121,8 @@ namespace BananaSoup.Utilities
             {
                 currentCastOriginOffset = castOriginOffsetDefault;
             }
+
+            Debug.Log("currentCastOriginOffset = " + currentCastOriginOffset);
 
             leftOrigin = (transform.position + originHeightOffset)
                 + (transform.forward * currentCastOriginOffset) * 0.71f
