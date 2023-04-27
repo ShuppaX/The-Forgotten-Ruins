@@ -24,6 +24,8 @@ namespace BananaSoup
         public void MeleeAttack()
         {
             AudioManager.PlayClip(meleeSwingAudio, SoundEffect.EnemySwing);
+            canDealDamage = true;
+
         }
 
         public override void OnTriggerEnter(Collider collision)
