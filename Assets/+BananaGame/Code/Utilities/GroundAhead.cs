@@ -122,8 +122,6 @@ namespace BananaSoup.Utilities
                 currentCastOriginOffset = castOriginOffsetDefault;
             }
 
-            Debug.Log("currentCastOriginOffset = " + currentCastOriginOffset);
-
             leftOrigin = (transform.position + originHeightOffset)
                 + (transform.forward * currentCastOriginOffset) * 0.71f
                 - (transform.right * currentCastOriginOffset) * 0.71f;
