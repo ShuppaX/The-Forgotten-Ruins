@@ -8,6 +8,7 @@ namespace BananaSoup.Cutscenes
     public class TriggerCutscene : MonoBehaviour
     {
         private PlayableDirector director;
+        private bool isTriggered;
 
         private void Awake()
         {
@@ -20,8 +21,9 @@ namespace BananaSoup.Cutscenes
 
         private void OnTriggerEnter(Collider other)
         {
-            if ( other.GetComponent<PlayerBase>() != null )
+            if ( other.GetComponent<PlayerBase>() != null && !isTriggered )
             {
+                isTriggered = true;
                 director.Play();
             }
         }

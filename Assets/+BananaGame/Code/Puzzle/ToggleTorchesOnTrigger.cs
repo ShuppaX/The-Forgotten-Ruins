@@ -8,12 +8,14 @@ namespace BananaSoup.PuzzleSystem
     {
         [SerializeField] private bool enableTorch = false;
         [SerializeField] private TorchAction[] torches;
+        private bool isTriggered;
 
         private void OnTriggerEnter(Collider other)
         {
-            if ( other.GetComponent<PlayerBase>() != null )
+            if ( other.GetComponent<PlayerBase>() != null && !isTriggered )
             {
-                Debug.Log(other.gameObject + " OnTriggerEntered");
+                isTriggered = true;
+
                 foreach ( TorchAction torch in torches )
                 {
                     if ( enableTorch )
