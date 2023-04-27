@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 9110.887, g: 3121.6826, b: 432.71387, a: 1}
+  m_IndirectSpecularColor: {r: 9116.734, g: 3123.9004, b: 432.57715, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -380,6 +380,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (51)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -505,6 +510,8 @@ Transform:
   - {fileID: 1931758737}
   - {fileID: 2044000733}
   - {fileID: 1494950801}
+  - {fileID: 642084479}
+  - {fileID: 736964974}
   m_Father: {fileID: 1672731770}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -682,7 +689,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-64450
+  m_Name: pb_Mesh-3998
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -851,6 +858,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (64)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -2303,6 +2315,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (46)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -3064,6 +3081,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (86)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -3297,6 +3319,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (62)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -3753,6 +3780,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (49)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -3982,7 +4014,7 @@ PrefabInstance:
     - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -4960,6 +4992,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -5799,6 +5836,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -6682,6 +6724,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (98)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -6761,6 +6808,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (97)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -7013,12 +7065,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 298088634}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &298997103 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6956890278927406663, guid: 6862922997e13f146a5812431c7f2716,
-    type: 3}
-  m_PrefabInstance: {fileID: 620394973}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &304096112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7173,6 +7219,120 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 306387322}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &306909873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 306909874}
+  - component: {fileID: 306909878}
+  - component: {fileID: 306909877}
+  - component: {fileID: 306909876}
+  - component: {fileID: 306909875}
+  m_Layer: 0
+  m_Name: SwordTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &306909874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306909873}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.5, y: 6, z: -23.5}
+  m_LocalScale: {x: 4, y: 3, z: 5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1412396603}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &306909875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306909873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7029f6ca4156da46b593f9bb8213517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableTorch: 0
+  torches:
+  - {fileID: 1207400178}
+  - {fileID: 682628934}
+--- !u!65 &306909876
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306909873}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &306909877
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306909873}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &306909878
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306909873}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &308346894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9305,6 +9465,22 @@ MonoBehaviour:
   removeExtraColliderAtStartPoint: 0
   lerpModifier: 3
   movementBlockerExtraHeight: 2
+--- !u!114 &405128416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405128406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8322fd5a6ab003a4da7b9394fb22718a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzleGameObjects:
+  - {fileID: 1391273148}
+  puzzleSolutionGameObjects:
+  - {fileID: 405128411}
 --- !u!1001 &406881609
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9396,6 +9572,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (34)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -9590,6 +9771,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (70)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -9669,6 +9855,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (102)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -10098,6 +10289,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stairs_4x4x10_36steps
       objectReference: {fileID: 0}
+    - target: {fileID: 5229991815090125759, guid: 39ade0668867ba345a52e7401062a76b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7805517043183274956, guid: 39ade0668867ba345a52e7401062a76b,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -10116,6 +10312,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -10362,6 +10563,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (60)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -10942,6 +11148,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (56)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -11184,6 +11395,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (95)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -11798,6 +12014,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (43)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -12033,6 +12254,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (48)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -12112,6 +12338,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (113)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -12508,6 +12739,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (48)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -12587,6 +12823,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (85)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -13082,6 +13323,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (69)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -13748,6 +13994,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (39)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -13925,6 +14176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (75)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -14575,6 +14831,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (69)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -14718,22 +14979,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 620394973}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &620394977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 298997103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5fdecc1e4fd02b4d8100f6ed52c3b75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableTorches: 0
-  torches:
-  - {fileID: 1207400178}
-  - {fileID: 682628934}
 --- !u!4 &626507255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
@@ -15277,6 +15522,86 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05741ab329d66ca408882b6b392ed275, type: 3}
+--- !u!1001 &642084478
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8591741}
+    m_Modifications:
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_Name
+      value: Platform 4x4x4 (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -44.50113
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.500351
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6301590312330593426, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 05741ab329d66ca408882b6b392ed275, type: 3}
+--- !u!4 &642084479 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+    type: 3}
+  m_PrefabInstance: {fileID: 642084478}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &643783402
 GameObject:
   m_ObjectHideFlags: 0
@@ -15328,7 +15653,6 @@ MonoBehaviour:
   - {fileID: 682628934}
   puzzleSolutionGameObjects:
   - {fileID: 777515187}
-  - {fileID: 405128411}
 --- !u!1001 &644091805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15477,6 +15801,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (89)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -15556,6 +15885,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (65)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -15796,6 +16130,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -16308,6 +16647,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -16576,7 +16920,7 @@ PrefabInstance:
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.000001
+      value: -5.9947376
       objectReference: {fileID: 0}
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
@@ -16586,7 +16930,7 @@ PrefabInstance:
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -21.500494
+      value: -26.500904
       objectReference: {fileID: 0}
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
@@ -16664,6 +17008,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (106)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -17515,6 +17864,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -18048,22 +18402,22 @@ PrefabInstance:
     - target: {fileID: 2204206255594659007, guid: 28b76fdd533692847bdf79c88d34facd,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2204206255594659007, guid: 28b76fdd533692847bdf79c88d34facd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -48.500973
+      value: -44.500973
       objectReference: {fileID: 0}
     - target: {fileID: 2204206255594659007, guid: 28b76fdd533692847bdf79c88d34facd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.5
+      value: 10.5
       objectReference: {fileID: 0}
     - target: {fileID: 2204206255594659007, guid: 28b76fdd533692847bdf79c88d34facd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -39.44082
+      value: -15.440819
       objectReference: {fileID: 0}
     - target: {fileID: 2204206255594659007, guid: 28b76fdd533692847bdf79c88d34facd,
         type: 3}
@@ -18308,6 +18662,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (111)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -18530,6 +18889,86 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14d45b1c88da88b48811a408869e48b0, type: 3}
+--- !u!1001 &736964973
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8591741}
+    m_Modifications:
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_Name
+      value: Platform 4x4x4 (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -44.50113
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.500351
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6301590312330593426, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 05741ab329d66ca408882b6b392ed275, type: 3}
+--- !u!4 &736964974 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
+    type: 3}
+  m_PrefabInstance: {fileID: 736964973}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &744351642
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18900,6 +19339,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3296299603518224045, guid: 5e6e95cb4ca5d29428e1d82759d3073b,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3296299603518224045, guid: 5e6e95cb4ca5d29428e1d82759d3073b,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -18997,6 +19441,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (114)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -19076,6 +19525,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (58)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -19263,6 +19717,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (103)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -19637,6 +20096,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (134)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -19928,6 +20392,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (37)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -20112,6 +20581,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (74)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -20469,6 +20943,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (115)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -20977,6 +21456,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stairs_4x4x10_36steps
       objectReference: {fileID: 0}
+    - target: {fileID: 5229991815090125759, guid: 39ade0668867ba345a52e7401062a76b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7805517043183274956, guid: 39ade0668867ba345a52e7401062a76b,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -21199,6 +21683,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (72)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -21901,6 +22390,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Long High Bridge
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369804081068162595, guid: a24b7da8a0461d448af513fc9d2d2b03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2369804081068162597, guid: a24b7da8a0461d448af513fc9d2d2b03,
         type: 3}
@@ -22704,6 +23198,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (61)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -22783,6 +23282,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (77)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -23140,6 +23644,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (63)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -23450,6 +23959,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (121)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -23641,6 +24155,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (73)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -23800,6 +24319,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (93)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -24637,6 +25161,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (44)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -25060,6 +25589,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (41)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -25225,6 +25759,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -25304,6 +25843,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (82)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -25463,6 +26007,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (84)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -27485,6 +28034,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (68)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -27922,6 +28476,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (52)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -28157,7 +28716,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-298686
+  m_Name: pb_Mesh-4760
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -28572,6 +29131,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (42)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -28973,6 +29537,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (49)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -29482,6 +30051,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (127)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -29561,6 +30135,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (45)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -30790,6 +31369,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (66)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -31132,7 +31716,7 @@ PrefabInstance:
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.000009
+      value: -11.994858
       objectReference: {fileID: 0}
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
@@ -31142,7 +31726,7 @@ PrefabInstance:
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -25.500496
+      value: -26.500904
       objectReference: {fileID: 0}
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
@@ -31380,6 +31964,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (67)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -31460,6 +32049,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (91)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -31539,6 +32133,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (73)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -31785,6 +32384,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (50)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -31864,6 +32468,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (53)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -32223,7 +32832,7 @@ PrefabInstance:
     - target: {fileID: 2369804081068162597, guid: a24b7da8a0461d448af513fc9d2d2b03,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.00016
+      value: -8.50017
       objectReference: {fileID: 0}
     - target: {fileID: 2369804081068162597, guid: a24b7da8a0461d448af513fc9d2d2b03,
         type: 3}
@@ -32295,6 +32904,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -32449,6 +33063,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (129)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -32796,6 +33415,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (47)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -32955,6 +33579,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (108)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -33191,6 +33820,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (99)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -33421,6 +34055,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (36)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -33575,6 +34214,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (110)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -33678,6 +34322,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -33833,6 +34482,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -33912,6 +34566,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (87)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -34177,6 +34836,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (59)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -34341,6 +35005,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stairs_4x4x10_36steps (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5229991815090125759, guid: 39ade0668867ba345a52e7401062a76b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7805517043183274956, guid: 39ade0668867ba345a52e7401062a76b,
         type: 3}
@@ -34952,6 +35621,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (88)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -35406,7 +36080,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1391273130}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1391273139
+--- !u!114 &1391273148
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35415,13 +36089,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 651255850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5fdecc1e4fd02b4d8100f6ed52c3b75, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cbbfc590b7874e43a80d089c04e5406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableTorches: 1
-  torches:
-  - {fileID: 1207400178}
-  - {fileID: 682628934}
+  isSolutionReversed: 0
 --- !u!1001 &1395685585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35686,6 +36357,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5229991815090125759, guid: 39ade0668867ba345a52e7401062a76b,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5229991815090125759, guid: 39ade0668867ba345a52e7401062a76b,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -35894,6 +36570,7 @@ Transform:
   m_Children:
   - {fileID: 1925549454}
   - {fileID: 643783403}
+  - {fileID: 306909874}
   m_Father: {fileID: 243099223}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35977,6 +36654,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -36069,6 +36751,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (46)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -36308,6 +36995,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (92)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -37148,6 +37840,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (105)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -37227,6 +37924,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (57)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -38895,6 +39597,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (45)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -39135,6 +39842,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (51)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -39214,6 +39926,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (31)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -39568,6 +40285,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (120)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 634643872855238424, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -39737,6 +40459,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (71)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -40378,7 +41105,7 @@ PrefabInstance:
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -44.500973
+      value: -46.500973
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -40699,6 +41426,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (94)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -40778,6 +41510,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (71)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -40938,6 +41675,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (70)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -41328,6 +42070,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicFollowEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7747237079570801887, guid: 94a0c7916d51ec24dbd6e224c8a32d38,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94a0c7916d51ec24dbd6e224c8a32d38, type: 3}
 --- !u!4 &1657657094 stripped
@@ -41599,6 +42346,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (81)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -41835,6 +42587,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (52)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -42426,17 +43183,17 @@ PrefabInstance:
     - target: {fileID: 2369804081068162597, guid: a24b7da8a0461d448af513fc9d2d2b03,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -48.501354
+      value: -44.500893
       objectReference: {fileID: 0}
     - target: {fileID: 2369804081068162597, guid: a24b7da8a0461d448af513fc9d2d2b03,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.50004
+      value: 8.50018
       objectReference: {fileID: 0}
     - target: {fileID: 2369804081068162597, guid: a24b7da8a0461d448af513fc9d2d2b03,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -44.44082
+      value: -11.500231
       objectReference: {fileID: 0}
     - target: {fileID: 2369804081068162597, guid: a24b7da8a0461d448af513fc9d2d2b03,
         type: 3}
@@ -42492,6 +43249,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (47)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -42572,6 +43334,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (40)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -42738,6 +43505,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stairs_4x4x10_36steps
       objectReference: {fileID: 0}
+    - target: {fileID: 5229991815090125759, guid: 39ade0668867ba345a52e7401062a76b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7805517043183274956, guid: 39ade0668867ba345a52e7401062a76b,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -42848,6 +43620,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stairs_4x4x10_36steps (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5229991815090125759, guid: 39ade0668867ba345a52e7401062a76b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7805517043183274956, guid: 39ade0668867ba345a52e7401062a76b,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -42872,6 +43649,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (68)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -42952,6 +43734,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (55)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -44123,6 +44910,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -44229,6 +45021,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (44)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -44985,6 +45782,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (107)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -45064,6 +45866,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (32)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -45169,7 +45976,6 @@ Transform:
   - {fileID: 1132634923}
   - {fileID: 1139824823}
   - {fileID: 2032319933}
-  - {fileID: 2141860802}
   - {fileID: 725147729}
   m_Father: {fileID: 1672731770}
   m_RootOrder: 7
@@ -45185,6 +45991,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Big End Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369804081068162595, guid: a24b7da8a0461d448af513fc9d2d2b03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2369804081068162597, guid: a24b7da8a0461d448af513fc9d2d2b03,
         type: 3}
@@ -45781,7 +46592,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-385810
+  m_Name: pb_Mesh-8348
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -46711,7 +47522,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-303048
+  m_Name: pb_Mesh-9360
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -47063,6 +47874,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (96)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -47393,6 +48209,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (90)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -47665,6 +48486,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (79)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -47990,6 +48816,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (80)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -48228,6 +49059,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (83)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -49097,6 +49933,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (124)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -49176,6 +50017,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -49415,6 +50261,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (112)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -49746,6 +50597,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (78)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -49933,6 +50789,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (54)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -50013,6 +50874,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (76)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -50092,6 +50958,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (104)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -50178,6 +51049,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -50672,7 +51548,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2013305337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50956,6 +51832,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (118)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -51899,6 +52780,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -52464,6 +53350,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Block 4x4x4 Corner (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3296299603518224045, guid: 5e6e95cb4ca5d29428e1d82759d3073b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3296299603518224045, guid: 5e6e95cb4ca5d29428e1d82759d3073b,
         type: 3}
@@ -53163,7 +54054,7 @@ PrefabInstance:
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -52.500973
+      value: -50.500973
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -53399,6 +54290,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (72)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
@@ -53800,6 +54696,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform 4x4x4 (50)
       objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
       propertyPath: m_RootOrder
@@ -53964,6 +54865,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stairs_4x4x10_36steps
+      objectReference: {fileID: 0}
+    - target: {fileID: 5229991815090125759, guid: 39ade0668867ba345a52e7401062a76b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5229991815090125759, guid: 39ade0668867ba345a52e7401062a76b,
         type: 3}
@@ -54347,81 +55253,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
     type: 3}
   m_PrefabInstance: {fileID: 836044358}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &2141860801
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1824285997}
-    m_Modifications:
-    - target: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -48.500973
-      objectReference: {fileID: 0}
-    - target: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -42.44082
-      objectReference: {fileID: 0}
-    - target: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.00000016391276
-      objectReference: {fileID: 0}
-    - target: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5229991815090125759, guid: 39ade0668867ba345a52e7401062a76b,
-        type: 3}
-      propertyPath: m_Name
-      value: Stairs_4x4x10_36steps
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 39ade0668867ba345a52e7401062a76b, type: 3}
---- !u!4 &2141860802 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5229991815090125745, guid: 39ade0668867ba345a52e7401062a76b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2141860801}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2142714130
 GameObject:
@@ -54874,6 +55705,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1958133855127318211, guid: b7e95781b9529be4fa4fcc5813a79f2b,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1958133855127318211, guid: b7e95781b9529be4fa4fcc5813a79f2b,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -55054,6 +55890,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Block 4x4x4 OuterWall_Broken_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575478415964341765, guid: 28b76fdd533692847bdf79c88d34facd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1575478415964341765, guid: 28b76fdd533692847bdf79c88d34facd,
         type: 3}
@@ -55907,6 +56748,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1922086318874365481, guid: 6979c780b1516634d93c668f367416dd,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1922086318874365481, guid: 6979c780b1516634d93c668f367416dd,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -56507,6 +57353,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3296299603518224045, guid: 5e6e95cb4ca5d29428e1d82759d3073b,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3296299603518224045, guid: 5e6e95cb4ca5d29428e1d82759d3073b,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -56579,6 +57430,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Block 4x4x4 OuterWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372235411266707577, guid: 3a2f807a507d3a347962f21a2ba51932,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1372235411266707577, guid: 3a2f807a507d3a347962f21a2ba51932,
         type: 3}
