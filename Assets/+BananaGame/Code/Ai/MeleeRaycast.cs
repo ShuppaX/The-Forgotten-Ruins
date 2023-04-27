@@ -65,6 +65,8 @@ namespace BananaSoup
         private const string animChase = "Chase"; //might not be used. Added in case it's needed
         private const string animStunned = "Stunned";
         private string _previousAnimation;
+        private Ray _vision;
+        private bool _canSeePlayer;
 
 
         public virtual void Awake()
@@ -72,6 +74,7 @@ namespace BananaSoup
             enemy = GetComponent<NavMeshAgent>();
             anim = GetComponent<Animator>();
             _weaponCollider = meleeScript.GetComponent<Collider>();
+
         }
 
         private void Start()
@@ -79,7 +82,7 @@ namespace BananaSoup
             var transform1 = PlayerBase.Instance.transform;
             playerTarget = transform1;
             playerDirection = transform1.position;
-
+            
             SetTrigger(patrol); //Default animation
         }
 
@@ -105,15 +108,43 @@ namespace BananaSoup
 
             _playerInSightRange = Physics.CheckSphere(position, sightRange, whatIsPlayer);
             _playerInAttackRange = Physics.CheckSphere(position, attackRange, whatIsPlayer);
+            
+            
+            //TODO doesn't update when player is moving
+            _vision = new Ray(position + new Vector3(0,0.5f,0), _whereIsPlayer);
+            
 
-
+            
+            //Vision related statements
+            
+            
+            //Smoothed turning towards player. _damp changes the speed of turning
             if (_playerInAttackRange)
-                //Smoothed turning towards player. _damp changes the speed of turning
                 if (_angle > 2.5f)
                 {
                     var rotate = Quaternion.LookRotation(playerTarget.position - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * _damp);
                 }
+
+            //Raycast to check if player is not obscured by obstacles
+            //TODO FIX IT
+            //Raycast in the direction of player within sightrange and check if it hits the player
+
+            if (Physics.Raycast(_vision, out var sighted, 12f, LayerMask.GetMask("Ground")))
+            {
+                // If the ray hits something on the "Ground" layer, check if it's a wall
+                if (sighted.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                {
+                    Debug.Log("There is a wall between the player and enemy.");
+                    _canSeePlayer = false;
+                }
+
+            }
+            else
+            {
+                _canSeePlayer = true;
+            }
+
 
             if (Time.time < lastDidSomething + _pauseTime) return;
 
@@ -128,7 +159,7 @@ namespace BananaSoup
             }
 
             //Chase
-            if (_playerInSightRange && !_playerInAttackRange)
+            if (_playerInSightRange && !_playerInAttackRange && _canSeePlayer)
             {
                 ClearTrigger();
                 SetTrigger(patrol);
@@ -137,8 +168,9 @@ namespace BananaSoup
             }
 
             //Attack
-            if (_playerInSightRange && _playerInAttackRange)
+            if (_playerInSightRange && _playerInAttackRange && _canSeePlayer)
             {
+                if (!_canSeePlayer) return;
                 //Trigger for attack is in Attack() method
                 Attack();
             }
@@ -228,6 +260,9 @@ namespace BananaSoup
             Gizmos.DrawWireSphere(position, sightRange); //Radius of sight range
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(position, patrolRange); //Radius of patrol range
+            
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(position + new Vector3(0,0.5f,0), _whereIsPlayer); //Line to player
         }
 
         public void OnThrowAbility(ParticleProjectile.Type projectileType)
