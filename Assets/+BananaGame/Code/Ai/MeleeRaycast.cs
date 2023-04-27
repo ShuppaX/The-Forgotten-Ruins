@@ -130,7 +130,7 @@ namespace BananaSoup
             //TODO FIX IT
             //Raycast in the direction of player within sightrange and check if it hits the player
 
-            if (Physics.Raycast(_vision, out var sighted, 12f, LayerMask.GetMask("Ground")))
+            /*if (Physics.Raycast(_vision, out var sighted, 12f, LayerMask.GetMask("Ground")))
             {
                 // If the ray hits something on the "Ground" layer, check if it's a wall
                 if (sighted.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -143,7 +143,7 @@ namespace BananaSoup
             else
             {
                 _canSeePlayer = true;
-            }
+            }*/
 
 
             if (Time.time < lastDidSomething + _pauseTime) return;
@@ -159,7 +159,7 @@ namespace BananaSoup
             }
 
             //Chase
-            if (_playerInSightRange && !_playerInAttackRange && _canSeePlayer)
+            if (_playerInSightRange && !_playerInAttackRange)
             {
                 ClearTrigger();
                 SetTrigger(patrol);
@@ -168,7 +168,7 @@ namespace BananaSoup
             }
 
             //Attack
-            if (_playerInSightRange && _playerInAttackRange && _canSeePlayer)
+            if (_playerInSightRange && _playerInAttackRange)
             {
                 if (!_canSeePlayer) return;
                 //Trigger for attack is in Attack() method
@@ -261,8 +261,8 @@ namespace BananaSoup
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(position, patrolRange); //Radius of patrol range
             
-            Gizmos.color = Color.blue;
-            Gizmos.DrawRay(position + new Vector3(0,0.5f,0), _whereIsPlayer); //Line to player
+           // Gizmos.color = Color.blue;
+           // Gizmos.DrawRay(position + new Vector3(0,0.5f,0), _whereIsPlayer); //Line to player
         }
 
         public void OnThrowAbility(ParticleProjectile.Type projectileType)
