@@ -11,8 +11,10 @@ namespace BananaSoup.PickupSystem
         {
             PlayerBase.Instance.IsDashLooted = true;
 
-            // TODO: Enable event and listen it somewhere else to enable UI element
-            OnEventLooted.Invoke();
+            if ( OnEventLooted != null )
+            {
+                OnEventLooted();
+            }
 
             DestroyPickup();
         }
