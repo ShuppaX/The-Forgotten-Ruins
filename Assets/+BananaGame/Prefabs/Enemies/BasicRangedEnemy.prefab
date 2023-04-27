@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 3
   _startingHealth: 3
-  _wasHitResetTime: 1.5
+  _wasHitResetTime: 0
   _deathTransitionTime: 2
   _destroyOnDeath: 1
 --- !u!114 &645102647246734101
