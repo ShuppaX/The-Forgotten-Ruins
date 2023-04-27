@@ -9,7 +9,7 @@ namespace BananaSoup.Ability
         [Header("Constant PlayerState for PlayerState handling")]
         private const PlayerStateManager.PlayerState attacking = PlayerStateManager.PlayerState.Attacking;
         private float timeToDisableDamage = 0.3f;
-        private float timeToAttackOver = 1.0f;
+        private float timeToAttackOver = 0.65f;
         private bool canDealDamage = false;
         private PlayerBase playerBase = null;
         private PlayerStateManager psm = null;
