@@ -170,7 +170,7 @@ namespace BananaSoup
             //Attack
             if (_playerInSightRange && _playerInAttackRange)
             {
-                if (!_canSeePlayer) return;
+              //  if (!_canSeePlayer) return;
                 //Trigger for attack is in Attack() method
                 Attack();
             }
