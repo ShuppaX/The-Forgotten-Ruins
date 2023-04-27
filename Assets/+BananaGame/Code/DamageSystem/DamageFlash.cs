@@ -18,6 +18,7 @@ namespace BananaSoup.DamageSystem
 
         private Coroutine damageFlashRoutine = null;
 
+        // References
         private SkinnedMeshRenderer skinnedMeshRenderer;
         private Material[] materials;
 
@@ -92,7 +93,9 @@ namespace BananaSoup.DamageSystem
                 elapsedTime += Time.deltaTime;
 
                 float currentFlashAmount = Mathf.Lerp(1f, 0f, (elapsedTime / flashTime));
+                float emissionIntensity = Mathf.Lerp(0.5f, 0f, (elapsedTime / flashTime));
                 SetFlashAmount(currentFlashAmount);
+                SetEmissionIntensity(emissionIntensity);
 
                 yield return null;
             }
@@ -101,7 +104,7 @@ namespace BananaSoup.DamageSystem
         }
 
         /// <summary>
-        /// Set all of the materials _FlashColor to flashColor.
+        /// Set all of the materials in materials color to flashColor.
         /// </summary>
         private void SetFlashColor()
         {
@@ -112,7 +115,7 @@ namespace BananaSoup.DamageSystem
         }
 
         /// <summary>
-        /// Set all of the materials _FlashStrength to amount.
+        /// Set all of the materials in materials _FlashStrength to parameter amount.
         /// </summary>
         /// <param name="amount">Floating point between 0 and 1 to set the strength of the flash.</param>
         private void SetFlashAmount(float amount)
@@ -120,6 +123,18 @@ namespace BananaSoup.DamageSystem
             for ( int i = 0; i < materials.Length; i++ )
             {
                 materials[i].SetFloat("_FlashStrength", amount);
+            }
+        }
+
+        /// <summary>
+        /// Set all of the materials in materials _EmissionIntensity to parameter amount.
+        /// </summary>
+        /// <param name="amount">Floating point between 0 and 1 to set the intensity of emission.</param>
+        private void SetEmissionIntensity(float amount)
+        {
+            for ( int i = 0; i < materials.Length; i++ )
+            {
+                materials[i].SetFloat("_EmissionIntensity", amount);
             }
         }
     }
