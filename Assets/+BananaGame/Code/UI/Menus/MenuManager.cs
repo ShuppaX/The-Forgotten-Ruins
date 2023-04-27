@@ -10,7 +10,7 @@ namespace BananaSoup.UI.Menus
         [SerializeField, Tooltip("In-game UI parent (In-Game_UI)")]
         private GameObject inGameUI = null;
 
-        private ObjectMenuType[] menus = null;
+        private ObjectMenuType[] menuPanels = null;
 
         // References to main menu panels
         private GameObject mainMenuPanel = null;
@@ -39,12 +39,7 @@ namespace BananaSoup.UI.Menus
 
         private void InitializeMenuArray()
         {
-            menus = (ObjectMenuType[])FindObjectsOfType(typeof(ObjectMenuType));
-
-            for ( int i = 0; i < menus.Length; i++ )
-            {
-                Debug.Log($"{menus[i].gameObject.name}");
-            }
+            menuPanels = (ObjectMenuType[])FindObjectsOfType(typeof(ObjectMenuType));
         }
 
         private void InitializeMenuObjects()
@@ -56,11 +51,11 @@ namespace BananaSoup.UI.Menus
 
         private GameObject GetMenu(MenuType menuType)
         {
-            for ( int i = 0; i < menus.Length; i++ )
+            for ( int i = 0; i < menuPanels.Length; i++ )
             {
-                if ( menus[i].GetComponent<ObjectMenuType>().MenuType == menuType )
+                if ( menuPanels[i].GetComponent<ObjectMenuType>().MenuType == menuType )
                 {
-                    return menus[i].gameObject;
+                    return menuPanels[i].gameObject;
                 }
             }
 

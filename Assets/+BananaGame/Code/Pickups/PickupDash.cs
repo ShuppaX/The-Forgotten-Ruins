@@ -1,6 +1,5 @@
 using System;
 
-
 namespace BananaSoup.PickupSystem
 {
     public class PickupDash : Pickup
