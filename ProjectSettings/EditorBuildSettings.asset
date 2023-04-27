@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/+BananaGame/Scenes/EnvironmentTest.unity
     guid: ca5622640a723654894e19277ca8cd2b
   - enabled: 1
-    path: Assets/+BananaGame/Scenes/Level_2.unity
+    path: Assets/+BananaGame/Scenes/Level.unity
     guid: 9b33b7dd7e19d934b9e2091458f45cd3
   - enabled: 1
     path: Assets/+BananaGame/Scenes/BaseScene.unity
