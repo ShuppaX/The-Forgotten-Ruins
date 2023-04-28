@@ -162,8 +162,7 @@ namespace BananaSoup
             if (_playerInSightRange && !_playerInAttackRange)
             {
                 ClearTrigger();
-                SetTrigger(patrol);
-                //SetTrigger(AnimChase); //Commented in case we want to use patrol animation for chase
+                SetTrigger(animChase); //Commented in case we want to use patrol animation for chase
                 Chase();
             }
 
