@@ -78,7 +78,7 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Stores the players input to moveInput and enables the playerInput if the gameObject is enabled.
+        /// Enables the playerInput if the gameObject is enabled.
         /// </summary>
         private void OnEnable()
         {
@@ -93,6 +93,9 @@ namespace BananaSoup
             playerInput.Player.Disable();
         }
 
+        /// <summary>
+        /// Stores the players input to playerInput.
+        /// </summary>
         private void Setup()
         {
             playerInput = new PlayerInput();

@@ -6,11 +6,6 @@ namespace BananaSoup.Managers
 {
     public class DebugManager : MonoBehaviour
     {
-        public static DebugManager Instance { get; private set; }
-
-        [SerializeField]
-        private bool IsDebugActive = false;
-
         [Header("Debug TMP texts from the BaseScene UI")]
         [SerializeField]
         private TMP_Text playerStateText;
@@ -19,51 +14,24 @@ namespace BananaSoup.Managers
         [SerializeField]
         private TMP_Text groundCheckText;
 
-        [Space]
-
-        [SerializeField]
-        private GameObject debugUI = null;
-
-        private float latestMovementSpeed = 0.0f;
-
+        // References
         private PlayerController playerController = null;
         private GroundCheck groundCheck = null;
-
-
-        private void Awake()
-        {
-            if ( Instance == null )
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
 
         // Start is called before the first frame update
         private void Start()
         {
-            if ( !IsDebugActive )
+
+            playerController = PlayerBase.Instance.GetComponent<PlayerController>();
+            if ( playerController == null )
             {
-                debugUI.SetActive(false);
+                Debug.LogError($"{gameObject.name} couldn't find a PlayerController from PlayerBase!");
             }
-            else
+
+            groundCheck = PlayerBase.Instance.GetComponent<GroundCheck>();
+            if ( groundCheck == null )
             {
-                playerController = PlayerBase.Instance.GetComponent<PlayerController>();
-                if ( playerController == null )
-                {
-                    Debug.LogError($"{gameObject.name} couldn't find a PlayerController from PlayerBase!");
-                }
-
-                groundCheck = PlayerBase.Instance.GetComponent<GroundCheck>();
-                if ( groundCheck == null )
-                {
-                    Debug.LogError($"{gameObject.name} couldn't find a GroundCheck from PlayerBase!");
-                }
-
-                debugUI.SetActive(true);
+                Debug.LogError($"{gameObject.name} couldn't find a GroundCheck from PlayerBase!");
             }
         }
 
@@ -71,42 +39,41 @@ namespace BananaSoup.Managers
         {
             UpdatePlayerStateText();
             UpdateGroundCheckText();
-            GetMovementSpeed();
+            UpdateMovementSpeedText(GetMovementSpeed());
         }
 
+        /// <summary>
+        /// Method to update PlayerState text, used in Update().
+        /// </summary>
         private void UpdatePlayerStateText()
         {
-            if ( IsDebugActive )
-            {
-                playerStateText.SetText(PlayerStateManager.Instance.CurrentPlayerState.ToString());
-            }
+            playerStateText.SetText(PlayerStateManager.Instance.CurrentPlayerState.ToString());
         }
 
+        /// <summary>
+        /// Method used to update GroundCheck text, used in Update().
+        /// </summary>
         private void UpdateGroundCheckText()
         {
-            if ( IsDebugActive )
-            {
-                groundCheckText.SetText("GroundCheck: "
-                + groundCheck.IsGrounded);
-            }
+            groundCheckText.SetText("GroundCheck: " + groundCheck.IsGrounded);
         }
 
-        private void GetMovementSpeed()
+        /// <summary>
+        /// Method used to get the players movement speed, used in Update() as a
+        /// parameter for UpdateMovementSpeedText().
+        /// </summary>
+        private float GetMovementSpeed()
         {
-            if ( latestMovementSpeed != playerController.Rb.velocity.sqrMagnitude )
-            {
-                latestMovementSpeed = playerController.Rb.velocity.sqrMagnitude;
-                UpdateMovementSpeedText(Mathf.Round(playerController.Rb.velocity.magnitude));
-            }
+            return Mathf.Round(playerController.Rb.velocity.magnitude);
         }
 
+        /// <summary>
+        /// Method used to update movement speed text, used in Update().
+        /// </summary>
+        /// <param name="currentMovementspeed">The current movement speed.</param>
         private void UpdateMovementSpeedText(float currentMovementspeed)
         {
-            if ( IsDebugActive )
-            {
-                movementSpeedText.SetText("Movementspeed: "
-                + currentMovementspeed.ToString());
-            }
+            movementSpeedText.SetText("Movementspeed: " + currentMovementspeed.ToString());
         }
     }
 }

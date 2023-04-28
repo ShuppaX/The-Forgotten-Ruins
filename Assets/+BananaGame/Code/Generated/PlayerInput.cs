@@ -82,6 +82,15 @@ namespace BananaSoup
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""a97384c5-e269-4c2b-a2ee-5b40094ae65e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -113,7 +122,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard"",
+                    ""groups"": ""Mouse and keyboard;Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -124,7 +133,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard"",
+                    ""groups"": ""Mouse and keyboard;Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -135,7 +144,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard"",
+                    ""groups"": ""Mouse and keyboard;Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -146,62 +155,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""WASD"",
-                    ""id"": ""82751e6a-6e89-45ef-b894-34b3a1fab266"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""b9c81a20-047a-4d16-bf4e-f5f22872ba54"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""a75611fa-c2f6-4cd2-87ba-81a90f93385a"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""94fe7698-b8a3-4105-b180-b8bc1f235041"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""108deb51-24ee-4278-9db5-3d6ea797bef1"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""Mouse and keyboard;Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -223,18 +177,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard"",
-                    ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7ac74305-9520-45d7-a8c3-464021f48e34"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""Mouse and keyboard;Keyboard"",
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -245,18 +188,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""869b2db5-4521-44d7-9bb1-db44f3a050df"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Mouse and keyboard"",
+                    ""groups"": ""Keyboard;Mouse and keyboard"",
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -377,19 +309,30 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""Keyboard;Mouse and keyboard"",
                     ""action"": ""ChangeAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0bd8e412-e758-40ca-b4a8-1c05c748499a"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""id"": ""0adb81ad-cf61-4725-b454-dc40f03b0d38"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard"",
-                    ""action"": ""ChangeAbility"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7f25dfcf-8166-49ea-8944-2e0304165e4a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard;Mouse and keyboard"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -445,6 +388,7 @@ namespace BananaSoup
             m_Player_Ability = m_Player.FindAction("Ability", throwIfNotFound: true);
             m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
             m_Player_ChangeAbility = m_Player.FindAction("ChangeAbility", throwIfNotFound: true);
+            m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -510,6 +454,7 @@ namespace BananaSoup
         private readonly InputAction m_Player_Ability;
         private readonly InputAction m_Player_Attack;
         private readonly InputAction m_Player_ChangeAbility;
+        private readonly InputAction m_Player_Pause;
         public struct PlayerActions
         {
             private @PlayerInput m_Wrapper;
@@ -520,6 +465,7 @@ namespace BananaSoup
             public InputAction @Ability => m_Wrapper.m_Player_Ability;
             public InputAction @Attack => m_Wrapper.m_Player_Attack;
             public InputAction @ChangeAbility => m_Wrapper.m_Player_ChangeAbility;
+            public InputAction @Pause => m_Wrapper.m_Player_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -547,6 +493,9 @@ namespace BananaSoup
                     @ChangeAbility.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeAbility;
                     @ChangeAbility.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeAbility;
                     @ChangeAbility.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeAbility;
+                    @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                    @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                    @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -569,6 +518,9 @@ namespace BananaSoup
                     @ChangeAbility.started += instance.OnChangeAbility;
                     @ChangeAbility.performed += instance.OnChangeAbility;
                     @ChangeAbility.canceled += instance.OnChangeAbility;
+                    @Pause.started += instance.OnPause;
+                    @Pause.performed += instance.OnPause;
+                    @Pause.canceled += instance.OnPause;
                 }
             }
         }
@@ -608,6 +560,7 @@ namespace BananaSoup
             void OnAbility(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
             void OnChangeAbility(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
     }
 }

@@ -1,12 +1,13 @@
 using BananaSoup.Managers;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace BananaSoup.UI.Menus
 {
     public class MenuManager : MonoBehaviour
     {
         [SerializeField, Tooltip("In-game UI parent (In-Game_UI)")]
-        private GameObject inGameUI = null;
+        private Canvas inGameUICanvas = null;
 
         private ObjectMenuType[] menuPanels = null;
 
@@ -15,8 +16,9 @@ namespace BananaSoup.UI.Menus
         private GameObject settingsPanel = null;
         private GameObject pausePanel = null;
 
-        // Reference to GameStateManager
-        private GameStateManager gameStateManager;
+        // References to Instances
+        private GameStateManager gameStateManager = null;
+        private PlayerBase playerBase = null;
 
         // Constant GameStates used in comparing current GameState
         private const GameStateManager.GameState inMainMenu = GameStateManager.GameState.InMainMenu;
@@ -55,6 +57,14 @@ namespace BananaSoup.UI.Menus
                 Debug.LogError($"{name} couldn't find an instance of GameStateManager!");
             }
 
+            playerBase = PlayerBase.Instance;
+            if ( playerBase == null )
+            {
+                Debug.LogError($"{name} couldn't find an instance of PlayerBase!");
+            }
+
+            inGameUICanvas.enabled = false;
+            playerBase.ToggleAllActions(false);
             settingsPanel.SetActive(false);
             pausePanel.SetActive(false);
         }
@@ -93,49 +103,134 @@ namespace BananaSoup.UI.Menus
         {
             switch ( gameStateManager.CurrentGameState )
             {
+                // Set inGameUICanvas disabled and activate mainMenuPanel.
                 case (inMainMenu):
-                    ToggleGameObject(inGameUI, false);
-                    ToggleGameObject(mainMenuPanel, true);
+                    inGameUICanvas.enabled = false;
+                    mainMenuPanel.SetActive(true);
                     break;
                 case (inGame):
-                    ToggleGameObject(mainMenuPanel, false);
-                    ToggleGameObject(inGameUI, true);
+                    ReturnToInGame();
+                    mainMenuPanel.SetActive(false);
+                    inGameUICanvas.enabled = true;
+                    playerBase.ToggleAllActions(true);
                     break;
                 case (paused):
-                    ToggleGameObject(pausePanel, true);
+                    pausePanel.SetActive(true);
+                    inGameUICanvas.enabled = false;
                     break;
                 case (gameOver):
                     // TODO: Make a deathscreen panel etc. and activate it here!
                     break;
                 default:
-                    Debug.LogError($"GameStateManager has an incorrect GameState! This is a bug!");
+                    Debug.LogError("GameStateManager has an incorrect GameState! This is a bug!");
                     break;
             }
         }
 
         /// <summary>
-        /// Method used to set a GameObject active or inactive.
+        /// Method used to subscribe events.
         /// </summary>
-        /// <param name="panel">The GameObject to activate/disable.</param>
-        /// <param name="value">True to activate, false to disable.</param>
-        private void ToggleGameObject(GameObject panel, bool value)
-        {
-            panel.SetActive(value);
-        }
-
         private void SubscribeEvent()
         {
             GameStateManager.OnGameStateChanged += GameStateChanged;
         }
 
+        /// <summary>
+        /// Method used to unsubscribe events.
+        /// </summary>
         private void UnsubscribeEvent()
         {
             GameStateManager.OnGameStateChanged -= GameStateChanged;
         }
 
+        /// <summary>
+        /// Method called from the Settings button in main menu and from in-game in the
+        /// pause menu.
+        /// If the GameState is inMainMenu then toggle mainMenuPanel button press.
+        /// If the GameState is paused then toggle pausePanel on button press.
+        /// </summary>
         public void ToggleSettings()
         {
+            if ( gameStateManager.CurrentGameState == inMainMenu )
+            {
+                mainMenuPanel.SetActive(!mainMenuPanel.activeSelf);
+            }
 
+            if ( gameStateManager.CurrentGameState == paused )
+            {
+                pausePanel.SetActive(!pausePanel.activeSelf);
+            }
+
+            settingsPanel.SetActive(!settingsPanel.activeSelf);
+        }
+
+        /// <summary>
+        /// Method called from the Play button in main menu.
+        /// </summary>
+        public void OnPlayButton()
+        {
+            gameStateManager.SetGameState(inGame);
+        }
+
+        /// <summary>
+        /// Method called when pressing any of the set pause buttons.
+        /// If the pausePanel isn't active then set the GameState to paused, if it is
+        /// set the GameState to inGame.
+        /// </summary>
+        public void OnPause(InputAction.CallbackContext context)
+        {
+            if ( gameStateManager.CurrentGameState == inMainMenu
+                || gameStateManager.CurrentGameState == gameOver )
+            {
+                return;
+            }
+
+            if ( !context.performed )
+            {
+                return;
+            }
+
+            if ( !pausePanel.activeSelf )
+            {
+                gameStateManager.SetGameState(paused);
+            }
+            else
+            {
+                gameStateManager.SetGameState(inGame);
+            }
+        }
+
+        /// <summary>
+        /// Method called when pressing the back button in pauseMenu.
+        /// </summary>
+        public void OnPauseBackButton()
+        {
+            if ( !pausePanel.activeSelf )
+            {
+                gameStateManager.SetGameState(paused);
+            }
+            else
+            {
+                gameStateManager.SetGameState(inGame);
+            }
+        }
+
+        /// <summary>
+        /// Method called when the GameState is changed to InGame.
+        /// Used to check if pausePanel or settingsPanel are active, and if they are
+        /// disable them.
+        /// </summary>
+        private void ReturnToInGame()
+        {
+            if ( pausePanel.activeSelf )
+            {
+                pausePanel.SetActive(false);
+            }
+
+            if ( settingsPanel.activeSelf )
+            {
+                settingsPanel.SetActive(false);
+            }
         }
     }
 }
