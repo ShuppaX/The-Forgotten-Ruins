@@ -6,13 +6,18 @@ namespace BananaSoup.Ability
 {
     public class AbilityAttack : MonoBehaviour
     {
-        [Header("Constant PlayerState for PlayerState handling")]
-        private const PlayerStateManager.PlayerState attacking = PlayerStateManager.PlayerState.Attacking;
+        [SerializeField, Tooltip("The time in animation when the damage should be disabled.")]
         private float timeToDisableDamage = 0.3f;
+        [SerializeField, Tooltip("The time in animation when the attack should be over.")]
         private float timeToAttackOver = 0.65f;
         private bool canDealDamage = false;
+
+        // References
         private PlayerBase playerBase = null;
         private PlayerStateManager psm = null;
+
+        [Header("Constant PlayerState for PlayerState handling")]
+        private const PlayerStateManager.PlayerState attacking = PlayerStateManager.PlayerState.Attacking;
 
         public bool CanDealDamage
         {

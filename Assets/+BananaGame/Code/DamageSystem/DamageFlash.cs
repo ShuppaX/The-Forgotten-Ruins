@@ -5,7 +5,7 @@ namespace BananaSoup.DamageSystem
 {
     public class DamageFlash : MonoBehaviour
     {
-        [SerializeField, Tooltip("The gameObject which has the SkinnedMeshRenderer which you want to manipulate.")]
+        [SerializeField, Tooltip("The GameObject which has the SkinnedMeshRenderer which you want to manipulate.")]
         private GameObject targetObject = null;
 
         [Space]
