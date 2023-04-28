@@ -52,7 +52,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 40
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8051026781628562565
 Transform:
@@ -144,11 +144,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar_Big_01
       objectReference: {fileID: 0}
-    - target: {fileID: 1267705818425714008, guid: d6d04e9eee23f3e4fa794ce5a4cfe8a0,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3514219455698682043, guid: d6d04e9eee23f3e4fa794ce5a4cfe8a0,
         type: 3}
       propertyPath: m_RootOrder
@@ -224,11 +219,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar_Big_01 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1267705818425714008, guid: d6d04e9eee23f3e4fa794ce5a4cfe8a0,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3514219455698682043, guid: d6d04e9eee23f3e4fa794ce5a4cfe8a0,
         type: 3}
       propertyPath: m_RootOrder
@@ -303,11 +293,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pillar_Big_01 (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1267705818425714008, guid: d6d04e9eee23f3e4fa794ce5a4cfe8a0,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3514219455698682043, guid: d6d04e9eee23f3e4fa794ce5a4cfe8a0,
         type: 3}

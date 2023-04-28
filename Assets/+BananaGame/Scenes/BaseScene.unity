@@ -8,8 +8,9 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 862b3702217f0664785550dee773b42c
+  m_OcclusionCullingData: {fileID: 36300000, guid: 8ae03d76da67b9e4bb7f4bc89d3199df,
+    type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -122,7 +123,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 1a84c12e2e9e3664baab83ca3b162d1d, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 20d3c9ad20ac61c42a3911817423e02b, type: 2}
 --- !u!224 &180560488 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5140957506551857963, guid: 27ca1fe96d9829b41bb8da4bafcbf7bc,
@@ -440,10 +441,10 @@ RectTransform:
   m_Father: {fileID: 1342603661}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 120, y: -330}
+  m_SizeDelta: {x: 240, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &314140016
 MonoBehaviour:
@@ -586,10 +587,10 @@ RectTransform:
   m_Father: {fileID: 1342603661}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 120, y: -40}
+  m_SizeDelta: {x: 240, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &402078348
 MonoBehaviour:
@@ -1048,7 +1049,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &518725080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2987,10 +2988,10 @@ RectTransform:
   m_Father: {fileID: 1342603661}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 120, y: -185}
+  m_SizeDelta: {x: 240, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1092365690
 MonoBehaviour:
@@ -4390,7 +4391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1722704517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5612,6 +5613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MainMenuCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476474264602689100, guid: 16c6e8153e4019b439da003f3866af6b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16c6e8153e4019b439da003f3866af6b, type: 3}

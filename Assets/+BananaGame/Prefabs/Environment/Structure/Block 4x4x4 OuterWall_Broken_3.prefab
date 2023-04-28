@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 4792644856431063162}
   - component: {fileID: 3212289269525147935}
   - component: {fileID: 4538533967607838978}
-  m_Layer: 7
+  - component: {fileID: 725147733}
+  m_Layer: 9
   m_Name: Block 4x4x4 OuterWall_Broken_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2204206255594659007
 Transform:
@@ -99,6 +100,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &725147733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575478415964341765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c737bc823f8ac94e889234a2805daf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 1
+  _startingHealth: 1
+  _wasHitResetTime: 1.5
+  _deathTransitionTime: 0
+  _destroyOnDeath: 1
 --- !u!1 &6177353285352235997
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,7 +133,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 0
 --- !u!4 &4632188497839700467
 Transform:

@@ -81,6 +81,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Archway_Broken_01_With_Door
       objectReference: {fileID: 0}
+    - target: {fileID: 1102050215753823705, guid: 047a2909bca5bfc4294061848405a473,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 3665865278325994914, guid: 047a2909bca5bfc4294061848405a473,
         type: 3}
       propertyPath: m_RootOrder
