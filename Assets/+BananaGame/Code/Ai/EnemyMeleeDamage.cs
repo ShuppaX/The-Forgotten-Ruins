@@ -28,11 +28,11 @@ namespace BananaSoup
 
         }
 
-        public override void OnTriggerEnter(Collider collision)
+        public override void OnTriggerStay(Collider collision)
         {
             if (!canDealDamage) return;
 
-            base.OnTriggerEnter(collision);
+            base.OnTriggerStay(collision);
 
         }
 

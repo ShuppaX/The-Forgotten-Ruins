@@ -27,14 +27,14 @@ namespace BananaSoup.DamageSystem
             PickupSword.OnEventLooted -= SetSwordVisibility;
         }
 
-        public override void OnTriggerEnter(Collider collision)
+        public override void OnTriggerStay(Collider collision)
         {
             if ( !playerAttack.CanDealDamage )
             {
                 return;
             }
 
-            base.OnTriggerEnter(collision);
+            base.OnTriggerStay(collision);
         }
 
         private void SetSwordVisibility()

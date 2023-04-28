@@ -6,9 +6,9 @@ namespace BananaSoup.Ability
 {
     public class AbilityAttack : MonoBehaviour
     {
-        [SerializeField, Tooltip("The time in animation when the damage should be disabled.")]
+        [SerializeField, Tooltip("The time in animation when the damage should be disabled (starts counting when animation starts).")]
         private float timeToDisableDamage = 0.3f;
-        [SerializeField, Tooltip("The time in animation when the attack should be over.")]
+        [SerializeField, Tooltip("The time in animation when the attack should be over (starts counting when animation starts).")]
         private float timeToAttackOver = 0.65f;
         private bool canDealDamage = false;
 

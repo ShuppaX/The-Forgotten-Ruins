@@ -62,9 +62,9 @@ namespace BananaSoup.DamageSystem
             }
         }
 
-        public override void OnTriggerEnter(Collider collision)
+        public override void OnTriggerStay(Collider collision)
         {
-            base.OnTriggerEnter(collision);
+            base.OnTriggerStay(collision);
 
             Debug.Log($"{gameObject} Collided with {collision.gameObject}");
             Recycle();

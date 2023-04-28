@@ -16,7 +16,7 @@ namespace BananaSoup.DamageSystem
         /// If the object doesn't have a component which implements IHealth throw an error.
         /// </summary>
         /// <param name="collision"></param>
-        public virtual void OnTriggerEnter(Collider collision)
+        public virtual void OnTriggerStay(Collider collision)
         {
             if ( ((1 << collision.gameObject.layer) & canDamageWhat) == 0 )
             {

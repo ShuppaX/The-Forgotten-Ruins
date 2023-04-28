@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 3
   _startingHealth: 3
-  _wasHitResetTime: 0
+  _wasHitResetTime: 0.2
   _deathTransitionTime: 2
   _destroyOnDeath: 1
 --- !u!114 &645102647246734101
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetObject: {fileID: 3373842716577120408}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashTime: 0.75
+  flashTime: 0.5
 --- !u!114 &6613561849960555357
 MonoBehaviour:
   m_ObjectHideFlags: 0
