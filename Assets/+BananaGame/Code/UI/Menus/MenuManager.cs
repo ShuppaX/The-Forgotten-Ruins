@@ -115,6 +115,7 @@ namespace BananaSoup.UI.Menus
                     playerBase.ToggleAllActions(true);
                     break;
                 case (paused):
+                    // TODO: Implement pause functionality (pause time for example)
                     pausePanel.SetActive(true);
                     inGameUICanvas.enabled = false;
                     break;

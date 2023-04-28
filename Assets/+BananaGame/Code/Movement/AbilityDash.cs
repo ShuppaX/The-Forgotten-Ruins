@@ -246,9 +246,6 @@ namespace BananaSoup.Ability
 
                 // Round the remainingCooldown to two decimals.
                 roundedRemainingCooldown = Mathf.Round(remainingCooldown * 100f) / 100f;
-
-                // TODO: Remove this debug log (after UIDashManager is working correctly)
-                //Debug.LogFormat("Dash cooldown remaining: {0}", roundedRemainingCooldown.ToString("0.00"));
             }
 
             if ( remainingCooldown <= 0.0f )
