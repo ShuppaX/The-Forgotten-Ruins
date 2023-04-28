@@ -63,7 +63,7 @@ namespace BananaSoup
         private const string patrol = "Patrol";
         private const string Idle = "Idle";
         private const string animChase = "Chase"; //might not be used. Added in case it's needed
-        private const string animStunned = "Stunned";
+        private const string animStunned = "Stun";
         private string _previousAnimation;
         private Ray _vision;
         private bool _canSeePlayer;
@@ -162,7 +162,7 @@ namespace BananaSoup
             if (_playerInSightRange && !_playerInAttackRange)
             {
                 ClearTrigger();
-                SetTrigger(animChase); //Commented in case we want to use patrol animation for chase
+                SetTrigger(animChase); 
                 Chase();
             }
 
@@ -170,7 +170,7 @@ namespace BananaSoup
             if (_playerInSightRange && _playerInAttackRange)
             {
               //  if (!_canSeePlayer) return;
-                //Trigger for attack is in Attack() method
+                //Trigger for attack is in Attack() method due to inheritance
                 Attack();
             }
 
