@@ -12,7 +12,7 @@ namespace BananaSoup.Managers
 
         [Space]
 
-        [SerializeField, Tooltip("Transition time from TitleScreen view to GamePlay view.")]
+        [SerializeField, Tooltip("Transition time from TitleScreen view to GamePlay view. (The transition is actually about 3/4 of the value)")]
         private float transitionTime = 5.0f;
         [SerializeField, Tooltip("Transition rotation multiplier.")]
         private float transitionRotationMultiplier = 3.0f;
@@ -29,7 +29,10 @@ namespace BananaSoup.Managers
 
         // References
         private SimplePlayerFollower playerFollower = null;
-        private Camera mainCamera;
+        private Camera mainCamera = null;
+        private GameStateManager gameStateManager = null;
+
+        private const GameStateManager.GameState inGame = GameStateManager.GameState.InGame;
 
         private void OnDisable()
         {
@@ -52,6 +55,12 @@ namespace BananaSoup.Managers
             if ( mainCamera == null )
             {
                 Debug.LogError($"No component of {typeof(Camera)} can be found on the {name}!");
+            }
+
+            gameStateManager = GameStateManager.Instance;
+            if ( gameStateManager == null )
+            {
+                Debug.LogError($"{name} couldn't find an instance of GameStateManager!");
             }
 
             titleScreenFocalLength = titleScreenCamera.focalLength;
@@ -85,6 +94,7 @@ namespace BananaSoup.Managers
             transform.rotation = gamePlayRotation;
 
             playerFollower.enabled = true;
+            gameStateManager.SetGameState(inGame);
         }
 
         private IEnumerator CameraTransitionCoroutine()
@@ -94,8 +104,6 @@ namespace BananaSoup.Managers
 
             while ( remainingTransitionTime < 1.0f )
             {
-                Debug.Log("Transition while loop is running!");
-
                 if ( CheckIfCameraIsInPosition() )
                 {
                     break;
@@ -110,7 +118,6 @@ namespace BananaSoup.Managers
                 yield return null;
             }
 
-            Debug.Log("Transition is finished!");
             ActivateGamePlayView();
             transitionCoroutine = null;
         }

@@ -1,4 +1,5 @@
 using BananaSoup.Managers;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +10,7 @@ namespace BananaSoup.UI.Menus
         [SerializeField, Tooltip("In-game UI parent (In-Game_UI)")]
         private Canvas inGameUICanvas = null;
 
-        private ObjectMenuType[] menuPanels = null;
+        private List<GameObject> menuPanels = new List<GameObject>();
 
         // References to main menu panels
         private GameObject mainMenuPanel = null;
@@ -46,7 +47,7 @@ namespace BananaSoup.UI.Menus
         private void Awake()
         {
             InitializeMenuArray();
-            InitializeMenuObjects();
+            GetMenuObjectReferences();
         }
 
         private void Start()
@@ -63,27 +64,46 @@ namespace BananaSoup.UI.Menus
                 Debug.LogError($"{name} couldn't find an instance of PlayerBase!");
             }
 
-            inGameUICanvas.enabled = false;
-            playerBase.ToggleAllActions(false);
-            settingsPanel.SetActive(false);
-            pausePanel.SetActive(false);
+            Setup();
         }
 
+        /// <summary>
+        /// Method used to initialize the menuPanels array with all objects that have
+        /// the component "ObjectMenuType".
+        /// </summary>
         private void InitializeMenuArray()
         {
-            menuPanels = (ObjectMenuType[])FindObjectsOfType(typeof(ObjectMenuType));
+            Transform[] childObjects = GetComponentsInChildren<Transform>(true);
+
+            foreach (Transform child in childObjects )
+            {
+                if ( child.gameObject.GetComponent<ObjectMenuType>() != null )
+                {
+                    menuPanels.Add(child.gameObject);
+                    Debug.Log($"Added {child.gameObject.name} to menuPanels list!");
+                }
+            }
         }
 
-        private void InitializeMenuObjects()
+        /// <summary>
+        /// Method used to get the references of the different UI panels.
+        /// </summary>
+        private void GetMenuObjectReferences()
         {
             mainMenuPanel = GetMenu(MenuType.MainMenu);
             settingsPanel = GetMenu(MenuType.Settings);
             pausePanel = GetMenu(MenuType.Pause);
         }
 
+        /// <summary>
+        /// Method used to go through the menuPanels array and get the desired
+        /// menuPanel of the specified menuType.
+        /// </summary>
+        /// <param name="menuType">The MenuType of the GameObject you want to find.</param>
+        /// <returns>The GameObject which has the specified MenuType.</returns>
         private GameObject GetMenu(MenuType menuType)
         {
-            for ( int i = 0; i < menuPanels.Length; i++ )
+            for ( int i = 0; i < menuPanels.Count; i++ )
             {
                 if ( menuPanels[i].GetComponent<ObjectMenuType>().MenuType == menuType )
                 {
@@ -94,6 +114,35 @@ namespace BananaSoup.UI.Menus
             Debug.LogError($"No menu of type {menuType} could be found in menus[]!");
 
             return null;
+        }
+
+        /// <summary>
+        /// Called in Start(). Used to disable inGameUICanvas, all other panels and
+        /// the players input/actions.
+        /// </summary>
+        private void Setup()
+        {
+            if ( !mainMenuPanel.activeSelf )
+            {
+                mainMenuPanel.SetActive(true);
+            }
+
+            if ( inGameUICanvas.enabled )
+            {
+                inGameUICanvas.enabled = false;
+            }
+
+            if ( settingsPanel.activeSelf )
+            {
+                settingsPanel.SetActive(false);
+            }
+
+            if ( pausePanel.activeSelf )
+            {
+                pausePanel.SetActive(false);
+            }
+
+            playerBase.ToggleAllActions(false);
         }
 
         /// <summary>

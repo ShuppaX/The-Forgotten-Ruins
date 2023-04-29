@@ -8,18 +8,12 @@ namespace BananaSoup.Managers
         public static GameStateManager Instance { get; private set; }
 
         private GameState currentGameState;
-        private GameState previousGameState;
 
         public static event Action OnGameStateChanged;
 
         public GameState CurrentGameState
         {
             get => currentGameState;
-        }
-
-        public GameState PreviousGameState
-        {
-            get => previousGameState;
         }
 
         // NOTE: WHEN ADDING STATES DO NOT CHANGE THE ORDER
@@ -50,22 +44,8 @@ namespace BananaSoup.Managers
         /// <param name="newState">The GameState to set as current GameState.</param>
         public void SetGameState(GameState newState)
         {
-            Debug.Log($"Storing {currentGameState} as previousGameState.");
-            previousGameState = currentGameState;
-
             Debug.Log($"Setting currentGameState to be {newState}");
             currentGameState = newState;
-
-            StateChanged();
-        }
-
-        /// <summary>
-        /// Method to reset the GameState to the previous GameState.
-        /// </summary>
-        public void ResetGameState()
-        {
-            Debug.Log($"Setting currentGameState to {previousGameState}");
-            currentGameState = previousGameState;
 
             StateChanged();
         }
