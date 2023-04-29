@@ -167,6 +167,7 @@ namespace BananaSoup.UI.Menus
                     // TODO: Implement pause functionality (pause time for example)
                     pausePanel.SetActive(true);
                     inGameUICanvas.enabled = false;
+                    playerBase.ToggleAllActions(false);
                     break;
                 case (gameOver):
                     // TODO: Make a deathscreen panel etc. and activate it here!
@@ -235,6 +236,7 @@ namespace BananaSoup.UI.Menus
             if ( !pausePanel.activeSelf )
             {
                 gameStateManager.SetGameState(paused);
+                Time.timeScale = 0;
             }
             else
             {
@@ -247,11 +249,7 @@ namespace BananaSoup.UI.Menus
         /// </summary>
         public void OnPauseBackButton()
         {
-            if ( !pausePanel.activeSelf )
-            {
-                gameStateManager.SetGameState(paused);
-            }
-            else
+            if ( gameStateManager.CurrentGameState == paused )
             {
                 gameStateManager.SetGameState(inGame);
             }
@@ -273,6 +271,13 @@ namespace BananaSoup.UI.Menus
             {
                 settingsPanel.SetActive(false);
             }
+
+            if ( Time.timeScale != 1 )
+            {
+                Time.timeScale = 1;
+            }
+
+            playerBase.ToggleAllActions(true);
         }
     }
 }
