@@ -215,14 +215,6 @@ namespace BananaSoup.UI.Menus
         }
 
         /// <summary>
-        /// Method called from the Play button in main menu.
-        /// </summary>
-        public void OnPlayButton()
-        {
-            gameStateManager.SetGameState(inGame);
-        }
-
-        /// <summary>
         /// Method called when pressing any of the set pause buttons.
         /// If the pausePanel isn't active then set the GameState to paused, if it is
         /// set the GameState to inGame.
