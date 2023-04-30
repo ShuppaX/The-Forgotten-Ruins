@@ -4071,6 +4071,11 @@ PrefabInstance:
       propertyPath: inGameUICanvas
       value: 
       objectReference: {fileID: 8127596914372454470}
+    - target: {fileID: 7076474696319185495, guid: 943c540ddfcc51243ac5bcbd0e39e4a8,
+        type: 3}
+      propertyPath: seeThroughEffect
+      value: 
+      objectReference: {fileID: 1140226196}
     - target: {fileID: 7076474696319185500, guid: 943c540ddfcc51243ac5bcbd0e39e4a8,
         type: 3}
       propertyPath: m_Name

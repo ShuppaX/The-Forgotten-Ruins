@@ -2,6 +2,7 @@ using BananaSoup.Managers;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.HighDefinition;
 
 namespace BananaSoup.UI.Menus
 {
@@ -9,6 +10,12 @@ namespace BananaSoup.UI.Menus
     {
         [SerializeField, Tooltip("In-game UI parent (In-Game_UI)")]
         private Canvas inGameUICanvas = null;
+
+        [Space]
+
+        [SerializeField, Tooltip("SeeThroughEffect GameObject which has the component" +
+            " that allows seeing through set objects.")]
+        private CustomPassVolume seeThroughEffect = null;
 
         private List<GameObject> menuPanels = new List<GameObject>();
 
@@ -139,6 +146,11 @@ namespace BananaSoup.UI.Menus
             if ( pausePanel.activeSelf )
             {
                 pausePanel.SetActive(false);
+            }
+
+            if ( seeThroughEffect.enabled )
+            {
+                seeThroughEffect.enabled = false;
             }
 
             playerBase.ToggleAllActions(false);
@@ -273,6 +285,11 @@ namespace BananaSoup.UI.Menus
             if ( Time.timeScale != 1 )
             {
                 Time.timeScale = 1;
+            }
+
+            if ( seeThroughEffect.enabled )
+            {
+                seeThroughEffect.enabled = true;
             }
 
             playerBase.ToggleAllActions(true);
