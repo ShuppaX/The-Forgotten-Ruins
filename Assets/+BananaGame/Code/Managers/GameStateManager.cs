@@ -44,9 +44,7 @@ namespace BananaSoup.Managers
         /// <param name="newState">The GameState to set as current GameState.</param>
         public void SetGameState(GameState newState)
         {
-            Debug.Log($"Setting currentGameState to be {newState}");
             currentGameState = newState;
-
             StateChanged();
         }
 
