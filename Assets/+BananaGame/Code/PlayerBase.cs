@@ -103,7 +103,6 @@ namespace BananaSoup
 
         public void ToggleAllActions(bool value)
         {
-            Debug.Log("PlayerActions were toggled to " + value);
             AreAbilitiesEnabled = value;
             CanDash = value;
             IsInteractingEnabled = value;

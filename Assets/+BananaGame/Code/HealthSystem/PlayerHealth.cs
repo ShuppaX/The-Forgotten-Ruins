@@ -14,11 +14,16 @@ namespace BananaSoup.HealthSystem
             set => godMode = value;
         }
 
+        // References
         private PlayerBase playerBase = null;
         private PlayerStateManager psm = null;
+        private GameStateManager gameStateManager = null;
         
-
+        // Constant PlayerState used to change state on death.
         private const PlayerStateManager.PlayerState dead = PlayerStateManager.PlayerState.Dead;
+
+        // Constant GameStates used to check in reset to compare if CurrentGameState is this.
+        private const GameStateManager.GameState inGame = GameStateManager.GameState.InGame;
 
         public static event Action PlayerHealthChanged;
 
@@ -34,6 +39,12 @@ namespace BananaSoup.HealthSystem
             if ( psm == null )
             {
                 Debug.LogError("PlayerHealth couldn't find an Instance of PlayerStateManager!");
+            }
+
+            gameStateManager = GameStateManager.Instance;
+            if ( gameStateManager == null )
+            {
+                Debug.LogError("PlayerHealth couldn't find an Instance of GameStateManager!");
             }
 
             base.Start();
@@ -97,7 +108,10 @@ namespace BananaSoup.HealthSystem
         {
             base.Reset();
 
-            playerBase.ToggleAllActions(true);
+            if ( gameStateManager.CurrentGameState == inGame )
+            {
+                playerBase.ToggleAllActions(true);
+            }
         }
     }
 }

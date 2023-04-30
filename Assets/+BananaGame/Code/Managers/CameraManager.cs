@@ -114,7 +114,6 @@ namespace BananaSoup.Managers
 
                 remainingTransitionTime = (Time.time - startTime) / transitionTime;
 
-                Debug.Log(remainingTransitionTime);
                 yield return null;
             }
 

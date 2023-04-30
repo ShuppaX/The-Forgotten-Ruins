@@ -80,7 +80,6 @@ namespace BananaSoup.UI.Menus
                 if ( child.gameObject.GetComponent<ObjectMenuType>() != null )
                 {
                     menuPanels.Add(child.gameObject);
-                    Debug.Log($"Added {child.gameObject.name} to menuPanels list!");
                 }
             }
         }
@@ -158,10 +157,9 @@ namespace BananaSoup.UI.Menus
                     mainMenuPanel.SetActive(true);
                     break;
                 case (inGame):
-                    ReturnToInGame();
+                    ChangingGameStateToInGame();
                     mainMenuPanel.SetActive(false);
                     inGameUICanvas.enabled = true;
-                    playerBase.ToggleAllActions(true);
                     break;
                 case (paused):
                     // TODO: Implement pause functionality (pause time for example)
@@ -260,7 +258,7 @@ namespace BananaSoup.UI.Menus
         /// Used to check if pausePanel or settingsPanel are active, and if they are
         /// disable them.
         /// </summary>
-        private void ReturnToInGame()
+        private void ChangingGameStateToInGame()
         {
             if ( pausePanel.activeSelf )
             {
