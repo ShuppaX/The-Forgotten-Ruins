@@ -287,7 +287,7 @@ namespace BananaSoup.UI.Menus
                 Time.timeScale = 1;
             }
 
-            if ( seeThroughEffect.enabled )
+            if ( !seeThroughEffect.enabled )
             {
                 seeThroughEffect.enabled = true;
             }
