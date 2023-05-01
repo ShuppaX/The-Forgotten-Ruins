@@ -1,89 +1,73 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BananaSoup
 {
     public class SettingsManager : MonoBehaviour
     {
-        [SerializeField, Tooltip("")]
+        [SerializeField, Tooltip("The Audio_Panel under the Settings_Panel.")]
         private GameObject audioPanel = null;
 
-        [SerializeField, Tooltip("")]
+        [SerializeField, Tooltip("The Gamepad_Panel under the Settings_Panel.")]
         private GameObject gamepadPanel = null;
 
-        [SerializeField, Tooltip("")]
+        [SerializeField, Tooltip("The KBM_Panel under the Settings_Panel.")]
         private GameObject kbmPanel = null;
 
         public void ToggleAudioPanelActive()
         {
-            if ( gamepadPanel.activeSelf )
-            {
-                gamepadPanel.SetActive(false);
-            }
+            TryDisablePanel(gamepadPanel);
+            TryDisablePanel(kbmPanel);
 
-            if ( kbmPanel.activeSelf )
-            {
-                kbmPanel.SetActive(false);
-            }
-
-            if ( !audioPanel.activeSelf )
-            {
-                audioPanel.SetActive(true);
-            }
+            TryActivatePanel(audioPanel);
         }
 
         public void ToggleGamepadPanelActive()
         {
-            if ( audioPanel.activeSelf )
-            {
-                audioPanel.SetActive(false);
-            }
+            TryDisablePanel(audioPanel);
+            TryDisablePanel(kbmPanel);
 
-            if ( kbmPanel.activeSelf )
-            {
-                kbmPanel.SetActive(false);
-            }
-
-            if ( !gamepadPanel.activeSelf )
-            {
-                gamepadPanel.SetActive(true);
-            }
+            TryActivatePanel(gamepadPanel);
         }
 
         public void ToggleKBMPanelActive()
         {
-            if ( audioPanel.activeSelf )
-            {
-                audioPanel.SetActive(false);
-            }
+            TryDisablePanel(audioPanel);
+            TryDisablePanel(gamepadPanel);
 
-            if ( gamepadPanel.activeSelf )
-            {
-                gamepadPanel.SetActive(false);
-            }
-
-            if ( !kbmPanel.activeSelf )
-            {
-                kbmPanel.SetActive(true);
-            }
+            TryActivatePanel(kbmPanel);
         }
 
         public void TogglePanelsOnBack()
         {
-            if ( !audioPanel.activeSelf )
-            {
-                audioPanel.SetActive(true);
-            }
+            TryActivatePanel(audioPanel);
 
-            if ( gamepadPanel.activeSelf )
-            {
-                gamepadPanel.SetActive(false);
-            }
+            TryDisablePanel(gamepadPanel);
+            TryDisablePanel(kbmPanel);
+        }
 
-            if ( kbmPanel.activeSelf )
+        /// <summary>
+        /// Method used to try to activate an inactive panel.
+        /// Checks if the panel isn't active and then sets it active if it isn't.
+        /// </summary>
+        /// <param name="panel">The panel to activate.</param>
+        private void TryActivatePanel(GameObject panel)
+        {
+            if ( !panel.activeSelf )
             {
-                kbmPanel.SetActive(false);
+                panel.SetActive(true);
+            }
+        }
+
+        /// <summary>
+        /// Method used to try to deactivate a active panel.
+        /// Checks if the panel is active and then sets it inactive if it is.
+        /// </summary>
+        /// <param name="panel">The panel to disable.</param>
+        private void TryDisablePanel(GameObject panel)
+        {
+            if ( panel.activeSelf )
+            {
+                panel.SetActive(false);
             }
         }
     }
