@@ -122,7 +122,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard;Keyboard"",
+                    ""groups"": ""KeyboardAndMouse;Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -133,7 +133,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard;Keyboard"",
+                    ""groups"": ""KeyboardAndMouse;Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -144,7 +144,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard;Keyboard"",
+                    ""groups"": ""KeyboardAndMouse;Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -155,7 +155,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard;Keyboard"",
+                    ""groups"": ""KeyboardAndMouse;Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -177,7 +177,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard;Keyboard"",
+                    ""groups"": ""KeyboardAndMouse;Keyboard"",
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -188,7 +188,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard;Mouse and keyboard"",
+                    ""groups"": ""Keyboard;KeyboardAndMouse"",
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -210,7 +210,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard"",
+                    ""groups"": ""KeyboardAndMouse"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -243,7 +243,7 @@ namespace BananaSoup
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard"",
+                    ""groups"": ""KeyboardAndMouse"",
                     ""action"": ""Ability"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -276,7 +276,7 @@ namespace BananaSoup
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse and keyboard"",
+                    ""groups"": ""KeyboardAndMouse"",
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -309,7 +309,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard;Mouse and keyboard"",
+                    ""groups"": ""Keyboard;KeyboardAndMouse"",
                     ""action"": ""ChangeAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -331,7 +331,7 @@ namespace BananaSoup
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard;Mouse and keyboard"",
+                    ""groups"": ""Keyboard;KeyboardAndMouse"",
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -352,8 +352,8 @@ namespace BananaSoup
             ]
         },
         {
-            ""name"": ""Mouse and keyboard"",
-            ""bindingGroup"": ""Mouse and keyboard"",
+            ""name"": ""KeyboardAndMouse"",
+            ""bindingGroup"": ""KeyboardAndMouse"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
@@ -534,13 +534,13 @@ namespace BananaSoup
                 return asset.controlSchemes[m_GamepadSchemeIndex];
             }
         }
-        private int m_MouseandkeyboardSchemeIndex = -1;
-        public InputControlScheme MouseandkeyboardScheme
+        private int m_KeyboardAndMouseSchemeIndex = -1;
+        public InputControlScheme KeyboardAndMouseScheme
         {
             get
             {
-                if (m_MouseandkeyboardSchemeIndex == -1) m_MouseandkeyboardSchemeIndex = asset.FindControlSchemeIndex("Mouse and keyboard");
-                return asset.controlSchemes[m_MouseandkeyboardSchemeIndex];
+                if (m_KeyboardAndMouseSchemeIndex == -1) m_KeyboardAndMouseSchemeIndex = asset.FindControlSchemeIndex("KeyboardAndMouse");
+                return asset.controlSchemes[m_KeyboardAndMouseSchemeIndex];
             }
         }
         private int m_KeyboardSchemeIndex = -1;

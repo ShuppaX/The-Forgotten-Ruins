@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.UI.Menus
 {
     public class SettingsManager : MonoBehaviour
     {
