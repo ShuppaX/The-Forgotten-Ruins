@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8452926368119037899}
   - component: {fileID: 8452926368119037898}
   - component: {fileID: 7815536021926543875}
+  - component: {fileID: 838508829249993324}
   m_Layer: 0
   m_Name: Campfire
   m_TagString: Untagged
@@ -133,6 +134,19 @@ MonoBehaviour:
   isSolutionReversed: 0
   fireParticles: {fileID: 3449866838442561200}
   isTorchAlreadyBurning: 0
+--- !u!135 &838508829249993324
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034535277939153985}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5126846
+  m_Center: {x: -0.0058974028, y: -0.38, z: -0.027881756}
 --- !u!1001 &781158081908110990
 PrefabInstance:
   m_ObjectHideFlags: 0
