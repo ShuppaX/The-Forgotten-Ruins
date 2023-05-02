@@ -75,7 +75,11 @@ namespace BananaSoup.Managers
         {
             animationManager.ResetTrigger(previousPlayerState.ToString());
 
-            if ( currentPlayerState == PlayerState.Dead ) return;
+            if ( currentPlayerState == PlayerState.Dead )
+            {
+                animationManager.SetAnimation(PlayerState.Idle.ToString());
+                return;
+            }
 
             animationManager.SetAnimation(currentPlayerState.ToString());
         }

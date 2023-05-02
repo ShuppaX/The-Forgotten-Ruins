@@ -18,6 +18,7 @@ namespace BananaSoup.HealthSystem
         private PlayerBase playerBase = null;
         private PlayerStateManager psm = null;
         private GameStateManager gameStateManager = null;
+        private RagdollOnDeath ragdollOnDeath = null;
         
         // Constant PlayerState used to change state on death.
         private const PlayerStateManager.PlayerState dead = PlayerStateManager.PlayerState.Dead;
@@ -45,6 +46,12 @@ namespace BananaSoup.HealthSystem
             if ( gameStateManager == null )
             {
                 Debug.LogError("PlayerHealth couldn't find an Instance of GameStateManager!");
+            }
+
+            ragdollOnDeath = GetComponent<RagdollOnDeath>();
+            if ( ragdollOnDeath == null )
+            {
+                Debug.LogError($"PlayerHealth couldn't find a RagdollOnDeath component on {name}!");
             }
 
             base.Start();
@@ -100,6 +107,7 @@ namespace BananaSoup.HealthSystem
         {
             playerBase.ToggleAllActions(false);
 
+            ragdollOnDeath.Ragdoll();
             // TODO: Ragdoll or something?
             // TODO: Play sound
         }
