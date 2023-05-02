@@ -271,7 +271,6 @@ namespace BananaSoup
                 // Check an try end an old stun Coroutine if there one already running.
                 // The enemy will get strange behaviours if there are multiple stun Coroutines running.
                 TryEndingRunningCoroutine(ref _enemyStunnedRoutine);
-
                 _enemyStunnedRoutine = StartCoroutine(StunEnemy());
             }
         }
