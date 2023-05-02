@@ -15,11 +15,11 @@ GameObject:
   - component: {fileID: 8452926368119037898}
   - component: {fileID: 7815536021926543875}
   - component: {fileID: 838508829249993324}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Campfire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8452926368119037897
