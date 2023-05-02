@@ -153,16 +153,14 @@ namespace BananaSoup
             //Patrol
             if (!_playerInSightRange && !_playerInAttackRange)
             {
-                ClearTrigger();
-                SetTrigger(patrol);
+                
                 Patrol();
             }
 
             //Chase
             if (_playerInSightRange && !_playerInAttackRange)
             {
-                ClearTrigger();
-                SetTrigger(animChase); 
+                
                 Chase();
             }
 
@@ -178,8 +176,7 @@ namespace BananaSoup
             else if (!_playerInSightRange && !_playerInAttackRange && Speed < 0.1 ) //Determines the threshold for idle animation
             {
                 ClearTrigger();
-                SetTrigger(Idle);
-                Debug.Log("Idling");
+                SetTrigger(Idle); 
             }
         }
 
@@ -197,6 +194,8 @@ namespace BananaSoup
         //Patrol method searches random waypoints and moves to them
         public void Patrol()
         {
+            ClearTrigger();
+            SetTrigger(patrol);
             if (!_waypointSet) SearchWaypoint();
 
             if (_waypointSet) enemy.SetDestination(waypoint);
@@ -227,6 +226,8 @@ namespace BananaSoup
         //follows the player through navmesh, until the player is within attack range
         private void Chase()
         {
+            ClearTrigger();
+            SetTrigger(animChase); 
             enemy.SetDestination(playerTarget.position);
         }
 
