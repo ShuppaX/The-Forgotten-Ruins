@@ -1,5 +1,6 @@
 using BananaSoup.Managers;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.HighDefinition;
@@ -293,6 +294,16 @@ namespace BananaSoup.UI.Menus
             }
 
             playerBase.ToggleAllActions(true);
+        }
+
+        public void QuitGame()
+        {
+#if UNITY_STANDALONE
+            Application.Quit();
+#endif
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#endif
         }
     }
 }
