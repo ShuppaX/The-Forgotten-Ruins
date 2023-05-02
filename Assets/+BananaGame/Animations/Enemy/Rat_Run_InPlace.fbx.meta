@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b6c1b8c576fdd2344802fa34e3cfb103
+guid: 9b9a6cd9d7c7ab949b7994f54ef549d9
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Rat_Walk
+      name: Rat_Run_InPlace
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 32
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
