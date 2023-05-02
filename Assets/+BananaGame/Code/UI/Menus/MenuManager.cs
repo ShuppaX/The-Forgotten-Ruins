@@ -296,6 +296,10 @@ namespace BananaSoup.UI.Menus
             playerBase.ToggleAllActions(true);
         }
 
+        /// <summary>
+        /// Method called from Quit buttons to exit the application while in build and
+        /// while in editor toggle playmode off.
+        /// </summary>
         public void QuitGame()
         {
 #if UNITY_STANDALONE
