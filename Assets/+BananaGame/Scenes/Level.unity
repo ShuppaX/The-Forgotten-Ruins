@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 9109.795, g: 3121.9229, b: 432.99072, a: 1}
+  m_IndirectSpecularColor: {r: 8329.3545, g: 2648.9775, b: 311.23145, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13770,6 +13770,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stairs_4x4x10_36steps
       objectReference: {fileID: 0}
+    - target: {fileID: 8031793748532734845, guid: 39ade0668867ba345a52e7401062a76b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 119
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39ade0668867ba345a52e7401062a76b, type: 3}
 --- !u!4 &1057030604 stripped
@@ -21862,6 +21867,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform 4x4x4 (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 77634876598898104, guid: 05741ab329d66ca408882b6b392ed275,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 119
       objectReference: {fileID: 0}
     - target: {fileID: 4300881324753163220, guid: 05741ab329d66ca408882b6b392ed275,
         type: 3}
