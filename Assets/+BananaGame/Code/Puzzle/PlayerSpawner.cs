@@ -28,7 +28,8 @@ namespace BananaSoup
         {
             if ( PlayerBase.Instance != null )
             {
-                PlayerBase.Instance.gameObject.transform.position = transform.position;
+                PlayerBase.Instance.transform.position = transform.position;
+                PlayerBase.Instance.transform.rotation = transform.rotation;
             }
             else
             {
