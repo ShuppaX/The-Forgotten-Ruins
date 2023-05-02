@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 9128.902, g: 3129.6416, b: 433.1714, a: 1}
+  m_IndirectSpecularColor: {r: 8329.357, g: 2648.9736, b: 311.23145, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2842,6 +2842,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Campfire
+      objectReference: {fileID: 0}
+    - target: {fileID: 6979548548385747435, guid: 925626fef8233b444bd5e789ccb8fdba,
+        type: 3}
+      propertyPath: isFireBurningAtStart
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8452926368119037897, guid: 925626fef8233b444bd5e789ccb8fdba,
         type: 3}

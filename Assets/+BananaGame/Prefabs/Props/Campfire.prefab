@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8452926368119037897}
   - component: {fileID: 4090785026083966727}
   - component: {fileID: 123613585501777558}
-  - component: {fileID: 8452926368119037899}
   - component: {fileID: 8452926368119037898}
-  - component: {fileID: 7815536021926543875}
   - component: {fileID: 838508829249993324}
+  - component: {fileID: 6353346003052853508}
+  - component: {fileID: 6979548548385747435}
   m_Layer: 7
   m_Name: Campfire
   m_TagString: Untagged
@@ -89,22 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8452926368119037899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1034535277939153985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66c53df0cb24bd24ba652a88f6470221, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  canDamageWhat:
-    serializedVersion: 2
-    m_Bits: 768
 --- !u!136 &8452926368119037898
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -119,21 +103,6 @@ CapsuleCollider:
   m_Height: 0.3956687
   m_Direction: 1
   m_Center: {x: -0.0058974028, y: 0.025466226, z: -0.027881756}
---- !u!114 &7815536021926543875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1034535277939153985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e63306e5a63e1c448b11235c424d960, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isSolutionReversed: 0
-  fireParticles: {fileID: 3449866838442561200}
-  isTorchAlreadyBurning: 0
 --- !u!135 &838508829249993324
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -147,6 +116,37 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5126846
   m_Center: {x: -0.0058974028, y: -0.38, z: -0.027881756}
+--- !u!114 &6353346003052853508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034535277939153985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe89862b792fbeb449ad2f56a637c17d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  canDamageWhat:
+    serializedVersion: 2
+    m_Bits: 768
+--- !u!114 &6979548548385747435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034535277939153985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 195224f32b54d64489bda3dd3236e601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireParticles: {fileID: 3449866838442561200}
+  isFireBurningAtStart: 1
+  canDealDamageWhenBurning: 1
 --- !u!1001 &781158081908110990
 PrefabInstance:
   m_ObjectHideFlags: 0
