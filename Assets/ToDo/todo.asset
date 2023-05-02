@@ -29,15 +29,27 @@ MonoBehaviour:
     Note: 
     Tag: NOTE
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Ability\ParticleProjectile.cs
-    Line: 38
-    PathToShow: Assets/+BananaGame/Code/Ability/ParticleProjectile.cs(38)
+    Line: 47
+    PathToShow: Assets/+BananaGame/Code/Ability/ParticleProjectile.cs(47)
   - Text: ": Getting reference to the particle effect, because Awake doesn't fire
       up fast enough\r"
     Note: 
     Tag: HACK
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Ability\ParticleProjectile.cs
-    Line: 50
-    PathToShow: Assets/+BananaGame/Code/Ability/ParticleProjectile.cs(50)
+    Line: 59
+    PathToShow: Assets/+BananaGame/Code/Ability/ParticleProjectile.cs(59)
+  - Text: " doesn't update when player is moving\r"
+    Note: 
+    Tag: TODO
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Ai\MeleeRaycast.cs
+    Line: 113
+    PathToShow: Assets/+BananaGame/Code/Ai/MeleeRaycast.cs(113)
+  - Text: " FIX IT\r"
+    Note: 
+    Tag: TODO
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Ai\MeleeRaycast.cs
+    Line: 130
+    PathToShow: Assets/+BananaGame/Code/Ai/MeleeRaycast.cs(130)
   - Text: ": Start animation\r"
     Note: 
     Tag: TODO
@@ -50,54 +62,48 @@ MonoBehaviour:
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\HealthSystem\EnemyHealth.cs
     Line: 35
     PathToShow: Assets/+BananaGame/Code/HealthSystem/EnemyHealth.cs(35)
-  - Text: ": Start animation\r"
+  - Text: ": Ragdoll or something?\r"
     Note: 
     Tag: TODO
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\HealthSystem\PlayerHealth.cs
-    Line: 91
-    PathToShow: Assets/+BananaGame/Code/HealthSystem/PlayerHealth.cs(91)
+    Line: 103
+    PathToShow: Assets/+BananaGame/Code/HealthSystem/PlayerHealth.cs(103)
   - Text: ": Play sound\r"
     Note: 
     Tag: TODO
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\HealthSystem\PlayerHealth.cs
-    Line: 92
-    PathToShow: Assets/+BananaGame/Code/HealthSystem/PlayerHealth.cs(92)
+    Line: 104
+    PathToShow: Assets/+BananaGame/Code/HealthSystem/PlayerHealth.cs(104)
   - Text: ": Turn player towards to the interact point. By code or navmesh?\r"
     Note: 
     Tag: TODO
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
-    Line: 145
-    PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(145)
+    Line: 182
+    PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(182)
   - Text: ": Turn the player slowly towards the target, not instantly.\r"
     Note: 
     Tag: TODO
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\InteractSystem\AbilityInteract.cs
-    Line: 169
-    PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(169)
+    Line: 214
+    PathToShow: Assets/+BananaGame/Code/InteractSystem/AbilityInteract.cs(214)
+  - Text: ": WHEN ADDING STATES DO NOT CHANGE THE ORDER\r"
+    Note: 
+    Tag: NOTE
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Managers\GameStateManager.cs
+    Line: 19
+    PathToShow: Assets/+BananaGame/Code/Managers/GameStateManager.cs(19)
   - Text: ": If you add or remove a PlayerState, DON'T CHANGE ID NUMBERS\r"
     Note: 
     Tag: NOTE
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Managers\PlayerStateManager.cs
-    Line: 20
-    PathToShow: Assets/+BananaGame/Code/Managers/PlayerStateManager.cs(20)
-  - Text: ": Remove this debug log (after UIDashManager is working correctly)\r"
-    Note: 
-    Tag: TODO
-    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Movement\AbilityDash.cs
-    Line: 241
-    PathToShow: Assets/+BananaGame/Code/Movement/AbilityDash.cs(241)
+    Line: 24
+    PathToShow: Assets/+BananaGame/Code/Managers/PlayerStateManager.cs(24)
   - Text: ": Pool for health pickups?\r"
     Note: 
     Tag: NOTE
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Pickups\Pickup.cs
     Line: 17
     PathToShow: Assets/+BananaGame/Code/Pickups/Pickup.cs(17)
-  - Text: ": Enable event and listen it somewhere else to enable UI element\r"
-    Note: 
-    Tag: TODO
-    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Pickups\PickupDash.cs
-    Line: 14
-    PathToShow: Assets/+BananaGame/Code/Pickups/PickupDash.cs(14)
   - Text: ": If have time change this to for example, Coroutine to happen only once\r"
     Note: 
     Tag: TODO
@@ -128,6 +134,18 @@ MonoBehaviour:
     Line: 94
     PathToShow: Assets/CustomPasses/CustomPasses/Video Playback Without TAA/Video
       Playback Without TAA.cs(94)
+  - Text: ": Implement pause functionality (pause time for example)\r"
+    Note: 
+    Tag: TODO
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\UI\Menus\MenuManager.cs
+    Line: 178
+    PathToShow: Assets/+BananaGame/Code/UI/Menus/MenuManager.cs(178)
+  - Text: ": Make a deathscreen panel etc. and activate it here!\r"
+    Note: 
+    Tag: TODO
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\UI\Menus\MenuManager.cs
+    Line: 184
+    PathToShow: Assets/+BananaGame/Code/UI/Menus/MenuManager.cs(184)
   - Text: ": Problem with structs, because they are value type.\r"
     Note: 
     Tag: TODO
