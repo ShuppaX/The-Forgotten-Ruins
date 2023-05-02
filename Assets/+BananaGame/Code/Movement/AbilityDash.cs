@@ -32,8 +32,9 @@ namespace BananaSoup.Ability
         private Coroutine dashCooldownRoutine = null;
 
         [Header("Constant PlayerStates used for PlayerState handling")]
-        public const PlayerStateManager.PlayerState dashing = PlayerStateManager.PlayerState.Dashing;
-        public const PlayerStateManager.PlayerState dashOverInAir = PlayerStateManager.PlayerState.InAir;
+        private const PlayerStateManager.PlayerState dashing = PlayerStateManager.PlayerState.Dashing;
+        private const PlayerStateManager.PlayerState dashOverInAir = PlayerStateManager.PlayerState.InAir;
+        private const PlayerStateManager.PlayerState dead = PlayerStateManager.PlayerState.Dead;
 
         // References
         private Rigidbody rb = null;
@@ -163,15 +164,12 @@ namespace BananaSoup.Ability
                         DashEventAction();
                     }
 
-                    PlayerBase.Instance.IsMovable = false;
-                    PlayerBase.Instance.IsTurnable = false;
-                    PlayerBase.Instance.IsInteractingEnabled = false;
-                    PlayerBase.Instance.AreAbilitiesEnabled = false;
-                    PlayerBase.Instance.CanDash = false;
+                    PlayerBase.Instance.ToggleAllActions(false);
 
                     Vector3 forceToApply = GetCalculatedDirection(transform.forward) * dashForce;
 
                     rb.velocity = forceToApply;
+
                     dashOnCooldown = true;
 
                     if ( dashCooldownRoutine == null )
@@ -202,6 +200,11 @@ namespace BananaSoup.Ability
         /// </summary>
         private void DashReset()
         {
+            if ( psm.CurrentPlayerState == dead )
+            {
+                return;
+            }
+
             if ( isLerpingDash )
             {
                 rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, lerpSpeed * Time.deltaTime);
@@ -220,11 +223,7 @@ namespace BananaSoup.Ability
                 psm.SetPlayerState(dashOverInAir);
             }
 
-            PlayerBase.Instance.IsMovable = true;
-            PlayerBase.Instance.IsTurnable = true;
-            PlayerBase.Instance.IsInteractingEnabled = true;
-            PlayerBase.Instance.AreAbilitiesEnabled = true;
-            PlayerBase.Instance.CanDash = true;
+            PlayerBase.Instance.ToggleAllActions(true);
         }
 
         /// <summary>
