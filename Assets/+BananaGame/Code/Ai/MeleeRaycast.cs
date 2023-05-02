@@ -175,10 +175,11 @@ namespace BananaSoup
             }
 
             //Idle patrol
-            else if (Speed > 0.1) //Determines the threshold for idle animation
+            else if (!_playerInSightRange && !_playerInAttackRange && Speed < 0.1 ) //Determines the threshold for idle animation
             {
                 ClearTrigger();
                 SetTrigger(Idle);
+                Debug.Log("Idling");
             }
         }
 
