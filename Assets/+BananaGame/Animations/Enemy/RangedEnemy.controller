@@ -175,7 +175,7 @@ AnimatorStateMachine:
     m_Position: {x: 360, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8376493480469635845}
-    m_Position: {x: 360, y: -130, z: 0}
+    m_Position: {x: 370, y: -130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8399568220756639041}
     m_Position: {x: 680, y: 40, z: 0}
@@ -310,7 +310,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MeleeEnemy
+  m_Name: RangedEnemy
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Patrol
@@ -613,7 +613,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Melee Attack
+  m_Name: Ranged Attack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -629,7 +629,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 040cdd1fb13039241bb1ac4ac725e13e,
+  m_Motion: {fileID: -203655887218126122, guid: 7422843978d1ad44cb8b4ab41a896b6c,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
