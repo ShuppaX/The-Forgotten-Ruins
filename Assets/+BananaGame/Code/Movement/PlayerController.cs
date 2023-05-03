@@ -12,6 +12,8 @@ namespace BananaSoup
         [Header("Movement")]
         [SerializeField, Tooltip("The movement speed of the character when moving.")]
         private float movementSpeed = 7.0f;
+        [SerializeField, Tooltip("Movement animation blending damp speed.")]
+        private float movementDamp = 0.05f;
         [SerializeField, Tooltip("The turning speed of the character when rotating.")]
         private float turnSpeed = 760.0f;
         [SerializeField, Tooltip("The movementspeed of the character when interacting.")]
@@ -37,6 +39,7 @@ namespace BananaSoup
         private GroundCheck groundCheck = null;
         private GroundAhead groundAhead = null;
         private PlayerStateManager psm = null;
+        private Animator animator = null;
 
         // Variables used to store in script values
         private Vector3 movementInput = Vector3.zero;
@@ -44,6 +47,13 @@ namespace BananaSoup
 
         private bool hasMoveInput = false;
         private bool wasPushed = false;
+
+        private float inputMagnitude = 0.0f;
+
+        public float InputMagnitude
+        {
+            get => inputMagnitude;
+        }
 
         [Header("Constant PlayerStates used for PlayerState handling")]
         private const PlayerStateManager.PlayerState moving = PlayerStateManager.PlayerState.Moving;
@@ -125,6 +135,7 @@ namespace BananaSoup
             allowMovement = GetDependency<AllowMovement>();
             groundCheck = GetDependency<GroundCheck>();
             groundAhead = GetDependency<GroundAhead>();
+            animator = GetDependency<Animator>();
         }
 
         /// <summary>
@@ -219,6 +230,9 @@ namespace BananaSoup
             movementInput.Set(input.x, 0.0f, input.y);
             isometricDirection = IsoVectorConvert(movementInput);
             hasMoveInput = true;
+
+            inputMagnitude = Mathf.Clamp01(isometricDirection.magnitude);
+            animator.SetFloat("InputMagnitude", inputMagnitude, movementDamp, Time.deltaTime);
 
             if ( context.phase == InputActionPhase.Canceled )
             {
