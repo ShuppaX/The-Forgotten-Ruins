@@ -22,6 +22,7 @@ namespace BananaSoup
         private CharacterJoint[] ragdollJoints;
         private Collider[] ragdollColliders;
 
+        // Reference to players sword
         private GameObject fennecSword;
 
         private void Awake()
