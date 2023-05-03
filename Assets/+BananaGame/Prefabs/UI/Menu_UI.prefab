@@ -979,8 +979,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7076474696319185495}
-        m_TargetAssemblyTypeName: BananaSoup.UI.Menus.MenuManager, Assembly-CSharp
+      - m_Target: {fileID: 7206598628029341462}
+        m_TargetAssemblyTypeName: BananaSoup.UI.Menus.MenuButtonHandler, Assembly-CSharp
         m_MethodName: OnExitQuitMenu
         m_Mode: 1
         m_Arguments:
@@ -1470,8 +1470,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7076474696319185495}
-        m_TargetAssemblyTypeName: BananaSoup.UI.Menus.MenuManager, Assembly-CSharp
+      - m_Target: {fileID: 7206598628029341462}
+        m_TargetAssemblyTypeName: BananaSoup.UI.Menus.MenuButtonHandler, Assembly-CSharp
         m_MethodName: OnEnterQuitMenu
         m_Mode: 1
         m_Arguments:
@@ -3602,6 +3602,7 @@ GameObject:
   - component: {fileID: 7076474696319185490}
   - component: {fileID: 7076474696319185491}
   - component: {fileID: 7076474696319185495}
+  - component: {fileID: 7206598628029341462}
   m_Layer: 0
   m_Name: Menu_UI
   m_TagString: Untagged
@@ -3707,6 +3708,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inGameUICanvas: {fileID: 0}
   seeThroughEffect: {fileID: 0}
+--- !u!114 &7206598628029341462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7076474696319185500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f474ed2eb493744a5b3b112f2e87b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7076474696589580540
 GameObject:
   m_ObjectHideFlags: 0

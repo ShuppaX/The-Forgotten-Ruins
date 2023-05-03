@@ -20,23 +20,18 @@ namespace BananaSoup.UI.Menus
         private CustomPassVolume seeThroughEffect = null;
 
         private List<GameObject> menuPanels = new List<GameObject>();
-        private List<GameObject> defaultButtons = new List<GameObject>();
 
         // References to main menu panels
         private GameObject mainMenuPanel = null;
         private GameObject settingsPanel = null;
         private GameObject pausePanel = null;
 
-        // References to default button in each menu
-        private GameObject mainMenuDefaultButton = null;
-        private GameObject settingsDefaultButton = null;
-        private GameObject pauseDefaultButton = null;
-        private GameObject quitDefaultButton = null;
-        private GameObject deathScreenDefaultbutton = null;
-
         // References to Instances
         private GameStateManager gameStateManager = null;
         private PlayerBase playerBase = null;
+
+        // Reference to MenuButtonHandler
+        private MenuButtonHandler buttonHandler = null;
 
         // Constant GameStates used in comparing current GameState
         private const GameStateManager.GameState inMainMenu = GameStateManager.GameState.InMainMenu;
@@ -50,15 +45,6 @@ namespace BananaSoup.UI.Menus
             Settings = 1,
             Pause = 2,
             DeathScreen = 3
-        }
-
-        public enum DefaultButton
-        {
-            InMainMenu = 0,
-            InSettings = 1,
-            InPause = 2,
-            InQuit = 3,
-            InDeathScreen = 4
         }
 
         private void OnEnable()
@@ -75,9 +61,6 @@ namespace BananaSoup.UI.Menus
         {
             InitializeMenuList();
             GetMenuObjectReferences();
-
-            InitializeButtonList();
-            GetButtonObjectReferences();
         }
 
         private void Start()
@@ -92,6 +75,12 @@ namespace BananaSoup.UI.Menus
             if ( playerBase == null )
             {
                 Debug.LogError($"{name} couldn't find an instance of PlayerBase!");
+            }
+
+            buttonHandler = GetComponent<MenuButtonHandler>();
+            if ( buttonHandler == null )
+            {
+                Debug.LogError($"No component of type MenuButtonHandler was found on the {name}!");
             }
 
             Setup();
@@ -142,52 +131,6 @@ namespace BananaSoup.UI.Menus
         }
 
         /// <summary>
-        /// Method used to go through the children of this GameObject and find all
-        /// GameObjects with the component ObjectDefaultButtonIn and then add them to
-        /// the defaultButtons list.
-        /// </summary>
-        private void InitializeButtonList()
-        {
-            ObjectDefaultButtonIn[] defaultButtonChildren = GetComponentsInChildren<ObjectDefaultButtonIn>(true);
-
-            foreach ( ObjectDefaultButtonIn button in defaultButtonChildren )
-            {
-                defaultButtons.Add(button.gameObject);
-            }
-        }
-
-        /// <summary>
-        /// Method used to get the default button GameObjecte references.
-        /// </summary>
-        private void GetButtonObjectReferences()
-        {
-            mainMenuDefaultButton = GetButton(DefaultButton.InMainMenu);
-            settingsDefaultButton = GetButton(DefaultButton.InSettings);
-            pauseDefaultButton = GetButton(DefaultButton.InPause);
-            quitDefaultButton = GetButton(DefaultButton.InQuit);
-            //deathScreenDefaultbutton = GetButton(DefaultButton.InDeathScreen);
-    }
-
-        /// <summary>
-        /// Method used to get the specified button from defaultButtons list.
-        /// </summary>
-        /// <param name="button">The button you want to find.</param>
-        /// <returns></returns>
-        private GameObject GetButton(DefaultButton button)
-        {
-            for ( int i = 0; i < defaultButtons.Count; i++ )
-            {
-                if ( defaultButtons[i].GetComponent<ObjectDefaultButtonIn>().DefaultButton == button )
-                {
-                    return defaultButtons[i].gameObject;
-                }
-            }
-
-            Debug.LogError($"Button with enum value {button} couldn't be found in defaultButtons!");
-            return null;
-        }
-
-        /// <summary>
         /// Called in Start(). Used to disable inGameUICanvas, all other panels and
         /// the players input/actions.
         /// </summary>
@@ -220,7 +163,7 @@ namespace BananaSoup.UI.Menus
 
             playerBase.ToggleAllActions(false);
 
-            SetSelectedButton(mainMenuDefaultButton);
+            ChangeSelectedButton(buttonHandler.MainMenuDefaultButton);
         }
 
         /// <summary>
@@ -234,18 +177,17 @@ namespace BananaSoup.UI.Menus
                 case (inMainMenu):
                     inGameUICanvas.enabled = false;
                     mainMenuPanel.SetActive(true);
-                    SetSelectedButton(mainMenuDefaultButton);
+                    ChangeSelectedButton(buttonHandler.MainMenuDefaultButton);
                     break;
                 case (inGame):
                     ChangingGameStateToInGame();
-                    mainMenuPanel.SetActive(false);
                     inGameUICanvas.enabled = true;
                     break;
                 case (paused):
                     pausePanel.SetActive(true);
                     inGameUICanvas.enabled = false;
                     playerBase.ToggleAllActions(false);
-                    SetSelectedButton(pauseDefaultButton);
+                    ChangeSelectedButton(buttonHandler.PauseDefaultButton);
                     break;
                 case (gameOver):
                     // TODO: Make a deathscreen panel etc. and activate it here!
@@ -287,7 +229,7 @@ namespace BananaSoup.UI.Menus
 
                 if ( mainMenuPanel.activeSelf )
                 {
-                    SetSelectedButton(mainMenuDefaultButton);
+                    ChangeSelectedButton(buttonHandler.MainMenuDefaultButton);
                 }
             }
 
@@ -297,7 +239,7 @@ namespace BananaSoup.UI.Menus
 
                 if ( pausePanel.activeSelf )
                 {
-                    SetSelectedButton(pauseDefaultButton);
+                    ChangeSelectedButton(buttonHandler.PauseDefaultButton);
                 }
             }
 
@@ -305,7 +247,7 @@ namespace BananaSoup.UI.Menus
 
             if ( settingsPanel.activeSelf )
             {
-                SetSelectedButton(settingsDefaultButton);
+                ChangeSelectedButton(buttonHandler.SettingsDefaultButton);
             }
         }
 
@@ -394,44 +336,21 @@ namespace BananaSoup.UI.Menus
         }
 
         /// <summary>
-        /// Method used to null the selected GameObject from EventSYstem and then set
-        /// the GameObject to be the one entered as a parameter.
-        /// </summary>
-        /// <param name="button">The button you want to select.</param>
-        private void SetSelectedButton(GameObject button)
-        {
-            // Remove currently selected object for EventSystem
-            EventSystem.current.SetSelectedGameObject(null);
-
-            // Set selected object for EventSystem
-            EventSystem.current.SetSelectedGameObject(button);
-        }
-
-        /// <summary>
-        /// Method called when entering the quit menu in pause menu.
-        /// Used to set the selected button to quitDefaultButton.
-        /// </summary>
-        public void OnEnterQuitMenu()
-        {
-            SetSelectedButton(quitDefaultButton);
-        }
-
-        /// <summary>
-        /// Method called when exiting the quit menu in pause menu.
-        /// Used to set the selected button to pauseDefaultButton.
-        /// </summary>
-        public void OnExitQuitMenu()
-        {
-            SetSelectedButton(pauseDefaultButton);
-        }
-
-        /// <summary>
         /// Method called when play button in main menu is pressed.
         /// Used to deactivate the mainMenuPanel.
         /// </summary>
         public void OnPlayButton()
         {
             mainMenuPanel.SetActive(false);
+        }
+
+        /// <summary>
+        /// Method used to call the SetSelectedButton from MenuButtonHandler component.
+        /// </summary>
+        /// <param name="button">The button to select.</param>
+        private void ChangeSelectedButton(GameObject button)
+        {
+            buttonHandler.SetSelectedButton(button);
         }
     }
 }

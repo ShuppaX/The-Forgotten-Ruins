@@ -1,4 +1,3 @@
-using BananaSoup.UI.Menus;
 using UnityEngine;
 
 namespace BananaSoup.UI.Menus
@@ -6,9 +5,9 @@ namespace BananaSoup.UI.Menus
     public class ObjectDefaultButtonIn : MonoBehaviour
     {
         [SerializeField]
-        private MenuManager.DefaultButton defaultButton;
+        private MenuButtonHandler.DefaultButton defaultButton;
 
-        public MenuManager.DefaultButton DefaultButton
+        public MenuButtonHandler.DefaultButton DefaultButton
         {
             get => defaultButton;
         }
