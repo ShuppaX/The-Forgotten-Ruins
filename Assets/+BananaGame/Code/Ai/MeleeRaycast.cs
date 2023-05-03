@@ -51,6 +51,8 @@ namespace BananaSoup
         private float _angle; //view angle between enemy and player
         private Collider _weaponCollider;
         private Coroutine _weaponColliderCD;
+
+        protected Coroutine _animationSTall;
         //states
         private bool _playerInSightRange;
         private bool _playerInAttackRange;
@@ -239,7 +241,7 @@ namespace BananaSoup
             if (meleeScript.CanDealDamage)
             {
                 meleeScript.CanDealDamage = false;
-                StartCoroutine(AnimationStall(1.5f));
+                _animationSTall = StartCoroutine(AnimationStall(1.5f));
                 _weaponColliderCD = StartCoroutine(WeaponColliderCycle());
                 meleeScript.MeleeAttack();
             }
@@ -284,14 +286,14 @@ namespace BananaSoup
         }
 
         // Ensure that the Coroutine will be stopped and nulled when GameObject gets disabled.
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             TryEndingRunningCoroutine(ref _enemyStunnedRoutine);
             TryEndingRunningCoroutine(ref _weaponColliderCD);
-            
+            TryEndingRunningCoroutine(ref _animationSTall);
         }
 
-        private void TryEndingRunningCoroutine(ref Coroutine routine)
+        protected void TryEndingRunningCoroutine(ref Coroutine routine)
         {
             if (routine != null)
             {
@@ -300,7 +302,7 @@ namespace BananaSoup
             }
         }
 
-        private IEnumerator AnimationStall(float stallTime)
+        protected IEnumerator AnimationStall(float stallTime)
         {
             ClearTrigger();
             SetTrigger(attack);
