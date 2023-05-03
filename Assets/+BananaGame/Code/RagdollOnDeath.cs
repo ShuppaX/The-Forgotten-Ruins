@@ -55,7 +55,12 @@ namespace BananaSoup
             playerAnimator.enabled = false;
             fennecSword.transform.parent = null;
             Rigidbody swordRB = fennecSword.AddComponent<Rigidbody>();
+            CapsuleCollider swordCapsuleCollider = fennecSword.GetComponent<CapsuleCollider>();
+            BoxCollider swordBoxCollider = fennecSword.GetComponent<BoxCollider>();
+            swordBoxCollider.enabled = true;
+            swordCapsuleCollider.isTrigger = false;
             swordRB.useGravity = true;
+            fennecSword.layer = 14;
             ToggleRagdollComponents(true);
         }
 

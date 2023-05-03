@@ -2587,6 +2587,7 @@ GameObject:
   - component: {fileID: 2383730016954505536}
   - component: {fileID: 866148602477336289}
   - component: {fileID: 5038680897387402874}
+  - component: {fileID: 1320105194}
   m_Layer: 0
   m_Name: Fennec_Sword
   m_TagString: Untagged
@@ -2621,9 +2622,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.008
-  m_Height: 0.027
+  m_Height: 0.020918706
   m_Direction: 1
-  m_Center: {x: 0, y: -0.0005, z: 0}
+  m_Center: {x: -6.382561e-11, y: -0.0035406312, z: -9.519894e-11}
 --- !u!114 &866148602477336289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2654,6 +2655,19 @@ MonoBehaviour:
   canDamageWhat:
     serializedVersion: 2
     m_Bits: 512
+--- !u!65 &1320105194
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7332500029889613990}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.016541202, y: 0.0079610795, z: 0.018889394}
+  m_Center: {x: -0.00028730222, y: 0.008890566, z: 0.00055425137}
 --- !u!1 &7479795154463561754
 GameObject:
   m_ObjectHideFlags: 0
@@ -2854,7 +2868,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3407013691615783647}
   - component: {fileID: 6227113495565517665}
-  m_Layer: 14
+  m_Layer: 11
   m_Name: Fennec
   m_TagString: Untagged
   m_Icon: {fileID: 0}
