@@ -6,24 +6,35 @@ namespace BananaSoup.UI.Menus
     {
         [SerializeField, Tooltip("The Audio_Panel under the Settings_Panel.")]
         private GameObject audioPanel = null;
-
+        [SerializeField, Tooltip("The Video_Panel under the Settings_Panel.")]
+        private GameObject videoPanel = null;
         [SerializeField, Tooltip("The Gamepad_Panel under the Settings_Panel.")]
         private GameObject gamepadPanel = null;
-
         [SerializeField, Tooltip("The KBM_Panel under the Settings_Panel.")]
         private GameObject kbmPanel = null;
 
         public void ToggleAudioPanelActive()
         {
+            TryDisablePanel(videoPanel);
             TryDisablePanel(gamepadPanel);
             TryDisablePanel(kbmPanel);
 
             TryActivatePanel(audioPanel);
         }
 
+        public void ToggleVideoPanelActive()
+        {
+            TryDisablePanel(audioPanel);
+            TryDisablePanel(gamepadPanel);
+            TryDisablePanel(kbmPanel);
+
+            TryActivatePanel(videoPanel);
+        }
+
         public void ToggleGamepadPanelActive()
         {
             TryDisablePanel(audioPanel);
+            TryDisablePanel(videoPanel);
             TryDisablePanel(kbmPanel);
 
             TryActivatePanel(gamepadPanel);
@@ -32,6 +43,7 @@ namespace BananaSoup.UI.Menus
         public void ToggleKBMPanelActive()
         {
             TryDisablePanel(audioPanel);
+            TryDisablePanel(videoPanel);
             TryDisablePanel(gamepadPanel);
 
             TryActivatePanel(kbmPanel);
@@ -41,6 +53,7 @@ namespace BananaSoup.UI.Menus
         {
             TryActivatePanel(audioPanel);
 
+            TryDisablePanel(videoPanel);
             TryDisablePanel(gamepadPanel);
             TryDisablePanel(kbmPanel);
         }
