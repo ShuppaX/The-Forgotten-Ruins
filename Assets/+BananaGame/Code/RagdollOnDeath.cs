@@ -1,43 +1,95 @@
 using BananaSoup.DamageSystem;
+using System;
 using UnityEngine;
 
 namespace BananaSoup
 {
     public class RagdollOnDeath : MonoBehaviour
     {
-        [SerializeField, Tooltip("The players ragdoll model's parent object.")]
-        private GameObject ragdollModel;
+        [SerializeField, Tooltip("The players model's parent object. (Fennec_T)")]
+        private GameObject ragdollRoot;
 
-        [SerializeField, Tooltip("The players main model's parent object.")]
-        private GameObject mainModel;
+        [Space]
+
+        [SerializeField, Tooltip("Check this to activate ragdoll on start.")]
+        private bool ragdollOnStart = false;
+
+        private Animator playerAnimator;
+
+        // References to ragdoll rbs, charactersjoints and colliders.
+        [NonSerialized]
+        public Rigidbody[] ragdollRBs;
+        private CharacterJoint[] ragdollJoints;
+        private Collider[] ragdollColliders;
 
         private GameObject fennecSword;
 
-        private void Start()
+        private void Awake()
         {
+            ragdollRBs = ragdollRoot.GetComponentsInChildren<Rigidbody>();
+            ragdollJoints = ragdollRoot.GetComponentsInChildren<CharacterJoint>();
+            ragdollColliders = ragdollRoot.GetComponentsInChildren<Collider>();
+
             fennecSword = GetComponentInChildren<PlayerSword>().gameObject;
+            playerAnimator = GetComponent<Animator>();
+            if ( playerAnimator == null )
+            {
+                Debug.LogError($"RagdollOnDeath couldn't find a Animator component on {name}!");
+            }
+
+            if ( ragdollOnStart )
+            {
+                EnableRagdoll();
+            }
+            else
+            {
+                EnableAnimator();
+            }
         }
 
         /// <summary>
-        /// Method called when player dies in PlayerHealth.cs
-        /// Method deactivates players mainModel and sword if they are active and then
-        /// activates the ragdollModel of the player.
+        /// Method called on death to enable ragdoll for the player character.
         /// </summary>
-        public void Ragdoll()
+        public void EnableRagdoll()
         {
-            if ( fennecSword.activeSelf )
+            playerAnimator.enabled = false;
+            fennecSword.transform.parent = null;
+            Rigidbody swordRB = fennecSword.AddComponent<Rigidbody>();
+            swordRB.useGravity = true;
+            ToggleRagdollComponents(true);
+        }
+
+        /// <summary>
+        /// Method that can be called to enable animator and disable ragdoll for the
+        /// player character.
+        /// </summary>
+        public void EnableAnimator()
+        {
+            ToggleRagdollComponents(false);
+            playerAnimator.enabled = true;
+        }
+
+        /// <summary>
+        /// Method used to toggle all ragdoll components (CharacterJoints, Colliders
+        /// and Rigidbodies) to given bool parameter.
+        /// </summary>
+        /// <param name="value">True to set them active, false to deactivate.</param>
+        private void ToggleRagdollComponents(bool value)
+        {
+            foreach ( CharacterJoint joint in ragdollJoints )
             {
-                fennecSword.SetActive(false);
+                joint.enableCollision = value;
             }
 
-            if ( mainModel.activeSelf )
+            foreach ( Collider collider in ragdollColliders )
             {
-                mainModel.SetActive(false);
+                collider.enabled = value;
             }
 
-            if ( !ragdollModel.activeSelf )
+            foreach ( Rigidbody rb in ragdollRBs )
             {
-                ragdollModel.SetActive(true);
+                rb.detectCollisions = value;
+                rb.useGravity = value;
             }
         }
     }

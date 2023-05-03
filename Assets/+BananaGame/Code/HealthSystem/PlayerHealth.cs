@@ -107,7 +107,7 @@ namespace BananaSoup.HealthSystem
         {
             playerBase.ToggleAllActions(false);
 
-            ragdollOnDeath.Ragdoll();
+            ragdollOnDeath.EnableRagdoll();
             // TODO: Ragdoll or something?
             // TODO: Play sound
         }
