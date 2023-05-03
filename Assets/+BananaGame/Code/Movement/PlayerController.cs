@@ -231,7 +231,7 @@ namespace BananaSoup
             isometricDirection = IsoVectorConvert(movementInput);
             hasMoveInput = true;
 
-            inputMagnitude = Mathf.Clamp01(isometricDirection.magnitude);
+            inputMagnitude = Mathf.Clamp01(movementInput.magnitude);
             animator.SetFloat("InputMagnitude", inputMagnitude, movementDamp, Time.deltaTime);
 
             if ( context.phase == InputActionPhase.Canceled )
