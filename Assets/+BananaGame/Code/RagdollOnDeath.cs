@@ -95,7 +95,7 @@ namespace BananaSoup
         /// <summary>
         /// Method used to enable normal collisions on the players sword so that it
         /// falls to the ground and stays there when the player dies.
-        /// Adds a rigidbody to the sword and enables gravity.
+        /// Gets the players swords RB, sets isKinematic to false and enables gravity.
         /// Also changes the capsulecollider on the sword to not be a trigger and sets
         /// the swords layer to 14 (DeadPlayer layer).
         /// </summary>
@@ -103,8 +103,9 @@ namespace BananaSoup
         {
             fennecSword.transform.parent = null;
 
-            Rigidbody swordRB = fennecSword.AddComponent<Rigidbody>();
+            Rigidbody swordRB = fennecSword.GetComponent<Rigidbody>();
             swordRB.useGravity = true;
+            swordRB.isKinematic = false;
 
             BoxCollider swordBoxCollider = fennecSword.GetComponent<BoxCollider>();
             swordBoxCollider.enabled = true;
