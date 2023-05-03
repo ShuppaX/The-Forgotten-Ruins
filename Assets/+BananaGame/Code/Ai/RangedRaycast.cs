@@ -12,11 +12,11 @@ namespace BananaSoup
         [Header("Projectile variables")] 
         [SerializeField] private EnemyProjectile projectilePrefab;
         [SerializeField] private Transform firingPoint;
-        [SerializeField] private float timeBetweenShots = 0.7f;
+        [SerializeField] private float timeBetweenShots = 0.8f;
         [SerializeField] private float projectileSpeed = 15.0f;
 
         [SerializeField] [Tooltip("Size of the projectile pool")]
-        private int poolSize = 5;
+        private int poolSize = 10;
 
         private ComponentPool<EnemyProjectile> _projectiles;
         private Coroutine _cooldownRoutine = null;
@@ -44,25 +44,13 @@ namespace BananaSoup
 
             if (_onCooldown) return;
 
-            var projectile = _projectiles.Get();
             ClearTrigger();
             SetTrigger(attack);
 
-
+            var projectile = _projectiles.Get();
             if (projectile != null)
             {
-                 _firingStall = StartCoroutine(FiringStall(1f));
-                var projTra = projectile.transform;
-
-                projectile.Expired += OnExpired;
-                projTra.position = firingPoint.position;
-                projTra.rotation = firingPoint.rotation;
-
-                
-
-                projectile.Setup(projectileSpeed);
-
-                //Debug.Log("pew");
+                Invoke(nameof(Fire), 0.7f);
 
                 if (_cooldownRoutine != null) _cooldownRoutine = StartCoroutine(OnCooldown());
             }
@@ -85,11 +73,7 @@ namespace BananaSoup
 
             _cooldownRoutine = null;
         }
-
-        private IEnumerator FiringStall(float launchTime)
-        {
-            yield return new WaitForSeconds(launchTime);
-        }
+        
         
         protected override void OnDisable()
         {
@@ -99,8 +83,21 @@ namespace BananaSoup
                 StopCoroutine(_cooldownRoutine);
                 _cooldownRoutine = null;
             }
-            TryEndingRunningCoroutine(ref _firingStall);
 
+        }
+
+        private void Fire()
+        {
+            var projectile = _projectiles.Get();
+            var projTra = projectile.transform;
+
+            projectile.Expired += OnExpired;
+            projTra.position = firingPoint.position;
+            projTra.rotation = firingPoint.rotation;
+
+                
+
+            projectile.Setup(projectileSpeed);
             
         }
         

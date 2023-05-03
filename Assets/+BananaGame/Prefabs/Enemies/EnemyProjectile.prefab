@@ -133,4 +133,4 @@ MonoBehaviour:
     m_Bits: 256
   forwardForce: 5
   upForce: 0
-  aliveTime: 2
+  aliveTime: 0.9

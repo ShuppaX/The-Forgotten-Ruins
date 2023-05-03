@@ -51,8 +51,8 @@ namespace BananaSoup
         private float _angle; //view angle between enemy and player
         private Collider _weaponCollider;
         private Coroutine _weaponColliderCD;
-
-        protected Coroutine _animationSTall;
+        private Coroutine _animationSTall;
+        
         //states
         private bool _playerInSightRange;
         private bool _playerInAttackRange;
@@ -293,7 +293,7 @@ namespace BananaSoup
             TryEndingRunningCoroutine(ref _animationSTall);
         }
 
-        protected void TryEndingRunningCoroutine(ref Coroutine routine)
+        private void TryEndingRunningCoroutine(ref Coroutine routine)
         {
             if (routine != null)
             {
@@ -302,7 +302,7 @@ namespace BananaSoup
             }
         }
 
-        protected IEnumerator AnimationStall(float stallTime)
+        private IEnumerator AnimationStall(float stallTime)
         {
             ClearTrigger();
             SetTrigger(attack);

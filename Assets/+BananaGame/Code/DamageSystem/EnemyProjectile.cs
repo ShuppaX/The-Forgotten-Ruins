@@ -8,7 +8,7 @@ namespace BananaSoup.DamageSystem
     {
         [SerializeField] private float forwardForce = 10.0f; //projectiles forward force
         [SerializeField] private float upForce = 8.0f; //projectiles up force
-        [SerializeField] private float aliveTime = 5.0f; //how long the projectile will live for
+        [SerializeField] private float aliveTime = 1.5f; //how long the projectile will live for
 
         private bool _isFired = false;
 
@@ -78,10 +78,7 @@ namespace BananaSoup.DamageSystem
                 _aliveTimer = null;
             }
 
-            if ( Expired != null )
-            {
-                Expired(this);
-            }
+            Expired?.Invoke(this);
         }
 
         private IEnumerator AliveTimer()

@@ -121,9 +121,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1982312193034327830, guid: 855e99d9041337440a615649282a9096,
     type: 3}
   firingPoint: {fileID: 1607811416821434316}
-  timeBetweenShots: 1.5
+  timeBetweenShots: 1
   projectileSpeed: 15
-  poolSize: 5
+  poolSize: 10
 --- !u!114 &7727434755651657058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +299,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rat_T-pose
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 70c0eff620b6ac14c8d6ea7f6575ec3f,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1617108f2debd1047aed6a6202749f51, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70c0eff620b6ac14c8d6ea7f6575ec3f, type: 3}
 --- !u!4 &1057981762666768248 stripped
