@@ -53,14 +53,7 @@ namespace BananaSoup
         public void EnableRagdoll()
         {
             playerAnimator.enabled = false;
-            fennecSword.transform.parent = null;
-            Rigidbody swordRB = fennecSword.AddComponent<Rigidbody>();
-            CapsuleCollider swordCapsuleCollider = fennecSword.GetComponent<CapsuleCollider>();
-            BoxCollider swordBoxCollider = fennecSword.GetComponent<BoxCollider>();
-            swordBoxCollider.enabled = true;
-            swordCapsuleCollider.isTrigger = false;
-            swordRB.useGravity = true;
-            fennecSword.layer = 14;
+            DropSword();
             ToggleRagdollComponents(true);
         }
 
@@ -96,6 +89,29 @@ namespace BananaSoup
                 rb.detectCollisions = value;
                 rb.useGravity = value;
             }
+        }
+
+        /// <summary>
+        /// Method used to enable normal collisions on the players sword so that it
+        /// falls to the ground and stays there when the player dies.
+        /// Adds a rigidbody to the sword and enables gravity.
+        /// Also changes the capsulecollider on the sword to not be a trigger and sets
+        /// the swords layer to 14 (DeadPlayer layer).
+        /// </summary>
+        private void DropSword()
+        {
+            fennecSword.transform.parent = null;
+
+            Rigidbody swordRB = fennecSword.AddComponent<Rigidbody>();
+            swordRB.useGravity = true;
+
+            BoxCollider swordBoxCollider = fennecSword.GetComponent<BoxCollider>();
+            swordBoxCollider.enabled = true;
+
+            CapsuleCollider swordCapsuleCollider = fennecSword.GetComponent<CapsuleCollider>();
+            swordCapsuleCollider.isTrigger = false;
+            
+            fennecSword.layer = 14;
         }
     }
 }
