@@ -11,7 +11,7 @@ namespace BananaSoup.Managers
         private PlayerController playerController = null;
 
         private PlayerState currentPlayerState = PlayerState.Idle;
-        
+
         public PlayerState CurrentPlayerState
         {
             get => currentPlayerState;
@@ -82,6 +82,8 @@ namespace BananaSoup.Managers
             }
 
             animationManager.SetAnimation(currentPlayerState.ToString());
+
+            stateChanged();
         }
 
         /// <summary>
