@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace BananaSoup.PickupSystem
 {
@@ -9,7 +9,11 @@ namespace BananaSoup.PickupSystem
         public override void Loot()
         {
             PlayerBase.Instance.IsThrowableLooted = true;
-            OnEventLooted.Invoke();
+
+            if ( OnEventLooted != null )
+            {
+                OnEventLooted();
+            }
 
             DestroyPickup();
         }

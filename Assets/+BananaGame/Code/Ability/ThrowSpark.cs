@@ -8,6 +8,11 @@ namespace BananaSoup.Ability
         // Constant PlayerState used for PlayerState handling
         public const PlayerStateManager.PlayerState sparking = PlayerStateManager.PlayerState.Sparking;
 
+        private void OnDisable()
+        {
+            PickupSpark.OnEventLooted -= SetAbility;
+        }
+
         public override void Start()
         {
             base.Start();

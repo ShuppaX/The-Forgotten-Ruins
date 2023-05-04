@@ -8,6 +8,11 @@ namespace BananaSoup.Ability
         // Constant PlayerState used for PlayerState handling
         public const PlayerStateManager.PlayerState sanding = PlayerStateManager.PlayerState.Sanding;
 
+        private void OnDisable()
+        {
+            PickupSand.OnEventLooted -= SetAbility;
+        }
+
         public override void Start()
         {
             base.Start();
