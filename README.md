@@ -6,7 +6,7 @@ BananaGame is an adventure game from an isometric view.
 
 Use the link to download and extract the .zip to play the current version of the game.
 
-[Download link](https://tuni-my.sharepoint.com/:u:/g/personal/lauri_kalliola_tuni_fi/EYCb0dgwe-VOhNAcfGWFfBIBxFtmW40NRl4ImT8APoYGSw?e=DDNlH1)
+[Download link](https://tuni-my.sharepoint.com/:u:/g/personal/lauri_kalliola_tuni_fi/EYCb0dgwe-VOhNAcfGWFfBIBxFtmW40NRl4ImT8APoYGSw?e=51qfkd)
 
 ## Controls
 
