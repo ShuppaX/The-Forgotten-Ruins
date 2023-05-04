@@ -3200,7 +3200,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7076474696319185495}
         m_TargetAssemblyTypeName: BananaSoup.UI.Menus.MenuManager, Assembly-CSharp
-        m_MethodName: ToggleSettings
+        m_MethodName: OnSettingsButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3438,7 +3438,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7076474696319185495}
         m_TargetAssemblyTypeName: BananaSoup.UI.Menus.MenuManager, Assembly-CSharp
-        m_MethodName: ToggleSettings
+        m_MethodName: OnSettingsButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4735,7 +4735,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7076474696319185495}
         m_TargetAssemblyTypeName: BananaSoup.UI.Menus.MenuManager, Assembly-CSharp
-        m_MethodName: ToggleSettings
+        m_MethodName: OnSettingsBackButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

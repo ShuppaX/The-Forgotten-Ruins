@@ -8,6 +8,7 @@ namespace BananaSoup.Managers
         public static GameStateManager Instance { get; private set; }
 
         private GameState currentGameState;
+        private GameState previousGameState;
 
         public static event Action OnGameStateChanged;
 
@@ -19,10 +20,11 @@ namespace BananaSoup.Managers
         // NOTE: WHEN ADDING STATES DO NOT CHANGE THE ORDER
         public enum GameState
         {
-            InMainMenu = 0, // Default GameState
-            InGame = 1,
+            Start = 0, // Default GameState
+            Playing = 1,
             Paused = 2,
-            GameOver = 3
+            GameOver = 3,
+            Settings = 4
         }
 
         private void Awake()
@@ -44,7 +46,14 @@ namespace BananaSoup.Managers
         /// <param name="newState">The GameState to set as current GameState.</param>
         public void SetGameState(GameState newState)
         {
+            previousGameState = currentGameState;
             currentGameState = newState;
+            StateChanged();
+        }
+
+        public void ResetGameState()
+        {
+            currentGameState = previousGameState;
             StateChanged();
         }
 

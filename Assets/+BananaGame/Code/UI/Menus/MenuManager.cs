@@ -2,7 +2,6 @@ using BananaSoup.Managers;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.HighDefinition;
 
@@ -34,9 +33,10 @@ namespace BananaSoup.UI.Menus
         private MenuButtonHandler buttonHandler = null;
 
         // Constant GameStates used in comparing current GameState
-        private const GameStateManager.GameState inMainMenu = GameStateManager.GameState.InMainMenu;
-        private const GameStateManager.GameState inGame = GameStateManager.GameState.InGame;
+        private const GameStateManager.GameState start = GameStateManager.GameState.Start;
+        private const GameStateManager.GameState playing = GameStateManager.GameState.Playing;
         private const GameStateManager.GameState paused = GameStateManager.GameState.Paused;
+        private const GameStateManager.GameState settings = GameStateManager.GameState.Settings;
         private const GameStateManager.GameState gameOver = GameStateManager.GameState.GameOver;
 
         public enum MenuType
@@ -174,12 +174,12 @@ namespace BananaSoup.UI.Menus
             switch ( gameStateManager.CurrentGameState )
             {
                 // Set inGameUICanvas disabled and activate mainMenuPanel.
-                case (inMainMenu):
+                case (start):
                     inGameUICanvas.enabled = false;
                     mainMenuPanel.SetActive(true);
                     ChangeSelectedButton(buttonHandler.MainMenuDefaultButton);
                     break;
-                case (inGame):
+                case (playing):
                     ChangingGameStateToInGame();
                     inGameUICanvas.enabled = true;
                     break;
@@ -188,6 +188,10 @@ namespace BananaSoup.UI.Menus
                     inGameUICanvas.enabled = false;
                     playerBase.ToggleAllActions(false);
                     ChangeSelectedButton(buttonHandler.PauseDefaultButton);
+                    break;
+                case (settings):
+                    settingsPanel.SetActive(true);
+                    ChangeSelectedButton(buttonHandler.SettingsDefaultButton);
                     break;
                 case (gameOver):
                     // TODO: Make a deathscreen panel etc. and activate it here!
@@ -216,49 +220,14 @@ namespace BananaSoup.UI.Menus
         }
 
         /// <summary>
-        /// Method called from the Settings button in main menu and from in-game in the
-        /// pause menu.
-        /// If the GameState is inMainMenu then toggle mainMenuPanel on button press.
-        /// If the GameState is paused then toggle pausePanel on button press.
-        /// </summary>
-        public void ToggleSettings()
-        {
-            if ( gameStateManager.CurrentGameState == inMainMenu )
-            {
-                mainMenuPanel.SetActive(!mainMenuPanel.activeSelf);
-
-                if ( mainMenuPanel.activeSelf )
-                {
-                    ChangeSelectedButton(buttonHandler.MainMenuDefaultButton);
-                }
-            }
-
-            if ( gameStateManager.CurrentGameState == paused )
-            {
-                pausePanel.SetActive(!pausePanel.activeSelf);
-
-                if ( pausePanel.activeSelf )
-                {
-                    ChangeSelectedButton(buttonHandler.PauseDefaultButton);
-                }
-            }
-
-            settingsPanel.SetActive(!settingsPanel.activeSelf);
-
-            if ( settingsPanel.activeSelf )
-            {
-                ChangeSelectedButton(buttonHandler.SettingsDefaultButton);
-            }
-        }
-
-        /// <summary>
         /// Method called when pressing any of the set pause buttons.
         /// If the pausePanel isn't active then set the GameState to paused, if it is
         /// set the GameState to inGame.
         /// </summary>
         public void OnPause(InputAction.CallbackContext context)
         {
-            if ( gameStateManager.CurrentGameState == inMainMenu
+            if ( gameStateManager.CurrentGameState == start
+                || gameStateManager.CurrentGameState == settings
                 || gameStateManager.CurrentGameState == gameOver )
             {
                 return;
@@ -276,7 +245,8 @@ namespace BananaSoup.UI.Menus
             }
             else
             {
-                gameStateManager.SetGameState(inGame);
+                pausePanel.SetActive(false);
+                gameStateManager.SetGameState(playing);
             }
         }
 
@@ -287,7 +257,8 @@ namespace BananaSoup.UI.Menus
         {
             if ( gameStateManager.CurrentGameState == paused )
             {
-                gameStateManager.SetGameState(inGame);
+                pausePanel.SetActive(false);
+                gameStateManager.SetGameState(playing);
             }
         }
 
@@ -298,11 +269,6 @@ namespace BananaSoup.UI.Menus
         /// </summary>
         private void ChangingGameStateToInGame()
         {
-            if ( pausePanel.activeSelf )
-            {
-                pausePanel.SetActive(false);
-            }
-
             if ( settingsPanel.activeSelf )
             {
                 settingsPanel.SetActive(false);
@@ -342,6 +308,38 @@ namespace BananaSoup.UI.Menus
         public void OnPlayButton()
         {
             mainMenuPanel.SetActive(false);
+        }
+
+        public void OnSettingsButton()
+        {
+            TryToggleMenuAndPausePanel();
+
+            if ( gameStateManager.CurrentGameState != settings )
+            {
+                gameStateManager.SetGameState(settings);
+            }
+        }
+
+        public void OnSettingsBackButton()
+        {
+            if ( gameStateManager.CurrentGameState == settings )
+            {
+                settingsPanel.SetActive(false);
+                gameStateManager.ResetGameState();
+            }
+        }
+
+        private void TryToggleMenuAndPausePanel()
+        {
+            if ( gameStateManager.CurrentGameState == start )
+            {
+                mainMenuPanel.SetActive(!mainMenuPanel.activeSelf);
+            }
+
+            if ( gameStateManager.CurrentGameState == paused )
+            {
+                pausePanel.SetActive(!pausePanel.activeSelf);
+            }
         }
 
         /// <summary>

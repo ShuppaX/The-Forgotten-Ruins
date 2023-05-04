@@ -24,7 +24,7 @@ namespace BananaSoup.HealthSystem
         private const PlayerStateManager.PlayerState dead = PlayerStateManager.PlayerState.Dead;
 
         // Constant GameStates used to check in reset to compare if CurrentGameState is this.
-        private const GameStateManager.GameState inGame = GameStateManager.GameState.InGame;
+        private const GameStateManager.GameState inGame = GameStateManager.GameState.Playing;
 
         public static event Action PlayerHealthChanged;
 

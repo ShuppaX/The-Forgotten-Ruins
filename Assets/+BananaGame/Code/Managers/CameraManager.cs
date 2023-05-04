@@ -32,7 +32,7 @@ namespace BananaSoup.Managers
         private Camera mainCamera = null;
         private GameStateManager gameStateManager = null;
 
-        private const GameStateManager.GameState inGame = GameStateManager.GameState.InGame;
+        private const GameStateManager.GameState inGame = GameStateManager.GameState.Playing;
 
         private void OnDisable()
         {

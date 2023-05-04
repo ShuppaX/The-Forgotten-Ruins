@@ -8,6 +8,13 @@ namespace BananaSoup.UI.Menus
     {
         private List<GameObject> defaultButtons = new List<GameObject>();
 
+        private GameObject previousButton = null;
+
+        public bool IsPreviousButtonNull
+        {
+            get => previousButton;
+        }
+
         // References to default button in each menu
         private GameObject mainMenuDefaultButton = null;
         private GameObject settingsDefaultButton = null;
@@ -109,11 +116,26 @@ namespace BananaSoup.UI.Menus
         /// <param name="button">The button you want to select.</param>
         public void SetSelectedButton(GameObject button)
         {
+            if ( EventSystem.current.currentSelectedGameObject != null
+                && previousButton == null )
+            {
+                previousButton = EventSystem.current.currentSelectedGameObject;
+            }
+
             // Remove currently selected object for EventSystem
             EventSystem.current.SetSelectedGameObject(null);
 
             // Set selected object for EventSystem
             EventSystem.current.SetSelectedGameObject(button);
+        }
+
+        public void SelectPreviousButton()
+        {
+            if ( previousButton != null )
+            {
+                SetSelectedButton(previousButton);
+                previousButton = null;
+            }
         }
 
         /// <summary>
@@ -131,7 +153,7 @@ namespace BananaSoup.UI.Menus
         /// </summary>
         public void OnExitQuitMenu()
         {
-            SetSelectedButton(pauseDefaultButton);
+            SetSelectedButton(previousButton);
         }
     }
 }
