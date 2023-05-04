@@ -20,7 +20,7 @@ namespace BananaSoup.UI.Menus
 
         private List<GameObject> menuPanels = new List<GameObject>();
 
-        private bool gameRestarting = false;
+        private static bool gameRestarting = false;
 
         // References to main menu panels
         private GameObject mainMenuPanel = null;
@@ -207,6 +207,8 @@ namespace BananaSoup.UI.Menus
             }
 
             playerBase.ToggleAllActions(true);
+
+            gameRestarting = false;
         }
 
         /// <summary>
@@ -394,6 +396,11 @@ namespace BananaSoup.UI.Menus
         public void OnExitQuitMenu()
         {
             buttonHandler.SelectPreviousButton();
+        }
+
+        public void OnRestartButton()
+        {
+            gameRestarting = true;
         }
     }
 }
