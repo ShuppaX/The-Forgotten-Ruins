@@ -123,7 +123,7 @@ MonoBehaviour:
   firingPoint: {fileID: 1607811416821434316}
   timeBetweenShots: 1
   projectileSpeed: 15
-  poolSize: 10
+  poolSize: 5
 --- !u!114 &7727434755651657058
 MonoBehaviour:
   m_ObjectHideFlags: 0
