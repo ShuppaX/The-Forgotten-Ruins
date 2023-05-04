@@ -14,11 +14,13 @@ namespace BananaSoup
         [SerializeField] private Transform firingPoint;
         [SerializeField] private float timeBetweenShots = 0.8f;
         [SerializeField] private float projectileSpeed = 15.0f;
+        [SerializeField] private float firingDelay = 0.7f;
 
         [SerializeField] [Tooltip("Size of the projectile pool")]
         private int poolSize = 10;
 
         private ComponentPool<EnemyProjectile> _projectiles;
+        private EnemyProjectile _projectile;
         private Coroutine _cooldownRoutine = null;
         private bool _onCooldown = false;
         private bool _alreadyAttacked;
@@ -30,7 +32,6 @@ namespace BananaSoup
             enemy = GetComponent<NavMeshAgent>();
             anim = GetComponent<Animator>();
             _projectiles = new ComponentPool<EnemyProjectile>(projectilePrefab, poolSize);
-
         }
 
         
@@ -43,14 +44,15 @@ namespace BananaSoup
             if (_alreadyAttacked) return;
 
             if (_onCooldown) return;
+            _projectile = _projectiles.Get();
+
 
             ClearTrigger();
             SetTrigger(attack);
 
-            var projectile = _projectiles.Get();
-            if (projectile != null)
+            if (_projectile != null)
             {
-                Invoke(nameof(Fire), 0.7f);
+                Invoke(nameof(Fire), firingDelay);
 
                 if (_cooldownRoutine != null) _cooldownRoutine = StartCoroutine(OnCooldown());
             }
@@ -88,16 +90,15 @@ namespace BananaSoup
 
         private void Fire()
         {
-            var projectile = _projectiles.Get();
-            var projTra = projectile.transform;
+            var projTra = _projectile.transform;
 
-            projectile.Expired += OnExpired;
+            _projectile.Expired += OnExpired;
             projTra.position = firingPoint.position;
             projTra.rotation = firingPoint.rotation;
 
                 
 
-            projectile.Setup(projectileSpeed);
+            _projectile.Setup(projectileSpeed);
             
         }
         

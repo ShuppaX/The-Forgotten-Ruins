@@ -105,10 +105,9 @@ namespace BananaSoup.HealthSystem
         /// </summary>
         public override void OnDeath()
         {
+            ragdollOnDeath.EnableRagdoll();
             playerBase.ToggleAllActions(false);
 
-            ragdollOnDeath.EnableRagdoll();
-            // TODO: Ragdoll or something?
             // TODO: Play sound
         }
 
