@@ -87,7 +87,7 @@ namespace BananaSoup.UI.Menus
             settingsDefaultButton = GetButton(DefaultButton.InSettings);
             pauseDefaultButton = GetButton(DefaultButton.InPause);
             quitDefaultButton = GetButton(DefaultButton.InQuit);
-            //deathScreenDefaultbutton = GetButton(DefaultButton.InDeathScreen);
+            deathScreenDefaultButton = GetButton(DefaultButton.InDeathScreen);
         }
 
         /// <summary>

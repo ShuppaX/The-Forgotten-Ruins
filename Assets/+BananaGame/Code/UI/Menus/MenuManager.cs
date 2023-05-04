@@ -20,6 +20,8 @@ namespace BananaSoup.UI.Menus
 
         private List<GameObject> menuPanels = new List<GameObject>();
 
+        private bool gameRestarting = false;
+
         // References to main menu panels
         private GameObject mainMenuPanel = null;
         private GameObject settingsPanel = null;
@@ -49,12 +51,12 @@ namespace BananaSoup.UI.Menus
 
         private void OnEnable()
         {
-            SubscribeEvent();
+            GameStateManager.OnGameStateChanged += GameStateChanged;
         }
 
         private void OnDisable()
         {
-            UnsubscribeEvent();
+            GameStateManager.OnGameStateChanged -= GameStateChanged;
         }
 
         private void Awake()
@@ -83,7 +85,14 @@ namespace BananaSoup.UI.Menus
                 Debug.LogError($"No component of type MenuButtonHandler was found on the {name}!");
             }
 
-            Setup();
+            if ( gameRestarting )
+            {
+                RestartSetup();
+            }
+            else if ( !gameRestarting )
+            {
+                MainMenuSetup();
+            }
         }
 
         /// <summary>
@@ -134,7 +143,7 @@ namespace BananaSoup.UI.Menus
         /// Called in Start(). Used to disable inGameUICanvas, all other panels and
         /// the players input/actions.
         /// </summary>
-        private void Setup()
+        private void MainMenuSetup()
         {
             if ( !mainMenuPanel.activeSelf )
             {
@@ -164,6 +173,40 @@ namespace BananaSoup.UI.Menus
             playerBase.ToggleAllActions(false);
 
             ChangeSelectedButton(buttonHandler.MainMenuDefaultButton);
+        }
+
+        /// <summary>
+        /// Called in Start(). Disables main menu panel, settings panel and pause panel.
+        /// Enables in-game ui, see through effect and players actions.
+        /// </summary>
+        private void RestartSetup()
+        {
+            if ( mainMenuPanel.activeSelf )
+            {
+                mainMenuPanel.SetActive(false);
+            }
+
+            if ( !inGameUICanvas.enabled )
+            {
+                inGameUICanvas.enabled = true;
+            }
+
+            if ( settingsPanel.activeSelf )
+            {
+                settingsPanel.SetActive(false);
+            }
+
+            if ( pausePanel.activeSelf )
+            {
+                pausePanel.SetActive(false);
+            }
+
+            if ( !seeThroughEffect.enabled )
+            {
+                seeThroughEffect.enabled = true;
+            }
+
+            playerBase.ToggleAllActions(true);
         }
 
         /// <summary>
@@ -197,22 +240,6 @@ namespace BananaSoup.UI.Menus
                     Debug.LogError("GameStateManager has an incorrect GameState! This is a bug!");
                     break;
             }
-        }
-
-        /// <summary>
-        /// Method used to subscribe events.
-        /// </summary>
-        private void SubscribeEvent()
-        {
-            GameStateManager.OnGameStateChanged += GameStateChanged;
-        }
-
-        /// <summary>
-        /// Method used to unsubscribe events.
-        /// </summary>
-        private void UnsubscribeEvent()
-        {
-            GameStateManager.OnGameStateChanged -= GameStateChanged;
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.InputSystem;
 
 namespace BananaSoup.Managers
 {
@@ -36,6 +37,17 @@ namespace BananaSoup.Managers
             else
             {
                 Destroy(gameObject);
+            }
+
+            if ( !Debug.isDebugBuild || !Application.isEditor )
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                InputSystem.DisableDevice(Mouse.current);
+            }
+            else
+            {
+                InputSystem.EnableDevice(Mouse.current);
             }
         }
 
