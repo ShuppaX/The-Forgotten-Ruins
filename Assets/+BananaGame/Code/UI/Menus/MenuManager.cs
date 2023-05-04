@@ -173,7 +173,6 @@ namespace BananaSoup.UI.Menus
         {
             switch ( gameStateManager.CurrentGameState )
             {
-                // Set inGameUICanvas disabled and activate mainMenuPanel.
                 case (start):
                     inGameUICanvas.enabled = false;
                     mainMenuPanel.SetActive(true);
@@ -186,12 +185,9 @@ namespace BananaSoup.UI.Menus
                 case (paused):
                     pausePanel.SetActive(true);
                     inGameUICanvas.enabled = false;
-                    playerBase.ToggleAllActions(false);
-                    ChangeSelectedButton(buttonHandler.PauseDefaultButton);
                     break;
                 case (settings):
                     settingsPanel.SetActive(true);
-                    ChangeSelectedButton(buttonHandler.SettingsDefaultButton);
                     break;
                 case (gameOver):
                     // TODO: Make a deathscreen panel etc. and activate it here!
@@ -241,6 +237,8 @@ namespace BananaSoup.UI.Menus
             if ( !pausePanel.activeSelf )
             {
                 gameStateManager.SetGameState(paused);
+                ChangeSelectedButton(buttonHandler.PauseDefaultButton);
+                playerBase.ToggleAllActions(false);
                 Time.timeScale = 0;
             }
             else
@@ -317,6 +315,7 @@ namespace BananaSoup.UI.Menus
             if ( gameStateManager.CurrentGameState != settings )
             {
                 gameStateManager.SetGameState(settings);
+                ChangeSelectedButton(buttonHandler.SettingsDefaultButton, true);
             }
         }
 
@@ -326,6 +325,7 @@ namespace BananaSoup.UI.Menus
             {
                 settingsPanel.SetActive(false);
                 gameStateManager.ResetGameState();
+                buttonHandler.SelectPreviousButton();
             }
         }
 
@@ -346,9 +346,27 @@ namespace BananaSoup.UI.Menus
         /// Method used to call the SetSelectedButton from MenuButtonHandler component.
         /// </summary>
         /// <param name="button">The button to select.</param>
-        private void ChangeSelectedButton(GameObject button)
+        private void ChangeSelectedButton(GameObject button, bool storePrevious = false)
         {
-            buttonHandler.SetSelectedButton(button);
+            buttonHandler.SetSelectedButton(button, storePrevious);
+        }
+
+        /// <summary>
+        /// Method called when entering the quit menu in pause menu.
+        /// Used to set the selected button to quitDefaultButton.
+        /// </summary>
+        public void OnEnterQuitMenu()
+        {
+            ChangeSelectedButton(buttonHandler.QuitDefaultButton, true);
+        }
+
+        /// <summary>
+        /// Method called when exiting the quit menu in pause menu.
+        /// Used to set the selected button to pauseDefaultButton.
+        /// </summary>
+        public void OnExitQuitMenu()
+        {
+            buttonHandler.SelectPreviousButton();
         }
     }
 }

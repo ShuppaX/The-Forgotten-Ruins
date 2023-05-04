@@ -114,12 +114,13 @@ namespace BananaSoup.UI.Menus
         /// the GameObject to be the one entered as a parameter.
         /// </summary>
         /// <param name="button">The button you want to select.</param>
-        public void SetSelectedButton(GameObject button)
+        public void SetSelectedButton(GameObject button, bool storePrevious = false)
         {
             if ( EventSystem.current.currentSelectedGameObject != null
-                && previousButton == null )
+                && storePrevious )
             {
                 previousButton = EventSystem.current.currentSelectedGameObject;
+                Debug.Log($"previousButton is: {previousButton.name}");
             }
 
             // Remove currently selected object for EventSystem
@@ -136,24 +137,6 @@ namespace BananaSoup.UI.Menus
                 SetSelectedButton(previousButton);
                 previousButton = null;
             }
-        }
-
-        /// <summary>
-        /// Method called when entering the quit menu in pause menu.
-        /// Used to set the selected button to quitDefaultButton.
-        /// </summary>
-        public void OnEnterQuitMenu()
-        {
-            SetSelectedButton(quitDefaultButton);
-        }
-
-        /// <summary>
-        /// Method called when exiting the quit menu in pause menu.
-        /// Used to set the selected button to pauseDefaultButton.
-        /// </summary>
-        public void OnExitQuitMenu()
-        {
-            SetSelectedButton(previousButton);
         }
     }
 }
