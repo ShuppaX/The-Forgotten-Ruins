@@ -8,6 +8,19 @@ namespace BananaSoup.HealthSystem
         [SerializeField, Tooltip("Set true if the object should be destroyed on death.")]
         private bool _destroyOnDeath = false;
 
+        private MeleeRaycast enemyBase = null;
+
+        public override void Start()
+        {
+            base.Start();
+
+            enemyBase = GetComponent<MeleeRaycast>();
+            if ( enemyBase == null )
+            {
+                Debug.LogError($"No component of type MeleeRaycast was found on {name}!");
+            }
+        }
+
         /// <summary>
         /// Override to base.DeathCoroutine to have different death actions for enemies.
         /// </summary>
@@ -33,6 +46,7 @@ namespace BananaSoup.HealthSystem
         {
             // TODO: Start animation
             // TODO: Play sound
+            enemyBase.IsDead = true;
         }
     }
 }

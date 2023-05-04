@@ -36,7 +36,7 @@ namespace BananaSoup
 
         }
 
-        public IEnumerator ResetCanDealDamage(float waitTime)
+        public IEnumerator ResetCanDealDamage(float waitTime = 0.0f)
             {
                 yield return new WaitForSeconds(waitTime);
                 canDealDamage = true;

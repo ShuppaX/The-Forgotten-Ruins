@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 7747237079570801881}
   - component: {fileID: 9221268338325463040}
   - component: {fileID: 7747237079570801878}
+  - component: {fileID: 5741839064190083441}
   - component: {fileID: 827882117806595301}
   - component: {fileID: 873183137164074035}
   - component: {fileID: 2594905023193170177}
-  - component: {fileID: 5741839064190083441}
   - component: {fileID: 1414747096484094001}
   m_Layer: 9
   m_Name: BasicFollowEnemy
@@ -93,6 +93,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!95 &5741839064190083441
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7747237079570801887}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 70c0eff620b6ac14c8d6ea7f6575ec3f, type: 3}
+  m_Controller: {fileID: 9100000, guid: ed7345be570c3fa48ab757eb5aed7d66, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &827882117806595301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,26 +170,6 @@ MonoBehaviour:
   targetObject: {fileID: 6122839369870218204}
   flashColor: {r: 0.754717, g: 0, b: 0, a: 1}
   flashTime: 0.5
---- !u!95 &5741839064190083441
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7747237079570801887}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 70c0eff620b6ac14c8d6ea7f6575ec3f, type: 3}
-  m_Controller: {fileID: 9100000, guid: ed7345be570c3fa48ab757eb5aed7d66, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &1414747096484094001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,7 +436,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4961977251951377084}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.11
   m_Height: 0.82

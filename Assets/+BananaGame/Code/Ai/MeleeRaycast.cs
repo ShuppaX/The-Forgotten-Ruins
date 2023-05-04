@@ -58,6 +58,14 @@ namespace BananaSoup
         private bool _playerInAttackRange;
         private bool _stunned;
         private static readonly int Speed = Animator.StringToHash("Speed");
+        private bool isDead = false;
+
+        public bool IsDead
+        {
+            get => isDead;
+            set => isDead = value;
+        }
+
 
         //Animator triggers
         protected const string attack = "Attack"; //RangedRaycast.cs uses this
@@ -88,9 +96,22 @@ namespace BananaSoup
         }
 
         private void Update()
-        {
+        { 
             //Refresh updating variables like velocity for the animator
             RefreshAnimatorValues();
+
+            if ( isDead )
+            {
+                // TODO: Add activation for death animation to EnemyHealth.cs
+                // NOTE: MAKE A METHOD UNDER THIS SCRIPT AND CALL IT FROM ENEMYHEALTH
+
+                if ( enemy.destination != transform.position )
+                {
+                    enemy.SetDestination(transform.position);
+                }
+                return;
+            }
+
             // Check is the enemy stunned. If it is, don't continue Update() method.
             if (_stunned)
             {
@@ -315,7 +336,7 @@ namespace BananaSoup
             yield return new WaitForSeconds(0.5f);
             _weaponCollider.enabled = true;
             yield return new WaitForSeconds(0.75f);
-            StartCoroutine(meleeScript.ResetCanDealDamage(0.75f));
+            StartCoroutine(meleeScript.ResetCanDealDamage());
             _weaponCollider.enabled = false;
             _weaponColliderCD = null;
         }
