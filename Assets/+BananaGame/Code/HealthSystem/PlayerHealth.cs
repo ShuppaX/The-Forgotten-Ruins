@@ -25,6 +25,7 @@ namespace BananaSoup.HealthSystem
 
         // Constant GameStates used to check in reset to compare if CurrentGameState is this.
         private const GameStateManager.GameState inGame = GameStateManager.GameState.Playing;
+        private const GameStateManager.GameState gameOver = GameStateManager.GameState.GameOver;
 
         public static event Action PlayerHealthChanged;
 
@@ -107,7 +108,7 @@ namespace BananaSoup.HealthSystem
         {
             ragdollOnDeath.EnableRagdoll();
             playerBase.ToggleAllActions(false);
-
+            gameStateManager.SetGameState(gameOver);
             // TODO: Play sound
         }
 

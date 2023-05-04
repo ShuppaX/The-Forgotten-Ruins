@@ -1571,7 +1571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8266555511556173154
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3106,10 +3106,10 @@ RectTransform:
   m_Father: {fileID: 8830683881353856548}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1175, y: -60}
+  m_SizeDelta: {x: 280, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8955546954636050818
 CanvasRenderer:
@@ -3192,7 +3192,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3880490546120388835}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7076474696319185495}
+        m_TargetAssemblyTypeName: BananaSoup.UI.Menus.MenuManager, Assembly-CSharp
+        m_MethodName: OnDeathScreenRestart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2293324636706647140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3488,10 +3500,10 @@ RectTransform:
   m_Father: {fileID: 8830683881353856548}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 745, y: -60}
+  m_SizeDelta: {x: 280, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8754639248961305116
 CanvasRenderer:
@@ -3574,7 +3586,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3457176694492806365}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7076474696319185495}
+        m_TargetAssemblyTypeName: BananaSoup.UI.Menus.MenuManager, Assembly-CSharp
+        m_MethodName: OnDeathScreenMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6272164934298728800
 GameObject:
   m_ObjectHideFlags: 0
@@ -5696,18 +5720,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BananaSoup.Managers.CameraManager, Assembly-CSharp
-        m_MethodName: TransitionCamera
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 7076474696319185495}
         m_TargetAssemblyTypeName: BananaSoup.UI.Menus.MenuManager, Assembly-CSharp
         m_MethodName: OnPlayButton
@@ -5985,6 +5997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f87a078b816642429200254416cb179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraManager: {fileID: 0}
   inGameUICanvas: {fileID: 0}
   seeThroughEffect: {fileID: 0}
 --- !u!114 &7206598628029341462

@@ -9,6 +9,9 @@ namespace BananaSoup.UI.Menus
 {
     public class MenuManager : MonoBehaviour
     {
+        [SerializeField, Tooltip("The object with the CameraManager.")]
+        private CameraManager cameraManager;
+
         [SerializeField, Tooltip("In-game UI parent (In-Game_UI)")]
         private Canvas inGameUICanvas = null;
 
@@ -22,10 +25,11 @@ namespace BananaSoup.UI.Menus
 
         private static bool gameRestarting = false;
 
-        // References to main menu panels
+        // References to menu panels
         private GameObject mainMenuPanel = null;
         private GameObject settingsPanel = null;
         private GameObject pausePanel = null;
+        private GameObject deathScreen = null;
 
         // References to Instances
         private GameStateManager gameStateManager = null;
@@ -85,6 +89,8 @@ namespace BananaSoup.UI.Menus
                 Debug.LogError($"No component of type MenuButtonHandler was found on the {name}!");
             }
 
+            playerBase.ToggleAllActions(false);
+
             if ( gameRestarting )
             {
                 RestartSetup();
@@ -117,6 +123,7 @@ namespace BananaSoup.UI.Menus
             mainMenuPanel = GetMenu(MenuType.MainMenu);
             settingsPanel = GetMenu(MenuType.Settings);
             pausePanel = GetMenu(MenuType.Pause);
+            deathScreen = GetMenu(MenuType.DeathScreen);
         }
 
         /// <summary>
@@ -170,8 +177,6 @@ namespace BananaSoup.UI.Menus
                 seeThroughEffect.enabled = false;
             }
 
-            playerBase.ToggleAllActions(false);
-
             ChangeSelectedButton(buttonHandler.MainMenuDefaultButton);
         }
 
@@ -184,11 +189,6 @@ namespace BananaSoup.UI.Menus
             if ( mainMenuPanel.activeSelf )
             {
                 mainMenuPanel.SetActive(false);
-            }
-
-            if ( !inGameUICanvas.enabled )
-            {
-                inGameUICanvas.enabled = true;
             }
 
             if ( settingsPanel.activeSelf )
@@ -206,7 +206,7 @@ namespace BananaSoup.UI.Menus
                 seeThroughEffect.enabled = true;
             }
 
-            playerBase.ToggleAllActions(true);
+            cameraManager.TransitionCamera();
 
             gameRestarting = false;
         }
@@ -235,8 +235,8 @@ namespace BananaSoup.UI.Menus
                     settingsPanel.SetActive(true);
                     break;
                 case (gameOver):
-                    // TODO: Make a deathscreen panel etc. and activate it here!
-                    //SetSelectedButton(deathScreenDefaultButton);
+                    deathScreen.SetActive(true);
+                    ChangeSelectedButton(buttonHandler.DeathScreenDefaultButton);
                     break;
                 default:
                     Debug.LogError("GameStateManager has an incorrect GameState! This is a bug!");
@@ -335,6 +335,7 @@ namespace BananaSoup.UI.Menus
         public void OnPlayButton()
         {
             mainMenuPanel.SetActive(false);
+            cameraManager.TransitionCamera();
         }
 
         public void OnSettingsButton()
@@ -398,9 +399,14 @@ namespace BananaSoup.UI.Menus
             buttonHandler.SelectPreviousButton();
         }
 
-        public void OnRestartButton()
+        public void OnDeathScreenRestart()
         {
             gameRestarting = true;
+        }
+
+        public void OnDeathScreenMainMenu()
+        {
+
         }
     }
 }
