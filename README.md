@@ -12,36 +12,42 @@ Use the link to download and extract the .zip to play the current version of the
 
 ```python
 # Movement:
-   WASD (Mouse & Keyboard / Keyboard only)
+   WASD (Keyboard only)
    Left Stick (Gamepad)
 
 # Dash:
-   Shift (Mouse & Keyboard / Keyboard only)
-   Space (Mouse & Keyboard / Keyboard only)
+   Shift/Space (Keyboard only)
    Button South (Gamepad)
 
 # Interact:
-   E (Mouse & Keyboard)
    L (Keyboard only)
    Button North (Gamepad)
 
 # Change Ability:
-   R (Mouse & Keyboard / Keyboard only)
+   R (Keyboard only)
    D-Pad Left (Gamepad)
 
 # Ability:
-   Mouse Right (Mouse & Keyboard)
    K (Keyboard only)
    Button East (Gamepad)
 
 # Attack
-   Mouse Left (Mouse & Keyboard)
    J (Keyboard only)
    Button West (Gamepad)
 
 ```
 
+## Work in progress:
+
+```python
+# Deathscreen:
+   The buttons don't currently do anything.
+
+# Sword swing particle effect
+```
+
 ## Current known issues:
+
 ```python
 # Sand/Spark throwable
    These get disabled immediately when any of the particles collide with anything.
@@ -55,18 +61,19 @@ Use the link to download and extract the .zip to play the current version of the
 # Melee enemy
    Does not always damage the player.
 
-# Throwable
-   Can throw an error if the game was reset through Debug Menu.
-
-# Fennec animations
-   The fennect is missing an animation when it is walking towards an interactable object.
-
-# Interacting
-   Spamming interact can cause the player to enter wrong animations.
-   Picking up and dropping interactable objects pushes the player back.
-
 # Puzzles
    The puzzles can be softlocked sometimes.
+   The player can get stuck on the last moving staircase in the level if they turn off one of the puzzles torches.
+
+# Pick upable rock
+   If the rock is too close to a wall / near a corner edge of the platform the player can get "stuck" trying to
+   grab the rock. Interruptable with a interaction cancel.
+
+# Player melee animation
+   The melee animation gets stuck for a short while if the player has movementinput after a melee attack.
+
+# Dash
+   Dash stops if the player pauses during dash. (Known issue, probably won't have time to figure it out)
 ```
 
 ## License
