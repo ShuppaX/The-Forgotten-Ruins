@@ -1,3 +1,4 @@
+using BananaSoup.Managers;
 using UnityEngine;
 
 namespace BananaSoup
@@ -14,6 +15,11 @@ namespace BananaSoup
         private bool isSwordLooted = false;
         private bool isThrowableLooted = false;
         private bool isDashLooted = false;
+
+        private bool isDead = false;
+
+        private PlayerStateManager psm = null;
+        private const PlayerStateManager.PlayerState dead = PlayerStateManager.PlayerState.Dead;
 
         public bool AreAbilitiesEnabled
         {
@@ -99,16 +105,34 @@ namespace BananaSoup
         private void Setup()
         {
             playerInput = new PlayerInput();
+
+            psm = PlayerStateManager.Instance;
+            if ( psm == null )
+            {
+                Debug.LogError($"PlayerBase in {name} couldn't find an instance of PlayerStateManager!");
+            }
+
+            isDead = false;
         }
 
         public void ToggleAllActions(bool value)
         {
+            if ( isDead )
+            {
+                return;
+            }
+
             Debug.Log($"Toggled players actions to: {value}");
             AreAbilitiesEnabled = value;
             CanDash = value;
             IsInteractingEnabled = value;
             IsMovable = value;
             IsTurnable = value;
+
+            if ( psm.CurrentPlayerState == dead )
+            {
+                isDead = true;
+            }
         }
     }
 }
