@@ -74,7 +74,7 @@ namespace BananaSoup.HealthSystem
 
             NullCoroutine(BaseDeathRoutine);
 
-            Debug.Log("Player died!");
+            //Debug.Log("Player died!");
 
             NullCoroutine(DeathRoutine);
         }
