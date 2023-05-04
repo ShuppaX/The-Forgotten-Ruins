@@ -94,9 +94,9 @@ namespace BananaSoup.Debugging
 
         public void OnResetLevel()
         {
-            string currentScene = SceneManager.GetActiveScene().name;
-            Debug.Log("Current Scene is: " + currentScene + ". Reloading it.");
-            SceneManager.LoadScene(currentScene);
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            Debug.Log("Current Scene is: " + currentSceneName + ". Reloading it.");
+            SceneManager.LoadScene(currentSceneName);
         }
 
         public void OnExitGame()

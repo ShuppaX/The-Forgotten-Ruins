@@ -107,8 +107,8 @@ namespace BananaSoup.UI.InGame
 
             if ( currentThrowable == null )
             {
-                Debug.LogError($"currentThrowable is null and can't be used to update current" +
-                    $"throwable for" + gameObject.name + "!");
+                Debug.LogError($"currentThrowable is null and can't be used to update current " +
+                    $"throwable for " + gameObject.name + "!");
             }
 
             UpdateImage(currentThrowable.UIDisplay);
