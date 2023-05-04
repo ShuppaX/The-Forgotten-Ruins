@@ -3,15 +3,16 @@ using UnityEngine;
 
 namespace BananaSoup.Effects
 {
-    public class EnableParticlesOnEvent : MonoBehaviour
+    public class ToggleParticlesOnEvent : MonoBehaviour
     {
         [SerializeField] private PlayerStateManager.PlayerState activationState;
+        private PlayerStateManager.PlayerState deadState = PlayerStateManager.PlayerState.Dead;
         private ParticleSystem particleEffect;
         private PlayerStateManager psm;
 
         private void OnDisable()
         {
-            psm.stateChanged -= ToggleParticleSystem;
+            PlayerStateManager.StateChanged -= ToggleParticleSystem;
         }
 
         private void Start()
@@ -28,7 +29,7 @@ namespace BananaSoup.Effects
                 Debug.LogError(name + "'s is missing a reference to the PlayerStateManager");
             }
 
-            psm.stateChanged += ToggleParticleSystem;
+            PlayerStateManager.StateChanged += ToggleParticleSystem;
         }
 
         private void ToggleParticleSystem()
@@ -36,6 +37,10 @@ namespace BananaSoup.Effects
             if ( psm.CurrentPlayerState == activationState )
             {
                 particleEffect.Play();
+            }
+            else if ( psm.CurrentPlayerState == deadState )
+            {
+                particleEffect.Stop();
             }
             else
             {

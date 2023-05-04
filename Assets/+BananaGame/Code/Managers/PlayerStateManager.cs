@@ -19,7 +19,7 @@ namespace BananaSoup.Managers
 
         private PlayerState previousPlayerState = PlayerState.Idle;
 
-        public UnityAction stateChanged;
+        public static UnityAction StateChanged;
 
         // NOTE: If you add or remove a PlayerState, DON'T CHANGE ID NUMBERS
         public enum PlayerState
@@ -75,6 +75,11 @@ namespace BananaSoup.Managers
         {
             animationManager.ResetTrigger(previousPlayerState.ToString());
 
+            if ( StateChanged != null )
+            {
+                StateChanged();
+            }
+
             if ( currentPlayerState == PlayerState.Dead )
             {
                 animationManager.SetAnimation(PlayerState.Idle.ToString());
@@ -82,8 +87,6 @@ namespace BananaSoup.Managers
             }
 
             animationManager.SetAnimation(currentPlayerState.ToString());
-
-            stateChanged();
         }
 
         /// <summary>
