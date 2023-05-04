@@ -5,12 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/+BananaGame/Scenes/DemoScene.unity
-    guid: 8124e5870f4fd4c779e7a5f994e84ad1
-  - enabled: 0
-    path: Assets/+BananaGame/Scenes/EnvironmentTest.unity
-    guid: ca5622640a723654894e19277ca8cd2b
   - enabled: 1
     path: Assets/+BananaGame/Scenes/Level.unity
     guid: 9b33b7dd7e19d934b9e2091458f45cd3

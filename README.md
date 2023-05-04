@@ -12,28 +12,32 @@ Use the link to download and extract the .zip to play the current version of the
 
 ```python
 # Movement:
-   WASD (Keyboard only)
+   WASD (Keyboard)
    Left Stick (Gamepad)
 
 # Dash:
-   Shift/Space (Keyboard only)
+   Shift/Space (Keyboard)
    Button South (Gamepad)
 
 # Interact:
-   L (Keyboard only)
+   L (Keyboard)
    Button North (Gamepad)
 
 # Change Ability:
-   R (Keyboard only)
+   R (Keyboard)
    D-Pad Left (Gamepad)
 
 # Ability:
-   K (Keyboard only)
+   K (Keyboard)
    Button East (Gamepad)
 
 # Attack
-   J (Keyboard only)
+   J (Keyboard)
    Button West (Gamepad)
+
+# Pause
+   Escape (Keyboard)
+   Start (Gamepad)
 
 ```
 
@@ -44,6 +48,8 @@ Use the link to download and extract the .zip to play the current version of the
    The buttons don't currently do anything.
 
 # Sword swing particle effect
+
+# Ending
 ```
 
 ## Current known issues:
@@ -57,6 +63,7 @@ Use the link to download and extract the .zip to play the current version of the
 
 # Ranged enemy
    The enemy can get stuck shooting in a wrong direction.
+   The enemy's projectiles don't work as inteded.
 
 # Melee enemy
    Does not always damage the player.
@@ -74,6 +81,9 @@ Use the link to download and extract the .zip to play the current version of the
 
 # Dash
    Dash stops if the player pauses during dash. (Known issue, probably won't have time to figure it out)
+
+# Audio Settings
+   The values for the slider valuedisplays don't update correctly at the start of the game.
 ```
 
 ## License

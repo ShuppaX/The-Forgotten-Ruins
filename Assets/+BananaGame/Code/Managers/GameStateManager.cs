@@ -49,6 +49,8 @@ namespace BananaSoup.Managers
             {
                 InputSystem.EnableDevice(Mouse.current);
             }
+
+            //InputSystem.EnableDevice(Mouse.current);
         }
 
         /// <summary>

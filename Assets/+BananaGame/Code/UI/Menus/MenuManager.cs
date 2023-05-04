@@ -1,4 +1,5 @@
 using BananaSoup.Managers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -24,6 +25,10 @@ namespace BananaSoup.UI.Menus
         private List<GameObject> menuPanels = new List<GameObject>();
 
         private static bool gameRestarting = false;
+
+        private float lateStartWaitTime = 0.001f;
+
+        private Coroutine lateStartRoutine = null;
 
         // References to menu panels
         private GameObject mainMenuPanel = null;
@@ -71,13 +76,21 @@ namespace BananaSoup.UI.Menus
 
         private void Start()
         {
+            if ( lateStartRoutine == null )
+            {
+                lateStartRoutine = StartCoroutine(nameof(LateStart));
+            }
+        }
+
+        private void Setup()
+        {
             gameStateManager = GameStateManager.Instance;
             if ( gameStateManager == null )
             {
                 Debug.LogError($"{name} couldn't find an instance of GameStateManager!");
             }
 
-            playerBase = PlayerBase.Instance;
+            playerBase = FindObjectOfType<PlayerBase>();
             if ( playerBase == null )
             {
                 Debug.LogError($"{name} couldn't find an instance of PlayerBase!");
@@ -407,6 +420,12 @@ namespace BananaSoup.UI.Menus
         public void OnDeathScreenMainMenu()
         {
 
+        }
+
+        private IEnumerator LateStart()
+        {
+            yield return new WaitForSeconds(lateStartWaitTime);
+            Setup();
         }
     }
 }

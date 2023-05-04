@@ -1,4 +1,5 @@
 using BananaSoup.Managers;
+using System.Collections;
 using UnityEngine;
 
 namespace BananaSoup
@@ -17,6 +18,10 @@ namespace BananaSoup
         private bool isDashLooted = false;
 
         private bool isDead = false;
+
+        private float lateStartDelayTime = 0.001f;
+
+        private Coroutine lateStartRoutine = null;
 
         private PlayerStateManager psm = null;
         private const PlayerStateManager.PlayerState dead = PlayerStateManager.PlayerState.Dead;
@@ -80,7 +85,10 @@ namespace BananaSoup
                 Destroy(gameObject);
             }
 
-            Setup();
+            if (lateStartRoutine == null )
+            {
+                lateStartRoutine = StartCoroutine(nameof(LateStart));
+            }
         }
 
         /// <summary>
@@ -88,7 +96,10 @@ namespace BananaSoup
         /// </summary>
         private void OnEnable()
         {
-            playerInput.Player.Enable();
+            if ( playerInput != null )
+            {
+                playerInput.Player.Enable();
+            }
         }
 
         /// <summary>
@@ -133,6 +144,12 @@ namespace BananaSoup
             {
                 isDead = true;
             }
+        }
+
+        private IEnumerator LateStart()
+        {
+            yield return new WaitForSeconds(lateStartDelayTime);
+            Setup();
         }
     }
 }
