@@ -1,11 +1,12 @@
 using BananaSoup.Managers;
+using System.Linq;
 using UnityEngine;
 
 namespace BananaSoup.Effects
 {
     public class ToggleParticlesOnEvent : MonoBehaviour
     {
-        [SerializeField] private PlayerStateManager.PlayerState activationState;
+        [SerializeField] private PlayerStateManager.PlayerState[] activationState;
         private PlayerStateManager.PlayerState deadState = PlayerStateManager.PlayerState.Dead;
         private ParticleSystem particleEffect;
         private PlayerStateManager psm;
@@ -34,7 +35,7 @@ namespace BananaSoup.Effects
 
         private void ToggleParticleSystem()
         {
-            if ( psm.CurrentPlayerState == activationState )
+            if ( activationState.Contains(psm.CurrentPlayerState) )
             {
                 particleEffect.Play();
             }
