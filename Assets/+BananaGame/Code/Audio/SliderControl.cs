@@ -26,9 +26,15 @@ namespace BananaSoup
 
         private void Start()
         {
+            _masterSliderText.text = _masterSlider.value.ToString("1");
+            _musicSliderText.text = _musicSlider.value.ToString("1");
+            _sfxSliderText.text = _sfxSlider.value.ToString("1");
+            
             _masterSlider.onValueChanged.AddListener((v) => { _masterSliderText.text = v.ToString("0.0"); });
             _musicSlider.onValueChanged.AddListener((v) => { _musicSliderText.text = v.ToString("0.0"); });
             _sfxSlider.onValueChanged.AddListener((v) => { _sfxSliderText.text = v.ToString("0.0"); });
+            
+         
         }
 
         public void SetMasterLevel (float sliderValue)

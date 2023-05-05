@@ -140,8 +140,9 @@ namespace BananaSoup
             _vision = new Ray(position + new Vector3(0,0.5f,0), _raycastPlayerSight); 
 
             
-            //Vision related statements
             
+            
+            //Vision
             
             //Smoothed turning towards player. _damp changes the speed of turning
             if (_playerInAttackRange)
@@ -172,7 +173,7 @@ namespace BananaSoup
 
             if (Time.time < lastDidSomething + _pauseTime) return;
 
-            //Enemy AI states
+            //AI states
             
             //Patrol
             if (!_playerInSightRange && !_playerInAttackRange)
@@ -203,13 +204,13 @@ namespace BananaSoup
             }
         }
 
-        protected void SetTrigger(string currentAnimation)
+        protected void SetTrigger(string currentAnimation) //Sets trigger for animator
         {
             _previousAnimation = currentAnimation;
             anim.SetTrigger(currentAnimation);
         }
 
-        protected void ClearTrigger()
+        protected void ClearTrigger() //Clears previous trigger for animator
         {
             anim.ResetTrigger(_previousAnimation);
         }
@@ -254,7 +255,7 @@ namespace BananaSoup
             enemy.SetDestination(playerTarget.position);
         }
 
-        protected virtual void Attack()
+        protected virtual void Attack() 
         {
             //Stop enemy movement
             enemy.SetDestination(transform.position);
