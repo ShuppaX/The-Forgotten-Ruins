@@ -52,6 +52,7 @@ namespace BananaSoup
         private Collider _weaponCollider;
         private Coroutine _weaponColliderCD;
         private Coroutine _animationSTall;
+        private Vector3 _raycastPlayerSight;
         
         //states
         private bool _playerInSightRange;
@@ -127,13 +128,14 @@ namespace BananaSoup
             var position = unitTransform.position;
             _whereIsPlayer = playerDirection - position;
             _angle = Vector3.Angle(_whereIsPlayer, unitTransform.forward);
+            _raycastPlayerSight = PlayerBase.Instance.transform.position -position;
 
             _playerInSightRange = Physics.CheckSphere(position, sightRange, whatIsPlayer);
             _playerInAttackRange = Physics.CheckSphere(position, attackRange, whatIsPlayer);
             
             
             //TODO doesn't update when player is moving
-            _vision = new Ray(position + new Vector3(0,0.5f,0), _whereIsPlayer);
+            _vision = new Ray(position + new Vector3(0,0.5f,0), _raycastPlayerSight);
             
 
             
@@ -152,20 +154,20 @@ namespace BananaSoup
             //TODO FIX IT
             //Raycast in the direction of player within sightrange and check if it hits the player
 
-            /*if (Physics.Raycast(_vision, out var sighted, 12f, LayerMask.GetMask("Ground")))
+            if (Physics.Raycast(_vision, out var sighted, 12f, LayerMask.GetMask("Player")))
             {
                 // If the ray hits something on the "Ground" layer, check if it's a wall
-                if (sighted.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                if (sighted.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
                     Debug.Log("There is a wall between the player and enemy.");
-                    _canSeePlayer = false;
+                    _canSeePlayer = true;
                 }
 
             }
             else
             {
-                _canSeePlayer = true;
-            }*/
+                _canSeePlayer = false;
+            }
 
 
             if (Time.time < lastDidSomething + _pauseTime) return;
@@ -187,10 +189,9 @@ namespace BananaSoup
             }
 
             //Attack
-            if (_playerInSightRange && _playerInAttackRange)
+            if (_playerInSightRange && _playerInAttackRange && _canSeePlayer)
             {
-              //  if (!_canSeePlayer) return;
-                //Trigger for attack is in Attack() method due to inheritance
+                //Trigger for attack animation is in Attack() method due to inheritance
                 Attack();
             }
 
@@ -283,8 +284,8 @@ namespace BananaSoup
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(position, patrolRange); //Radius of patrol range
             
-           // Gizmos.color = Color.blue;
-           // Gizmos.DrawRay(position + new Vector3(0,0.5f,0), _whereIsPlayer); //Line to player
+            //Gizmos.color = Color.blue;
+            //Gizmos.DrawRay(position + new Vector3(0,0.5f,0), _raycastPlayerSight); //Line to player
         }
 
         public void OnThrowAbility(ParticleProjectile.Type projectileType)
