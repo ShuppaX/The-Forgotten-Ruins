@@ -18,17 +18,17 @@ namespace BananaSoup
         private Vector3 playerStartDirection; // direction to player
 
         //Serialized
-        [Header("Layer masks")] 
-        [SerializeField] private LayerMask whatIsGround;
+        [Header("Layer masks")] [SerializeField]
+        private LayerMask whatIsGround;
+
         [SerializeField] private LayerMask whatIsPlayer;
 
-        [Header("Vision")] 
-        [SerializeField] [Tooltip("AI Vision range. Also adjusts the range for obstacle raycast ")]
+        [Header("Vision")] [SerializeField] [Tooltip("AI Vision range. Also adjusts the range for obstacle raycast ")]
         private float sightRange = 6;
+
         [SerializeField] private float attackRange = 1.5f;
 
-        [Header("Stun")]
-        [SerializeField] private float stunTime = 2.0f;
+        [Header("Stun")] [SerializeField] private float stunTime = 2.0f;
         private Coroutine _enemyStunnedRoutine;
 
         //Turning
@@ -54,7 +54,7 @@ namespace BananaSoup
         private Coroutine _weaponColliderCD;
         private Coroutine _animationSTall;
         private Vector3 _raycastPlayerSight;
-        
+
         //states
         private bool _playerInSightRange;
         private bool _playerInAttackRange;
@@ -75,6 +75,7 @@ namespace BananaSoup
         private const string Idle = "Idle";
         private const string animChase = "Chase"; //might not be used. Added in case it's needed
         private const string animStunned = "Stun";
+        private const string animDeath = "Death";
         private string _previousAnimation;
         private Ray _vision;
         private bool _canSeePlayer;
@@ -93,24 +94,22 @@ namespace BananaSoup
             var transform1 = PlayerBase.Instance.transform;
             playerTarget = transform1;
             playerStartDirection = transform1.position;
-            
+
             SetTrigger(patrol); //Default animation
         }
 
         private void Update()
-        { 
+        {
             //Refresh updating variables like velocity for the animator
             RefreshAnimatorValues();
 
-            if ( isDead )
+            if (isDead)
             {
-                // TODO: Add activation for death animation to EnemyHealth.cs
-                // NOTE: MAKE A METHOD UNDER THIS SCRIPT AND CALL IT FROM ENEMYHEALTH
-
-                if ( enemy.destination != transform.position )
+                if (enemy.destination != transform.position)
                 {
                     enemy.SetDestination(transform.position);
                 }
+
                 return;
             }
 
@@ -128,22 +127,24 @@ namespace BananaSoup
             var unitTransform = transform; //enemy's transform
             var position = unitTransform.position; //enemy's position
             var realPlayerPos = PlayerBase.Instance.transform.position; //player's position
-            
+
             _whereIsPlayer = realPlayerPos - position; //direction to player
             _angle = Vector3.Angle(_whereIsPlayer, unitTransform.forward); //view angle between enemy and player
-            _raycastPlayerSight = realPlayerPos -position; //direction to player for raycast
+            _raycastPlayerSight = realPlayerPos - position; //direction to player for raycast
 
-            _playerInSightRange = Physics.CheckSphere(position, sightRange, whatIsPlayer); //check if player is in sight range
-            _playerInAttackRange = Physics.CheckSphere(position, attackRange, whatIsPlayer); //check if player is in attack range
-            
+            _playerInSightRange =
+                Physics.CheckSphere(position, sightRange, whatIsPlayer); //check if player is in sight range
+            _playerInAttackRange =
+                Physics.CheckSphere(position, attackRange, whatIsPlayer); //check if player is in attack range
+
             //raycast to check if player is not obscured by obstacles
-            _vision = new Ray(position + new Vector3(0,0.5f,0), _raycastPlayerSight); 
+            _vision = new Ray(position + new Vector3(0, 0.5f, 0), _raycastPlayerSight);
 
-            
-            
-            
+
+
+
             //Vision
-            
+
             //Smoothed turning towards player. _damp changes the speed of turning
             if (_playerInAttackRange)
                 if (_angle > 2.5f)
@@ -174,18 +175,18 @@ namespace BananaSoup
             if (Time.time < lastDidSomething + _pauseTime) return;
 
             //AI states
-            
+
             //Patrol
             if (!_playerInSightRange && !_playerInAttackRange)
             {
-                
+
                 Patrol();
             }
 
             //Chase
             if (_playerInSightRange && !_playerInAttackRange)
             {
-                
+
                 Chase();
             }
 
@@ -197,14 +198,15 @@ namespace BananaSoup
             }
 
             //Idle patrol
-            else if (!_playerInSightRange && !_playerInAttackRange && Speed < 0.1 ) //Determines the threshold for idle animation
+            else if (!_playerInSightRange && !_playerInAttackRange &&
+                     Speed < 0.1) //Determines the threshold for idle animation
             {
                 ClearTrigger();
-                SetTrigger(Idle); 
+                SetTrigger(Idle);
             }
         }
 
-        protected void SetTrigger(string currentAnimation) //Sets trigger for animator
+        protected internal void SetTrigger(string currentAnimation) //Sets trigger for animator
         {
             _previousAnimation = currentAnimation;
             anim.SetTrigger(currentAnimation);
@@ -251,11 +253,11 @@ namespace BananaSoup
         private void Chase()
         {
             ClearTrigger();
-            SetTrigger(animChase); 
+            SetTrigger(animChase);
             enemy.SetDestination(playerTarget.position);
         }
 
-        protected virtual void Attack() 
+        protected virtual void Attack()
         {
             //Stop enemy movement
             enemy.SetDestination(transform.position);
@@ -284,7 +286,7 @@ namespace BananaSoup
             Gizmos.DrawWireSphere(position, sightRange); //Radius of sight range
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(position, patrolRange); //Radius of patrol range
-            
+
             //Gizmos.color = Color.blue;
             //Gizmos.DrawRay(position + new Vector3(0,0.5f,0), _raycastPlayerSight); //Line to player
         }
@@ -331,7 +333,7 @@ namespace BananaSoup
             SetTrigger(attack);
             yield return new WaitForSeconds(stallTime);
         }
-        
+
 
         private IEnumerator WeaponColliderCycle()
         {
@@ -347,6 +349,12 @@ namespace BananaSoup
         {
             //Sends the velocity of the enemy to the animator
             anim.SetFloat(Speed, enemy.velocity.magnitude);
+        }
+
+        public void DeathSequence()
+        {
+            ClearTrigger();
+            SetTrigger(animDeath); 
         }
     }
 }
