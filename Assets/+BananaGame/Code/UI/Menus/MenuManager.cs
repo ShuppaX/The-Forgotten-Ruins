@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.SceneManagement;
 
 namespace BananaSoup.UI.Menus
 {
@@ -417,15 +418,17 @@ namespace BananaSoup.UI.Menus
             gameRestarting = true;
         }
 
-        public void OnDeathScreenMainMenu()
-        {
-
-        }
-
         private IEnumerator LateStart()
         {
             yield return new WaitForSeconds(lateStartWaitTime);
             Setup();
+        }
+
+        public void ResetLevel()
+        {
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            Debug.Log("Current Scene is: " + currentSceneName + ". Reloading it.");
+            SceneManager.LoadScene(currentSceneName);
         }
     }
 }
