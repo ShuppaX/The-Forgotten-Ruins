@@ -15,7 +15,7 @@ namespace BananaSoup
         private Transform playerTarget; // reference to player's position
         public EnemyMeleeDamage meleeScript; // reference to enemy's melee damage script
         protected Animator anim; // reference to animator
-        private Vector3 playerDirection; // direction to player
+        private Vector3 playerStartDirection; // direction to player
 
         //Serialized
         [Header("Layer masks")] 
@@ -23,7 +23,8 @@ namespace BananaSoup
         [SerializeField] private LayerMask whatIsPlayer;
 
         [Header("Vision")] 
-        [SerializeField] private float sightRange = 6;
+        [SerializeField] [Tooltip("AI Vision range. Also adjusts the range for obstacle raycast ")]
+        private float sightRange = 6;
         [SerializeField] private float attackRange = 1.5f;
 
         [Header("Stun")]
@@ -36,7 +37,7 @@ namespace BananaSoup
 
         //Updating Variables
         protected float lastDidSomething; //refreshing timer to prevent non-stop actions
-        private readonly float _pauseTime = 1.5f; //Time to pause after action
+        private const float _pauseTime = 1.5f; //Time to pause after action
 
         //patrol
         public Vector3 waypoint;
@@ -91,7 +92,7 @@ namespace BananaSoup
         {
             var transform1 = PlayerBase.Instance.transform;
             playerTarget = transform1;
-            playerDirection = transform1.position;
+            playerStartDirection = transform1.position;
             
             SetTrigger(patrol); //Default animation
         }
@@ -124,19 +125,19 @@ namespace BananaSoup
 
 
             //Variables
-            var unitTransform = transform;
-            var position = unitTransform.position;
-            _whereIsPlayer = playerDirection - position;
-            _angle = Vector3.Angle(_whereIsPlayer, unitTransform.forward);
-            _raycastPlayerSight = PlayerBase.Instance.transform.position -position;
+            var unitTransform = transform; //enemy's transform
+            var position = unitTransform.position; //enemy's position
+            var realPlayerPos = PlayerBase.Instance.transform.position; //player's position
+            
+            _whereIsPlayer = realPlayerPos - position; //direction to player
+            _angle = Vector3.Angle(_whereIsPlayer, unitTransform.forward); //view angle between enemy and player
+            _raycastPlayerSight = realPlayerPos -position; //direction to player for raycast
 
-            _playerInSightRange = Physics.CheckSphere(position, sightRange, whatIsPlayer);
-            _playerInAttackRange = Physics.CheckSphere(position, attackRange, whatIsPlayer);
+            _playerInSightRange = Physics.CheckSphere(position, sightRange, whatIsPlayer); //check if player is in sight range
+            _playerInAttackRange = Physics.CheckSphere(position, attackRange, whatIsPlayer); //check if player is in attack range
             
-            
-            //TODO doesn't update when player is moving
-            _vision = new Ray(position + new Vector3(0,0.5f,0), _raycastPlayerSight);
-            
+            //raycast to check if player is not obscured by obstacles
+            _vision = new Ray(position + new Vector3(0,0.5f,0), _raycastPlayerSight); 
 
             
             //Vision related statements
@@ -151,10 +152,9 @@ namespace BananaSoup
                 }
 
             //Raycast to check if player is not obscured by obstacles
-            //TODO FIX IT
             //Raycast in the direction of player within sightrange and check if it hits the player
 
-            if (Physics.Raycast(_vision, out var sighted, 12f, LayerMask.GetMask("Player")))
+            if (Physics.Raycast(_vision, out var sighted, sightRange, LayerMask.GetMask("Player")))
             {
                 // If the ray hits something on the "Ground" layer, check if it's a wall
                 if (sighted.collider.gameObject.layer == LayerMask.NameToLayer("Player"))

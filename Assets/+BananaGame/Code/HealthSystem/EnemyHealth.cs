@@ -9,6 +9,8 @@ namespace BananaSoup.HealthSystem
         private bool _destroyOnDeath = false;
 
         private MeleeRaycast enemyBase = null;
+        private Animator anim;
+        private static readonly int Death = Animator.StringToHash("Death");
 
         public override void Start()
         {
@@ -19,6 +21,7 @@ namespace BananaSoup.HealthSystem
             {
                 Debug.LogError($"No component of type MeleeRaycast was found on {name}!");
             }
+            anim = GetComponent<Animator>();
         }
 
         /// <summary>
@@ -46,7 +49,11 @@ namespace BananaSoup.HealthSystem
         {
             // TODO: Start animation
             // TODO: Play sound
+            anim.SetTrigger(Death);
+            
             enemyBase.IsDead = true;
         }
+        
+        
     }
 }
