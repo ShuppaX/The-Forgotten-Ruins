@@ -92,31 +92,10 @@ namespace BananaSoup
         }
 
         /// <summary>
-        /// Enables the playerInput if the gameObject is enabled.
-        /// </summary>
-        private void OnEnable()
-        {
-            if ( playerInput != null )
-            {
-                playerInput.Player.Enable();
-            }
-        }
-
-        /// <summary>
-        /// Disables the playerInput if the game object is disabled.
-        /// </summary>
-        private void OnDisable()
-        {
-            playerInput.Player.Disable();
-        }
-
-        /// <summary>
         /// Stores the players input to playerInput.
         /// </summary>
         private void Setup()
         {
-            playerInput = new PlayerInput();
-
             psm = PlayerStateManager.Instance;
             if ( psm == null )
             {
