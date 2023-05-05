@@ -310,6 +310,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1897695342665591779}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &7127671472937343589 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8700783698680967558, guid: 70c0eff620b6ac14c8d6ea7f6575ec3f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1897695342665591779}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5196333548456134637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -547,6 +553,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StunParticleEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 8459962075155139379, guid: a91ef186401103c4fa221a6348f3eed6,
+        type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 7127671472937343589}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a91ef186401103c4fa221a6348f3eed6, type: 3}
 --- !u!4 &4963066181489850159 stripped
