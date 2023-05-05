@@ -5,7 +5,7 @@ namespace BananaSoup.Utilities
 {
     public class SetObjectsParent : MonoBehaviour
     {
-        [SerializeField, Tooltip("If true, the gameObject doesn't have a parent in hierarchy.")]
+        [SerializeField, Tooltip("If true, this GameObject will not have a parent in hierarchy.")]
         private bool isParentRoot = false;
 
         [SerializeField, HideIf("isParentRoot")]
