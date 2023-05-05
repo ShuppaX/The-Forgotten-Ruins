@@ -13,6 +13,11 @@ namespace BananaSoup.UI.Menus
         [SerializeField, Tooltip("The KBM_Panel under the Settings_Panel.")]
         private GameObject kbmPanel = null;
 
+        private void Start()
+        {
+            ToggleAudioPanelActive();
+        }
+
         public void ToggleAudioPanelActive()
         {
             TryDisablePanel(videoPanel);
