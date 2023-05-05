@@ -66,7 +66,7 @@ namespace BananaSoup.DamageSystem
         {
             base.OnTriggerStay(collision);
 
-            Debug.Log($"{gameObject} Collided with {collision.gameObject}");
+            //Debug.Log($"{gameObject} Collided with {collision.gameObject}");
             Recycle();
         }
 

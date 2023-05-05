@@ -17,9 +17,9 @@ namespace BananaSoup
         private bool isThrowableLooted = false;
         private bool isDashLooted = false;
 
-        private bool isDead = false;
-
         private float lateStartDelayTime = 0.001f;
+
+        private bool isDead = false;
 
         private Coroutine lateStartRoutine = null;
 
@@ -29,31 +29,71 @@ namespace BananaSoup
         public bool AreAbilitiesEnabled
         {
             get { return areAbilitiesEnabled; }
-            set { areAbilitiesEnabled = value; }
+            set
+            {
+                if ( psm.CurrentPlayerState == dead )
+                {
+                    return;
+                }
+
+                areAbilitiesEnabled = value;
+            }
         }
 
         public bool IsInteractingEnabled
         {
             get { return isInteractingEnabled; }
-            set { isInteractingEnabled = value; }
+            set
+            {
+                if ( psm.CurrentPlayerState == dead )
+                {
+                    return;
+                }
+
+                isInteractingEnabled = value;
+            }
         }
 
         public bool IsMovable
         {
             get { return isMovable; }
-            set { isMovable = value; }
+            set
+            {
+                if ( psm.CurrentPlayerState == dead )
+                {
+                    return;
+                }
+
+                isMovable = value;
+            }
         }
 
         public bool IsTurnable
         {
             get { return isTurnable; }
-            set { isTurnable = value; }
+            set
+            {
+                if ( psm.CurrentPlayerState == dead )
+                {
+                    return;
+                }
+
+                isTurnable = value;
+            }
         }
 
         public bool CanDash
         {
             get { return canDash; }
-            set { canDash = value; }
+            set
+            {
+                if ( psm.CurrentPlayerState == dead )
+                {
+                    return;
+                }
+
+                canDash = value;
+            }
         }
 
         public bool IsSwordLooted
@@ -85,7 +125,7 @@ namespace BananaSoup
                 Destroy(this);
             }
 
-            if (lateStartRoutine == null )
+            if ( lateStartRoutine == null )
             {
                 lateStartRoutine = StartCoroutine(nameof(LateStart));
             }
@@ -112,7 +152,6 @@ namespace BananaSoup
                 return;
             }
 
-            Debug.Log($"Toggled players actions to: {value}");
             AreAbilitiesEnabled = value;
             CanDash = value;
             IsInteractingEnabled = value;

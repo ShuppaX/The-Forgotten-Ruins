@@ -177,7 +177,8 @@ namespace BananaSoup
                 // If the ray hits something on the "Ground" layer, check if it's a wall
                 if ( sighted.collider.gameObject.layer == LayerMask.NameToLayer("Player") )
                 {
-                    Debug.Log("There is a wall between the player and enemy.");
+                    //NOTE: DONT LEAVE DEBUG LOGS IN UPDATE THANKS.
+                    //Debug.Log("There is a wall between the player and enemy.");
                     _canSeePlayer = true;
                 }
 
