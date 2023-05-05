@@ -15,9 +15,9 @@ namespace BananaSoup.PickupSystem
         }
 
         // NOTE: Pool for health pickups?
-        public void DestroyPickup()
+        public void DisablePickup()
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

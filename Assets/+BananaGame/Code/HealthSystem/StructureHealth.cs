@@ -6,7 +6,7 @@ namespace BananaSoup.HealthSystem
     public class StructureHealth : Health
     {
         [SerializeField, Tooltip("Set true if the object should be destroyed on death.")]
-        private bool _destroyOnDeath = false;
+        private bool _disableOnDeath = false;
 
         public override void Start()
         {
@@ -37,9 +37,9 @@ namespace BananaSoup.HealthSystem
 
             NullCoroutine(BaseDeathRoutine);
 
-            if ( _destroyOnDeath )
+            if ( _disableOnDeath )
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
 
             NullCoroutine(DeathRoutine);

@@ -426,6 +426,11 @@ namespace BananaSoup.UI.Menus
 
         public void ResetLevel()
         {
+            if (Time.timeScale != 1 )
+            {
+                Time.timeScale = 1;
+            }
+
             string currentSceneName = SceneManager.GetActiveScene().name;
             Debug.Log("Current Scene is: " + currentSceneName + ". Reloading it.");
             SceneManager.LoadScene(currentSceneName);

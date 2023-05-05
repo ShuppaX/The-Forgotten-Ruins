@@ -11,7 +11,7 @@ namespace BananaSoup.PickupSystem
             PlayerBase.Instance.IsSwordLooted = true;
             OnEventLooted.Invoke();
 
-            DestroyPickup();
+            DisablePickup();
         }
     }
 }

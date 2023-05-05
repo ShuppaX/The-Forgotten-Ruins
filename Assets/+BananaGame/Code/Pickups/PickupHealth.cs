@@ -16,7 +16,7 @@ namespace BananaSoup.PickupSystem
             PlayerHealth playerHealth = PlayerBase.Instance.GetComponent<PlayerHealth>();
             playerHealth.IncreaseHealth(healAmount);
 
-            DestroyPickup();
+            DisablePickup();
         }
     }
 }

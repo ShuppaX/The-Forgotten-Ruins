@@ -82,7 +82,7 @@ namespace BananaSoup
             }
             else
             {
-                Destroy(gameObject);
+                Destroy(this);
             }
 
             if (lateStartRoutine == null )

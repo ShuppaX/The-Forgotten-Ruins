@@ -36,7 +36,7 @@ namespace BananaSoup.Managers
             }
             else
             {
-                Destroy(gameObject);
+                Destroy(this);
             }
 
             if ( !Debug.isDebugBuild || !Application.isEditor )

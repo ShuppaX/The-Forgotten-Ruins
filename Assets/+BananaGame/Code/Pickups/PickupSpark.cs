@@ -15,7 +15,7 @@ namespace BananaSoup.PickupSystem
                 OnEventLooted();
             }
 
-            DestroyPickup();
+            DisablePickup();
         }
     }
 }

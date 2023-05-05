@@ -46,7 +46,7 @@ namespace BananaSoup.Managers
             }
             else
             {
-                Destroy(gameObject);
+                Destroy(this);
             }
 
             Setup();
