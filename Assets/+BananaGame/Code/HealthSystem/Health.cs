@@ -155,11 +155,11 @@ namespace BananaSoup.HealthSystem
 
             if ( _wasHit )
             {
-                Debug.Log(gameObject.name + "was hit recently and can't take more damage!");
+                //Debug.Log(gameObject.name + "was hit recently and can't take more damage!");
                 return;
             }
 
-            Debug.Log(gameObject.name + " took " + amount + " damage!");
+            //Debug.Log(gameObject.name + " took " + amount + " damage!");
             CurrentHealth -= amount;
             damageFlash.CallDamageFlash();
             _wasHit = true;
