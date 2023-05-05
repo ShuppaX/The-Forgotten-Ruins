@@ -120,7 +120,6 @@ namespace BananaSoup.UI.Menus
                 && storePrevious )
             {
                 previousButton = EventSystem.current.currentSelectedGameObject;
-                Debug.Log($"previousButton is: {previousButton.name}");
             }
 
             // Remove currently selected object for EventSystem
