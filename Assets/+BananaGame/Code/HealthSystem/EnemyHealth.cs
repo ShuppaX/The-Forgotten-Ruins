@@ -32,7 +32,7 @@ namespace BananaSoup.HealthSystem
 
             if ( _destroyOnDeath )
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
 
             NullCoroutine(DeathRoutine);
