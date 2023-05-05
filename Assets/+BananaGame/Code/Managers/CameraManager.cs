@@ -87,7 +87,7 @@ namespace BananaSoup.Managers
             }
         }
 
-        private void ActivateGamePlayView()
+        public void ActivateGamePlayView()
         {
             mainCamera.focalLength = gamePlayFocalLength;
             transform.position = gamePlayStartPosition;

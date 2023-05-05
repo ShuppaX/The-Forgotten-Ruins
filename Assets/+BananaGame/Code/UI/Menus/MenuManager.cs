@@ -220,7 +220,7 @@ namespace BananaSoup.UI.Menus
                 seeThroughEffect.enabled = true;
             }
 
-            cameraManager.TransitionCamera();
+            cameraManager.ActivateGamePlayView();
 
             gameRestarting = false;
         }
