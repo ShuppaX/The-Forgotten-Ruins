@@ -31,9 +31,13 @@ namespace BananaSoup
             get { return areAbilitiesEnabled; }
             set
             {
-                if ( psm.CurrentPlayerState == dead )
+                if ( psm != null )
                 {
-                    return;
+                    if ( psm.CurrentPlayerState == dead )
+                    {
+                        areAbilitiesEnabled = false;
+                        return;
+                    } 
                 }
 
                 areAbilitiesEnabled = value;
@@ -45,9 +49,13 @@ namespace BananaSoup
             get { return isInteractingEnabled; }
             set
             {
-                if ( psm.CurrentPlayerState == dead )
+                if ( psm != null )
                 {
-                    return;
+                    if ( psm.CurrentPlayerState == dead )
+                    {
+                        isInteractingEnabled = false;
+                        return;
+                    } 
                 }
 
                 isInteractingEnabled = value;
@@ -59,9 +67,13 @@ namespace BananaSoup
             get { return isMovable; }
             set
             {
-                if ( psm.CurrentPlayerState == dead )
+                if ( psm != null )
                 {
-                    return;
+                    if ( psm.CurrentPlayerState == dead )
+                    {
+                        isMovable = false;
+                        return;
+                    } 
                 }
 
                 isMovable = value;
@@ -73,9 +85,13 @@ namespace BananaSoup
             get { return isTurnable; }
             set
             {
-                if ( psm.CurrentPlayerState == dead )
+                if ( psm != null )
                 {
-                    return;
+                    if ( psm.CurrentPlayerState == dead )
+                    {
+                        isTurnable = false;
+                        return;
+                    } 
                 }
 
                 isTurnable = value;
@@ -87,9 +103,13 @@ namespace BananaSoup
             get { return canDash; }
             set
             {
-                if ( psm.CurrentPlayerState == dead )
+                if ( psm != null )
                 {
-                    return;
+                    if ( psm.CurrentPlayerState == dead )
+                    {
+                        canDash = false;
+                        return;
+                    } 
                 }
 
                 canDash = value;
