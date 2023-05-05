@@ -85,8 +85,6 @@ namespace BananaSoup
             {
                 IsCollisionDetected = true;
                 target.OnThrowAbility(projectileType);
-
-                Recycle();
             }
         }
 
