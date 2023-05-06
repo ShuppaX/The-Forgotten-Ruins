@@ -24,8 +24,10 @@ Use the link to download and extract the .zip to play the current version of the
    Button North (Gamepad)
 
 # Change Ability:
-   R (Keyboard)
+   Q (Keyboard)
+   E (Keyboard)
    D-Pad Left (Gamepad)
+   D-Pad Right (Gamepad)
 
 # Ability:
    K (Keyboard)
@@ -44,20 +46,12 @@ Use the link to download and extract the .zip to play the current version of the
 ## Work in progress:
 
 ```python
-# Deathscreen:
-   The buttons don't currently do anything.
-
-# Sword swing particle effect
-
 # Ending
 ```
 
 ## Current known issues:
 
 ```python
-# Sand/Spark throwable
-   These get disabled immediately when any of the particles collide with anything.
-
 # Collider on moving puzzle parts.
    The colliders are sometimes too big and block the players movement in an annoying manner.
 
@@ -70,14 +64,6 @@ Use the link to download and extract the .zip to play the current version of the
 
 # Puzzles
    The puzzles can be softlocked sometimes.
-   The player can get stuck on the last moving staircase in the level if they turn off one of the puzzles torches.
-
-# Pick upable rock
-   If the rock is too close to a wall / near a corner edge of the platform the player can get "stuck" trying to
-   grab the rock. Interruptable with a interaction cancel.
-
-# Player melee animation
-   The melee animation gets stuck for a short while if the player has movementinput after a melee attack.
 
 # Dash
    Dash stops if the player pauses during dash. (Known issue, probably won't have time to figure it out)
