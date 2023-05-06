@@ -31,6 +31,7 @@ namespace BananaSoup.Managers
         private SimplePlayerFollower playerFollower = null;
         private Camera mainCamera = null;
         private GameStateManager gameStateManager = null;
+        [SerializeField] private DepthOfFieldApplier depthOfFieldApplier = null;
 
         private const GameStateManager.GameState inGame = GameStateManager.GameState.Playing;
 
@@ -61,6 +62,11 @@ namespace BananaSoup.Managers
             if ( gameStateManager == null )
             {
                 Debug.LogError($"{name} couldn't find an instance of GameStateManager!");
+            }
+
+            if ( depthOfFieldApplier == null )
+            {
+                Debug.LogError($"No component of {typeof(DepthOfFieldApplier)} can be found on the {name}!");
             }
 
             titleScreenFocalLength = titleScreenCamera.focalLength;
@@ -128,6 +134,9 @@ namespace BananaSoup.Managers
             mainCamera.focalLength = Mathf.Lerp(mainCamera.focalLength, gamePlayFocalLength, t);
             transform.position = Vector3.Lerp(transform.position, gamePlayStartPosition, t);
             transform.rotation = Quaternion.Lerp(transform.rotation, gamePlayRotation, t * transitionRotationMultiplier);
+
+            // Lerping blur value also
+            depthOfFieldApplier.SetBlur = Mathf.Lerp(depthOfFieldApplier.SetBlur, depthOfFieldApplier.GetGameplayBlur, t);
         }
 
         private bool CheckIfCameraIsInPosition()
