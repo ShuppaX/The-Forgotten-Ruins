@@ -91,8 +91,6 @@ namespace BananaSoup
         private IEnumerator AliveTimer()
         {
             yield return new WaitForSeconds(aliveTime);
-            //Debug.Log("A projectile should call Recycle now!");
-
             Recycle();
         }
 

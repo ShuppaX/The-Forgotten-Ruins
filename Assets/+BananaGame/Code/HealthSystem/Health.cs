@@ -111,7 +111,6 @@ namespace BananaSoup.HealthSystem
         /// </summary>
         private void OnHealthChanged(int health)
         {
-            //Debug.Log(gameObject.name + "'s CurrentHealth changed!");
             if ( health > 0 )
             {
                 return;
@@ -155,11 +154,9 @@ namespace BananaSoup.HealthSystem
 
             if ( _wasHit )
             {
-                //Debug.Log(gameObject.name + "was hit recently and can't take more damage!");
                 return;
             }
 
-            //Debug.Log(gameObject.name + " took " + amount + " damage!");
             CurrentHealth -= amount;
             damageFlash.CallDamageFlash();
             _wasHit = true;
@@ -171,9 +168,7 @@ namespace BananaSoup.HealthSystem
         /// </summary>
         private void ResetWasHit()
         {
-            //Debug.Log(gameObject.name + " called ResetWasHit");
             _wasHit = false;
-            //Debug.Log("Reset wasHit on +" + gameObject.name);
         }
 
         /// <summary>

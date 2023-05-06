@@ -142,12 +142,10 @@ namespace BananaSoup.Ability
                 // particle effect in the direction the player is facing.
                 if ( calculatedRotation == Quaternion.identity.eulerAngles )
                 {
-                    Debug.Log("Throwing towards playerRotation.y!");
                     projectile.transform.rotation = Quaternion.Euler(particleRotationX, playerRotation.y, playerRotation.z);
                 }
                 else
                 {
-                    Debug.Log("Throwing towards calculatedRotation.y!");
                     projectile.transform.rotation = Quaternion.Euler(particleRotationX, calculatedRotation.y, playerRotation.z);
                 }
 
