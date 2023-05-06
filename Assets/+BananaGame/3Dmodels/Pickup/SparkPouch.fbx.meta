@@ -1,24 +1,9 @@
 fileFormatVersion: 2
-guid: c0f3a0a312978924a891479fd497d993
+guid: 3f6d8b6218af1a348995d9ecf71838d0
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: PouchColor
-    second: {fileID: 2100000, guid: 347b3a8e90c50a34db7afc1020863303, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: SparkColor
-    second: {fileID: 2100000, guid: 096dfbd0fecfe8249ae1603febcb1b68, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: yarnColor
-    second: {fileID: 2100000, guid: 0ea40deb6b2e1524a8173d8f5c4e0774, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
