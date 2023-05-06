@@ -103,7 +103,7 @@ MonoBehaviour:
   _startingHealth: 1
   _wasHitResetTime: 1.5
   _deathTransitionTime: 0
-  _destroyOnDeath: 1
+  _disableOnDeath: 1
 --- !u!64 &9112091307494667794
 MeshCollider:
   m_ObjectHideFlags: 0

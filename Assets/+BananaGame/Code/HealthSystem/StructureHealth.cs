@@ -24,7 +24,7 @@ namespace BananaSoup.HealthSystem
                 Debug.LogWarning("Negative amount given to DecreaseHealth on " + gameObject.name + "!");
             }
 
-            Debug.Log(gameObject.name + " took " + amount + " damage!");
+            //Debug.Log(gameObject.name + " took " + amount + " damage!");
             CurrentHealth -= amount;
         }
 
