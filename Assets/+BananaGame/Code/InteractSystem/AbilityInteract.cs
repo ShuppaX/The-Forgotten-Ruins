@@ -189,6 +189,8 @@ namespace BananaSoup.InteractSystem
             // Calculate a step to move.
             float step = moveSpeed * Time.deltaTime;
 
+            // Start interaction timeout coroutine, used to stop interaction if
+            // player can't reach the targeted object / doesn't reach it in time.
             if ( stopTryingToInteract == null )
             {
                 stopTryingToInteract = StartCoroutine(nameof(StopTryingToInteract));
@@ -272,6 +274,10 @@ namespace BananaSoup.InteractSystem
             SetPlayerInputs(true);
         }
 
+        /// <summary>
+        /// Coroutine used to timeout interaction if player can't reach the object or
+        /// can't reach it in time.
+        /// </summary>
         private IEnumerator StopTryingToInteract()
         {
             yield return new WaitForSeconds(interactTimeout);
