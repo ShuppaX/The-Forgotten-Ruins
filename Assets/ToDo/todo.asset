@@ -52,6 +52,12 @@ MonoBehaviour:
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\AI\MeleeRaycast.cs
     Line: 125
     PathToShow: Assets/+BananaGame/Code/AI/MeleeRaycast.cs(125)
+  - Text: ": DONT LEAVE DEBUG LOGS IN UPDATE THANKS.\r"
+    Note: 
+    Tag: NOTE
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\AI\MeleeRaycast.cs
+    Line: 180
+    PathToShow: Assets/+BananaGame/Code/AI/MeleeRaycast.cs(180)
   - Text: ": Play sound\r"
     Note: 
     Tag: TODO
@@ -98,14 +104,21 @@ MonoBehaviour:
     Note: 
     Tag: TODO
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Puzzle\MoveObjectOnPuzzleSolved.cs
-    Line: 38
-    PathToShow: Assets/+BananaGame/Code/Puzzle/MoveObjectOnPuzzleSolved.cs(38)
+    Line: 47
+    PathToShow: Assets/+BananaGame/Code/Puzzle/MoveObjectOnPuzzleSolved.cs(47)
   - Text: ": Not the best way to make this, but it's working\r"
     Note: 
     Tag: NOTE
     File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Puzzle\MoveObjectOnPuzzleSolved.cs
-    Line: 62
-    PathToShow: Assets/+BananaGame/Code/Puzzle/MoveObjectOnPuzzleSolved.cs(62)
+    Line: 71
+    PathToShow: Assets/+BananaGame/Code/Puzzle/MoveObjectOnPuzzleSolved.cs(71)
+  - Text: ": Setting this object to be kinematic and turning gravity false so it
+      won't be affected by any forces.\r"
+    Note: 
+    Tag: HACK
+    File: C:\Unity\TAMK\BananaGame\Assets\+BananaGame\Code\Puzzle\MoveObjectOnPuzzleSolved.cs
+    Line: 23
+    PathToShow: Assets/+BananaGame/Code/Puzzle/MoveObjectOnPuzzleSolved.cs(23)
   - Text: ': add an option to render the "frame" objects in the unjittered depth-buffer
       to avoid flickering'
     Note: 
