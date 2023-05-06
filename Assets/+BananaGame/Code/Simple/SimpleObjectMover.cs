@@ -20,7 +20,7 @@ namespace BananaSoup
             positionToMove = transform.position + moveValue;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             UpdatePosition();
         }
