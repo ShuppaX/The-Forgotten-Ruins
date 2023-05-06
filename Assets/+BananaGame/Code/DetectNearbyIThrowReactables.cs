@@ -19,8 +19,8 @@ namespace BananaSoup
 
         [Space]
 
-        [SerializeField, Tooltip("Turn this on to draw sphere gizmo!")]
-        private bool isDrawingSphere = false;
+        [SerializeField, Tooltip("Turn this on to see debugs!")]
+        private bool isDebugging = false;
 
         private Quaternion calculatedRotation = Quaternion.identity;
         public Quaternion CalculatedRotation
@@ -28,11 +28,22 @@ namespace BananaSoup
             get => calculatedRotation;
         }
 
+        /// <summary>
+        /// The method is used when a throwable is thrown.
+        /// If the player is close enough (maxCastDistance) to a IThrowReactable object
+        /// the method then calculates the rotation towards that object to ease hitting
+        /// reactable objects with the throwable.
+        /// If the angle between the players rotation and target rotation is too wide
+        /// then the calculatedRotation is set to Quaternion.identity which is used as
+        /// a default value to determine if there is a calculated rotation or not.
+        /// </summary>
         public void OnThrow()
         {
             Vector3 spheresCastingLocation = (transform.position + (transform.forward * -sphereRadius));
             RaycastHit hit;
-            if ( isDrawingSphere )
+
+            // Toggle isDebugging to get Debug.Logs and to see the SphereCast in scene view.
+            if ( isDebugging )
             {
                 if ( RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(spheresCastingLocation, sphereRadius, transform.forward, out hit, maxCastDistance, collidableLayer, PreviewCondition.Editor, 0f, Color.green, Color.red) )
                 {
@@ -45,11 +56,6 @@ namespace BananaSoup
                         directionToHit.y = 0;
 
                         Quaternion targetRotation = Quaternion.LookRotation(directionToHit);
-
-                        //Vector3 euler = targetRotation.eulerAngles;
-                        //euler.x = transform.rotation.eulerAngles.x;
-                        //euler.z = transform.rotation.eulerAngles.z;
-                        //targetRotation = Quaternion.Euler(euler);
 
                         float angleOfRotation = Quaternion.Angle(transform.rotation, targetRotation);
 
@@ -80,11 +86,6 @@ namespace BananaSoup
                         directionToHit.y = 0;
 
                         Quaternion targetRotation = Quaternion.LookRotation(directionToHit);
-
-                        //Vector3 euler = targetRotation.eulerAngles;
-                        //euler.x = transform.rotation.eulerAngles.x;
-                        //euler.z = transform.rotation.eulerAngles.z;
-                        //targetRotation = Quaternion.Euler(euler);
 
                         float angleOfRotation = Quaternion.Angle(transform.rotation, targetRotation);
 

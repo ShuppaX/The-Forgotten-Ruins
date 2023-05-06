@@ -138,6 +138,8 @@ namespace BananaSoup.Ability
                 var particleRotationX = abilityParticles.gameObject.transform.eulerAngles.x;
                 calculatedRotation = reactableDetector.CalculatedRotation.eulerAngles;
 
+                // Check if calculatedRotation is zeroed, if yes throw the
+                // particle effect in the direction the player is facing.
                 if ( calculatedRotation == Quaternion.identity.eulerAngles )
                 {
                     Debug.Log("Throwing towards playerRotation.y!");
