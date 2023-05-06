@@ -277,5 +277,17 @@ namespace BananaSoup.InteractSystem
                 putInteractableDown = null;
             }
         }
+
+        public void DropInteractable()
+        {
+            if ( hasSelectedInteractable )
+            {
+                hasSelectedInteractable = false;
+            }
+
+            currentInteractable.InteractCompleted();
+
+            psm.ResetPlayerState();
+        }
     }
 }

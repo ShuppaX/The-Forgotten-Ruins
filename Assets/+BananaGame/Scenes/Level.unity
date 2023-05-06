@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 8324.408, g: 2646.8281, b: 310.9414, a: 1}
+  m_IndirectSpecularColor: {r: 8328.608, g: 2648.7334, b: 311.1831, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11010,6 +11010,7 @@ GameObject:
   - component: {fileID: 1011486985}
   - component: {fileID: 1011486984}
   - component: {fileID: 1011486986}
+  - component: {fileID: 1011486987}
   m_Layer: 0
   m_Name: TutorialFall
   m_TagString: Untagged
@@ -11086,6 +11087,18 @@ PlayableDirector:
     value: {fileID: 490629583}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &1011486987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011486982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4e50ec1522e7b74283c4a32a7c7d997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1022393393
 GameObject:
   m_ObjectHideFlags: 0
