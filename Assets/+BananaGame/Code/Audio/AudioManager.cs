@@ -9,7 +9,7 @@ namespace BananaSoup
     
     /// <summary>
     /// To use playClip for sound effects from other scripts:
-    /// AudioManager.PlayClip(openAudio, Folder.SoundEffect.EnumName);
+    /// AudioManager.PlayClip(AudioSourceName, Namespace.EnumClass.ClipsEnumValue);
     /// AudioManager.PlayClip(openAudio, Audio.SoundEffect.Interact);
     /// </summary>
     public static class AudioManager
