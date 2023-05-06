@@ -1,7 +1,5 @@
 using BananaSoup.InteractSystem;
 using BananaSoup.Managers;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BananaSoup

@@ -12,7 +12,8 @@ namespace BananaSoup.InteractSystem
         [SerializeField] private float sphereRadius = 1.0f;
         [SerializeField] private LayerMask interactableLayers;
         [Tooltip("The speed that player character will travel to the InteractPoint when interacted with an Interactable.")]
-        [SerializeField] float moveSpeed = 2.0f;
+        [SerializeField] private float moveSpeed = 2.0f;
+        [SerializeField] private float interactTimeout = 2.5f;
 
         [Header("Constant strings used for PlayerState handling")]
         private const PlayerStateManager.PlayerState moving = PlayerStateManager.PlayerState.Moving;
@@ -28,6 +29,7 @@ namespace BananaSoup.InteractSystem
 
         private Coroutine pickUpInteractable = null;
         private Coroutine putInteractableDown = null;
+        private Coroutine stopTryingToInteract = null;
 
         // References
         private PlayerBase playerBase = null;
@@ -187,6 +189,11 @@ namespace BananaSoup.InteractSystem
             // Calculate a step to move.
             float step = moveSpeed * Time.deltaTime;
 
+            if ( stopTryingToInteract == null )
+            {
+                stopTryingToInteract = StartCoroutine(nameof(StopTryingToInteract));
+            }
+            
             // Move the player position a step closer to the target.
             transform.position = Vector3.MoveTowards(transform.position, interactPoint, step);
 
@@ -196,6 +203,12 @@ namespace BananaSoup.InteractSystem
                 hasSelectedInteractable = false;
 
                 SetPlayerInputs(false);
+
+                if ( stopTryingToInteract != null )
+                {
+                    StopCoroutine(stopTryingToInteract);
+                    stopTryingToInteract = null;
+                }
 
                 if ( pickUpInteractable == null )
                 {
@@ -259,6 +272,20 @@ namespace BananaSoup.InteractSystem
             SetPlayerInputs(true);
         }
 
+        private IEnumerator StopTryingToInteract()
+        {
+            yield return new WaitForSeconds(interactTimeout);
+
+            if ( hasSelectedInteractable )
+            {
+                hasSelectedInteractable = false;
+                psm.ResetPlayerState();
+                SetPlayerInputs(true);
+            }
+
+            stopTryingToInteract = null;
+        }
+
         /// <summary>
         /// Method used in OnDisable() to stop coroutines if they are still running and
         /// the object is disabled for some reason.
@@ -276,8 +303,18 @@ namespace BananaSoup.InteractSystem
                 StopCoroutine(putInteractableDown);
                 putInteractableDown = null;
             }
+
+            if ( stopTryingToInteract != null )
+            {
+                StopCoroutine(stopTryingToInteract);
+                stopTryingToInteract = null;
+            }
         }
 
+        /// <summary>
+        /// Method called from DropInteractableOnTrigger to force player to drop the
+        /// interactable when needed.
+        /// </summary>
         public void DropInteractable()
         {
             if ( hasSelectedInteractable )

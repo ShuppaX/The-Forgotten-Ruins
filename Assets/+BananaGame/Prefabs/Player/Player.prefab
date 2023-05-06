@@ -3641,6 +3641,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 2
+  interactTimeout: 1
 --- !u!114 &8849570542683201398
 MonoBehaviour:
   m_ObjectHideFlags: 0
