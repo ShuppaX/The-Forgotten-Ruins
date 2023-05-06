@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 8328.608, g: 2648.7334, b: 311.1831, a: 1}
+  m_IndirectSpecularColor: {r: 8336.132, g: 2651.4375, b: 311.5454, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2270,6 +2270,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Campfire
       objectReference: {fileID: 0}
+    - target: {fileID: 1034535277939153985, guid: 925626fef8233b444bd5e789ccb8fdba,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 6979548548385747435, guid: 925626fef8233b444bd5e789ccb8fdba,
         type: 3}
       propertyPath: isFireBurningAtStart
@@ -4046,7 +4051,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2158
+  m_Name: pb_Mesh-2200
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6620,7 +6625,7 @@ PrefabInstance:
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -51.001022
+      value: -50.50101
       objectReference: {fileID: 0}
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
@@ -6630,7 +6635,7 @@ PrefabInstance:
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -24.50049
+      value: -25.0005
       objectReference: {fileID: 0}
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
@@ -20283,7 +20288,7 @@ PrefabInstance:
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -45.0009
+      value: -45.50091
       objectReference: {fileID: 0}
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
@@ -20293,7 +20298,7 @@ PrefabInstance:
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -24.50049
+      value: -25.0005
       objectReference: {fileID: 0}
     - target: {fileID: 1968294899834743292, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
@@ -27607,6 +27612,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Campfire
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034535277939153985, guid: 925626fef8233b444bd5e789ccb8fdba,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7815536021926543875, guid: 925626fef8233b444bd5e789ccb8fdba,
         type: 3}

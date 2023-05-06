@@ -15,7 +15,7 @@ namespace BananaSoup.Utilities
 
         private Vector3 originHeightOffset = Vector3.zero;
 
-        private LayerMask groundLayer;
+        private LayerMask walkableLayer;
 
         private RaycastHit slopeHit;
 
@@ -35,7 +35,7 @@ namespace BananaSoup.Utilities
             }
 
             maxAngle = GetComponent<PlayerController>().MaxSlopeAngle;
-            groundLayer = GetComponent<PlayerController>().GroundLayer;
+            walkableLayer = GetComponent<PlayerController>().WalkableLayer;
             originHeightOffset.Set(0.0f, (playerCollider.height / 2.0f), 0.0f);
         }
 
@@ -55,11 +55,11 @@ namespace BananaSoup.Utilities
             bool ray;
             if ( IsDrawingRay )
             {
-                ray = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position + originHeightOffset, Vector3.down, out slopeHit, rayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
+                ray = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position + originHeightOffset, Vector3.down, out slopeHit, rayLength, walkableLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
             }
             else
             {
-                ray = UnityEngine.Physics.Raycast(transform.position + originHeightOffset, Vector3.down, out slopeHit, rayLength, groundLayer);
+                ray = UnityEngine.Physics.Raycast(transform.position + originHeightOffset, Vector3.down, out slopeHit, rayLength, walkableLayer);
             }
 
             if ( ray )

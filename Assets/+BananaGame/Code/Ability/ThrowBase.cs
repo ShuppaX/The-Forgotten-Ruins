@@ -2,8 +2,6 @@ using UnityEngine;
 using BananaSoup.Managers;
 using BananaSoup.Utilities;
 using System.Collections;
-using UnityEditor;
-using UnityEngine.UI;
 
 namespace BananaSoup.Ability
 {
@@ -20,6 +18,9 @@ namespace BananaSoup.Ability
         private Coroutine throwRoutine;
         private bool isStartingToThrow;
         protected AbilityThrow abilityThrow;
+        protected DetectNearbyIThrowReactables reactableDetector;
+
+        private Vector3 calculatedRotation;
 
         [Tooltip("Time in seconds when to enable the throwable projectile. " +
             "If 0, projectile will spawn immediatelly when throw animation starts.")]
@@ -71,6 +72,12 @@ namespace BananaSoup.Ability
             if ( abilityThrow == null )
             {
                 Debug.LogError(name + " is missing a reference to a AbilityThrow!");
+            }
+
+            reactableDetector = GetComponent<DetectNearbyIThrowReactables>();
+            if ( reactableDetector == null )
+            {
+                Debug.LogError($"{name} couldn't find the component DetectNearbyIThrowReactables!");
             }
         }
 
@@ -129,7 +136,18 @@ namespace BananaSoup.Ability
                 // Set Particle Effect rotation.
                 var playerRotation = transform.eulerAngles;
                 var particleRotationX = abilityParticles.gameObject.transform.eulerAngles.x;
-                projectile.transform.rotation = Quaternion.Euler(particleRotationX, playerRotation.y, playerRotation.z);
+                calculatedRotation = reactableDetector.CalculatedRotation.eulerAngles;
+
+                if ( calculatedRotation == Quaternion.identity.eulerAngles )
+                {
+                    Debug.Log("Throwing towards playerRotation.y!");
+                    projectile.transform.rotation = Quaternion.Euler(particleRotationX, playerRotation.y, playerRotation.z);
+                }
+                else
+                {
+                    Debug.Log("Throwing towards calculatedRotation.y!");
+                    projectile.transform.rotation = Quaternion.Euler(particleRotationX, calculatedRotation.y, playerRotation.z);
+                }
 
                 projectile.gameObject.SetActive(true);
                 projectile.Setup();

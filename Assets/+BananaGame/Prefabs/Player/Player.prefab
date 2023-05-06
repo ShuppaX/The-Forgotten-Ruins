@@ -2589,7 +2589,7 @@ GameObject:
   - component: {fileID: 5038680897387402874}
   - component: {fileID: 1320105194}
   - component: {fileID: 271992572}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Fennec_Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3279,9 +3279,11 @@ GameObject:
   - component: {fileID: 8696953563904003536}
   - component: {fileID: 3871903828611686729}
   - component: {fileID: 2690011458616672178}
+  - component: {fileID: 1964416877}
   - component: {fileID: 9108917675126122351}
   - component: {fileID: 3221713547035849736}
   - component: {fileID: 8849570542683201398}
+  - component: {fileID: 2046790767}
   - component: {fileID: 3416829459394208007}
   - component: {fileID: 555330798156038717}
   - component: {fileID: 499147030}
@@ -3290,7 +3292,6 @@ GameObject:
   - component: {fileID: 65683560828549127}
   - component: {fileID: 869360056293319460}
   - component: {fileID: 1529940321108571192}
-  - component: {fileID: 1964416877}
   - component: {fileID: 7750681960141525956}
   m_Layer: 8
   m_Name: Player
@@ -3428,6 +3429,18 @@ MonoBehaviour:
     m_ActionName: Player/Interact[/Keyboard/f]
   - m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 2046790767}
+        m_TargetAssemblyTypeName: BananaSoup.DetectNearbyIThrowReactables, Assembly-CSharp
+        m_MethodName: OnThrow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 8849570542683201398}
         m_TargetAssemblyTypeName: BananaSoup.AbilityThrow, Assembly-CSharp
         m_MethodName: OnAbility
@@ -3572,7 +3585,7 @@ MonoBehaviour:
   cameraAngle: 45
   maxSlopeAngle: 40
   groundCheckLength: 0.1
-  groundLayer:
+  walkableLayer:
     serializedVersion: 2
     m_Bits: 128
 --- !u!114 &3871903828611686729
@@ -3606,6 +3619,20 @@ MonoBehaviour:
   targetObject: {fileID: 7973058596037658666}
   flashColor: {r: 0.67924523, g: 0, b: 0, a: 1}
   flashTime: 0.5
+--- !u!114 &1964416877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696953563904003545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abc6998ca7af75e419240ae53ae60e07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ragdollRoot: {fileID: 5527846721701623069}
+  ragdollOnStart: 0
 --- !u!114 &9108917675126122351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3655,6 +3682,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handTransform: {fileID: 4980900163939968595}
+--- !u!114 &2046790767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696953563904003545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f9664414ec3fa489e416035af1a8a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCastDistance: 1.85
+  sphereRadius: 1
+  collidableLayer:
+    serializedVersion: 2
+    m_Bits: 66048
+  maximumRotationAngle: 45
+  isDrawingSphere: 1
 --- !u!114 &3416829459394208007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3768,20 +3814,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDrawingSphereCasts: 0
---- !u!114 &1964416877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8696953563904003545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abc6998ca7af75e419240ae53ae60e07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ragdollRoot: {fileID: 5527846721701623069}
-  ragdollOnStart: 0
 --- !u!114 &7750681960141525956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3961,6 +3993,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SlashParticleEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 67332131832725269, guid: 7e4ef1e55ccc782449e5a5bed0812264,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 67332131832725274, guid: 7e4ef1e55ccc782449e5a5bed0812264,
         type: 3}

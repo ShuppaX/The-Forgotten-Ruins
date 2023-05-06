@@ -1059,11 +1059,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2793099407216259393, guid: d88124d05114b0c4ba848129b2945cc1,
-        type: 3}
-      propertyPath: m_AllowDynamicResolution
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2793099407216259394, guid: d88124d05114b0c4ba848129b2945cc1,
         type: 3}
       propertyPath: m_Name

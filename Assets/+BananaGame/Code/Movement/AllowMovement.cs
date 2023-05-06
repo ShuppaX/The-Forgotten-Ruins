@@ -13,7 +13,7 @@ namespace BananaSoup
 
         private bool isMovementAllowed = false;
 
-        private LayerMask groundLayer;
+        private LayerMask walkableLayer;
 
         private RaycastHit slopeHit;
 
@@ -25,7 +25,7 @@ namespace BananaSoup
         private void Start()
         {
             maxAngle = GetComponent<PlayerController>().MaxSlopeAngle;
-            groundLayer = GetComponent<PlayerController>().GroundLayer;
+            walkableLayer = GetComponent<PlayerController>().WalkableLayer;
         }
 
         private void Update()
@@ -44,11 +44,11 @@ namespace BananaSoup
 
             if ( isDrawingRay )
             {
-                ray = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, out slopeHit, rayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
+                ray = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(transform.position, Vector3.down, out slopeHit, rayLength, walkableLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
             }
             else
             {
-                ray = UnityEngine.Physics.Raycast(transform.position, Vector3.down, out slopeHit, rayLength, groundLayer);
+                ray = UnityEngine.Physics.Raycast(transform.position, Vector3.down, out slopeHit, rayLength, walkableLayer);
             }
 
             if ( ray )

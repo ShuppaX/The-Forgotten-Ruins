@@ -29,7 +29,7 @@ namespace BananaSoup
         [SerializeField, Tooltip("Offset which is added to different Raycasts length. (GroundCheck, SlopeCheck, AllowMovement)")]
         private float groundCheckLength = 0.1f;
         [SerializeField]
-        private LayerMask groundLayer;
+        private LayerMask walkableLayer;
 
         // References to other components
         private Rigidbody rb = null;
@@ -79,9 +79,9 @@ namespace BananaSoup
         /// <summary>
         /// Public property to define the groundLayer LayerMask for several check scripts.
         /// </summary>
-        public LayerMask GroundLayer
+        public LayerMask WalkableLayer
         {
-            get { return groundLayer; }
+            get { return walkableLayer; }
         }
 
         /// <summary>
@@ -368,7 +368,7 @@ namespace BananaSoup
             RaycastHit hit;
 
             if ( Physics.Raycast(((transform.position + Vector3.up) + -transform.forward * playerCollider.radius),
-                Vector3.down, out hit, 4.0f, groundLayer) )
+                Vector3.down, out hit, 4.0f, walkableLayer) )
             {
                 if ( hit.collider.gameObject != gameObject )
                 {

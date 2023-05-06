@@ -35,7 +35,7 @@ namespace BananaSoup.Utilities
 
         private bool isGroundAhead = false;
 
-        private LayerMask groundLayer;
+        private LayerMask walkableLayer;
 
         // References
         private CapsuleCollider playerCollider = null;
@@ -65,7 +65,7 @@ namespace BananaSoup.Utilities
                 Debug.LogError($"An instance of a component of type {typeof(PlayerStateManager).Name} couldn't be found for the " + gameObject.name + "!");
             }
 
-            groundLayer = GetComponent<PlayerController>().GroundLayer;
+            walkableLayer = GetComponent<PlayerController>().WalkableLayer;
 
             castOriginOffsetDefault = playerCollider.radius * colRadMultiplier;
             castOriginOffsetInteract = playerCollider.radius * colRadMultiplierOnInteract;
@@ -144,13 +144,13 @@ namespace BananaSoup.Utilities
             if ( !isDrawingSphereCasts )
             {
                 RaycastHit hit;
-                spheres[index] = UnityEngine.Physics.SphereCast(origin, sphereRadius, Vector3.down, out hit, castLength, groundLayer);
+                spheres[index] = UnityEngine.Physics.SphereCast(origin, sphereRadius, Vector3.down, out hit, castLength, walkableLayer);
             }
             else
             {
                 // Can be used to debug and draw the Raycast(s) using the RotaryHeart
                 // Physics debug library.
-                spheres[index] = RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(origin, sphereRadius, Vector3.down, castLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
+                spheres[index] = RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(origin, sphereRadius, Vector3.down, castLength, walkableLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
             }
         }
     }

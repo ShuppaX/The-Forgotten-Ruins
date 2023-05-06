@@ -26,7 +26,7 @@ namespace BananaSoup.Utilities
         private bool isGrounded = false;
         private bool groundCheckChanged = false;
 
-        private LayerMask groundLayer;
+        private LayerMask walkableLayer;
 
         private CapsuleCollider playerCollider = null;
         private PlayerStateManager psm = null;
@@ -53,7 +53,7 @@ namespace BananaSoup.Utilities
 
             GetInstances();
 
-            groundLayer = GetComponent<PlayerController>().GroundLayer;
+            walkableLayer = GetComponent<PlayerController>().WalkableLayer;
 
             rayLength = (playerCollider.height / 2.0f) + GetComponent<PlayerController>().GroundCheckLength;
             rayOriginOffset = playerCollider.radius * colliderRadiusMultiplier;
@@ -163,13 +163,13 @@ namespace BananaSoup.Utilities
         {
             if ( !isDrawingRays )
             {
-                rays[index] = UnityEngine.Physics.Raycast(position, Vector3.down, rayLength, groundLayer);
+                rays[index] = UnityEngine.Physics.Raycast(position, Vector3.down, rayLength, walkableLayer);
             }
             else
             {
                 // Can be used to debug and draw the Raycast(s) using the RotaryHeart
                 // Physics debug library.
-                rays[index] = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(position, Vector3.down, rayLength, groundLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
+                rays[index] = RotaryHeart.Lib.PhysicsExtension.Physics.Raycast(position, Vector3.down, rayLength, walkableLayer, PreviewCondition.Editor, 0, Color.green, Color.red);
             }
         }
     }
