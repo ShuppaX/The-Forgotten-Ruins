@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: c203abaa464302c43b92b6b9b0422c9f
+guid: 3c3e5ac8b27963748b090fd2a10a9b75
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DashSymbolMaterial
+    second: {fileID: 2100000, guid: fbce611db3127d845bab916234aafa31, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

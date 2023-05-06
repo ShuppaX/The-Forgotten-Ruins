@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: c0f3a0a312978924a891479fd497d993
+guid: 9e768e5548de58544a414d53eddf7419
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HeartPink
+    second: {fileID: 2100000, guid: fe915c6c7eb33b64097f513a50874bb8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
