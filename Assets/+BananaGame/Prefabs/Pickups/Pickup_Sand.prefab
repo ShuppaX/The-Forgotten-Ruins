@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: -1708530522192250102}
   - component: {fileID: 9156624335651566350}
   - component: {fileID: -4094016167073493025}
+  - component: {fileID: 7995874945672906182}
   m_Layer: 0
   m_Name: Pickup_Sand
   m_TagString: Untagged
@@ -157,4 +158,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35b094ca3ec74e4418702bcc6499a199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 10
+  rotationAngles: {x: 0, y: 2, z: 0}
+--- !u!114 &7995874945672906182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9156624335651566349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675fe7a16eef1874185354a592edf074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveValue: {x: 0, y: 0.25, z: 0}
+  duration: 2
