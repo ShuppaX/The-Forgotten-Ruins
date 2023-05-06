@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace BananaSoup.PuzzleSystem
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class MoveObjectOnPuzzleSolved : PuzzleSolutionGameObject
     {
         [SerializeField] private Vector3 endPoint;
@@ -16,6 +17,14 @@ namespace BananaSoup.PuzzleSystem
         private bool hasMoved;
         private Vector3 startingPosition;
         private BoxCollider movementBlocker;
+
+        private void OnValidate()
+        {
+            // HACK: Setting this object to be kinematic and turning gravity false so it won't be affected by any forces.
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.isKinematic = true;
+            rb.useGravity = false;
+        }
 
         private void Start()
         {
