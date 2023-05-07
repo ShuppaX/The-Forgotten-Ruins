@@ -53,7 +53,6 @@ namespace BananaSoup.SaveSystem
         }
 
         // Save killed enemies, int
-        // Save position of liftable rocks, float (vector3)
         // Save torch
 
         /// <summary>
@@ -82,11 +81,8 @@ namespace BananaSoup.SaveSystem
 
         public void SetVector3(string key, float value)
         {
-            //if ( !PlayerPrefs.HasKey(key) )
-            //{
-                Debug.Log($"Setting {key}: {value} data to be saved");
-                PlayerPrefs.SetFloat(key, value);
-            //}
+            Debug.Log($"Setting {key}: {value} data to be saved");
+            PlayerPrefs.SetFloat(key, value);
         }
     }
 }
