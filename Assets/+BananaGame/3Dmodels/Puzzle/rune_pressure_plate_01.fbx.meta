@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: archway top
-    second: {fileID: 2100000, guid: 8ade297f1975a264b81d58e5eea6be03, type: 2}
+    second: {fileID: 2100000, guid: 0293cc38abe39474cb9d97e7eef15d7f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: pillar
-    second: {fileID: 2100000, guid: dbae0ab7ab30b59459dfc48869f69ec4, type: 2}
+    second: {fileID: 2100000, guid: 0293cc38abe39474cb9d97e7eef15d7f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

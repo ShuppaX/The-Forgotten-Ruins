@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dbae0ab7ab30b59459dfc48869f69ec4, type: 2}
+  - {fileID: 2100000, guid: 0293cc38abe39474cb9d97e7eef15d7f, type: 2}
   - {fileID: 2100000, guid: e14634113f335a940a4cb8bef72e1a8e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c4bfcdbb0b73b44bfeeac174009f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashColor: {r: 1, g: 0.93333334, b: 0, a: 1}
+  flashColor: {r: 0.11307406, g: 0.35090005, b: 0.7264151, a: 1}
   flashTime: 1.25
 --- !u!1 &6431096508399189584
 GameObject:
@@ -177,7 +177,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dbae0ab7ab30b59459dfc48869f69ec4, type: 2}
+  - {fileID: 2100000, guid: fdda007b0c49e4c4a934c4dfbe0a42b2, type: 2}
   - {fileID: 2100000, guid: b5640daf30d9498439c403a39c9f4c43, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
