@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 9124.031, g: 3126.5486, b: 432.5091, a: 1}
+  m_IndirectSpecularColor: {r: 8326.927, g: 2647.9678, b: 311.07227, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -627,7 +627,7 @@ PrefabInstance:
     - target: {fileID: 4332037468157732775, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_Name
-      value: Torch (1)
+      value: Torch (7)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32851f982f30d0c4fa5d4edabfa73155, type: 3}
@@ -5241,7 +5241,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 306909873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.5, y: 6, z: -23.5}
+  m_LocalPosition: {x: -16.63, y: 6, z: -23.5}
   m_LocalScale: {x: 4, y: 3, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10300,7 +10300,7 @@ PrefabInstance:
     - target: {fileID: 4332037468157732775, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_Name
-      value: Torch
+      value: Torch (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32851f982f30d0c4fa5d4edabfa73155, type: 3}
@@ -11679,7 +11679,7 @@ PrefabInstance:
     - target: {fileID: 4332037468157732775, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_Name
-      value: Torch (2)
+      value: Torch (5)
       objectReference: {fileID: 0}
     - target: {fileID: 4332037468157732775, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
@@ -18085,7 +18085,7 @@ PrefabInstance:
     - target: {fileID: 4332037468157732775, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_Name
-      value: Torch (2)
+      value: Torch (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32851f982f30d0c4fa5d4edabfa73155, type: 3}
@@ -19818,7 +19818,7 @@ PrefabInstance:
     - target: {fileID: 4332037468157732775, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_Name
-      value: Torch (1)
+      value: Torch (9)
       objectReference: {fileID: 0}
     - target: {fileID: 4332037468157732775, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
@@ -22107,7 +22107,7 @@ PrefabInstance:
     - target: {fileID: 4332037468157732775, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_Name
-      value: Torch (1)
+      value: Torch (8)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32851f982f30d0c4fa5d4edabfa73155, type: 3}
@@ -23384,7 +23384,7 @@ PrefabInstance:
     - target: {fileID: 2369804081068162597, guid: a24b7da8a0461d448af513fc9d2d2b03,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.5
+      value: -15.67
       objectReference: {fileID: 0}
     - target: {fileID: 2369804081068162597, guid: a24b7da8a0461d448af513fc9d2d2b03,
         type: 3}
@@ -30648,7 +30648,7 @@ PrefabInstance:
     - target: {fileID: 4332037468157732775, guid: 32851f982f30d0c4fa5d4edabfa73155,
         type: 3}
       propertyPath: m_Name
-      value: Torch (1)
+      value: Torch (6)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32851f982f30d0c4fa5d4edabfa73155, type: 3}
