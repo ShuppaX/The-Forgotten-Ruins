@@ -8,8 +8,9 @@ namespace BananaSoup.SaveSystem
         private int spawnIndex = 0;
 
         public int SetSpawnIndex { set => spawnIndex = value; }
+        public int GetSpawnersCount => spawners.Length;
 
-        public void Setup()
+        private void Awake()
         {
             spawners = GetComponentsInChildren<PlayerSpawner>();
             if ( spawners == null )
@@ -17,7 +18,10 @@ namespace BananaSoup.SaveSystem
                 Debug.LogError(this + "'s Spawners array is null and can't be!");
                 return;
             }
+        }
 
+        public void Setup()
+        {
             // Spawn player to the corresponding checkpoint
             spawners[spawnIndex].TeleportPlayer();
         }

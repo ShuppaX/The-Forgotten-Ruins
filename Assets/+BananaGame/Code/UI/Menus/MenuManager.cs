@@ -1,4 +1,5 @@
 using BananaSoup.Managers;
+using BananaSoup.SaveSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -48,6 +49,8 @@ namespace BananaSoup.UI.Menus
         // References to components
         private MenuButtonHandler buttonHandler = null;
         private PauseManager pauseManager = null;
+        private RemoveSaveData removeSaveData = null;
+        private LoadManager loadManager = null;
 
         // Constant GameStates used in comparing current GameState
         private const GameStateManager.GameState start = GameStateManager.GameState.Start;
@@ -124,6 +127,18 @@ namespace BananaSoup.UI.Menus
             if ( pauseManager == null )
             {
                 Debug.LogError($"No component of {typeof(PauseManager)} could be found on the pausePanel!");
+            }
+
+            removeSaveData = GetComponent<RemoveSaveData>();
+            if ( removeSaveData == null )
+            {
+                Debug.LogError($"No component of {typeof(RemoveSaveData)} could be found on the {name}!");
+            }
+
+            loadManager = FindObjectOfType<LoadManager>();
+            if ( loadManager == null )
+            {
+                Debug.LogError($"No reference to {typeof(LoadManager)} could be found for the {name}!");
             }
 
             playerBase.ToggleAllActions(false);
@@ -371,6 +386,18 @@ namespace BananaSoup.UI.Menus
         /// </summary>
         public void OnPlayButton()
         {
+            removeSaveData.OnClearProgress();
+            mainMenuPanel.SetActive(false);
+            cameraManager.TransitionCamera();
+        }
+
+        /// <summary>
+        /// Method called when play button in main menu is pressed.
+        /// Used to deactivate the mainMenuPanel.
+        /// </summary>
+        public void OnContinueButton()
+        {
+            loadManager.OnLoadGame();
             mainMenuPanel.SetActive(false);
             cameraManager.TransitionCamera();
         }

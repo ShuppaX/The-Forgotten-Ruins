@@ -18,14 +18,34 @@ namespace BananaSoup.SaveSystem
                 Debug.LogError($"{name} is missing a reference to a PlayerSpawnManager!");
             }
 
+            if ( PlayerPrefs.GetInt(SaveManager.saveKeyCheckpoint) > 0 )
+            {
+                // Teleport player to "loading zone" to wait in safe.
+                spawnManager.SetSpawnIndex = spawnManager.GetSpawnersCount - 1;
+            }
+            else
+            {
+                spawnManager.SetSpawnIndex = 0;
+            }
+            spawnManager.Setup();
+        }
+
+        public void OnLoadGame()
+        {
+            spawnManager = FindObjectOfType<PlayerSpawnManager>();
+            if ( spawnManager == null )
+            {
+                Debug.LogError($"{name} is missing a reference to a PlayerSpawnManager!");
+            }
+
+            SetLiftableRocks();
+
             if ( PlayerPrefs.HasKey(SaveManager.saveKeyCheckpoint) )
             {
                 spawnManager.SetSpawnIndex = PlayerPrefs.GetInt(SaveManager.saveKeyCheckpoint);
             }
 
             spawnManager.Setup();
-
-            SetLiftableRocks();
         }
 
         private void SetLiftableRocks()
