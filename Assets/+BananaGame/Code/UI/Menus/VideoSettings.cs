@@ -1,13 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace BananaSoup
 {
     public class VideoSettings : MonoBehaviour
     {
         [SerializeField] private TMP_Dropdown resolutionDropdown;
+        [SerializeField] private Toggle fullscreenToggle;
 
         private Resolution[] resolutions;
         private List<Resolution> filteredResolutions;
@@ -18,11 +19,34 @@ namespace BananaSoup
         private void Start()
         {
             InitializeResolutions();
+            SetToggleOnStart();
         }
 
         public void ToggleFullscreen()
         {
-            Screen.fullScreen = !Screen.fullScreen;
+            if ( Screen.fullScreenMode == FullScreenMode.Windowed)
+            {
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                return;
+            }
+
+            if ( Screen.fullScreenMode == FullScreenMode.FullScreenWindow )
+            {
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+            }
+        }
+
+        private void SetToggleOnStart()
+        {
+            switch ( Screen.fullScreenMode )
+            {
+                case FullScreenMode.Windowed:
+                    fullscreenToggle.SetIsOnWithoutNotify(false);
+                    break;
+                case FullScreenMode.FullScreenWindow:
+                    fullscreenToggle.SetIsOnWithoutNotify(true);
+                    break;
+            }
         }
 
         private void InitializeResolutions()
@@ -64,13 +88,18 @@ namespace BananaSoup
 
         public void SetResolution(int resolutionIndex)
         {
-            if ( !Screen.fullScreen )
-            {
-                Screen.fullScreen = false;
-            }
-
             Resolution newResolution = filteredResolutions[resolutionIndex];
-            Screen.SetResolution(newResolution.width, newResolution.height, true);
+
+            switch ( Screen.fullScreenMode )
+            {
+                case FullScreenMode.Windowed:
+                    
+                    Screen.SetResolution(newResolution.width, newResolution.height, false);
+                    break;
+                case FullScreenMode.FullScreenWindow:
+                    Screen.SetResolution(newResolution.width, newResolution.height, true);
+                    break;
+            }
         }
     }
 }
