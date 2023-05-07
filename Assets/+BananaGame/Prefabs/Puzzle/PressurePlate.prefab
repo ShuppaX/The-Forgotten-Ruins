@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashColor: {r: 1, g: 0.93333334, b: 0, a: 1}
-  flashTime: 0.75
+  flashTime: 1.25
 --- !u!1 &6431096508399189584
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 430659058357512043}
   - component: {fileID: 3601807374444712024}
   m_Layer: 0
-  m_Name: ArrowTrap_Pressureplate
+  m_Name: ArrowTrap_PressurePlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BananaSoup.Puzzle
 {
-    public class PressureplateFlash : MonoBehaviour
+    public class PressurePlateFlash : MonoBehaviour
     {
         [ColorUsage(true, true)]
         [SerializeField, Tooltip("The color the object is to changed to while activated.")]
@@ -45,6 +45,9 @@ namespace BananaSoup.Puzzle
             }
 
             material = meshRenderer.materials[materialIndexInRenderer];
+
+            currentFlash = minFlash;
+            currentEmission = minEmission;
         }
 
         /// <summary>
@@ -52,6 +55,12 @@ namespace BananaSoup.Puzzle
         /// </summary>
         public void CallFlash()
         {
+            if ( flashRoutine != null )
+            {
+                StopCoroutine(flashRoutine);
+                flashRoutine = null;
+            }
+
             if ( flashRoutine == null )
             {
                 flashRoutine = StartCoroutine(nameof(Flasher));
@@ -93,8 +102,8 @@ namespace BananaSoup.Puzzle
             {
                 elapsedTime += Time.deltaTime;
 
-                float currentFlashAmount = Mathf.Lerp(minFlash, maxFlash, (elapsedTime / flashTime));
-                float emissionIntensity = Mathf.Lerp(minEmission, maxEmission, (elapsedTime / flashTime));
+                float currentFlashAmount = Mathf.Lerp(currentFlash, maxFlash, (elapsedTime / flashTime));
+                float emissionIntensity = Mathf.Lerp(currentEmission, maxEmission, (elapsedTime / flashTime));
 
                 currentFlash = currentFlashAmount;
                 currentEmission = emissionIntensity;
@@ -118,6 +127,9 @@ namespace BananaSoup.Puzzle
 
                 float currentFlashAmount = Mathf.Lerp(currentFlash, minFlash, (elapsedTime / flashTime));
                 float emissionIntensity = Mathf.Lerp(currentEmission, minEmission, (elapsedTime / flashTime));
+
+                currentFlash = currentFlashAmount;
+                currentEmission = emissionIntensity;
 
                 SetFlashAmount(currentFlashAmount);
                 SetEmissionIntensity(emissionIntensity);
