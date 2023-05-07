@@ -143,6 +143,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8696953563904003536, guid: 282df8200b8684c4683d177cd8e6ceea,
+        type: 3}
+      propertyPath: movementSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696953563904003536, guid: 282df8200b8684c4683d177cd8e6ceea,
+        type: 3}
+      propertyPath: interactMovementSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8696953563904003538, guid: 282df8200b8684c4683d177cd8e6ceea,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target

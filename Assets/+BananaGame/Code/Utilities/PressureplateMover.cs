@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace BananaSoup.Traps
+namespace BananaSoup.Utilities
 {
     public class PressureplateMover : MonoBehaviour
     {
@@ -12,6 +12,8 @@ namespace BananaSoup.Traps
         private Vector3 plateCurrentPosition = Vector3.zero;
 
         private float checkDelay = 0.1f;
+
+        private int objectsOnPlate = 0;
 
         private Coroutine checkForObjectRoutine = null;
 
@@ -37,17 +39,27 @@ namespace BananaSoup.Traps
 
         private void OnTriggerEnter(Collider other)
         {
-            ActivatePressurePlate();
-
-            if ( checkForObjectRoutine == null )
+            if ( objectsOnPlate == 0 )
             {
-                checkForObjectRoutine = StartCoroutine(CheckIfObjectOnPlate(other.gameObject));
+                ActivatePressurePlate();
+
+                if ( checkForObjectRoutine == null )
+                {
+                    checkForObjectRoutine = StartCoroutine(CheckIfObjectOnPlate(other.gameObject));
+                }
             }
+
+            objectsOnPlate++;
         }
 
         private void OnTriggerExit(Collider other)
         {
-            DeactivatePressurePlate();
+            objectsOnPlate--;
+
+            if ( objectsOnPlate == 0 )
+            {
+                DeactivatePressurePlate(); 
+            }
         }
 
         private IEnumerator CheckIfObjectOnPlate(GameObject otherObject)

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BananaSoup.Traps
+namespace BananaSoup.Utilities
 {
     public class MovablePressureplate : MonoBehaviour
     {

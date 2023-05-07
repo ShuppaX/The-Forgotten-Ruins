@@ -1,6 +1,5 @@
-using BananaSoup.PuzzleSystem;
-using System.Collections;
-using System.Collections.Generic;
+using BananaSoup.InteractSystem;
+using BananaSoup.Puzzle;
 using UnityEngine;
 
 namespace BananaSoup.PuzzleSystem
@@ -8,27 +7,41 @@ namespace BananaSoup.PuzzleSystem
     public class PressurePlateAction : PuzzleObjectBase
     {
         private bool isActivated;
-        private float distanceCompare = 0.3f;
-        private Transform activationObject;
 
-        private void OnTriggerStay(Collider other)
+        private PressureplateFlash flasher;
+
+        private void Start()
         {
-            Vector3 othersBottomPoint = other.bounds.center;
-            othersBottomPoint.y -= other.bounds.extents.y;
-
-            float distance = 0.0f;
-            distance = (transform.position - othersBottomPoint).sqrMagnitude;
-
-            if ( !isActivated && distance < distanceCompare )
+            flasher = GetComponentInChildren<PressureplateFlash>();
+            if ( flasher == null )
             {
-                isActivated = true;
-                activationObject = other.transform;
-                GetPuzzleManager.SetRemainingPuzzleObjectCount = -1;
+                Debug.Log($"{name} couldn't find a component of type {typeof(PressureplateFlash)} from it's children!");
             }
-            else if ( isActivated && (distance > distanceCompare) && (activationObject == other.transform) )
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if ( other.gameObject.GetComponent<LiftableRockAction>() != null )
             {
-                isActivated = false;
-                GetPuzzleManager.SetRemainingPuzzleObjectCount = 1;
+                if ( !isActivated )
+                {
+                    isActivated = true;
+                    GetPuzzleManager.SetRemainingPuzzleObjectCount = -1;
+                    flasher.CallFlash();
+                }
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if ( other.gameObject.GetComponent<LiftableRockAction>() != null )
+            {
+                if ( isActivated )
+                {
+                    isActivated = false;
+                    GetPuzzleManager.SetRemainingPuzzleObjectCount = 1;
+                    flasher.ResetColorAndEmission();
+                }
             }
         }
     }
