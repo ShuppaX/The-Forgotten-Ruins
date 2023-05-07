@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace BananaSoup.Traps
@@ -10,7 +11,16 @@ namespace BananaSoup.Traps
 
         private Vector3 plateCurrentPosition = Vector3.zero;
 
+        private float checkDelay = 0.1f;
+
+        private Coroutine checkForObjectRoutine = null;
+
         private MovablePressureplate pressureplate;
+
+        private void OnDisable()
+        {
+            TryStopAndNullCoroutine();
+        }
 
         private void Start()
         {
@@ -27,14 +37,53 @@ namespace BananaSoup.Traps
 
         private void OnTriggerEnter(Collider other)
         {
-            plateCurrentPosition = Vector3.Lerp(plateCurrentPosition, plateEndPosition, 2.0f);
-            pressureplate.transform.position = plateCurrentPosition;
+            ActivatePressurePlate();
+
+            if ( checkForObjectRoutine == null )
+            {
+                checkForObjectRoutine = StartCoroutine(CheckIfObjectOnPlate(other.gameObject));
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
+            DeactivatePressurePlate();
+        }
+
+        private IEnumerator CheckIfObjectOnPlate(GameObject otherObject)
+        {
+            while ( true )
+            {
+                if ( !otherObject.activeSelf )
+                {
+                    DeactivatePressurePlate();
+                    yield break;
+                }
+
+                yield return new WaitForSeconds(checkDelay);
+            }
+        }
+
+        private void ActivatePressurePlate()
+        {
+            plateCurrentPosition = Vector3.Lerp(plateCurrentPosition, plateEndPosition, 2.0f);
+            pressureplate.transform.position = plateCurrentPosition;
+        }
+
+        private void DeactivatePressurePlate()
+        {
             plateCurrentPosition = Vector3.Lerp(plateCurrentPosition, plateStartPosition, 2.0f);
             pressureplate.transform.position = plateCurrentPosition;
+            TryStopAndNullCoroutine();
+        }
+
+        private void TryStopAndNullCoroutine()
+        {
+            if ( checkForObjectRoutine != null )
+            {
+                StopCoroutine(checkForObjectRoutine);
+                checkForObjectRoutine = null;
+            }
         }
     }
 }
