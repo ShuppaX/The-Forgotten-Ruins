@@ -136,8 +136,8 @@ MonoBehaviour:
   healthDisplay: {fileID: 8127596914457228098}
   healthIcon: {fileID: 8619521319745777294, guid: 363358e4e36931a47a05637ea5b82713,
     type: 3}
-  fullHPImage: {fileID: 21300000, guid: 2cb8db8b86cfe174db7084c297eadaa8, type: 3}
-  emptyHPImage: {fileID: 21300000, guid: e71d6e3f23faf1f478688a710a878f6d, type: 3}
+  fullHPImage: {fileID: 21300000, guid: f90333331aabca44ca16f4b467ee94c0, type: 3}
+  emptyHPImage: {fileID: 21300000, guid: 2b1b6539f809d3741a1a7849e5bfbe08, type: 3}
 --- !u!114 &2730181388651813132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,12 +244,12 @@ PrefabInstance:
     - target: {fileID: 7102967715047510274, guid: b7fc924aecf066740b77d33b6a35bb6d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 525
+      value: 575
       objectReference: {fileID: 0}
     - target: {fileID: 7102967715047510274, guid: b7fc924aecf066740b77d33b6a35bb6d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -75
+      value: -125
       objectReference: {fileID: 0}
     - target: {fileID: 7102967715047510274, guid: b7fc924aecf066740b77d33b6a35bb6d,
         type: 3}
