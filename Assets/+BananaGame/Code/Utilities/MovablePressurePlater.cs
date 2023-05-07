@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BananaSoup.Utilities
 {
-    public class MovablePressureplate : MonoBehaviour
+    public class MovablePressurePlater : MonoBehaviour
     {
         public Vector3 Position
         {

@@ -17,7 +17,7 @@ namespace BananaSoup.Utilities
 
         private Coroutine checkForObjectRoutine = null;
 
-        private MovablePressureplate pressureplate;
+        private MovablePressurePlater pressureplate;
 
         private void OnDisable()
         {
@@ -26,10 +26,10 @@ namespace BananaSoup.Utilities
 
         private void Start()
         {
-            pressureplate = GetComponentInChildren<MovablePressureplate>();
+            pressureplate = GetComponentInChildren<MovablePressurePlater>();
             if ( pressureplate == null )
             {
-                Debug.LogError($"{name} couldn't find a component of type {typeof(MovablePressureplate)} on it's children!");
+                Debug.LogError($"{name} couldn't find a component of type {typeof(MovablePressurePlater)} on it's children!");
             }
 
             plateCurrentPosition = pressureplate.Position;
