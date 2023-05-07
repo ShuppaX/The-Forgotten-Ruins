@@ -1,3 +1,4 @@
+using BananaSoup.HealthSystem;
 using UnityEngine;
 
 namespace BananaSoup.SaveSystem
@@ -43,9 +44,17 @@ namespace BananaSoup.SaveSystem
                     }
                 }
 
-                // TODO: Enable Save progress
-                //SaveManager.Instance.SaveProgress();
+                SettingAndSavingPlayerPrefs();
             }
+        }
+
+        private static void SettingAndSavingPlayerPrefs()
+        {
+
+            int currentPlayerHealth = PlayerBase.Instance.GetComponent<Health>().CurrentHealth;
+            PlayerPrefs.SetInt(SaveManager.saveKeyHealth, currentPlayerHealth);
+
+            SaveManager.Instance.SaveProgress();
         }
     }
 }

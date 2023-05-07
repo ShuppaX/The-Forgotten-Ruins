@@ -5,11 +5,18 @@ namespace BananaSoup.SaveSystem
     public class SaveManager : MonoBehaviour
     {
         public static SaveManager Instance { get; private set; }
+
+        // The Location of the player
         public static string saveKeyCheckpoint = "Checkpoint";
+
+        // Skills and loots
         public static string saveKeyDashPickup = "DashPickup";
         public static string saveKeySparkPickup = "SparkPickup";
         public static string saveKeySandPickup = "SandPickup";
         public static string saveKeySwordPickup = "SwordPickup";
+
+        // The player health
+        public static string saveKeyHealth = "PlayerHealth";
 
         private void Awake()
         {
@@ -23,7 +30,7 @@ namespace BananaSoup.SaveSystem
             }
         }
 
-        // NOTE: Save is OnDisable for faster testing
+        // NOTE: Remove this OnDisable when SaveSystem is done.
         private void OnDisable()
         {
             SaveProgress();
@@ -35,12 +42,9 @@ namespace BananaSoup.SaveSystem
             PlayerPrefs.Save();
         }
 
-        // Save Player unlocked skills, int
         // Save killed enemies, int
-        // Save looted pickups, int
         // Save position of liftable rocks, float (vector3)
         // Save torch
-        // Save player HP
 
         /// <summary>
         /// Checking and setting a Checkpoint to PlayerPrefs. Is value (index) is smaller

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using BananaSoup.SaveSystem;
@@ -16,6 +14,7 @@ namespace BananaSoup
             ClearPlayerPrefs(SaveManager.saveKeySparkPickup);
             ClearPlayerPrefs(SaveManager.saveKeySwordPickup);
             ClearPlayerPrefs(SaveManager.saveKeySandPickup);
+            ClearPlayerPrefs(SaveManager.saveKeyHealth);
         }
 
         private static void ClearPlayerPrefs(string key)
