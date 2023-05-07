@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BananaSoup.Puzzle
 {
-    public class PressurePlateFlash : MonoBehaviour
+    public class PressurePlateFlashaha : MonoBehaviour
     {
         [ColorUsage(true, true)]
         [SerializeField, Tooltip("The color the object is to changed to while activated.")]
