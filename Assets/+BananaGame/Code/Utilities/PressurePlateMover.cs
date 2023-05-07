@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BananaSoup.Utilities
 {
-    public class PressurePlateMoverer : MonoBehaviour
+    public class PressurePlateMover : MonoBehaviour
     {
         private Vector3 plateStartPosition = Vector3.zero;
         private Vector3 plateEndPositionOffset = new Vector3(0f, 0.05f, 0f);

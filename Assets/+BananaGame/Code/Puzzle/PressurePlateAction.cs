@@ -8,14 +8,14 @@ namespace BananaSoup.PuzzleSystem
     {
         private bool isActivated;
 
-        private PressurePlateFlashaha flasher;
+        private PressurePlateFlash flasher;
 
         private void Start()
         {
-            flasher = GetComponentInChildren<PressurePlateFlashaha>();
+            flasher = GetComponentInChildren<PressurePlateFlash>();
             if ( flasher == null )
             {
-                Debug.Log($"{name} couldn't find a component of type {typeof(PressurePlateFlashaha)} from it's children!");
+                Debug.Log($"{name} couldn't find a component of type {typeof(PressurePlateFlash)} from it's children!");
             }
         }
 
