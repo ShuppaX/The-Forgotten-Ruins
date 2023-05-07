@@ -1,7 +1,6 @@
 using BananaSoup.Utilities;
 using BananaSoup.DamageSystem;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BananaSoup.Traps
