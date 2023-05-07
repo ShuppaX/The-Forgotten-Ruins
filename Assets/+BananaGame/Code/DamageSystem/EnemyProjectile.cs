@@ -57,8 +57,9 @@ namespace BananaSoup.DamageSystem
             //when fired the projectile gets a force impulse in the forward and up directions
             if ( _isFired )
             {
-                _rb.velocity = transform.forward * forwardForce;
-                _rb.AddForce(transform.up * upForce, ForceMode.Impulse);
+                var projectileTransform = transform;
+                _rb.velocity = projectileTransform.forward * forwardForce;
+                _rb.AddForce(projectileTransform.up * upForce, ForceMode.Impulse);
             }
         }
 

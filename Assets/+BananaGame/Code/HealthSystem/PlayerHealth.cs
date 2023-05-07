@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using BananaSoup.Managers;
 using System;
+using BananaSoup.SaveSystem;
 
 namespace BananaSoup.HealthSystem
 {
@@ -19,7 +20,7 @@ namespace BananaSoup.HealthSystem
         private PlayerStateManager psm = null;
         private GameStateManager gameStateManager = null;
         private RagdollOnDeath ragdollOnDeath = null;
-        
+
         // Constant PlayerState used to change state on death.
         private const PlayerStateManager.PlayerState dead = PlayerStateManager.PlayerState.Dead;
 
@@ -56,6 +57,11 @@ namespace BananaSoup.HealthSystem
             }
 
             base.Start();
+
+            if ( PlayerPrefs.HasKey(SaveManager.saveKeyHealth) )
+            {
+                CurrentHealth = PlayerPrefs.GetInt(SaveManager.saveKeyHealth);
+            }
         }
 
         /// <summary>

@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using BananaSoup.SaveSystem;
+using BananaSoup.PickupSystem;
 
 namespace BananaSoup
 {
@@ -16,6 +15,13 @@ namespace BananaSoup
             ClearPlayerPrefs(SaveManager.saveKeySparkPickup);
             ClearPlayerPrefs(SaveManager.saveKeySwordPickup);
             ClearPlayerPrefs(SaveManager.saveKeySandPickup);
+            ClearPlayerPrefs(SaveManager.saveKeyHealth);
+
+            PickupHealth[] healths = FindObjectsOfType<PickupHealth>();
+            foreach ( var heart in healths )
+            {
+                ClearPlayerPrefs(heart.name);
+            }
         }
 
         private static void ClearPlayerPrefs(string key)
