@@ -41,8 +41,9 @@ namespace BananaSoup.UI.Menus
         private GameStateManager gameStateManager = null;
         private PlayerBase playerBase = null;
 
-        // Reference to MenuButtonHandler
+        // References to components
         private MenuButtonHandler buttonHandler = null;
+        private PauseManager pauseManager = null;
 
         // Constant GameStates used in comparing current GameState
         private const GameStateManager.GameState start = GameStateManager.GameState.Start;
@@ -101,6 +102,12 @@ namespace BananaSoup.UI.Menus
             if ( buttonHandler == null )
             {
                 Debug.LogError($"No component of type MenuButtonHandler was found on the {name}!");
+            }
+
+            pauseManager = pausePanel.GetComponent<PauseManager>();
+            if ( pauseManager == null )
+            {
+                Debug.LogError($"No component of {typeof(PauseManager)} could be found on the pausePanel!");
             }
 
             playerBase.ToggleAllActions(false);
@@ -284,7 +291,7 @@ namespace BananaSoup.UI.Menus
                 playerBase.ToggleAllActions(false);
                 Time.timeScale = 0;
             }
-            else
+            else if ( !pauseManager.InQuitMenu )
             {
                 pausePanel.SetActive(false);
                 gameStateManager.SetGameState(playing);

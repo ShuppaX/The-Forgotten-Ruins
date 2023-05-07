@@ -10,8 +10,13 @@ namespace BananaSoup.UI.Menus
         [SerializeField, Tooltip("The Quit_Panel under the Pause_Panel (2)")]
         private GameObject quitPanel;
 
+        private bool inQuitMenu = false;
+        public bool InQuitMenu => inQuitMenu;
+
         public void OpenQuitPanel()
         {
+            inQuitMenu = true;
+
             if ( pauseButtonsPanel.activeSelf )
             {
                 pauseButtonsPanel.SetActive(false);
@@ -25,6 +30,8 @@ namespace BananaSoup.UI.Menus
 
         public void ReturnToPause()
         {
+            inQuitMenu = false;
+
             if ( quitPanel.activeSelf )
             {
                 quitPanel.SetActive(false);
