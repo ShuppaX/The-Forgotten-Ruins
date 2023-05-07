@@ -9,8 +9,9 @@ namespace BananaSoup
 {
     public class RangedRaycast : MeleeRaycast
     {
-        [Header("Projectile variables")] 
-        [SerializeField] private EnemyProjectile projectilePrefab;
+        [Header("Projectile variables")] [SerializeField]
+        private EnemyProjectile projectilePrefab;
+
         [SerializeField] private Transform firingPoint;
         [SerializeField] private float timeBetweenShots = 0.8f;
         [SerializeField] private float projectileSpeed = 15.0f;
@@ -34,10 +35,10 @@ namespace BananaSoup
             _projectiles = new ComponentPool<EnemyProjectile>(projectilePrefab, poolSize);
         }
 
-        
 
         protected override void Attack()
         {
+            if (_stunned) return;
             //Stop enemy movement
             enemy.SetDestination(transform.position);
 
@@ -75,8 +76,8 @@ namespace BananaSoup
 
             _cooldownRoutine = null;
         }
-        
-        
+
+
         protected override void OnDisable()
         {
             base.OnDisable();
@@ -85,7 +86,6 @@ namespace BananaSoup
                 StopCoroutine(_cooldownRoutine);
                 _cooldownRoutine = null;
             }
-
         }
 
         private void Fire()
@@ -95,12 +95,15 @@ namespace BananaSoup
             _projectile.Expired += OnExpired;
             projTra.position = firingPoint.position;
             projTra.rotation = firingPoint.rotation;
-
-                
-
-            _projectile.Setup(projectileSpeed);
             
+            _projectile.Setup(projectileSpeed);
         }
-        
+
+
+        public override void DeathSequence()
+        {
+            ClearTrigger();
+            SetTrigger(animDeath);
+        }
     }
 }

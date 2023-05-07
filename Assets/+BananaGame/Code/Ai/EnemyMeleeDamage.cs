@@ -6,7 +6,7 @@ namespace BananaSoup
 {
     public class EnemyMeleeDamage : Damager
     {
-        private bool canDealDamage = true;
+        [SerializeField] private bool canDealDamage = false;
         private AudioSource meleeSwingAudio;
 
         public bool CanDealDamage
@@ -36,10 +36,11 @@ namespace BananaSoup
 
         }
 
-        public IEnumerator ResetCanDealDamage(float waitTime = 0.0f)
+        public IEnumerator ResetCanDealDamage(float waitTime)
             {
                 yield return new WaitForSeconds(waitTime);
-                canDealDamage = true;
+                canDealDamage = false;
+
             }
         }
     }
