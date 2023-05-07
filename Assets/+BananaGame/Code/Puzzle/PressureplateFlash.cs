@@ -7,7 +7,7 @@ namespace BananaSoup.Puzzle
     {
         [ColorUsage(true, true)]
         [SerializeField, Tooltip("The color the object is to changed to while activated.")]
-        private Color flashColor = Color.red;
+        private Color flashColor = new Color(255f/255f, 238f/255f, 0f, 255f/255f);
         [SerializeField, Tooltip("The time it takes to complete the revert the flash effect.")]
         private float flashTime = 1.0f;
 
