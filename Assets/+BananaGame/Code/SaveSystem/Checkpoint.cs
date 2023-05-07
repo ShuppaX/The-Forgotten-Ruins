@@ -50,9 +50,14 @@ namespace BananaSoup.SaveSystem
 
         private static void SettingAndSavingPlayerPrefs()
         {
-
             int currentPlayerHealth = PlayerBase.Instance.GetComponent<Health>().CurrentHealth;
             PlayerPrefs.SetInt(SaveManager.saveKeyHealth, currentPlayerHealth);
+
+            var rocks = SaveManager.Instance.GetRocks;
+            foreach ( var rock in rocks )
+            {
+                rock.OnSave();
+            }
 
             SaveManager.Instance.SaveProgress();
         }

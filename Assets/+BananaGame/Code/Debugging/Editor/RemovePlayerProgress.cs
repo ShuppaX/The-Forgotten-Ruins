@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using BananaSoup.SaveSystem;
 using BananaSoup.PickupSystem;
+using BananaSoup.InteractSystem;
 
 namespace BananaSoup
 {
@@ -21,6 +22,14 @@ namespace BananaSoup
             foreach ( var heart in healths )
             {
                 ClearPlayerPrefs(heart.name);
+            }
+
+            LiftableRockAction[] rocks = FindObjectsOfType<LiftableRockAction>();
+            foreach ( var rock in rocks )
+            {
+                ClearPlayerPrefs(rock.name + "PosX");
+                ClearPlayerPrefs(rock.name + "PosY");
+                ClearPlayerPrefs(rock.name + "PosZ");
             }
         }
 

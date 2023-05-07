@@ -1,3 +1,5 @@
+using BananaSoup.InteractSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +24,17 @@ namespace BananaSoup.SaveSystem
             }
 
             spawnManager.Setup();
+
+            SetLiftableRocks();
+        }
+
+        private void SetLiftableRocks()
+        {
+            LiftableRockAction[] rocks = FindObjectsOfType<LiftableRockAction>();
+            foreach ( var rock in rocks )
+            {
+                rock.OnLoad();
+            }
         }
     }
 }

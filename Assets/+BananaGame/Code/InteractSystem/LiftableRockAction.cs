@@ -1,4 +1,5 @@
 using UnityEngine;
+using BananaSoup.SaveSystem;
 
 namespace BananaSoup.InteractSystem
 {
@@ -12,9 +13,12 @@ namespace BananaSoup.InteractSystem
         private LiftableRockLiftPoint liftPoint = null;
         private LiftableRockDropPoint dropPoint = null;
         private Rigidbody rb = null;
+        private Vector3 startingPosition;
 
         void Start()
         {
+            startingPosition = transform.position;
+
             GetReferences();
 
             colliderOriginalScales = col.size;
@@ -96,6 +100,31 @@ namespace BananaSoup.InteractSystem
             {
                 transform.position = liftPoint.transform.position;
                 transform.rotation = playerBase.transform.rotation;
+            }
+        }
+
+        public void OnSave()
+        {
+            SaveManager.Instance.SetVector3(name + "PosX", transform.position.x);
+            SaveManager.Instance.SetVector3(name + "PosY", transform.position.y);
+            SaveManager.Instance.SetVector3(name + "PosZ", transform.position.z);
+        }
+
+        public void OnLoad()
+        {
+            if ( !PlayerPrefs.HasKey(name + "PosX") )
+            {
+                return;
+            }
+
+            Vector3 savedPosition = Vector3.zero;
+            savedPosition.x = PlayerPrefs.GetFloat(name + "PosX");
+            savedPosition.y = PlayerPrefs.GetFloat(name + "PosY");
+            savedPosition.z = PlayerPrefs.GetFloat(name + "PosZ");
+
+            if ( transform.position != savedPosition )
+            {
+                transform.position = savedPosition;
             }
         }
     }

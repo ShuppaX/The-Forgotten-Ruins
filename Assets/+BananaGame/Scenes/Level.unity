@@ -3131,7 +3131,7 @@ PrefabInstance:
     - target: {fileID: 512458541303687389, guid: e559eb751102f3245a6b1595c07c9920,
         type: 3}
       propertyPath: m_Name
-      value: LiftableRock
+      value: LiftableRock (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e559eb751102f3245a6b1595c07c9920, type: 3}
@@ -4794,7 +4794,7 @@ PrefabInstance:
     - target: {fileID: 512458541303687389, guid: e559eb751102f3245a6b1595c07c9920,
         type: 3}
       propertyPath: m_Name
-      value: LiftableRock (2)
+      value: LiftableRock (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e559eb751102f3245a6b1595c07c9920, type: 3}
@@ -10973,7 +10973,7 @@ PrefabInstance:
     - target: {fileID: 512458541303687389, guid: e559eb751102f3245a6b1595c07c9920,
         type: 3}
       propertyPath: m_Name
-      value: LiftableRock (1)
+      value: LiftableRock (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e559eb751102f3245a6b1595c07c9920, type: 3}
@@ -14219,7 +14219,7 @@ PrefabInstance:
     - target: {fileID: 512458541303687389, guid: e559eb751102f3245a6b1595c07c9920,
         type: 3}
       propertyPath: m_Name
-      value: LiftableRock
+      value: LiftableRock (6)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e559eb751102f3245a6b1595c07c9920, type: 3}

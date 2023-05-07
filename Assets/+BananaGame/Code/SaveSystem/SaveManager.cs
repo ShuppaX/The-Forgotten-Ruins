@@ -1,3 +1,4 @@
+using BananaSoup.InteractSystem;
 using UnityEngine;
 
 namespace BananaSoup.SaveSystem
@@ -5,6 +6,8 @@ namespace BananaSoup.SaveSystem
     public class SaveManager : MonoBehaviour
     {
         public static SaveManager Instance { get; private set; }
+
+        private LiftableRockAction[] rocks;
 
         // The Location of the player
         public static string saveKeyCheckpoint = "Checkpoint";
@@ -18,6 +21,8 @@ namespace BananaSoup.SaveSystem
         // The player health
         public static string saveKeyHealth = "PlayerHealth";
 
+        public LiftableRockAction[] GetRocks => rocks;
+
         private void Awake()
         {
             if ( Instance == null )
@@ -28,6 +33,11 @@ namespace BananaSoup.SaveSystem
             {
                 Destroy(this);
             }
+        }
+
+        private void Start()
+        {
+            rocks = FindObjectsOfType<LiftableRockAction>();
         }
 
         // NOTE: Remove this OnDisable when SaveSystem is done.
@@ -68,6 +78,15 @@ namespace BananaSoup.SaveSystem
                 Debug.Log($"Setting {key}: {value} data to be saved");
                 PlayerPrefs.SetInt(key, value);
             }
+        }
+
+        public void SetVector3(string key, float value)
+        {
+            //if ( !PlayerPrefs.HasKey(key) )
+            //{
+                Debug.Log($"Setting {key}: {value} data to be saved");
+                PlayerPrefs.SetFloat(key, value);
+            //}
         }
     }
 }
