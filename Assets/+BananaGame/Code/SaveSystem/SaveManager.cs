@@ -7,6 +7,7 @@ namespace BananaSoup.SaveSystem
     {
         public static SaveManager Instance { get; private set; }
 
+        [SerializeField] private bool showDebugLines = false;
         private LiftableRockAction[] rocks;
 
         // The Location of the player
@@ -22,6 +23,7 @@ namespace BananaSoup.SaveSystem
         public static string saveKeyHealth = "PlayerHealth";
 
         public LiftableRockAction[] GetRocks => rocks;
+        public bool ShowDebugLines => showDebugLines;
 
         private void Awake()
         {
@@ -43,12 +45,15 @@ namespace BananaSoup.SaveSystem
         // NOTE: Remove this OnDisable when SaveSystem is done.
         private void OnDisable()
         {
-            SaveProgress();
+            //SaveProgress();
         }
 
         public void SaveProgress()
         {
-            Debug.Log("Saving PlayerPrefs");
+            if ( showDebugLines )
+            {
+                Debug.Log("Saving PlayerPrefs"); 
+            }
             PlayerPrefs.Save();
         }
 
@@ -65,7 +70,10 @@ namespace BananaSoup.SaveSystem
         {
             if ( !PlayerPrefs.HasKey(key) || value > PlayerPrefs.GetInt(key) )
             {
-                Debug.Log($"Setting {key}: {value} data to be saved");
+                if ( showDebugLines )
+                {
+                    Debug.Log($"Setting {key}: {value} data to be saved"); 
+                }
                 PlayerPrefs.SetInt(key, value);
             }
         }
@@ -74,14 +82,20 @@ namespace BananaSoup.SaveSystem
         {
             if ( !PlayerPrefs.HasKey(key) || value != PlayerPrefs.GetInt(key) )
             {
-                Debug.Log($"Setting {key}: {value} data to be saved");
+                if ( showDebugLines )
+                {
+                    Debug.Log($"Setting {key}: {value} data to be saved"); 
+                }
                 PlayerPrefs.SetInt(key, value);
             }
         }
 
         public void SetVector3(string key, float value)
         {
-            Debug.Log($"Setting {key}: {value} data to be saved");
+            if ( showDebugLines )
+            {
+                Debug.Log($"Setting {key}: {value} data to be saved"); 
+            }
             PlayerPrefs.SetFloat(key, value);
         }
     }

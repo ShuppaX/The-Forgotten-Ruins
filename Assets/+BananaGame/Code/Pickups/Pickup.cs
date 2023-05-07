@@ -1,5 +1,6 @@
 using UnityEngine;
 using BananaSoup.SaveSystem;
+using System.Collections;
 
 namespace BananaSoup.PickupSystem
 {
@@ -7,6 +8,7 @@ namespace BananaSoup.PickupSystem
     {
         protected int isLooted = 1;
         protected string playerPrefsKey;
+        private float delayTime = 0.002f;
 
         public virtual void Loot() { }
 
@@ -14,6 +16,13 @@ namespace BananaSoup.PickupSystem
 
         public virtual void CheckIsSaved(string key)
         {
+            StartCoroutine(Delayer(key));
+        }
+
+        // HACK: Added delayer because UI might not be ready and it will give null reference
+        private IEnumerator Delayer(string key)
+        {
+            yield return new WaitForSeconds(delayTime);
             if ( PlayerPrefs.HasKey(key) && PlayerPrefs.GetInt(key) == isLooted )
             {
                 Loot();

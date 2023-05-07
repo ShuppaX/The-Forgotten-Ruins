@@ -30,6 +30,11 @@ namespace BananaSoup.Ability
 
         public void ToggleAbilityUsability(ThrowBase ability)
         {
+            if ( enabledAbilities.Contains(ability) )
+            {
+                return;
+            }
+
             enabledAbilities.Add(ability);
             OnEnableAbility();
             currentAbility = enabledAbilities[0];
@@ -76,7 +81,10 @@ namespace BananaSoup.Ability
                 enabledAbilities[1] = currentAbility;
             }
 
-            currentAbility = enabledAbilities[0];
+            if ( enabledAbilities.Count > 0 )
+            {
+                currentAbility = enabledAbilities[0];
+            }
 
             if ( ThrowableChanged != null )
             {
