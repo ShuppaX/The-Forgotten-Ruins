@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireParticles: {fileID: 3449866838442561200}
-  isFireBurningAtStart: 1
+  isFireBurningAtStart: 0
   canDealDamageWhenBurning: 1
 --- !u!1001 &781158081908110990
 PrefabInstance:
