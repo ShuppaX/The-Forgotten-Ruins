@@ -18,8 +18,9 @@ namespace BananaSoup
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.LogWarning(other.name + " fell of the map. " + this + " teleported it back to the start position.");
-            other.transform.position = PlayerSpawnManager.spawners[0].transform.position;
+            Debug.LogWarning(other.name + " fell of the map. " + this + " teleported it back to the latest checkpoint.");
+            int checkpointIndex = PlayerPrefs.GetInt(SaveManager.saveKeyCheckpoint);
+            other.transform.position = PlayerSpawnManager.spawners[checkpointIndex].transform.position;
         }
     }
 }
