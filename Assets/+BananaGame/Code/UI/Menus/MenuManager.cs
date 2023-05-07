@@ -17,6 +17,9 @@ namespace BananaSoup.UI.Menus
         [SerializeField, Tooltip("In-game UI parent (In-Game_UI)")]
         private Canvas inGameUICanvas = null;
 
+        [SerializeField, Tooltip("The GameObject that handles the transition.")]
+        private TransitionOnLoad transitionFader = null;
+
         [Space]
 
         [SerializeField, Tooltip("SeeThroughEffect GameObject which has the component" +
@@ -30,6 +33,7 @@ namespace BananaSoup.UI.Menus
         private float lateStartWaitTime = 0.001f;
 
         private Coroutine lateStartRoutine = null;
+        private Coroutine loadingRoutine = null;
 
         // References to menu panels
         private GameObject mainMenuPanel = null;
@@ -68,6 +72,18 @@ namespace BananaSoup.UI.Menus
         private void OnDisable()
         {
             GameStateManager.OnGameStateChanged -= GameStateChanged;
+
+            if ( lateStartRoutine != null )
+            {
+                StopCoroutine(lateStartRoutine);
+                lateStartRoutine = null;
+            }
+
+            if ( loadingRoutine != null )
+            {
+                StopCoroutine(loadingRoutine);
+                loadingRoutine = null;
+            }
         }
 
         private void Awake()
@@ -433,14 +449,27 @@ namespace BananaSoup.UI.Menus
 
         public void ResetLevel()
         {
-            if (Time.timeScale != 1 )
+            if ( loadingRoutine == null )
+            {
+                loadingRoutine = StartCoroutine(nameof(LoadRoutine));
+            }
+        }
+
+        private IEnumerator LoadRoutine()
+        {
+            if ( Time.timeScale != 1 )
             {
                 Time.timeScale = 1;
             }
 
+            transitionFader.FadeOut();
+            yield return new WaitForSeconds(transitionFader.TransitionTime);
+
             string currentSceneName = SceneManager.GetActiveScene().name;
             Debug.Log("Current Scene is: " + currentSceneName + ". Reloading it.");
             SceneManager.LoadScene(currentSceneName);
+
+            loadingRoutine = null;
         }
     }
 }
