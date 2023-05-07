@@ -1,3 +1,4 @@
+using BananaSoup.SaveSystem;
 using System;
 
 namespace BananaSoup.PickupSystem
@@ -6,12 +7,23 @@ namespace BananaSoup.PickupSystem
     {
         public static event Action OnEventLooted;
 
+        public override void Start()
+        {
+            playerPrefsKey = SaveManager.saveKeySwordPickup;
+            CheckIsSaved(playerPrefsKey);
+        }
+
         public override void Loot()
         {
             PlayerBase.Instance.IsSwordLooted = true;
-            OnEventLooted.Invoke();
+
+            if ( OnEventLooted != null )
+            {
+                OnEventLooted();
+            }
 
             DisablePickup();
+            SetToPlayerPrefs(playerPrefsKey);
         }
     }
 }

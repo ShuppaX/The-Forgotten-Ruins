@@ -1,19 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace BananaSoup
+namespace BananaSoup.SaveSystem
 {
     public class PlayerSpawnManager : MonoBehaviour
     {
-        [SerializeField] public static PlayerSpawner[] spawners;
+        public static PlayerSpawner[] spawners;
+        private int spawnIndex = 0;
 
-        private void Awake()
-        {
-            Setup();
-        }
+        public int SetSpawnIndex { set => spawnIndex = value; }
 
-        private void Setup()
+        public void Setup()
         {
             spawners = GetComponentsInChildren<PlayerSpawner>();
             if ( spawners == null )
@@ -22,8 +18,8 @@ namespace BananaSoup
                 return;
             }
 
-            // Set the first Spawner as the starting point of the level in the Spawners array.
-            spawners[0].IsStartingPoint = true;
+            // Spawn player to the corresponding checkpoint
+            spawners[spawnIndex].TeleportPlayer();
         }
     }
 }

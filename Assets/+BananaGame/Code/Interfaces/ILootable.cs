@@ -4,5 +4,8 @@ namespace BananaSoup.PickupSystem
     {
         void Loot();
         void DisablePickup();
+        void Start();
+        void CheckIsSaved(string key);
+        void SetToPlayerPrefs(string key);
     }
 }
