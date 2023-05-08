@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6119761971686155521}
   - component: {fileID: 6119761971686155520}
   m_Layer: 0
-  m_Name: TorchDoorOpen_Decal
+  m_Name: Stone_Decal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f19d9143a39eb3b46bc4563e9889cfbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 3e9a0f010de07ac4ab11d0bc91ed4233, type: 2}
+  m_Material: {fileID: 2100000, guid: ae907fb81864e5d4f914505190ac3234, type: 2}
   m_DrawDistance: 50
   m_FadeScale: 1
   m_StartAngleFade: 180

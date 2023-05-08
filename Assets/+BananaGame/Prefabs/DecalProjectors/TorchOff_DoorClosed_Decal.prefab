@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5107488325997290915}
   - component: {fileID: 5107488325997290914}
   m_Layer: 0
-  m_Name: TorchDoorClosed_Decal
+  m_Name: TorchOff_DoorClosed_Decal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
