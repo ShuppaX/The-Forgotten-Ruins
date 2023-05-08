@@ -6,7 +6,7 @@ The Forgotten Ruins is an adventure game from an isometric view.
 
 Use the link to download and extract the .zip to play the current version of the game.
 
-[Download link](https://tuni-my.sharepoint.com/:u:/g/personal/lauri_kalliola_tuni_fi/EYaT4gvWYoFJqwn1JORcDYQBTi5cFqXN7LB-1kmQXXRZ3A)
+[Download link](https://tuni-my.sharepoint.com/:u:/g/personal/tomi_sepanmaa_tuni_fi/EcIIPKg2wC9GoDvg4IcC8MUB_0X1Pu8-ZvPlxatMNdSZrw?e=5VWYpn)
 
 ## Controls
 
