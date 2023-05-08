@@ -37,7 +37,7 @@ namespace BananaSoup.SaveSystem
             {
                 Debug.LogError($"{name} is missing a reference to a PlayerSpawnManager!");
             }
-            spawnManager.SetSpawnIndex = 0;
+            spawnManager.SpawnIndex = 0;
             spawnManager.Setup();
         }
 

@@ -257,6 +257,7 @@ namespace BananaSoup.UI.Menus
             {
                 seeThroughEffect.enabled = true;
             }
+            loadManager.OnLoadGame();
 
             cameraManager.ActivateGamePlayView();
 

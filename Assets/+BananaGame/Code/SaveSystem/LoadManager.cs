@@ -12,22 +12,30 @@ namespace BananaSoup.SaveSystem
 
         private void Start()
         {
+            int currentSpawnIndex = 0;
             spawnManager = FindObjectOfType<PlayerSpawnManager>();
             if ( spawnManager == null )
             {
                 Debug.LogError($"{name} is missing a reference to a PlayerSpawnManager!");
             }
 
-            if ( PlayerPrefs.GetInt(SaveManager.saveKeyCheckpoint) > 0 )
-            {
-                // Teleport player to "loading zone" to wait in safe.
-                spawnManager.SetSpawnIndex = spawnManager.GetSpawnersCount - 1;
-            }
-            else
-            {
-                spawnManager.SetSpawnIndex = 0;
-            }
+            //if ( PlayerPrefs.GetInt(SaveManager.saveKeyCheckpoint) > 0 )
+            //{
+            //    currentSpawnIndex = spawnManager.SpawnIndex;
+
+            //    // Teleport player to "loading zone" to wait in safe.
+            //    spawnManager.SpawnIndex = spawnManager.GetSpawnersCount - 1;
+            //}
+            //else
+            //{
+            //    spawnManager.SpawnIndex = 0;
+            //}
             spawnManager.Setup();
+
+            //if ( spawnManager.SpawnIndex == spawnManager.GetSpawnersCount - 1 )
+            //{
+            //    spawnManager.SpawnIndex = currentSpawnIndex;
+            //}
         }
 
         public void OnLoadGame()
@@ -42,7 +50,7 @@ namespace BananaSoup.SaveSystem
 
             if ( PlayerPrefs.HasKey(SaveManager.saveKeyCheckpoint) )
             {
-                spawnManager.SetSpawnIndex = PlayerPrefs.GetInt(SaveManager.saveKeyCheckpoint);
+                spawnManager.SpawnIndex = PlayerPrefs.GetInt(SaveManager.saveKeyCheckpoint);
             }
 
             spawnManager.Setup();

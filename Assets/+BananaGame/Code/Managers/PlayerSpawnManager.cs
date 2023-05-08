@@ -7,7 +7,11 @@ namespace BananaSoup.SaveSystem
         public static PlayerSpawner[] spawners;
         private int spawnIndex = 0;
 
-        public int SetSpawnIndex { set => spawnIndex = value; }
+        public int SpawnIndex
+        {
+            get => spawnIndex;
+            set => spawnIndex = value;
+        }
         public int GetSpawnersCount => spawners.Length;
 
         private void Awake()
