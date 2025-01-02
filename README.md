@@ -2,11 +2,9 @@
 
 The Forgotten Ruins is an adventure game from an isometric view.
 
-## Installation
+## Preview
 
-Use the link to download and extract the .zip to play the current version of the game.
-
-[Download link](https://catskissat.itch.io/the-forgotten-ruins)
+[Itch.io link](https://catskissat.itch.io/the-forgotten-ruins)
 
 ## Controls
 
